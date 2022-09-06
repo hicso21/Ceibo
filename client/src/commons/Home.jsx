@@ -219,8 +219,8 @@ export default function PersistentDrawerLeft() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
+      <AppBar position="fixed" open={open} style={{backgroundColor:'yellow'}}>
+        <Toolbar style={{color:'black'}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -231,7 +231,7 @@ export default function PersistentDrawerLeft() {
             <MenuIcon />
           </IconButton>
           <form onSubmit={handleSubmit}>
-            <Search>
+            <Search style={{border:'solid 1px' }}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -265,7 +265,7 @@ export default function PersistentDrawerLeft() {
         anchor="left"
         open={open}
       >
-        <DrawerHeader >
+        <DrawerHeader style={{backgroundColor:'yellow'}}>
           <Typography>{'Nombre de usuario'}</Typography>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
