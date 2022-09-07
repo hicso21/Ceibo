@@ -1,35 +1,27 @@
 const express = require("express");
-const db = require("./config/db");
-const routes = require("./routes");
 const morgan = require("morgan");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-
-var app = express();
+const app = express();
+const routes = require("./routes");
+require("dotenv").config();
+require("./config/db");
 require("./models");
 
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(cookieParser());
-
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  })
-);
+app.use(cors());
 
 app.use("/api", routes);
 
-/* app.get("/", (req, res) => {
-  res.send("Hello Express");
-}); */
+app.listen(process.env.PORT || 3001, () => {
+  console.log(`server listening on port ${process.env.PORT}`);
+});
 
-//app.listen(process.env.PORT || 3001)
+app.use("/api", routes);
 
-//const port = process.env.PORT
-
-/* db.sync({ force: false }).then(() => {
-  app.listen(port, () => console.log(`server listening on port ${port}`));
-}); */
-
+app.get("/", (req, res) => {
+  res.send("Hello");
+  console.log("hola");
+});
