@@ -11,4 +11,4 @@ const foundationSchema = new mongoose.Schema({
   history: String,
 });
 
-module.exports = mongoose.model("Foundations", foundationSchema);
+module.exports = mongoose.model("Foundation", foundationSchema);

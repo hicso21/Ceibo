@@ -1,12 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const Pets = require("../models/Pets");
+const PetsController = require("../controllers/pet.controllers")
 
-router.get("/",(req, res) => {
-  const pets = Pets.find();
-  console.log(pets);
-});
+router.get("/all", PetsController.getAllPets);
 
-//router.post();
+/* router.post("/", async (req, res) => {
+  console.log("ESTAMOS EN EL POST");
+  const newPet = new Pets({ ...req.body });
+  const insertedPet = await newPet.save();
+  console.log(insertedPet);
+  return res.send(insertedPet);
+}); */
 
 module.exports = router;

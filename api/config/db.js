@@ -1,5 +1,13 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb://localhost:27017/patitas-con-techo", ()=>{
-    console.log("connected");
-});
+const db = mongoose
+  .connect(process.env.MONGO_URL)
+  .then(() => {
+    console.log("db connected");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+module.exports = db

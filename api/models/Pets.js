@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const petSchema = new mongoose.Schema({
-  name: String,
+  name: { type: String },
   photos: [String],
   specie: String,
   gender: String,
@@ -12,6 +12,9 @@ const petSchema = new mongoose.Schema({
   history: String,
   vaccinated: Boolean,
   foundation: { type: mongoose.SchemaTypes.ObjectId, ref: "Foundations" },
+  neutered: Boolean,
 });
 
-module.exports = mongoose.model("Pets", petSchema);
+const Pets = mongoose.model("Pet", petSchema);
+
+module.exports = Pets;
