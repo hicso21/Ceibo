@@ -18,7 +18,7 @@ import ListItemText from '@mui/material/ListItemText';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Grid, ImageList, ImageListItem, ImageListItemBar, ListItemIcon } from '@mui/material';
+import { Button, Grid, ImageList, ImageListItem, ImageListItemBar, ListItemIcon, Tooltip } from '@mui/material';
 import logo from '../assets/logoCeibo.png'
 import Home from '@mui/icons-material/Home';
 import Pets from '@mui/icons-material/Pets';
@@ -26,15 +26,16 @@ import Profile from '@mui/icons-material/Person';
 import Favorite from '@mui/icons-material/StarRate';
 import History from '@mui/icons-material/History';
 import Message from '@mui/icons-material/Message';
+import Footer from './Footer'
 
 let loginMenu;
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  backgroundColor: alpha(theme.palette.color = '#FFD600', 0.15),
   '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
+    backgroundColor: alpha(theme.palette.color = '#FFD600', 0.25),
   },
   marginLeft: 0,
   width: '100%',
@@ -141,29 +142,56 @@ function TitlebarBelowImageList({items}) {
   );
 }
 
-const itemData = [
-  {
-    img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-    name: 'Chicho',
-    fundation: 'fundation name',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-    name: 'Firu',
-    fundation: 'fundation name',
-  },
-  {
-    img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-    name: 'Tito',
-    fundation: 'fundation name',
-  }
-];
-
-export default function PersistentDrawerLeft() {
+export default function PersistentDrawerLeft({prop}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = React.useState('');
   const navigate = useNavigate()
+
+  const styleBackground = {
+  backgroundColor: (theme) =>
+  theme.palette.mode === 'dark'
+  ? theme.palette.color = '#FFD600'
+      : theme.palette.color = '#FFD600',
+  color: (theme) =>
+  theme.palette.mode == 'dark'
+  ? theme.palette.color = '#000000'
+  :theme.palette.color = '#FFFFFF'
+  }
+  
+  const drawerHeader = {
+    backgroundColor: (theme) =>
+    theme.palette.mode === 'dark'
+    ? theme.palette.color = '##FFD600'
+        : theme.palette.color = '#FFD600',
+    color: (theme) =>
+    theme.palette.mode == 'light'
+    ? theme.palette.color = '#000000'
+    :theme.palette.color = '#FFFFFF'
+  } 
+
+  const DrawerList = {
+    backgroundColor: (theme) =>
+    theme.palette.mode === 'dark'
+    ? theme.palette.color = '#FFD600'
+        : theme.palette.color = '#FFD600',
+    color: (theme) =>
+    theme.palette.mode == 'light'
+    ? theme.palette.color = '#1e244b'
+    :theme.palette.color = '#04092A'
+  }
+
+  const SearchStyle = {
+    border: '1px solid',
+    backgroundColor: (theme) =>
+    theme.palette.mode === 'light'
+    ? theme.palette.color = '#B40A00'
+        : theme.palette.color = '#B40A00',
+    color: (theme) =>
+    theme.palette.mode == 'light'
+    ? theme.palette.color = '#1e244b'
+    :theme.palette.color = '#04092A'
+  }
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -181,7 +209,13 @@ export default function PersistentDrawerLeft() {
     setSearch(e.target.value)
   }
 
-  if(!'user') loginMenu = <></>
+  if('user') loginMenu = <>
+                            <Divider/>
+                            <Grid container spacing={{ xs: 9}}>
+                              <Grid item><Button onClick={()=>{navigate('/login')}} sx={DrawerList}>Log in</Button></Grid>
+                              <Grid item><Button onClick={()=>{navigate('/register')}} sx={DrawerList}>Register</Button></Grid>
+                            </Grid>
+                          </>
   else{
     loginMenu =  <>
                   <Link style={{color: 'inherit', textDecoration:'none'}} to={'/favorites'} >
@@ -217,9 +251,10 @@ export default function PersistentDrawerLeft() {
                 </>
   }
   return (
+    <>
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open} style={{backgroundColor:'yellow'}}>
+      <AppBar position="fixed" open={open} sx={styleBackground}>
         <Toolbar style={{color:'black'}}>
           <IconButton
             color="inherit"
@@ -227,11 +262,11 @@ export default function PersistentDrawerLeft() {
             onClick={handleDrawerOpen}
             edge="start"
             sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
+            >
             <MenuIcon />
           </IconButton>
           <form onSubmit={handleSubmit}>
-            <Search style={{border:'solid 1px' }}>
+            <Search sx={SearchStyle}>
               <SearchIconWrapper>
                 <SearchIcon />
               </SearchIconWrapper>
@@ -264,15 +299,16 @@ export default function PersistentDrawerLeft() {
         variant="persistent"
         anchor="left"
         open={open}
-      >
-        <DrawerHeader style={{backgroundColor:'yellow'}}>
-          <Typography>{'Nombre de usuario'}</Typography>
+        >
+        <DrawerHeader sx={drawerHeader}>
+          <Typography paddingRight={3}>{'Nombre de usuario'}</Typography>
+          <Divider orientation="vertical" variant="middle" flexItem />
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
         <Divider/>
-        <List>
+        <List sx={DrawerList}>
           {['Pets', 'Fundations', 'Profile'].map((text, i) => (
             <Link style={{color: 'inherit', textDecoration:'none'}} to={`/${text.toLowerCase()}`} key={i}>
               <ListItem key={text} disablePadding>
@@ -293,23 +329,12 @@ export default function PersistentDrawerLeft() {
           ))}
           {loginMenu}
         </List>
-        <Divider/>
-        <Grid container spacing={{ xs: 9}}>
-          <Grid item><Button onClick={()=>{navigate('/login')}}>Log in</Button></Grid>
-          <Grid item><Button onClick={()=>{navigate('/register')}}>Register</Button></Grid>
-        </Grid>
       </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
-        <Typography variant='h4' >
-          Some Pets
-        </Typography>
-        <TitlebarBelowImageList items={itemData}/>
-        <Typography variant='h4' >
-          Some Fundations
-        </Typography>
-        <TitlebarBelowImageList items={itemData}/>
-      </Main>
+        <Main open={open}>
+          {prop}
+        </Main>
     </Box>
+        <Footer/>
+    </>
   );
 }

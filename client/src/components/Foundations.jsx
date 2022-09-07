@@ -7,7 +7,16 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
+import { styled } from '@mui/material/styles';
 
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-end',
+}));
 
 const ShowFoundations = () => {
   const [foundations, setFoundations] = useState([]);
@@ -22,42 +31,46 @@ const ShowFoundations = () => {
   }, []);
 
   return (
-    <div
-      style={{
-        backgroundColor: "white",
-      }}
-    >
-      <Container
-        sx={{
-          p: 1,
-          mb: 1,
-          backgroundColor: "#e0e0e0",
-          borderRadius: 1,
-          color: "action.active",
-          fontWeight: "bold",
+    <>
+      <DrawerHeader />
+      <div
+        style={{
+          backgroundColor: "white",
         }}
-      >
-        <p style={{ textAlign: "center" }}>Fundaciones</p>
-      </Container>
-      <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
-        <Grid container my={4}>
-          {foundations?.map((fundacion) => {
-            <Grid item xs={4} p={2}>
-              <Card>
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {fundacion.name}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {fundacion.history}
-                  </Typography>
-                </CardContent>
-              </Card>
-            </Grid>;
-          })}
-        </Grid>
-      </Container>
-    </div>
+        >
+
+        <Container
+          sx={{
+            p: 1,
+            mb: 1,
+            backgroundColor: "#e0e0e0",
+            borderRadius: 1,
+            color: "action.active",
+            fontWeight: "bold",
+          }}
+        >
+          <p style={{ textAlign: "center" }}>Fundaciones</p>
+        </Container>
+        <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
+          <Grid container my={4}>
+            {foundations?.map((fundacion) => {
+              <Grid item xs={4} p={2}>
+                <Card>
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      {fundacion.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {fundacion.history}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>;
+            })}
+          </Grid>
+        </Container>
+      </div>
+    </>
   );
 };
 

@@ -7,7 +7,16 @@ import {
   Card,
   CardContent,
 } from "@mui/material";
+import { styled } from '@mui/material/styles';
 
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-end',
+}));
 
 const ShowPets = () => {
   const [pets, setPets] = useState([]);
@@ -22,11 +31,13 @@ const ShowPets = () => {
   }, []);
 
   return (
+    <>
+    <DrawerHeader/>
     <div
       style={{
         backgroundColor: "white",
       }}
-    >
+      >
       <Container
         sx={{
           p: 1,
@@ -36,7 +47,7 @@ const ShowPets = () => {
           color: "action.active",
           fontWeight: "bold",
         }}
-      >
+        >
         <p style={{ textAlign: "center" }}>Mascotas</p>
       </Container>
       <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
@@ -64,6 +75,7 @@ const ShowPets = () => {
         </Grid>
       </Container>
     </div>
+    </>
   );
 };
 
