@@ -1,12 +1,26 @@
-import { React, useState } from "react";
-import { Container, Grid, Pagination } from "@mui/material";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardActions from "@mui/material/CardActions";
-import { Button } from "@mui/material";
-import Typography from "@mui/material/Typography";
+import axios from "axios";
+import { useState, useEffect } from "react";
+import {
+  Typography,
+  Container,
+  Grid,
+  Card,
+  CardContent,
+  Button,
+  CardActions
+} from "@mui/material";
 
-const UserFavorites = () => {
+const ShowFavorites = () => {
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("/api/favorites")
+      .then((res) => res.data)
+      .then((data) => {
+        setFavorites(data.results);
+      });
+  }, []);
 
   return (
     <>
@@ -25,12 +39,13 @@ const UserFavorites = () => {
           fontWeight: "bold",
         }}
         >
-        <p style={{ textAlign: "center" }}>Mis Favoritos</p>
+        <p style={{ textAlign: "center", color: "black"}}>Mis Favoritos</p>
         </Container>
       <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
         <Grid container my={4}>
+        {favorites?.map((favoritos) => {
             <Grid item xs={4} p={2}>
-          <Card sx={{ mb: 3, width: "100%" }}>
+          <Card>
             <CardContent>
               <Typography
                 sx={{ fontSize: 20 }}
@@ -47,6 +62,7 @@ const UserFavorites = () => {
             </CardActions>
           </Card>
           </Grid>;
+           })}
         </Grid>
       </Container>
     </div>
@@ -54,4 +70,4 @@ const UserFavorites = () => {
   );
 };
 
-export default UserFavorites;
+export default ShowFavorites;
