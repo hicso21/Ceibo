@@ -29,24 +29,12 @@ const ShowFoundations = () => {
           backgroundColor: "white",
         }}
         >
-
-        <Container
-          sx={{
-            p: 1,
-            mb: 1,
-            backgroundColor: "#e0e0e0",
-            borderRadius: 1,
-            color: "action.active",
-            fontWeight: "bold",
-          }}
-        >
-          <p style={{ textAlign: "center", color: "black" }}>Fundaciones</p>
-        </Container>
         <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
+          <Typography variant="h3" sx={{pl:1.2}}>Fundaciones</Typography>
           <Grid container my={4}>
             {foundations?.map((fundacion) => {
               return(
-              <Link to={`/foundation/${fundacion._id}`} key={fundacion._id} style={{textDecoration:'none'}}>
+              <Link to={`/foundation/${fundacion._id}`} key={fundacion._id} style={{textDecoration:'none', margin:'0px auto', minWidth:295}}>
                 <Grid item xs={12} p={2}>
                   <Card>
                     <CardMedia>

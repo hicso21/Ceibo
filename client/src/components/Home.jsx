@@ -1,4 +1,4 @@
-import { ImageList, ImageListItem, ImageListItemBar } from '@mui/material'
+import { Box, ImageList, ImageListItem, ImageListItemBar } from '@mui/material'
 import React from 'react'
 import {Typography} from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -47,14 +47,16 @@ function TitlebarBelowImageList({items}) {
 export default function Home(){
   return (
     <>
+      <Box sx={{p:3}}>
         <Typography variant='h4' >
-          Some Pets
+          Algunas Mascotas
         </Typography>
         <TitlebarBelowImageList items={itemData}/>
         <Typography variant='h4' >
-          Some Foundations
+          Algunas Fundaciones
         </Typography>
         <TitlebarBelowImageList items={itemData}/>
+      </Box>
     </>
   )
 }

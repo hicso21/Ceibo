@@ -69,7 +69,6 @@ const drawerWidth = 240;
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
     flexGrow: 1,
-    padding: theme.spacing(3),
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -190,8 +189,8 @@ export default function PersistentDrawerLeft({prop}) {
   !'user'?loginMenu = <>
                             <Divider sx={{backgroundColor:'tan'}}/>
                             <Grid container spacing={{ xs: 9}}>
-                              <Grid item><Button onClick={()=>{navigate('/login')}} sx={DrawerList}>Log in</Button></Grid>
-                              <Grid item><Button onClick={()=>{navigate('/register')}} sx={DrawerList}>Register</Button></Grid>
+                              <Grid item><Button onClick={()=>{navigate('/login')}} sx={DrawerList}>Iniciar Sesion</Button></Grid>
+                              <Grid item><Button onClick={()=>{navigate('/register')}} sx={DrawerList}>Registrarse</Button></Grid>
                             </Grid>
                           </>
   :loginMenu =  <>
@@ -201,7 +200,7 @@ export default function PersistentDrawerLeft({prop}) {
                         <ListItemIcon>
                           <Profile/>
                         </ListItemIcon>
-                        <ListItemText primary={'Profile'}/>
+                        <ListItemText primary={'Perfil'}/>
                       </ListItemButton>
                     </ListItem>
                   </Link>
@@ -211,7 +210,7 @@ export default function PersistentDrawerLeft({prop}) {
                         <ListItemIcon>
                           <Favorite/>
                         </ListItemIcon>
-                        <ListItemText primary={'Favorites'}/>
+                        <ListItemText primary={'Favoritos'}/>
                       </ListItemButton>
                     </ListItem>
                   </Link>
@@ -221,7 +220,7 @@ export default function PersistentDrawerLeft({prop}) {
                         <ListItemIcon>
                           <History/>
                         </ListItemIcon>
-                        <ListItemText primary={'History'}/>
+                        <ListItemText primary={'Historial'}/>
                       </ListItemButton>
                     </ListItem>
                   </Link>
@@ -231,13 +230,13 @@ export default function PersistentDrawerLeft({prop}) {
                         <ListItemIcon>
                           <Message/>
                         </ListItemIcon>
-                        <ListItemText primary={'Messages'}/>
+                        <ListItemText primary={'Mensajes'}/>
                       </ListItemButton>
                     </ListItem>
                   </Link>
                   <Divider sx={{backgroundColor:'tan'}}/>
                   <Stack>
-                    <Button onClick={handleLogOut} sx={DrawerList}>Log Out</Button>
+                    <Button onClick={handleLogOut} sx={DrawerList}>Cerrar Sesion</Button>
                   </Stack>
                 </>
   
@@ -260,7 +259,7 @@ export default function PersistentDrawerLeft({prop}) {
               <Search sx={SearchStyle}>
                 <StyledInputBase
                   id='search'
-                  placeholder="Search…"
+                  placeholder="Buscar…"
                   inputProps={{ 'aria-label': 'search' }}
                   onChange={handleSearch}
                   />
