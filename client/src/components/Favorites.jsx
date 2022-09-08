@@ -30,19 +30,8 @@ const ShowFavorites = () => {
         backgroundColor: "white",
       }}
       >
-      <Container
-        sx={{
-          p: 1,
-          mb: 1,
-          backgroundColor: "#e0e0e0",
-          borderRadius: 1,
-          color: "action.active",
-          fontWeight: "bold",
-        }}
-        >
-        <p style={{ textAlign: "center", color: "black"}}>Mis Favoritos</p>
-        </Container>
       <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
+        <Typography variant="h2" sx={{pl:3}}>Favoritos</Typography>
         <Grid container my={4}>
         {favorites?.map((favoritos) => {
             <Grid item xs={4} p={2}>
