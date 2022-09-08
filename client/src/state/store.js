@@ -1,15 +1,17 @@
 import {configureStore} from "@reduxjs/toolkit";
 import logger from "redux-logger";
-import foundationsReducer from "./fundations";
+import foundationsReducer from "./foundations";
 import petsReducer from "./pets";
 import userReducer from "./user";
+import idReducer from './id'
 
 const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
     reducer: {
       user: userReducer,
       pets: petsReducer,
-      fundations: foundationsReducer,
+      foundations: foundationsReducer,
+      id: idReducer,
       },
   });
 

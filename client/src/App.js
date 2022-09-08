@@ -10,6 +10,7 @@ import Navbar from './commons/Navbar'
 import History from './components/History';
 import Profile from './components/Profile';
 import Favorites from './components/Favorites';
+import SingularPet from './components/SingularPet';
 
 function App() {
   return (
@@ -18,9 +19,9 @@ function App() {
         <Route path='/profile' element={<Navbar prop={<Profile/>}/>}/>
         <Route path='/history' element={<Navbar prop={<History/>}/>}/>
         <Route path='/pets' element={<Navbar prop={<Pets/>}/>}/>
-        <Route path='/fundations' element={<Navbar prop={<Foundations/>}/>}/>
-        <Route path='/pet/:petName' element={<Navbar prop={<></>}/>}/>
-        <Route path='/foundation/:fundationName' element={<Navbar prop={<></>}/>}/>
+        <Route path='/foundation' element={<Navbar prop={<Foundations/>}/>}/>
+        <Route path='/pet/:petName' element={<Navbar prop={<SingularPet/>}/>}/>
+        <Route path='/foundation/:foundationName' element={<Navbar prop={<></>}/>}/>
         <Route path='/login' element={<Navbar prop={<LogIn/>}/>}/>
         <Route path='/register' element={<Navbar prop={<SignUp/>}/>}/>
         <Route path='/favorites' element={<Navbar prop={<Favorites/>}/>}/>

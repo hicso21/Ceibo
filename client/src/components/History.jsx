@@ -22,7 +22,7 @@ export default function History() {
             <Typography>Name: Chicho</Typography>
             <Typography>Date: 10/01/19 - 10/04/19</Typography>
             <Typography>Breed: Golden Retriever</Typography>
-            <Typography>Fundation: CAAN</Typography>
+            <Typography>Foundation: CAAN</Typography>
           </AccordionDetails>
         </Accordion>
         </Stack>
@@ -41,7 +41,7 @@ export default function History() {
             <Typography>Name: Firulais</Typography>
             <Typography>Date: 7/06/22</Typography>
             <Typography>Breed: Chow Chow</Typography>
-            <Typography>Fundation: AyudaCan</Typography>
+            <Typography>Foundation: AyudaCan</Typography>
           </AccordionDetails>
         </Accordion>
         </Stack>
