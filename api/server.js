@@ -6,7 +6,7 @@ const app = express();
 const routes = require("./routes");
 require("dotenv").config();
 require("./config/db");
-require("./models");
+//require("./models");
 
 app.use(morgan("dev"));
 app.use(express.json());

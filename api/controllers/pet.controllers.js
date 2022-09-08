@@ -28,6 +28,16 @@ class PetController {
       console.log(error.message);
     }
   }
+
+  static async getSomePets(req, res) {
+    try {
+      const pets = await PetServices.getSomePets();
+      if (!pets) return res.status(404).send("no data found");
+      res.status(200).send(pets); 
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 }
 
 module.exports = PetController;

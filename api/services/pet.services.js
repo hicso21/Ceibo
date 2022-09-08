@@ -23,6 +23,13 @@ class PetService {
       console.log(error.message);
     }
   }
+  static async getSomePets() {
+    try {
+      return await Pets.find({}).limit(3).skip(3);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 }
 
 module.exports = PetService;
