@@ -1,4 +1,4 @@
-import { Button, ImageList, ImageListItem, ImageListItemBar } from '@mui/material'
+import { ImageList, ImageListItem, ImageListItemBar } from '@mui/material'
 import React from 'react'
 import {Typography} from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -34,7 +34,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 function TitlebarBelowImageList({items}) {
     return (
-      <ImageList sx={{ width: 370, height: 235 }} style={{gridTemplateColumns: 340}}>
+      <ImageList sx={{ width: 327, height: 235 }} style={{gridTemplateColumns: 340}}>
         {items.map((item, i) => (
           <Link to={`/${item.name}`} style={{color: 'inherit', textDecoration:'none'}} key={i}>
             <ImageListItem >
@@ -58,7 +58,6 @@ function TitlebarBelowImageList({items}) {
 export default function Home(){
   return (
     <>
-        <DrawerHeader />
         <Typography variant='h4' >
           Some Pets
         </Typography>

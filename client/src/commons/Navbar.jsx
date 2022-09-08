@@ -18,7 +18,7 @@ import ListItemText from '@mui/material/ListItemText';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, Grid, ImageList, ImageListItem, ImageListItemBar, ListItemIcon, Tooltip } from '@mui/material';
+import { Alert, Button, Grid, ImageListItem, ListItemIcon, Stack } from '@mui/material';
 import logo from '../assets/logoCeibo.png'
 import Home from '@mui/icons-material/Home';
 import Pets from '@mui/icons-material/Pets';
@@ -119,34 +119,14 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-function TitlebarBelowImageList({items}) {
-  return (
-    <ImageList sx={{ width: 370, height: 235 }} style={{gridTemplateColumns: 340}}>
-      {items.map((item, i) => (
-        <Link to={`/${item.name}`} style={{color: 'inherit', textDecoration:'none'}} key={i}>
-          <ImageListItem >
-            <img
-              src={item.img}
-              alt={item.name}
-              loading="lazy"
-              />
-            <ImageListItemBar
-              title={`Click here to know more about ${item.name}!!`}
-              subtitle={<span>{item.fundation}</span>}
-              position="below"
-              />
-          </ImageListItem>
-        </Link>
-      ))}
-    </ImageList>
-  );
-}
-
 export default function PersistentDrawerLeft({prop}) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = React.useState('');
   const navigate = useNavigate()
+  const user = {
+    name:'Nombre de Usuario'
+  }
 
   const styleBackground = {
   backgroundColor: (theme) =>
@@ -154,9 +134,9 @@ export default function PersistentDrawerLeft({prop}) {
   ? theme.palette.color = '#FFD600'
       : theme.palette.color = '#FFD600',
   color: (theme) =>
-  theme.palette.mode == 'dark'
+  theme.palette.mode === 'dark'
   ? theme.palette.color = '#000000'
-  :theme.palette.color = '#FFFFFF'
+  :theme.palette.color = '#FFFFFF',
   }
   
   const drawerHeader = {
@@ -165,7 +145,7 @@ export default function PersistentDrawerLeft({prop}) {
     ? theme.palette.color = '##FFD600'
         : theme.palette.color = '#FFD600',
     color: (theme) =>
-    theme.palette.mode == 'light'
+    theme.palette.mode === 'light'
     ? theme.palette.color = '#000000'
     :theme.palette.color = '#FFFFFF'
   } 
@@ -176,7 +156,7 @@ export default function PersistentDrawerLeft({prop}) {
     ? theme.palette.color = '#FFD600'
         : theme.palette.color = '#FFD600',
     color: (theme) =>
-    theme.palette.mode == 'light'
+    theme.palette.mode === 'light'
     ? theme.palette.color = '#1e244b'
     :theme.palette.color = '#04092A'
   }
@@ -188,7 +168,7 @@ export default function PersistentDrawerLeft({prop}) {
     ? theme.palette.color = '#B40A00'
         : theme.palette.color = '#B40A00',
     color: (theme) =>
-    theme.palette.mode == 'light'
+    theme.palette.mode === 'light'
     ? theme.palette.color = '#1e244b'
     :theme.palette.color = '#04092A'
   }
@@ -202,15 +182,20 @@ export default function PersistentDrawerLeft({prop}) {
   };
 
   const handleSubmit = (e) => {
-    navigate(`/search/${search}`)
+    e.preventDefault()
+    navigate(`/search?query=${search}`)
   }
 
   const handleSearch = (e) => {
     setSearch(e.target.value)
   }
 
-  if('user') loginMenu = <>
-                            <Divider/>
+  const handleLogOut = () => {
+    
+  }
+
+  if(!'user') loginMenu = <>
+                            <Divider sx={{backgroundColor:'tan'}}/>
                             <Grid container spacing={{ xs: 9}}>
                               <Grid item><Button onClick={()=>{navigate('/login')}} sx={DrawerList}>Log in</Button></Grid>
                               <Grid item><Button onClick={()=>{navigate('/register')}} sx={DrawerList}>Register</Button></Grid>
@@ -218,6 +203,16 @@ export default function PersistentDrawerLeft({prop}) {
                           </>
   else{
     loginMenu =  <>
+                  <Link style={{color: 'inherit', textDecoration:'none'}} to={'/profile'} >
+                    <ListItem disablePadding>
+                      <ListItemButton>
+                        <ListItemIcon>
+                          <Profile/>
+                        </ListItemIcon>
+                        <ListItemText primary={'Profile'}/>
+                      </ListItemButton>
+                    </ListItem>
+                  </Link>
                   <Link style={{color: 'inherit', textDecoration:'none'}} to={'/favorites'} >
                     <ListItem disablePadding>
                       <ListItemButton>
@@ -248,14 +243,18 @@ export default function PersistentDrawerLeft({prop}) {
                       </ListItemButton>
                     </ListItem>
                   </Link>
+                  <Divider sx={{backgroundColor:'tan'}}/>
+                  <Stack>
+                    <Button onClick={handleLogOut} sx={DrawerList}>Log Out</Button>
+                  </Stack>
                 </>
   }
   return (
     <>
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex'}}>
       <CssBaseline />
       <AppBar position="fixed" open={open} sx={styleBackground}>
-        <Toolbar style={{color:'black'}}>
+        <Toolbar style={{color:'black'}} >
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -280,6 +279,7 @@ export default function PersistentDrawerLeft({prop}) {
           <Button onClick={()=>{navigate('/')}}>            
             <ImageListItem style={{paddingLeft:25}}>
             <img
+              alt=''
               src={logo}
               loading="lazy"
               />
@@ -301,24 +301,23 @@ export default function PersistentDrawerLeft({prop}) {
         open={open}
         >
         <DrawerHeader sx={drawerHeader}>
-          <Typography paddingRight={3}>{'Nombre de usuario'}</Typography>
-          <Divider orientation="vertical" variant="middle" flexItem />
+          <Typography paddingRight={3}>{user.name}</Typography>
+          <Divider sx={{backgroundColor:'tan'}} orientation="vertical" variant="middle" flexItem />
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
-        <Divider/>
+        <Divider sx={{backgroundColor:'tan'}}/>
         <List sx={DrawerList}>
-          {['Pets', 'Fundations', 'Profile'].map((text, i) => (
+          {['Pets', 'Fundations'].map((text, i) => (
             <Link style={{color: 'inherit', textDecoration:'none'}} to={`/${text.toLowerCase()}`} key={i}>
               <ListItem key={text} disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
                     {
                       <>
-                      {i == 0 ? <Pets /> : <></>}
-                      {i == 1?<Home/> : <></>}
-                      {i == 2?<Profile/> : <></>}
+                      {i === 0 ? <Pets /> : <></>}
+                      {i === 1?<Home/> : <></>}
                       </>
                     }
                   </ListItemIcon>
@@ -330,7 +329,8 @@ export default function PersistentDrawerLeft({prop}) {
           {loginMenu}
         </List>
       </Drawer>
-        <Main open={open}>
+        <Main /* open={open} */>
+        <DrawerHeader/>
           {prop}
         </Main>
     </Box>
