@@ -37,7 +37,7 @@ const ShowPets = () => {
           fontWeight: "bold",
         }}
         >
-        <p style={{ textAlign: "center" }}>Mascotas</p>
+        <p style={{ textAlign: "center", color: "black"}}>Mascotas</p>
       </Container>
       <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
         <Grid container my={4}>

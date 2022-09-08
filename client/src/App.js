@@ -9,6 +9,7 @@ import LogIn from './components/LogIn'
 import Navbar from './commons/Navbar'
 import History from './components/History';
 import Profile from './components/Profile';
+import Favorites from './components/Favorites';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
         <Route path='/foundation/:fundationName' element={<Navbar prop={<></>}/>}/>
         <Route path='/login' element={<Navbar prop={<LogIn/>}/>}/>
         <Route path='/register' element={<Navbar prop={<SignUp/>}/>}/>
-        <Route path='/favorites' element={<Navbar prop={<></>}/>}/>
+        <Route path='/favorites' element={<Navbar prop={<Favorites/>}/>}/>
         <Route path='/messages' element={<Navbar prop={<></>}/>}/>
         <Route path='/search' element={<Navbar prop={<></>}/>}/>
       </Routes>
