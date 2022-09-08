@@ -12,6 +12,7 @@ const fakeData = [
     personality: "Tranquilo",
     vaccinated: true,
     foundation: "Colitas al rescate",
+    neutered: true
   },
   {
     name: "Lula",
@@ -26,6 +27,7 @@ const fakeData = [
     personality: "Enérgica",
     vaccinated: true,
     foundation: "Colitas al rescate",
+    neutered: false
   },
   {
     name: "Moni",
@@ -40,6 +42,7 @@ const fakeData = [
     personality: "Dormilona",
     vaccinated: true,
     foundation: "Rescata2",
+    neutered: true
   },
   {
     name: "Turron",
@@ -54,5 +57,7 @@ const fakeData = [
     personality: "Activo",
     vaccinated: true,
     foundation: "Rescata2",
+    neutered: false
   },
+  
 ];

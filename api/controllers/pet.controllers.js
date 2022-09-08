@@ -10,6 +10,24 @@ class PetController {
       console.log(error.message);
     }
   }
+  static async createPet(req, res) {
+    try {
+      const pet = await PetServices.createPet(req.body);
+      return res.status(201).send(pet);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+  static async findPet(req, res) {
+    try {
+      const pet = await PetServices.getOnePet(req.params.id);
+      return pet
+        ? res.status(200).send(pet)
+        : res.status(404).send("Pet not found");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 }
 
 module.exports = PetController;
