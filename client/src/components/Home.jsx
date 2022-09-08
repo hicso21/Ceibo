@@ -7,17 +7,17 @@ const itemData = [
     {
       img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
       name: 'Chicho',
-      fundation: 'fundation name',
+      foundation: 'foundation name',
     },
     {
       img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
       name: 'Firu',
-      fundation: 'fundation name',
+      foundation: 'foundation name',
     },
     {
       img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
       name: 'Tito',
-      fundation: 'fundation name',
+      foundation: 'foundation name',
     }
   ];
 
@@ -34,7 +34,7 @@ function TitlebarBelowImageList({items}) {
                 />
               <ImageListItemBar
                 title={`Click here to know more about ${item.name}!!`}
-                subtitle={<span>{item.fundation}</span>}
+                subtitle={<span>{item.foundation}</span>}
                 position="below"
                 />
             </ImageListItem>
@@ -52,7 +52,7 @@ export default function Home(){
         </Typography>
         <TitlebarBelowImageList items={itemData}/>
         <Typography variant='h4' >
-          Some Fundations
+          Some Foundations
         </Typography>
         <TitlebarBelowImageList items={itemData}/>
     </>

@@ -187,15 +187,14 @@ export default function PersistentDrawerLeft({prop}) {
     
   }
 
-  if(!'user') loginMenu = <>
+  !'user'?loginMenu = <>
                             <Divider sx={{backgroundColor:'tan'}}/>
                             <Grid container spacing={{ xs: 9}}>
                               <Grid item><Button onClick={()=>{navigate('/login')}} sx={DrawerList}>Log in</Button></Grid>
                               <Grid item><Button onClick={()=>{navigate('/register')}} sx={DrawerList}>Register</Button></Grid>
                             </Grid>
                           </>
-  else{
-    loginMenu =  <>
+  :loginMenu =  <>
                   <Link style={{color: 'inherit', textDecoration:'none'}} to={'/profile'} >
                     <ListItem disablePadding>
                       <ListItemButton>
@@ -241,13 +240,13 @@ export default function PersistentDrawerLeft({prop}) {
                     <Button onClick={handleLogOut} sx={DrawerList}>Log Out</Button>
                   </Stack>
                 </>
-  }
+  
   return (
     <>
     <Box sx={{ display: 'flex'}}>
       <CssBaseline />
       <AppBar position="fixed" open={open} sx={styleBackground}>
-        <Toolbar style={{color:'black'}} sx={{paddingRight:0}}>
+        <Toolbar style={{color:'black'}} sx={{paddingRight:0, maxHeight:67}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -269,7 +268,7 @@ export default function PersistentDrawerLeft({prop}) {
               <Button sx={{padding:0}} onClick={handleSubmit}><SearchIcon sx={{color:'black'}}/></Button>
             </Box>
           <Button onClick={()=>{navigate('/')}} sx={{paddingLeft:0}}>            
-            <ImageListItem style={{padding:0}}>
+            <ImageListItem style={{padding:0, maxWidth:67, justifyContent:'center'}}>
             <img
               alt=''
               src={logo}
@@ -301,7 +300,7 @@ export default function PersistentDrawerLeft({prop}) {
         </DrawerHeader>
         <Divider sx={{backgroundColor:'tan'}}/>
         <List sx={DrawerList}>
-          {['Pets', 'Fundations'].map((text, i) => (
+          {['Pets', 'Foundation'].map((text, i) => (
             <Link style={{color: 'inherit', textDecoration:'none'}} to={`/${text.toLowerCase()}`} key={i}>
               <ListItem key={text} disablePadding>
                 <ListItemButton>

@@ -9,6 +9,7 @@ import {
   Button,
   CardActions
 } from "@mui/material";
+import { Link } from 'react-router-dom'
 
 const ShowFavorites = () => {
   const [favorites, setFavorites] = useState([]);
@@ -56,7 +57,7 @@ const ShowFavorites = () => {
               </Typography>
             </CardContent>
             <CardActions>
-              <Link to="/pets">
+              <Link to="/favorites">
                 <Button size="small">Ver Favoritos</Button>
               </Link>
             </CardActions>

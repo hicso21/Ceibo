@@ -6,17 +6,19 @@ import {
   Grid,
   Card,
   CardContent,
+  CardMedia,
 } from "@mui/material";
+import {Link} from 'react-router-dom'
 
 const ShowFoundations = () => {
   const [foundations, setFoundations] = useState([]);
 
   useEffect(() => {
     axios
-      .get("/api/foundations")
+      .get("http://localhost:3001/api/foundation")
       .then((res) => res.data)
       .then((data) => {
-        setFoundations(data.results);
+        setFoundations(data);
       });
   }, []);
 
@@ -43,18 +45,25 @@ const ShowFoundations = () => {
         <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
           <Grid container my={4}>
             {foundations?.map((fundacion) => {
-              <Grid item xs={4} p={2}>
-                <Card>
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {fundacion.name}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {fundacion.history}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>;
+              return(
+              <Link to={`/foundation/${fundacion._id}`} key={fundacion._id} style={{textDecoration:'none'}}>
+                <Grid item xs={12} p={2}>
+                  <Card>
+                    <CardMedia>
+                      <img src={fundacion.profile_picture} alt="" width='100%'/>
+                    </CardMedia>
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {fundacion.name}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {fundacion.history}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Link>
+              )
             })}
           </Grid>
         </Container>
