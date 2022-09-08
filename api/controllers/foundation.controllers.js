@@ -19,6 +19,16 @@ class FoundationController {
         console.log(error)
     }
 }
+
+static async findById(req, res) {
+  try {
+      const foundation = await FoundationServices.findById(req.params.id)
+      return res.status(200).send(foundation)
+  } catch (error) {
+      console.log(error)
+  }
+}
+
 }
 
 module.exports = FoundationController;

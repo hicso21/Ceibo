@@ -12,15 +12,19 @@ class FoundationService {
 
   static async createFoundation(body) {
     try {
-        const foundation = new Foundation(body)
-        return await foundation.save()
+      const foundation = new Foundation(body);
+      return await foundation.save();
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-}
-
-
-
+  }
+  static async findById(id) {
+    try {
+      return await Foundation.find({ _id: id });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 module.exports = FoundationService;
