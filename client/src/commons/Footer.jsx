@@ -9,7 +9,6 @@ import { styled } from '@mui/material/styles';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import { useNavigate } from 'react-router';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -29,7 +28,7 @@ const style = {
   ? theme.palette.color = '#1e244b'
       : theme.palette.color = '#04092A',
   color: (theme) =>
-  theme.palette.mode == 'light'
+  theme.palette.mode === 'light'
   ? theme.palette.color = '#FBFBFA'
   :theme.palette.color = '#FBFBFA'
 }
@@ -43,7 +42,7 @@ const style2 = {
   ? theme.palette.color = '#1e244b'
       : theme.palette.color = '#04092A',
   color: (theme) =>
-  theme.palette.mode == 'light'
+  theme.palette.mode === 'light'
   ? theme.palette.color = '#FBFBFA'
   :theme.palette.color = '#FBFBFA'
 }
@@ -63,7 +62,6 @@ function Copyright(props) {
 }
 
 export default function Footer() {
-  const navigate = useNavigate()
   return (
     <>
     
