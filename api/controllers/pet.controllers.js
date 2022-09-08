@@ -32,8 +32,9 @@ class PetController {
   static async getSomePets(req, res) {
     try {
       const pets = await PetServices.getSomePets();
-      if (!pets) return res.status(404).send("no data found");
-      res.status(200).send(pets); 
+      return pets
+        ? res.status(200).send(pets)
+        : res.status(404).send("no data found");
     } catch (error) {
       console.log(error.message);
     }
