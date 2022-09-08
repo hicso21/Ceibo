@@ -19,9 +19,20 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+const styleBox = {
+  boxShadow: 'none',
+  backgroundColor: (theme) =>
+  theme.palette.mode === 'light'
+  ? theme.palette.color = '#1e244b'
+      : theme.palette.color = '#04092A',
+  color: (theme) =>
+  theme.palette.mode === 'light'
+  ? theme.palette.color = '#FBFBFA'
+  :theme.palette.color = '#FBFBFA'
+}
+
 const style = {
-  py: 2,
-  mt: 'auto',
+  paddingTop:2,
   boxShadow: 'none',
   backgroundColor: (theme) =>
   theme.palette.mode === 'light'
@@ -65,16 +76,16 @@ export default function Footer() {
   return (
     <>
     
-      <Box>
+      <Box sx={{height:20}}>
         <CssBaseline />
         <Box
           component="footer"
-          sx={style}
+          sx={styleBox}
           >
           <Container>
           <Box sx={{ flexGrow: 1 }}>
             <Grid container spacing={2}>
-              <Grid item xs={6} md={8} >
+              <Grid item xs={6} md={8}>
                 <Item sx={style}  className='gridFooter' 
                 >
                   <Copyright/>
@@ -91,7 +102,6 @@ export default function Footer() {
               </Grid>
             </Grid>
           </Box>
-            
           </Container>
         </Box>
       </Box>

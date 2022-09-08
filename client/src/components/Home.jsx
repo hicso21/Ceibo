@@ -2,8 +2,6 @@ import { ImageList, ImageListItem, ImageListItemBar } from '@mui/material'
 import React from 'react'
 import {Typography} from '@mui/material';
 import { Link } from 'react-router-dom';
-import { styled } from '@mui/material/styles';
-
 
 const itemData = [
     {
@@ -22,15 +20,6 @@ const itemData = [
       fundation: 'fundation name',
     }
   ];
-  
-const DrawerHeader = styled('div')(({ theme }) => ({
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: 'flex-end',
-}));
 
 function TitlebarBelowImageList({items}) {
     return (
