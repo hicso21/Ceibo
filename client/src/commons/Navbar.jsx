@@ -18,7 +18,7 @@ import ListItemText from '@mui/material/ListItemText';
 import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import { Link, useNavigate } from 'react-router-dom';
-import { Alert, Button, Grid, ImageListItem, ListItemIcon, Stack } from '@mui/material';
+import { Button, Grid, ImageListItem, ListItemIcon, Stack } from '@mui/material';
 import logo from '../assets/logoCeibo.png'
 import Home from '@mui/icons-material/Home';
 import Pets from '@mui/icons-material/Pets';
@@ -45,22 +45,14 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
-
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  borderRadius:20,
+  border:'1px solid',
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    paddingLeft: `calc(1em + ${theme.spacing(0)})`,
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -130,12 +122,12 @@ export default function PersistentDrawerLeft({prop}) {
 
   const styleBackground = {
   backgroundColor: (theme) =>
-  theme.palette.mode === 'dark'
+  theme.palette.mode === 'light'
   ? theme.palette.color = '#FFD600'
       : theme.palette.color = '#FFD600',
   color: (theme) =>
-  theme.palette.mode === 'dark'
-  ? theme.palette.color = '#000000'
+  theme.palette.mode === 'light'
+  ? theme.palette.color = '#FFFFFF'
   :theme.palette.color = '#FFFFFF',
   }
   
@@ -162,15 +154,16 @@ export default function PersistentDrawerLeft({prop}) {
   }
 
   const SearchStyle = {
-    border: '1px solid',
+    width:190,
+    borderRadius:10,
     backgroundColor: (theme) =>
     theme.palette.mode === 'light'
-    ? theme.palette.color = '#B40A00'
-        : theme.palette.color = '#B40A00',
+    ? theme.palette.color = '#F1F2F1'
+        : theme.palette.color = '#1e244b',
     color: (theme) =>
     theme.palette.mode === 'light'
-    ? theme.palette.color = '#1e244b'
-    :theme.palette.color = '#04092A'
+    ? theme.palette.color = '#000000'
+    :theme.palette.color = '#000000'
   }
 
   const handleDrawerOpen = () => {
@@ -254,7 +247,7 @@ export default function PersistentDrawerLeft({prop}) {
     <Box sx={{ display: 'flex'}}>
       <CssBaseline />
       <AppBar position="fixed" open={open} sx={styleBackground}>
-        <Toolbar style={{color:'black'}} >
+        <Toolbar style={{color:'black'}} sx={{paddingRight:0}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -264,20 +257,19 @@ export default function PersistentDrawerLeft({prop}) {
             >
             <MenuIcon />
           </IconButton>
-          <form onSubmit={handleSubmit}>
-            <Search sx={SearchStyle}>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Search…"
-                inputProps={{ 'aria-label': 'search' }}
-                onChange={handleSearch}
-                />
-            </Search>
-          </form>
-          <Button onClick={()=>{navigate('/')}}>            
-            <ImageListItem style={{paddingLeft:25}}>
+            <Box sx={{display:'flex' ,flexDirection:'row'}}>
+              <Search sx={SearchStyle}>
+                <StyledInputBase
+                  id='search'
+                  placeholder="Search…"
+                  inputProps={{ 'aria-label': 'search' }}
+                  onChange={handleSearch}
+                  />
+              </Search>
+              <Button sx={{padding:0}} onClick={handleSubmit}><SearchIcon sx={{color:'black'}}/></Button>
+            </Box>
+          <Button onClick={()=>{navigate('/')}} sx={{paddingLeft:0}}>            
+            <ImageListItem style={{padding:0}}>
             <img
               alt=''
               src={logo}
