@@ -8,4 +8,15 @@ router.post("/insert", PetsController.createPet);
 
 router.get("/:id", PetsController.findPet);
 
+
+router.get('/search/avanzada/:query', PetsController.findByQuery)
+
+router.get('/search/genero/:gender', PetsController.findByGender)
+
+router.get('/search/size/:size', PetsController.findBySize)
+
+router.get('/search/specie/:specie', PetsController.findBySpecie)
+
+
+
 module.exports = router;

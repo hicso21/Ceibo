@@ -23,6 +23,50 @@ class PetService {
       console.log(error.message);
     }
   }
+  static async findByGender(gender) {
+    try {
+        return await Pets.find(     
+                {gender:{ $regex: gender, $options: 'i' } }).exec()
+    } catch (error) {
+        console.log(error)
+    }
+}
+static async findBySize(size) {
+  try {
+      return await Pets.find(     
+              {size:{ $regex: size, $options: 'i' } }).exec()
+  } catch (error) {
+      console.log(error)
+  }
+}
+
+static async findBySpecie(specie) {
+  try {
+      return await Pets.find(     
+              {specie:{ $regex: specie, $options: 'i' } }).exec()
+  } catch (error) {
+      console.log(error)
+  }
+}
+
+static async findByQuery(name) {
+  try {
+      return await Pets.find({
+          $or: [
+              { specie: { $regex: name, $options: 'i' } },
+              { size: { $regex: name, $options: 'i' } },
+              { gender: { $regex: name, $options: 'i' } },
+              { location: { $regex: name, $options: 'i' } },
+              { personality: { $regex: name, $options: 'i' } },
+              { name: { $regex: name, $options: 'i' } },
+              { age: { $regex: name, $options: 'i' } },
+          ],
+      }).exec()
+  } catch (error) {
+      console.log(error)
+  }
+}
+
 }
 
 module.exports = PetService;
