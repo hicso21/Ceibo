@@ -11,6 +11,10 @@ import {
 import {Link} from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import { getId } from "../state/id";
+import logoGatito from '../assets/gatitoLogo.png';
+import logoPerrito from '../assets/perritoLogo.png';
+import MaleIcon from '@mui/icons-material/Male';
+import FemaleIcon from '@mui/icons-material/Female';
 
 const ShowPets = () => {
   const [pets, setPets] = useState([]);
@@ -47,11 +51,10 @@ const ShowPets = () => {
                     <Typography gutterBottom variant="h5" component="div">
                       {mascota.name}
                     </Typography>
-                    {/* <Typography variant="body2" color="text.secondary">
-                      {mascota.specie}
-                    </Typography> */}
+                    <Typography variant="body2" color="text.secondary">
+                    {mascota.specie === 'perro' ? <img src={logoPerrito} width="50" height="50" alt="perrito"   />:<img src={logoGatito} width="40" height="40"  alt="gatito" />}</Typography>
                     <Typography variant="body4" color="text.secondary">
-                      {mascota.gender}
+                      {mascota.gender === 'hembra'?<FemaleIcon sx={{width:40, height:40}}/>:<MaleIcon sx={{width:40, height:40}}/>}
                     </Typography>
                     {/* <Typography variant="body2" color="text.secondary">
                       {mascota.foundation}
