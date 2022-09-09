@@ -11,6 +11,7 @@ import History from './components/History';
 import Profile from './components/Profile';
 import Favorites from './components/Favorites';
 import SingularPet from './components/SingularPet';
+import SingularFoundation from './components/SingularFoundation';
 
 function App() {
   return (
@@ -18,10 +19,10 @@ function App() {
         <Route path='/' element={<Navbar prop={<Home/>}/>}/>
         <Route path='/profile' element={<Navbar prop={<Profile/>}/>}/>
         <Route path='/history' element={<Navbar prop={<History/>}/>}/>
-        <Route path='/pets' element={<Navbar prop={<Pets/>}/>}/>
-        <Route path='/foundation' element={<Navbar prop={<Foundations/>}/>}/>
-        <Route path='/pet/:petName' element={<Navbar prop={<SingularPet/>}/>}/>
-        <Route path='/foundation/:foundationName' element={<Navbar prop={<></>}/>}/>
+        <Route path='/mascotas' element={<Navbar prop={<Pets/>}/>}/>
+        <Route path='/fundaciones' element={<Navbar prop={<Foundations/>}/>}/>
+        <Route path='/mascotas/:petName' element={<Navbar prop={<SingularPet/>}/>}/>
+        <Route path='/fundaciones/:foundationName' element={<Navbar prop={<SingularFoundation/>}/>}/>
         <Route path='/login' element={<Navbar prop={<LogIn/>}/>}/>
         <Route path='/register' element={<Navbar prop={<SignUp/>}/>}/>
         <Route path='/favorites' element={<Navbar prop={<Favorites/>}/>}/>

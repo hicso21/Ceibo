@@ -28,6 +28,7 @@ export default function SignUp() {
   };
 
   return (
+    <>
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -38,7 +39,7 @@ export default function SignUp() {
             flexDirection: 'column',
             alignItems: 'center',
           }}
-        >
+          >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -55,7 +56,7 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                />
+                  />
               </Grid>
               <Grid item xs={12}>
                 <TextField
@@ -65,7 +66,7 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                />
+                  />
               </Grid>
             </Grid>
             <br/>
@@ -76,7 +77,7 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-            >
+              >
               Log In
             </Button>
             <Grid container justifyContent="flex-end">
@@ -85,5 +86,16 @@ export default function SignUp() {
         </Box>
       </Container>
     </ThemeProvider>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    </>
   );
 }

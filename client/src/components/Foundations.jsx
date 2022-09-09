@@ -9,9 +9,16 @@ import {
   CardMedia,
 } from "@mui/material";
 import {Link} from 'react-router-dom'
+import { useDispatch } from "react-redux";
+import { getId } from "../state/id";
 
 const ShowFoundations = () => {
   const [foundations, setFoundations] = useState([]);
+  const dispatch = useDispatch();
+
+  const handleFoundation = (id) => {
+    dispatch(getId({type:'foundation',id}))
+  }
 
   useEffect(() => {
     axios
@@ -34,7 +41,7 @@ const ShowFoundations = () => {
           <Grid container my={4}>
             {foundations?.map((fundacion) => {
               return(
-              <Link to={`/foundation/${fundacion._id}`} key={fundacion._id} style={{textDecoration:'none', margin:'0px auto', minWidth:295}}>
+              <Link to={`/fundaciones/${fundacion._id}`} key={fundacion._id} style={{textDecoration:'none', margin:'0px auto', minWidth:295}} onClick={()=>{handleFoundation(fundacion._id)}}>
                 <Grid item xs={12} p={2}>
                   <Card>
                     <CardMedia>

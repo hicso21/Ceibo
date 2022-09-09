@@ -39,6 +39,7 @@
 
 #root {
   background-color: #F1F2F1;
+  width: 100%;
 }
 
 #search:focus {
@@ -49,11 +50,16 @@
 #petPhoto {
   border-radius: 6%;
   box-shadow: 15px 6px 26px 0px;
+  max-width: 100%;
 }
 
 #genero {
   /* padding-right: 125px; */
-  padding-left: 180px;
+  padding-left: 65%;
+}
+
+#tamanio {
+  padding-left: 0px;
 }
 
 #ul {

@@ -1,8 +1,7 @@
 import { Button, Card, CardMedia, Grid, Paper, Typography } from '@mui/material';
 import { Box, Container, Stack } from '@mui/system';
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from "react-redux";
-import { styled } from '@mui/material/styles';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -14,13 +13,6 @@ const SingularPet = () => {
     const infoView = useSelector((state)=>state.id);
     console.log(infoView)
 
-    const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-        ...theme.typography.body2,
-        padding: theme.spacing(1),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-    }));
     const buttonStyle = {
         bgcolor:'#FFD640',
         mt:2,
@@ -31,24 +23,24 @@ const SingularPet = () => {
     return (
     <>
         <br/>
-        <Container>
-                <CardMedia sx={{padding:0, borderRadius:10}}>
+        <Container sx={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
+                <CardMedia sx={{padding:0, borderRadius:10, maxWidth:'343'}}>
                     <img
-                    src={infoView.photos}
+                    src={infoView.photos[0]}
                     width='100%'
                     id='petPhoto'
                     />
                 </CardMedia>
                 <br/>
                 <Card sx={{borderRadius:5}}>
-                    <Stack padding={2} >
+                    <Stack padding={2} sx={{maxWidth:'100%'}}>
                         <Box sx={{display:'flex', flexDirection:'row'}} fullWidth>
                             <Typography variant='h4' width={'20%'} paddingLeft={2}>{infoView.name}</Typography>
                             <Typography variant='h4' id='genero'>{infoView.gender === 'hembra'?<FemaleIcon sx={{width:40, height:40}}/>:<MaleIcon sx={{width:40, height:40}}/>}</Typography>
                         </Box>
                         <Box sx={{display:'flex', flexDirection:'row'}} fullWidth>
-                            <Typography variant='body' width={'50%'} paddingLeft={2}>{`Edad: ${infoView.age}`}</Typography>
-                            <Typography variant='body' paddingLeft={10}>{infoView.size}</Typography>
+                            <Typography variant='body' width={'100%'} paddingLeft={2}>{`Edad: ${infoView.age}`}</Typography>
+                            <Typography variant='body' id='tamanio'>{infoView.size}</Typography>
                         </Box>
                         <Box sx={{display:'flex', flexDirection:'row', paddingLeft:1}} fullWidth>
                             <Typography><LocationOnIcon sx={{paddingTop:1}}/>{infoView.location}</Typography>
@@ -57,7 +49,7 @@ const SingularPet = () => {
                     </Stack>
                 </Card>
                 <Card sx={{borderRadius:5, marginTop:3, maxHeight:220}}>
-                    <Box sx={{padding:2, paddingTop:3, pb:2}}>
+                    <Box sx={{padding:2}}>
                         <Typography variant='h6'>
                             <AssignmentIcon sx={{paddingTop:1, width:30}}/> Descripcion:
                         </Typography>
