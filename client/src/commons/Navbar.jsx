@@ -64,7 +64,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme, open }) => ({
@@ -142,6 +142,7 @@ export default function PersistentDrawerLeft({prop}) {
   } 
 
   const DrawerList = {
+    height:'100%',
     backgroundColor: (theme) =>
     theme.palette.mode === 'dark'
     ? theme.palette.color = '#FFD600'
@@ -187,12 +188,12 @@ export default function PersistentDrawerLeft({prop}) {
   }
 
   !'user'?loginMenu = <>
-                            <Divider sx={{backgroundColor:'tan'}}/>
-                            <Grid container spacing={{ xs: 9}}>
-                              <Grid item><Button onClick={()=>{navigate('/login')}} sx={DrawerList}>Iniciar Sesion</Button></Grid>
-                              <Grid item><Button onClick={()=>{navigate('/register')}} sx={DrawerList}>Registrarse</Button></Grid>
-                            </Grid>
-                          </>
+                        <Divider sx={{backgroundColor:'tan'}}/>
+                        <Grid container spacing={{ xs: 6}} >
+                          <Grid item><Button onClick={()=>{navigate('/login')}} sx={DrawerList}>Iniciar Sesion</Button></Grid>
+                          <Grid item><Button onClick={()=>{navigate('/register')}} sx={DrawerList}>Registrarse</Button></Grid>
+                        </Grid>
+                      </>
   :loginMenu =  <>
                   <Link style={{color: 'inherit', textDecoration:'none'}} to={'/profile'} >
                     <ListItem disablePadding>
@@ -234,8 +235,8 @@ export default function PersistentDrawerLeft({prop}) {
                       </ListItemButton>
                     </ListItem>
                   </Link>
+                  <Stack  sx={{justifyContent:'end'}}>
                   <Divider sx={{backgroundColor:'tan'}}/>
-                  <Stack>
                     <Button onClick={handleLogOut} sx={DrawerList}>Cerrar Sesion</Button>
                   </Stack>
                 </>
@@ -267,7 +268,7 @@ export default function PersistentDrawerLeft({prop}) {
               <Button sx={{padding:0}} onClick={handleSubmit}><SearchIcon sx={{color:'black'}}/></Button>
             </Box>
           <Button onClick={()=>{navigate('/')}} sx={{paddingLeft:0}}>            
-            <ImageListItem style={{padding:0, maxWidth:67, justifyContent:'center'}}>
+            <ImageListItem style={{padding:0, maxWidth:56, justifyContent:'center'}}>
             <img
               alt=''
               src={logo}
@@ -299,7 +300,7 @@ export default function PersistentDrawerLeft({prop}) {
         </DrawerHeader>
         <Divider sx={{backgroundColor:'tan'}}/>
         <List sx={DrawerList}>
-          {['Pets', 'Foundation'].map((text, i) => (
+          {['Mascotas', 'Fundaciones'].map((text, i) => (
             <Link style={{color: 'inherit', textDecoration:'none'}} to={`/${text.toLowerCase()}`} key={i}>
               <ListItem key={text} disablePadding>
                 <ListItemButton>
