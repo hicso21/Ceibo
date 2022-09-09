@@ -1,1 +1,0 @@
-const Pets = require("./Pets")

@@ -11,6 +11,7 @@ import {
 import { styled } from "@mui/material/styles";
 import CheckIcon from "@mui/icons-material/Check";
 import MuiAlert from '@mui/material/Alert';
+import { Box } from "@mui/system";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -70,88 +71,89 @@ const Profile = () => {
 
   return (
     <>
-      <Grid container spacing={1}>
-        <Grid item xs={4}>
-          <Item>
-            <Typography sx={{ paddingTop: 1 }}>Firstname</Typography>
-          </Item>
-        </Grid>
-        <Grid item xs={5}>
+      <Box sx={{p:3}}>
+        <Grid container spacing={1}>
+          <Grid item xs={4}>
+            <Item>
+              <Typography sx={{ paddingTop: 1 }}>Firstname</Typography>
+            </Item>
+          </Grid>
+          <Grid item xs={5}>
+              <TextField
+          />
+          </Grid>
+          <Grid item xs={3}>
+            <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleFirstName}>
+              <CheckIcon />
+            </Button>
+          </Grid>
+          <Grid item xs={4}>
+            <Item>
+              <Typography sx={{ paddingTop: 1 }}>Lastname</Typography>
+            </Item>
+          </Grid>
+          <Grid item xs={5}>
             <TextField
 
-            />
-        </Grid>
-        <Grid item xs={3}>
-          <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleFirstName}>
-            <CheckIcon />
-          </Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Item>
-            <Typography sx={{ paddingTop: 1 }}>Lastname</Typography>
-          </Item>
-        </Grid>
-        <Grid item xs={5}>
-          <TextField
+  />
+          </Grid>
+          <Grid item xs={3}>
+            <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleLastName}>
+              <CheckIcon />
+            </Button>
+          </Grid>
+          <Grid item xs={4}>
+            <Item>
+              <Typography sx={{ paddingTop: 1 }}>BirthDate</Typography>
+            </Item>
+          </Grid>
+          <Grid item xs={5}>
+            <TextField
 
-          />
-        </Grid>
-        <Grid item xs={3}>
-          <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleLastName}>
-            <CheckIcon />
-          </Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Item>
-            <Typography sx={{ paddingTop: 1 }}>BirthDate</Typography>
-          </Item>
-        </Grid>
-        <Grid item xs={5}>
-          <TextField
+  />
+          </Grid>
+          <Grid item xs={3}>
+            <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleBirth}>
+              <CheckIcon />
+            </Button>
+          </Grid>
+          <Grid item xs={4}>
+            <Item>
+              <Typography>First Address</Typography>
+            </Item>
+          </Grid>
+          <Grid item xs={5}>
+            <TextField
 
-          />
-        </Grid>
-        <Grid item xs={3}>
-          <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleBirth}>
-            <CheckIcon />
-          </Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Item>
-            <Typography>First Address</Typography>
-          </Item>
-        </Grid>
-        <Grid item xs={5}>
-          <TextField
+  />
+          </Grid>
+          <Grid item xs={3}>
+            <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleAddress}>
+              <CheckIcon />
+            </Button>
+          </Grid>
+          <Grid item xs={4}>
+            <Item>
+              <Typography>Second Address</Typography>
+            </Item>
+          </Grid>
+          <Grid item xs={5}>
+            <TextField
 
-          />
+  />
+          </Grid>
+          <Grid item xs={3}>
+            <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleSecondAddress}>
+              <CheckIcon />
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item xs={3}>
-          <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleAddress}>
-            <CheckIcon />
-          </Button>
-        </Grid>
-        <Grid item xs={4}>
-          <Item>
-            <Typography>Second Address</Typography>
-          </Item>
-        </Grid>
-        <Grid item xs={5}>
-          <TextField
-
-          />
-        </Grid>
-        <Grid item xs={3}>
-          <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleSecondAddress}>
-            <CheckIcon />
-          </Button>
-        </Grid>
-      </Grid>
-      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          The change was succesfully!!
-        </Alert>
-      </Snackbar>
+        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+            The change was succesfully!!
+          </Alert>
+        </Snackbar>
+      </Box>
     </>
   );
 };

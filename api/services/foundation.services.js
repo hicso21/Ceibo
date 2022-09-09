@@ -20,9 +20,16 @@ class FoundationService {
   }
   static async findById(id) {
     try {
-      return await Foundation.find({ _id: id });
+      return await Foundation.findById(id);
     } catch (error) {
       console.log(error);
+    }
+  }
+  static async getSomeFoundations() {
+    try {
+      return await Foundation.find({}).limit(3).skip(2);
+    } catch (error) {
+      console.log(error.message);
     }
   }
 }

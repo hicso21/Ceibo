@@ -29,6 +29,7 @@ class PetController {
     }
   }
 
+
   static async findByGender(req, res) {
     try {
         const pet = await PetServices.findByGender(req.params.gender)
@@ -68,6 +69,18 @@ static async findByQuery(req, res) {
       console.log(error)
   }
 }
+
+  static async getSomePets(req, res) {
+    try {
+      const pets = await PetServices.getSomePets();
+      return pets
+        ? res.status(200).send(pets)
+        : res.status(404).send("no data found");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
 }
 
 module.exports = PetController;

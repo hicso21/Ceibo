@@ -9,9 +9,16 @@ import {
   CardMedia,
 } from "@mui/material";
 import {Link} from 'react-router-dom'
+import { useDispatch } from "react-redux";
+import { getId } from "../state/id";
 
 const ShowFoundations = () => {
   const [foundations, setFoundations] = useState([]);
+  const dispatch = useDispatch();
+
+  const handleFoundation = (id) => {
+    dispatch(getId({type:'foundation',id}))
+  }
 
   useEffect(() => {
     axios
@@ -29,24 +36,12 @@ const ShowFoundations = () => {
           backgroundColor: "white",
         }}
         >
-
-        <Container
-          sx={{
-            p: 1,
-            mb: 1,
-            backgroundColor: "#e0e0e0",
-            borderRadius: 1,
-            color: "action.active",
-            fontWeight: "bold",
-          }}
-        >
-          <p style={{ textAlign: "center", color: "black" }}>Fundaciones</p>
-        </Container>
         <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
+          <Typography variant="h3" sx={{pl:1.2}}>Fundaciones</Typography>
           <Grid container my={4}>
             {foundations?.map((fundacion) => {
               return(
-              <Link to={`/foundation/${fundacion._id}`} key={fundacion._id} style={{textDecoration:'none'}}>
+              <Link to={`/fundaciones/${fundacion._id}`} key={fundacion._id} style={{textDecoration:'none', margin:'0px auto', minWidth:295}} onClick={()=>{handleFoundation(fundacion._id)}}>
                 <Grid item xs={12} p={2}>
                   <Card>
                     <CardMedia>

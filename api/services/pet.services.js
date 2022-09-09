@@ -23,6 +23,7 @@ class PetService {
       console.log(error.message);
     }
   }
+
   static async findByGender(gender) {
     try {
         return await Pets.find(     
@@ -67,6 +68,13 @@ static async findByQuery(name) {
   }
 }
 
+  static async getSomePets() {
+    try {
+      return await Pets.find({}).limit(3).skip(3);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 }
 
 module.exports = PetService;
