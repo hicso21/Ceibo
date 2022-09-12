@@ -33,8 +33,8 @@ class FoundationController {
     try {
       const foundations = await FoundationServices.getSomeFoundations();
       return foundations
-      ? res.status(200).send(foundations)
-      : res.status(404).send("no data found");
+        ? res.status(200).send(foundations)
+        : res.status(404).send("no data found");
     } catch (error) {
       console.log(error.message);
     }

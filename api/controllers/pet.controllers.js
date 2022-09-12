@@ -29,46 +29,49 @@ class PetController {
     }
   }
 
-
   static async findByGender(req, res) {
     try {
-        const pet = await PetServices.findByGender(req.params.gender)
-        pet.length ? res.status(200).send(pet)
-      : res.status(404).send("Pet not found");
+      const pet = await PetServices.findByGender(req.params.gender);
+      pet.length
+        ? res.status(200).send(pet)
+        : res.status(404).send("Pet not found");
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-}
-
-static async findBySize(req, res) {
-  try {
-      const pet = await PetServices.findBySize(req.params.size)
-      pet.length ? res.status(200).send(pet)
-      : res.status(404).send("Pet not found");
-  } catch (error) {
-      console.log(error)
   }
-}
 
-static async findBySpecie(req, res) {
-  try {
-      const pet = await PetServices.findBySpecie(req.params.specie)
-      pet.length ? res.status(200).send(pet)
-      : res.status(404).send("Pet not found");
-  } catch (error) {
-      console.log(error)
+  static async findBySize(req, res) {
+    try {
+      const pet = await PetServices.findBySize(req.params.size);
+      pet.length
+        ? res.status(200).send(pet)
+        : res.status(404).send("Pet not found");
+    } catch (error) {
+      console.log(error);
+    }
   }
-}
 
-static async findByQuery(req, res) {
-  try {
-      const pet = await PetServices.findByQuery(req.params.query)
-      pet.length ? res.status(200).send(pet)
-      : res.status(404).send("Pet not found");
-  } catch (error) {
-      console.log(error)
+  static async findBySpecie(req, res) {
+    try {
+      const pet = await PetServices.findBySpecie(req.params.specie);
+      pet.length
+        ? res.status(200).send(pet)
+        : res.status(404).send("Pet not found");
+    } catch (error) {
+      console.log(error);
+    }
   }
-}
+
+  static async findByQuery(req, res) {
+    try {
+      const pet = await PetServices.findByQuery(req.params.query);
+      pet.length
+        ? res.status(200).send(pet)
+        : res.status(404).send("Pet not found");
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   static async getSomePets(req, res) {
     try {
@@ -81,6 +84,14 @@ static async findByQuery(req, res) {
     }
   }
 
+  static async modifyPet(req, res) {
+    try {
+      const pet = await PetServices.modifyPet(req.body, req.params.id);
+      return res.status(204).send(pet);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 }
 
 module.exports = PetController;

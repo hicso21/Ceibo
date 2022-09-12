@@ -8,6 +8,7 @@ import History from "./components/History";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import Pets from "./components/Pets";
+import AddPet from "./components/AddPet";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
       <Route path="/login" element={<Navbar prop={<LogIn/>}/>}/>
       <Route path="/" element={<Navbar prop={<SignUp/>}/>}/>
       <Route path="/messages" element={<Navbar prop={<></>}/>}/>
-      <Route path="/add" element={<Navbar prop={<></>}/>}/>
+      <Route path="/add" element={<Navbar prop={<AddPet/>}/>}/>
       <Route path="/search" element={<Navbar prop={<></>}/>}/>
     </Routes>
   )

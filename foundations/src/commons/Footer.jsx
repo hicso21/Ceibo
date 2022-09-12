@@ -75,8 +75,7 @@ function Copyright(props) {
 export default function Footer() {
   return (
     <>
-    
-      <Box sx={{height:20}}>
+      <Box sx={{alignItems:'end'}}>
         <CssBaseline />
         <Box
           component="footer"

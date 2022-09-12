@@ -4,6 +4,7 @@ const Users = require("../models/Users");
 const bcrypt = require('bcrypt')
 
 class UserController {
+
     static async createUser(req, res) {
         const user = await UserService.createUser(req.body)
         if (user) {
@@ -46,4 +47,7 @@ static async deleteUser(req, res) {
 
 }
 module.exports = UserController;
+
+
+
 
