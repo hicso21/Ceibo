@@ -53,7 +53,7 @@ const SingularFoundation = () => {
                 <br/>
         </Container>
     </>
-    )
-}
+  );
+};
 
-export default SingularFoundation
+export default SingularFoundation;
