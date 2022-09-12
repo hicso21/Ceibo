@@ -332,6 +332,7 @@ export default function PersistentDrawerLeft({ prop }) {
             <Link
               style={{ color: "inherit", textDecoration: "none" }}
               to={"/mascotas"}
+              onClick={()=>{handleDrawerClose()}}
             >
               <ListItem disablePadding>
                 <ListItemButton>
@@ -345,6 +346,7 @@ export default function PersistentDrawerLeft({ prop }) {
             <Link
               style={{ color: "inherit", textDecoration: "none" }}
               to={"/add"}
+              onClick={()=>{handleDrawerClose()}}
             >
               <ListItem disablePadding>
                 <ListItemButton>
@@ -358,6 +360,7 @@ export default function PersistentDrawerLeft({ prop }) {
             <Link
               style={{ color: "inherit", textDecoration: "none" }}
               to={"/profile"}
+              onClick={()=>{handleDrawerClose()}}
             >
               <ListItem disablePadding>
                 <ListItemButton>
@@ -371,6 +374,7 @@ export default function PersistentDrawerLeft({ prop }) {
             <Link
               style={{ color: "inherit", textDecoration: "none" }}
               to={"/history"}
+              onClick={()=>{handleDrawerClose()}}
             >
               <ListItem disablePadding>
                 <ListItemButton>
@@ -384,6 +388,7 @@ export default function PersistentDrawerLeft({ prop }) {
             <Link
               style={{ color: "inherit", textDecoration: "none" }}
               to={"/messages"}
+              onClick={()=>{handleDrawerClose()}}
             >
               <ListItem disablePadding>
                 <ListItemButton>
@@ -402,12 +407,12 @@ export default function PersistentDrawerLeft({ prop }) {
             </Stack>
           </List>
         </Drawer>
-        <Main /* open={open} */>
+        <Main /* open={open} */sx={{display:'flex', flexDirection:'column'}}>
           <DrawerHeader />
           {prop}
+          <Footer sx={{alignItems:'end'}}/>
         </Main>
       </Box>
-      <Footer />
     </>
   );
 }

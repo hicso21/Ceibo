@@ -34,11 +34,6 @@ const ShowPets = () => {
   }, []);
   return (
     <>
-    <div
-      style={{
-        backgroundColor: "white",
-      }}
-      >
       <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
         <Typography variant="h3" sx={{display:'flex', justifyContent:'center'}}>Mascotas</Typography>
         <Grid container my={4}>
@@ -65,7 +60,6 @@ const ShowPets = () => {
           })}
         </Grid>
       </Container>
-    </div>
     </>
   );
 };

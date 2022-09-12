@@ -50,7 +50,6 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <TextField
                   required
-                  fullWidth
                   id="email"
                   label="Email Address"
                   name="email"
@@ -60,7 +59,6 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <TextField
                   required
-                  fullWidth
                   label="Password"
                   type="password"
                   id="password"
@@ -73,7 +71,6 @@ export default function SignUp() {
             <br/>
             <Button
               type="submit"
-              fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               >
