@@ -1,4 +1,4 @@
-import { Box, ImageList, ImageListItem, ImageListItemBar } from '@mui/material'
+import { Box, Container, ImageList, ImageListItem, ImageListItemBar } from '@mui/material'
 import React, { useState } from 'react'
 import {Typography} from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -6,13 +6,26 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { getId } from '../state/id';
-import { getFoundation } from '../state/foundations';
+import useMatches from '../hooks/useMatches';
 
 
 function Home(){
   const [pets, setPets] = useState([])
   const [foundations, setFoundations] = useState([])
   const dispatch = useDispatch()
+
+  //false = mobile  ---  true = desktop
+  const matches = useMatches()
+
+  //style variables
+  let ImageStyle
+  let BoxStyle
+
+  if(matches){}
+  else{
+    BoxStyle = {p:2, pt:3, display:'flex', flexDirection:'column', alignItems:'center', margin:'auto 0px', width:'100%'}
+    ImageStyle = { width: 327, height: 235, display:'flex', flexDirection:'column' }
+  }
 
   const handlePet = (id)=>{
     dispatch(getId({type:'pets',id}))
@@ -32,17 +45,18 @@ function Home(){
   function ImageListPets({items, type}) {
     console.log(foundations)
     return (
-      <ImageList sx={{ width: 327, height: 235 }} style={{gridTemplateColumns: 340}}>
+      <ImageList sx={ImageStyle}>
         {items?.map((item, i) => (
           <Link to={`/${type}/${item.name}`} style={{color: 'inherit', textDecoration:'none'}} key={i} onClick={()=>{handlePet(item._id)}}>
-            <ImageListItem sx={{width:'100%'}}>
+            <ImageListItem sx={{width:'100%', justifyContent:'center'}}>
               <img
                 src={item.photos}
                 alt={item.name}
                 loading="lazy"
+                width={'100%'}
                 />
               <ImageListItemBar
-                title={`Click here to know more about ${item.name}!!`}
+                title={`Haz click aqui para conocer a ${item.name}!!`}
                 subtitle={<span>{item.foundation}</span>}
                 position="below"
                 />
@@ -55,17 +69,17 @@ function Home(){
 
   function ImageListFoundations({items, type}) {
     return (
-      <ImageList sx={{ width: 327, height: 235 }} style={{gridTemplateColumns: 340}}>
+      <ImageList sx={ImageStyle}>
         {items?.map((item, i) => (
           <Link to={`/${type}/${item.name}`} style={{color: 'inherit', textDecoration:'none'}} key={i} onClick={()=>{handleFoundation(item._id)}}>
-            <ImageListItem sx={{width:'100%'}}>
+            <ImageListItem sx={{width:'100%', justifyContent:'center'}}>
               <img
                 src={item.profile_picture}
                 alt={item.name}
                 loading="lazy"
                 />
               <ImageListItemBar
-                title={`Click here to know more about ${item.name}!!`}
+                title={`Haz click aqui para conocer a ${item.name}!!`}
                 subtitle={<span>{item.foundation}</span>}
                 position="below"
                 />
@@ -78,7 +92,7 @@ function Home(){
 
   return (
     <>
-      <Box sx={{p:3}}>
+      <Container sx={BoxStyle}>
         <Typography variant='h4' >
           Algunas Mascotas
         </Typography>
@@ -87,7 +101,7 @@ function Home(){
           Algunas Fundaciones
         </Typography>
         <ImageListFoundations items={foundations} type={'fundaciones'}/>
-      </Box>
+      </Container>
       <br/>
       <br/>
     </>

@@ -20,24 +20,19 @@ import InputBase from "@mui/material/InputBase";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Button,
-  Grid,
   ImageListItem,
   ListItemIcon,
   Stack,
 } from "@mui/material";
 import logo from "../assets/logoCeibo.png";
-import Home from "@mui/icons-material/Home";
 import Pets from "@mui/icons-material/Pets";
 import Profile from "@mui/icons-material/Person";
-import Favorite from "@mui/icons-material/StarRate";
 import History from "@mui/icons-material/History";
 import Message from "@mui/icons-material/Message";
 import Footer from "./Footer";
 import {useSelector} from 'react-redux'
 import useMatches from "../hooks/useMatches";
-import HomeIcon from '@mui/icons-material/Home';
-
-let loginMenu;
+import AddIcon from '@mui/icons-material/Add';
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -257,7 +252,7 @@ export default function PersistentDrawerLeft({ prop }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate(`/search/:${search}`);
+    navigate(`/search?query=${search}`);
   };
 
   const handleSearch = (e) => {
@@ -265,97 +260,6 @@ export default function PersistentDrawerLeft({ prop }) {
   };
 
   const handleLogOut = () => {};
-
-  !user
-    ? (loginMenu = (
-        <>
-          <Divider/>
-          <Grid container>
-            <Grid item>
-              <Button
-                onClick={() => {
-                  navigate("/login");
-                }}
-                sx={DrawerList}
-              >
-                Iniciar Sesion
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                onClick={() => {
-                  navigate("/register");
-                }}
-                sx={DrawerList}
-              >
-                Registrarse
-              </Button>
-            </Grid>
-          </Grid>
-        </>
-      ))
-    : (loginMenu = (
-        <>
-          <Link
-            style={{ color: "inherit", textDecoration: "none" }}
-            to={"/profile"}
-          >
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <Profile />
-                </ListItemIcon>
-                <ListItemText primary={"Perfil"} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-          <Link
-            style={{ color: "inherit", textDecoration: "none" }}
-            to={"/favorites"}
-          >
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <Favorite />
-                </ListItemIcon>
-                <ListItemText primary={"Favoritos"} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-          <Link
-            style={{ color: "inherit", textDecoration: "none" }}
-            to={"/history"}
-          >
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <History />
-                </ListItemIcon>
-                <ListItemText primary={"Historial"} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-          <Link
-            style={{ color: "inherit", textDecoration: "none" }}
-            to={"/messages"}
-          >
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <Message />
-                </ListItemIcon>
-                <ListItemText primary={"Mensajes"} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-          <Stack>
-            <Divider/>
-            <Button onClick={handleLogOut} sx={DrawerList}>
-              Cerrar Sesion
-            </Button>
-          </Stack>
-        </>
-      ));
 
   return (
     <>
@@ -390,7 +294,7 @@ export default function PersistentDrawerLeft({ prop }) {
             </Box>
             <Button
               onClick={() => {
-                navigate("/");
+                navigate("/mascotas");
               }}
               sx={ButtonLogoStyle}
             >
@@ -425,41 +329,80 @@ export default function PersistentDrawerLeft({ prop }) {
             </IconButton>
           </DrawerHeader>
           <List sx={DrawerList}>
-            <Link style={{ color: "inherit", textDecoration: "none" }} to={"/"}>
+            <Link
+              style={{ color: "inherit", textDecoration: "none" }}
+              to={"/mascotas"}
+            >
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
-                    <Home />
+                    <Pets />
                   </ListItemIcon>
-                  <ListItemText primary={"Menu Principal"} />
+                  <ListItemText primary={"Mascotas"} />
                 </ListItemButton>
               </ListItem>
             </Link>
-            {["Mascotas", "Fundaciones"].map((text, i) => (
-              <Link
-                style={{ color: "inherit", textDecoration: "none" }}
-                to={`/${text.toLowerCase()}`}
-                key={i}
-              >
-                <ListItem key={text} disablePadding>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      {
-                        <>
-                          {i === 0 ? <Pets /> : <></>}
-                          {i === 1 ? <Home /> : <></>}
-                        </>
-                      }
-                    </ListItemIcon>
-                    <ListItemText primary={text} />
-                  </ListItemButton>
-                </ListItem>
-              </Link>
-            ))}
-            {loginMenu}
+            <Link
+              style={{ color: "inherit", textDecoration: "none" }}
+              to={"/add"}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <AddIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={"Agregar Mascotas"} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Link
+              style={{ color: "inherit", textDecoration: "none" }}
+              to={"/profile"}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <Profile />
+                  </ListItemIcon>
+                  <ListItemText primary={"Perfil"} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Link
+              style={{ color: "inherit", textDecoration: "none" }}
+              to={"/history"}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <History />
+                  </ListItemIcon>
+                  <ListItemText primary={"Historial"} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Link
+              style={{ color: "inherit", textDecoration: "none" }}
+              to={"/messages"}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <Message />
+                  </ListItemIcon>
+                  <ListItemText primary={"Mensajes"} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+            <Stack>
+              <Divider/>
+              <Button onClick={handleLogOut} sx={DrawerList}>
+                Cerrar Sesion
+              </Button>
+            </Stack>
           </List>
         </Drawer>
-        <Main open={open}>
+        <Main /* open={open} */>
           <DrawerHeader />
           {prop}
         </Main>

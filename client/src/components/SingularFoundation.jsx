@@ -1,32 +1,22 @@
-import { Button, Card, CardMedia, Grid, Paper, Typography } from '@mui/material';
+import { Card, CardMedia, Typography } from '@mui/material';
 import { Box, Container, Stack } from '@mui/system';
 import React from 'react'
 import { useSelector } from "react-redux";
-import MaleIcon from '@mui/icons-material/Male';
-import FemaleIcon from '@mui/icons-material/Female';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AssignmentIcon from '@mui/icons-material/Assignment';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 
 const SingularFoundation = () => {
-    const infoView = useSelector((state)=>state.id);
-
-    const buttonStyle = {
-        bgcolor:'#FFD640',
-        mt:2,
-        mb:4,
-        borderRadius:10
-    }
-      
+    let infoView = useSelector((state)=>state.id);      
     console.log(infoView)
+
     return (
     <>
         <br/>
         <Container>
                 <CardMedia sx={{padding:0, borderRadius:10}}>
                     <img
+                    alt=''
                     src={infoView.profile_picture}
                     width='100%'
                     id='petPhoto'
@@ -49,15 +39,14 @@ const SingularFoundation = () => {
                         </Box>                       
                     </Stack>
                 </Card>
-                <Card sx={{borderRadius:5, marginTop:3, maxHeight:220}}>
-                    <Box sx={{padding:2, paddingTop:3, pb:2}}>
+                <Card sx={{borderRadius:5, marginTop:3}}>
+                    <Box sx={{padding:2}}>
                         <Typography variant='h6'>
                             <AssignmentIcon sx={{paddingTop:1, width:30}}/> Descripcion:
                         </Typography>
-                        <Typography sx={{paddingTop:2, pl:2}}>
+                        <Typography sx={{pt:2, pl:2}}>
                             {infoView.history}
                         </Typography>
-                        
                     </Box>
                 </Card>
                 <br/>

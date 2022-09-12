@@ -11,6 +11,7 @@ import {
 import {Link} from 'react-router-dom'
 import { useDispatch } from "react-redux";
 import { getId } from "../state/id";
+import useMatches from "../hooks/useMatches";
 
 const ShowFoundations = () => {
   const [foundations, setFoundations] = useState([]);
@@ -19,6 +20,12 @@ const ShowFoundations = () => {
   const handleFoundation = (id) => {
     dispatch(getId({type:'foundation',id}))
   }
+
+  //false = mobile  ---  true = desktop
+  const matches = useMatches()
+
+  if(matches){}
+  else{}
 
   useEffect(() => {
     axios
