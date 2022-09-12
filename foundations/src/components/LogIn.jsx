@@ -10,7 +10,6 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router';
-import axios from 'axios';
 
 const theme = createTheme();
 
@@ -51,6 +50,7 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <TextField
                   required
+                  
                   id="email"
                   label="Email Address"
                   name="email"
@@ -60,6 +60,7 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <TextField
                   required
+                  
                   label="Password"
                   type="password"
                   id="password"
@@ -72,6 +73,7 @@ export default function SignUp() {
             <br/>
             <Button
               type="submit"
+              
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               >

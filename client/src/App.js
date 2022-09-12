@@ -13,6 +13,9 @@ import Favorites from './components/Favorites';
 import SingularPet from './components/SingularPet';
 import SingularFoundation from './components/SingularFoundation';
 
+
+  
+
 function App() {
   return (
       <Routes>
