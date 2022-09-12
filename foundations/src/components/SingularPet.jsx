@@ -2,25 +2,23 @@ import { Button, Card, CardMedia, Typography } from '@mui/material';
 import { Box, Container, Stack } from '@mui/system';
 import React from 'react'
 import { useSelector } from "react-redux";
-import MaleIcon from "@mui/icons-material/Male";
-import FemaleIcon from "@mui/icons-material/Female";
-import LocationOnIcon from "@mui/icons-material/LocationOn";
-import AssignmentIcon from "@mui/icons-material/Assignment";
-import CheckIcon from "@mui/icons-material/Check";
-import CloseIcon from "@mui/icons-material/Close";
+import MaleIcon from '@mui/icons-material/Male';
+import FemaleIcon from '@mui/icons-material/Female';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AssignmentIcon from '@mui/icons-material/Assignment';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 
 const SingularPet = () => {
     let infoView = useSelector((state)=>state.id);
-    //console.log(infoView)
 
-  const buttonStyle = {
-    bgcolor: "#FFD640",
-    mt: 2,
-    mb: 4,
-    borderRadius: 10,
-  };
-
-  return (
+    const buttonStyle = {
+        bgcolor:'#FFD640',
+        mb:4,
+        borderRadius:10
+    }
+      
+    return (
     <>
         <br/>
         <Container sx={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
@@ -49,7 +47,7 @@ const SingularPet = () => {
                         
                     </Stack>
                 </Card>
-                <Card sx={{borderRadius:5, marginTop:3, maxHeight:220}}>
+                <Card sx={{borderRadius:5, mt:3, maxHeight:220, mb:2}}>
                     <Box sx={{padding:2}}>
                         <Typography variant='h6'>
                             <AssignmentIcon sx={{paddingTop:1, width:30}}/> Descripcion:
@@ -70,7 +68,7 @@ const SingularPet = () => {
                 <Button color='inherit' fullWidth sx={buttonStyle}>Adoptar</Button>
         </Container>
     </>
-  );
-};
+    )
+}
 
-export default SingularPet;
+export default SingularPet

@@ -10,6 +10,7 @@ import {
   CardActions
 } from "@mui/material";
 import { Link } from 'react-router-dom'
+import { styled } from '@mui/material/styles';
 
 const ShowFavorites = () => {
   const [favorites, setFavorites] = useState([]);
