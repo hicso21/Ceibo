@@ -8,6 +8,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
+import ResponsiveDialog from './SingPetDialog';
 
 const SingularPet = () => {
     let infoView = useSelector((state)=>state.id);
@@ -33,18 +34,18 @@ const SingularPet = () => {
                 <br/>
                 <Card sx={{borderRadius:5}}>
                     <Stack padding={2} sx={{maxWidth:'100%'}}>
-                        <Box sx={{display:'flex', flexDirection:'row'}} fullWidth>
+                        <Box sx={{display:'flex', flexDirection:'row'}}>
                             <Typography variant='h4' width={'20%'} paddingLeft={2}>{infoView.name}</Typography>
                             <Typography variant='h4' id='genero'>{infoView.gender === 'hembra'?<FemaleIcon sx={{width:40, height:40}}/>:<MaleIcon sx={{width:40, height:40}}/>}</Typography>
                         </Box>
-                        <Box sx={{display:'flex', flexDirection:'row'}} fullWidth>
+                        <Box sx={{display:'flex', flexDirection:'row'}}>
                             <Typography variant='body' width={'100%'} paddingLeft={2}>{`Edad: ${infoView.age}`}</Typography>
                             <Typography variant='body' id='tamanio'>{infoView.size}</Typography>
                         </Box>
-                        <Box sx={{display:'flex', flexDirection:'row', paddingLeft:1}} fullWidth>
+                        <Box sx={{display:'flex', flexDirection:'row', paddingLeft:1}}>
+
                             <Typography><LocationOnIcon sx={{paddingTop:1}}/>{infoView.location}</Typography>
                         </Box>
-                        
                     </Stack>
                 </Card>
                 <Card sx={{borderRadius:5, mt:3, maxHeight:220, mb:2}}>
@@ -65,7 +66,7 @@ const SingularPet = () => {
                         </Box>
                     </Box>
                 </Card>
-                <Button color='inherit' fullWidth sx={buttonStyle}>Adoptar</Button>
+                <ResponsiveDialog buttonStyle={buttonStyle}/>
         </Container>
     </>
     )
