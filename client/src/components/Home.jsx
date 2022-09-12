@@ -30,10 +30,6 @@ function Home() {
     ImageStyle = { width: 327, height: 235, display:'flex', flexDirection:'column' }
   }
 
-  const handlePet = (id)=>{
-    dispatch(getId({type:'pets',id}))
-  }
-
   const handleFoundation = (id)=>{
     dispatch(getId({type:'foundation',id}))
   }
