@@ -29,7 +29,7 @@ function Home() {
     BoxStyle = {p:2, pt:3, display:'flex', flexDirection:'column', alignItems:'center', margin:'auto 0px', width:'100%'}
     ImageStyle = { width: 327, height: 235, display:'flex', flexDirection:'column' }
   }
-
+  
   //false = mobile  ---  true = desktop
   const matches = useMatches()
 
@@ -46,7 +46,7 @@ function Home() {
   const handlePet = (id)=>{
     dispatch(getId({type:'pets',id}))
   }
-
+  
   const handleFoundation = (id)=>{
     dispatch(getId({type:'foundation',id}))
   }
