@@ -294,7 +294,7 @@ export default function PersistentDrawerLeft({ prop }) {
             </Box>
             <Button
               onClick={() => {
-                navigate("/mascotas")
+                navigate("/mascotas");
               }}
               sx={ButtonLogoStyle}
             >

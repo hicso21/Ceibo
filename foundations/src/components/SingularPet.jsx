@@ -43,9 +43,9 @@ const SingularPet = () => {
                             <Typography variant='body' id='tamanio'>{infoView.size}</Typography>
                         </Box>
                         <Box sx={{display:'flex', flexDirection:'row', paddingLeft:1}}>
+
                             <Typography><LocationOnIcon sx={{paddingTop:1}}/>{infoView.location}</Typography>
                         </Box>
-                        
                     </Stack>
                 </Card>
                 <Card sx={{borderRadius:5, mt:3, maxHeight:220, mb:2}}>

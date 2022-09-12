@@ -8,11 +8,27 @@ import { useDispatch } from 'react-redux';
 import { getId } from '../state/id';
 import useMatches from '../hooks/useMatches';
 
+function Home() {
+  const [pets, setPets] = useState([]);
+  const [foundations, setFoundations] = useState([]);
+  const dispatch = useDispatch();
 
-function Home(){
-  const [pets, setPets] = useState([])
-  const [foundations, setFoundations] = useState([])
-  const dispatch = useDispatch()
+  const handlePet = (id) => {
+    dispatch(getId({ type: "pets", id }));
+  };
+
+  //false = mobile  ---  true = desktop
+  const matches = useMatches()
+
+  //style variables
+  let ImageStyle
+  let BoxStyle
+
+  if(matches){}
+  else{
+    BoxStyle = {p:2, pt:3, display:'flex', flexDirection:'column', alignItems:'center', margin:'auto 0px', width:'100%'}
+    ImageStyle = { width: 327, height: 235, display:'flex', flexDirection:'column' }
+  }
 
   //false = mobile  ---  true = desktop
   const matches = useMatches()
@@ -35,15 +51,17 @@ function Home(){
     dispatch(getId({type:'foundation',id}))
   }
 
-  useEffect(()=>{
-    axios.get('http://localhost:3001/api/pets/some')
-      .then((pets)=>setPets(pets.data))
-    axios.get('http://localhost:3001/api/foundation/some')
-      .then((foundations)=>setFoundations(foundations.data))
-  },[])
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/api/pets/some")
+      .then((pets) => setPets(pets.data));
+    axios
+      .get("http://localhost:3001/api/foundation/some")
+      .then((foundations) => setFoundations(foundations.data));
+  }, []);
 
-  function ImageListPets({items, type}) {
-    console.log(foundations)
+  function ImageListPets({ items, type }) {
+    console.log(foundations);
     return (
       <ImageList sx={ImageStyle}>
         {items?.map((item, i) => (
@@ -59,7 +77,7 @@ function Home(){
                 title={`Haz click aqui para conocer a ${item.name}!!`}
                 subtitle={<span>{item.foundation}</span>}
                 position="below"
-                />
+              />
             </ImageListItem>
           </Link>
         ))}
@@ -67,7 +85,7 @@ function Home(){
     );
   }
 
-  function ImageListFoundations({items, type}) {
+  function ImageListFoundations({ items, type }) {
     return (
       <ImageList sx={ImageStyle}>
         {items?.map((item, i) => (
@@ -82,7 +100,7 @@ function Home(){
                 title={`Haz click aqui para conocer a ${item.name}!!`}
                 subtitle={<span>{item.foundation}</span>}
                 position="below"
-                />
+              />
             </ImageListItem>
           </Link>
         ))}
@@ -105,7 +123,7 @@ function Home(){
       <br/>
       <br/>
     </>
-  )
+  );
 }
 
-export default Home
+export default Home;

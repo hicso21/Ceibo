@@ -56,7 +56,6 @@ export default function SignUp() {
                   autoComplete="given-name"
                   name="firstName"
                   required
-                  
                   id="firstName"
                   label="First Name"
                   autoFocus
@@ -65,7 +64,6 @@ export default function SignUp() {
               <Grid item xs={12} sm={6}>
                 <TextField
                   required
-                  
                   id="lastName"
                   label="Last Name"
                   name="lastName"
@@ -75,7 +73,6 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <TextField
                   required
-                  
                   id="email"
                   label="Email Address"
                   name="email"
@@ -85,7 +82,6 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <TextField
                   required
-                  
                   label="Password"
                   type="password"
                   id="password"
@@ -98,7 +94,6 @@ export default function SignUp() {
             <br/>
             <Button
               type="submit"
-              
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
