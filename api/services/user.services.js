@@ -1,17 +1,32 @@
-const User = require("../models/Users");
+const Users = require("../models/Users");
 const ObjectId = require("mongodb").ObjectId;
 
 class UserService {
     static async createUser(body) {
         try {
             const user = new Users(body)
-            sendEmail(user, 0)
             return await user.save()
+            
         } catch (error) {
             console.log(error)
         }
     }
-
+    static async find(req) {
+        const { email } = req.body;
+        try {
+            return await Users.findOne({ email: email, status: true })
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    static async deleteUser(id) {
+        try {
+            return await Users.deleteOne({ _id: id })
+        } catch (error) {
+            console.log(error)
+        }
+    }
 }
 
 module.exports = UserService;

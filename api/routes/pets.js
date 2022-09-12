@@ -6,10 +6,9 @@ router.get("/all", PetsController.getAllPets);
 
 router.get("/some", PetsController.getSomePets)
 
-router.post("/insert", PetsController.createPet);
+router.post("/create", PetsController.createPet);
 
 router.get("/:id", PetsController.findPet);
-
 
 router.get('/search/avanzada/:query', PetsController.findByQuery)
 
