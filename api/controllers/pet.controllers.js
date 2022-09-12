@@ -10,14 +10,16 @@ class PetController {
       console.log(error.message);
     }
   }
-  static async createPet(req, res) {
+
+  /*   static async createPet(req, res) {
     try {
       const pet = await PetServices.createPet(req.body);
       return res.status(201).send(pet);
     } catch (error) {
       console.log(error.message);
     }
-  }
+  } */
+
   static async findPet(req, res) {
     try {
       const pet = await PetServices.getOnePet(req.params.id);

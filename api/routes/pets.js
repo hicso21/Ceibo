@@ -6,7 +6,7 @@ router.get("/all", PetsController.getAllPets);
 
 router.get("/some", PetsController.getSomePets);
 
-router.post("/create", PetsController.createPet);
+//router.post("/create", PetsController.createPet);
 
 router.get("/:id", PetsController.findPet);
 
