@@ -11,9 +11,13 @@ router.post('/login', UserController.logIn)
 
 router.get('/me', validateAuth, (req, res) => res.send(req.user))
 
+router.get('/:id', UserController.getUser)
+
 router.post('/logout', UserController.logOut)
 
 router.delete('/delete/:id', UserController.deleteUser)
+
+
 
 
 module.exports = router;
