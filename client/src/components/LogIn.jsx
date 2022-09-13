@@ -40,11 +40,11 @@ export default function SignUp() {
             alignItems: 'center',
           }}
           >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: '#1e244b' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Log in
+            Iniciar sesión
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
@@ -52,7 +52,7 @@ export default function SignUp() {
                 <TextField
                   required
                   id="email"
-                  label="Email Address"
+                  label="Email"
                   name="email"
                   autoComplete="email"
                   />
@@ -60,7 +60,8 @@ export default function SignUp() {
               <Grid item xs={12}>
                 <TextField
                   required
-                  label="Password"
+                  fullWidth
+                  label="Contraseña"
                   type="password"
                   id="password"
                   autoComplete="new-password"
@@ -75,7 +76,7 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               >
-              Log In
+              Iniciar sesión
             </Button>
             <Grid container justifyContent="flex-end">
             </Grid>

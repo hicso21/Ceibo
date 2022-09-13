@@ -10,4 +10,8 @@ router.get("/some", FoundationController.getSomeFoundations);
 
 router.get("/:id", FoundationController.findById);
 
+router.get("/:id/pets", FoundationController.getAllPets);
+
+router.post("/:id/add", FoundationController.addPet);
+
 module.exports = router;

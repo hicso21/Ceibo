@@ -306,7 +306,7 @@ export default function PersistentDrawerLeft({ prop }) {
                 <ListItemIcon>
                   <Profile />
                 </ListItemIcon>
-                <ListItemText primary={"Perfil"} />
+                <ListItemText primary={"Mi perfil"} />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -320,7 +320,7 @@ export default function PersistentDrawerLeft({ prop }) {
                 <ListItemIcon>
                   <Favorite />
                 </ListItemIcon>
-                <ListItemText primary={"Favoritos"} />
+                <ListItemText primary={"Mis favoritos"} />
               </ListItemButton>
             </ListItem>
           </Link>
@@ -334,7 +334,7 @@ export default function PersistentDrawerLeft({ prop }) {
                 <ListItemIcon>
                   <History />
                 </ListItemIcon>
-                <ListItemText primary={"Historial"} />
+                <ListItemText primary={"Historial de adopción"} />
               </ListItemButton>
             </ListItem>
           </Link>

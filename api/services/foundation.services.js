@@ -18,6 +18,7 @@ class FoundationService {
       console.log(error);
     }
   }
+
   static async findById(id) {
     try {
       return await Foundation.findById(id);
@@ -25,9 +26,29 @@ class FoundationService {
       console.log(error);
     }
   }
+
   static async getSomeFoundations() {
     try {
       return await Foundation.find({}).limit(3).skip(2);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  static async addPet(petId, id) {
+    try {
+      return await Foundation.updateOne(
+        { _id: id },
+        { $push: { pets: petId } }
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  static async getAllPets(id) {
+    try {
+      return await Foundation.findById(id).populate("pets");
     } catch (error) {
       console.log(error.message);
     }
