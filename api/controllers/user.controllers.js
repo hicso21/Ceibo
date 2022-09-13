@@ -39,8 +39,13 @@ class UserController {
   }
 
   static async logOut(req, res) {
-    res.clearCookie("token");
-    res.sendStatus(204);
+    try {
+      console.log(req.cookies.token)
+      res.clearCookie("token");
+      res.sendStatus(200);
+    } catch (error) {
+      console.log(error)
+    }document.cookie = "token= "
   }
 
   static async deleteUser(req, res) {

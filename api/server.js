@@ -8,9 +8,13 @@ require("dotenv").config();
 require("./config/db");
 
 app.use(morgan("dev"));
+app.use(express.urlencoded({extended:true}))
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:3000", "http://localhost:8080"],
+  credentials: true, //access-control-allow-credentials:true
+}))
 
 app.use("/api", routes);
 
