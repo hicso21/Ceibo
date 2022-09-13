@@ -1,6 +1,6 @@
 import { Container, FormControl, Paper, MenuItem, Select, TextField, Typography, FormControlLabel, Switch, TextareaAutosize, Button } from '@mui/material'
 import { Box, Stack } from '@mui/system'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { styled } from '@mui/material/styles';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
@@ -8,7 +8,7 @@ import axios from 'axios';
 
 const AddPet = () => {
 
-  const [genre, setGenre] = useState(false)
+  const [genre, setGenre] = useState('')
   const [name, setName] = useState('')
   const [specie, setSpecie] = useState('')
   const [size, setSize] = useState('')
@@ -16,6 +16,7 @@ const AddPet = () => {
   const [personality, setPersonality] = useState('')
   const [history, setHistory] = useState('')
   const [images, setImages] = useState([])
+  const [switcher, setSwitcher] = useState(false)
 
   const buttonStyle = {
     mt:4,
@@ -33,8 +34,9 @@ const AddPet = () => {
   }));
 
   const handleGenre = (e) => {
-    if(genre === true) setGenre(false)
-    else setGenre(true)
+    if(switcher === true) setGenre('hembra')
+    else setGenre('macho')
+    console.log(genre)
   }
   const handleName = (e) => {setName(e.target.value)}
   const handleSpecie = (e) => {setSpecie(e.target.value)}
@@ -45,10 +47,15 @@ const AddPet = () => {
   const handleImages = (e) => {setImages(current=>[...current, e.target.value])}
 
   const handleSubmit = () => {
-    axios.post('/api/pets/create', {name, age, history, genre, size, personality, images, specie})
+    console.log({name, age, history, genre, size, personality, images, specie})
+    axios.post('http://localhost:3001/api/pets/create', {name, age, history, genre, size, personality, images, specie})
       .then((res)=>{console.log(res)})
   }
 
+  /* useEffect(()=>{
+    axios.get('http://localhost:3001/api/pets/all').then((res)=>console.log(res.data))
+  },[]) */
+  
   return (
     <>
         <Container sx={{ p: 4, backgroundColor: "#e0e0e0", borderRadius: 1, justifyContent:'center' }}>
@@ -88,8 +95,12 @@ const AddPet = () => {
             <Box sx={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'end'}}>
               <MaleIcon sx={{width:'20%', height:'20%'}}/>
               <Switch
-                checked={genre}
-                onChange={handleGenre}
+                checked={switcher}
+                onChange={()=>{
+                  if(switcher === false) setSwitcher(true)
+                  else setSwitcher(false)
+                  handleGenre()
+                }}
                 inputProps={{ 'aria-label': 'controlled' }}
               />
               <FemaleIcon sx={{width:'20%', height:'20%'}}/>

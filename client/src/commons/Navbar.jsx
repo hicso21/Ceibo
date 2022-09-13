@@ -299,6 +299,7 @@ export default function PersistentDrawerLeft({ prop }) {
           <Link
             style={{ color: "inherit", textDecoration: "none" }}
             to={"/profile"}
+            onClick={()=>{handleDrawerClose()}}
           >
             <ListItem disablePadding>
               <ListItemButton>
@@ -312,6 +313,7 @@ export default function PersistentDrawerLeft({ prop }) {
           <Link
             style={{ color: "inherit", textDecoration: "none" }}
             to={"/favorites"}
+            onClick={()=>{handleDrawerClose()}}
           >
             <ListItem disablePadding>
               <ListItemButton>
@@ -325,6 +327,7 @@ export default function PersistentDrawerLeft({ prop }) {
           <Link
             style={{ color: "inherit", textDecoration: "none" }}
             to={"/history"}
+            onClick={()=>{handleDrawerClose()}}
           >
             <ListItem disablePadding>
               <ListItemButton>
@@ -338,6 +341,7 @@ export default function PersistentDrawerLeft({ prop }) {
           <Link
             style={{ color: "inherit", textDecoration: "none" }}
             to={"/messages"}
+            onClick={()=>{handleDrawerClose()}}
           >
             <ListItem disablePadding>
               <ListItemButton>
@@ -425,7 +429,7 @@ export default function PersistentDrawerLeft({ prop }) {
             </IconButton>
           </DrawerHeader>
           <List sx={DrawerList}>
-            <Link style={{ color: "inherit", textDecoration: "none" }} to={"/"}>
+            <Link style={{ color: "inherit", textDecoration: "none" }} to={"/"} onClick={()=>{handleDrawerClose()}}>
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
@@ -439,6 +443,7 @@ export default function PersistentDrawerLeft({ prop }) {
               <Link
                 style={{ color: "inherit", textDecoration: "none" }}
                 to={`/${text.toLowerCase()}`}
+              onClick={()=>{handleDrawerClose()}}
                 key={i}
               >
                 <ListItem key={text} disablePadding>
@@ -459,12 +464,12 @@ export default function PersistentDrawerLeft({ prop }) {
             {loginMenu}
           </List>
         </Drawer>
-        <Main open={open}>
+        <Main /* open={open} */sx={{display:'flex', flexDirection:'column'}}>
           <DrawerHeader />
           {prop}
+          <Footer sx={{alignItems:'end'}}/>
         </Main>
       </Box>
-      <Footer />
     </>
   );
 }

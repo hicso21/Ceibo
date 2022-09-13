@@ -12,9 +12,7 @@ import Profile from './components/Profile';
 import Favorites from './components/Favorites';
 import SingularPet from './components/SingularPet';
 import SingularFoundation from './components/SingularFoundation';
-
-
-  
+import Search from './components/Search';
 
 function App() {
   return (
@@ -30,7 +28,7 @@ function App() {
         <Route path='/register' element={<Navbar prop={<SignUp/>}/>}/>
         <Route path='/favorites' element={<Navbar prop={<Favorites/>}/>}/>
         <Route path='/messages' element={<Navbar prop={<></>}/>}/>
-        <Route path='/search' element={<Navbar prop={<></>}/>}/>
+        <Route path='/search/:busqueda' element={<Navbar prop={<Search/>}/>}/>
       </Routes>
   );
 }

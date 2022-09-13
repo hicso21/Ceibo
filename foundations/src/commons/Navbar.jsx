@@ -67,7 +67,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const drawerWidth = 300;
+const drawerWidth = 250;
 
 const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
@@ -87,6 +87,7 @@ const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   })
 );
 
+//paddingRight
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })(({ theme, open }) => ({
@@ -121,6 +122,27 @@ export default function PersistentDrawerLeft({ prop }) {
   const navigate = useNavigate();
   console.log(user)
 
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate(`/search/${search}`);
+  };
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
+
+  const handleLogOut = () => {};
+
+  React.useEffect(()=>{if(matches) setOpen(true)},[])
+
   //false = mobile  ---  true = desktop
   const matches = useMatches()
 
@@ -135,9 +157,36 @@ export default function PersistentDrawerLeft({ prop }) {
   let ButtonLogoStyle
   let DrawerStyle
   let LogoStyle
+  let logoutStack
+  let logoutButton
+  let top
 
   //desktop or mobile
   if(matches){
+    logoutButton = {
+      backgroundColor: (theme) =>
+        theme.palette.mode === "dark"
+          ? (theme.palette.color = "#FFD600")
+          : (theme.palette.color = "#FFD600"),
+      color: (theme) =>
+        theme.palette.mode === "light"
+          ? (theme.palette.color = "#1e244b")
+          : (theme.palette.color = "#04092A"),
+    }
+    logoutStack = {height:'70%', justifyContent:'end'}
+    LogoStyle = { padding: 0, maxWidth: 56, justifyContent:'end'}
+    ButtonLogoStyle = { paddingLeft: 0,width:'60px' ,display:'flex',justifyContent: "end"}
+    UserNameStyle = {display:'flex',justifyContent:'center', width:'100%'}
+    ToolbarStyle= { paddingRight: 0, maxHeight: 67, display:'flex' }
+    IconButtonStyle = { mr: 2, ...(open && { display: "none" }) }
+    DrawerStyle = {
+      width: drawerWidth,
+      flexShrink: 0,
+      "& .MuiDrawer-paper": {
+        width: drawerWidth,
+        boxSizing: "border-box",
+      },
+    }
     appBarStyle = {
       position:"fixed",
       backgroundColor: (theme) =>
@@ -161,6 +210,7 @@ export default function PersistentDrawerLeft({ prop }) {
           : (theme.palette.color = "#000000"),
     }
     DrawerList = {
+      height: "100%",
       backgroundColor: (theme) =>
         theme.palette.mode === "dark"
           ? (theme.palette.color = "#FFD600")
@@ -171,7 +221,6 @@ export default function PersistentDrawerLeft({ prop }) {
           : (theme.palette.color = "#04092A"),
     }
     drawerHeader = {
-      height: "100%",
       backgroundColor: (theme) =>
         theme.palette.mode === "dark"
           ? (theme.palette.color = "#FFD600")
@@ -181,6 +230,9 @@ export default function PersistentDrawerLeft({ prop }) {
           ? (theme.palette.color = "#000000")
           : (theme.palette.color = "#FFFFFF"),
     }
+    top = <>
+            <Typography sx={UserNameStyle}>{`${user.name}`}</Typography>
+          </> 
   }
   else{
     LogoStyle = { padding: 0, maxWidth: 56}
@@ -242,24 +294,7 @@ export default function PersistentDrawerLeft({ prop }) {
           : (theme.palette.color = "#FFFFFF"),
     }
   }
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    navigate(`/search?query=${search}`);
-  };
-
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-  };
-
-  const handleLogOut = () => {};
 
   return (
     <>
@@ -313,26 +348,13 @@ export default function PersistentDrawerLeft({ prop }) {
           open={open}
         >
           <DrawerHeader sx={drawerHeader}>
-            <Typography sx={UserNameStyle}>{`${user.name}`}</Typography>
-            <Divider
-              sx={{ backgroundColor: "tan" }}
-              orientation="vertical"
-              variant="middle"
-              flexItem
-            />
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "ltr" ? (
-                <ChevronLeftIcon />
-              ) : (
-                <ChevronRightIcon />
-              )}
-            </IconButton>
+            {top}
           </DrawerHeader>
           <List sx={DrawerList}>
             <Link
               style={{ color: "inherit", textDecoration: "none" }}
               to={"/mascotas"}
-              onClick={()=>{handleDrawerClose()}}
+              onClick={()=>{if(!matches)handleDrawerClose()}}
             >
               <ListItem disablePadding>
                 <ListItemButton>
@@ -346,7 +368,7 @@ export default function PersistentDrawerLeft({ prop }) {
             <Link
               style={{ color: "inherit", textDecoration: "none" }}
               to={"/add"}
-              onClick={()=>{handleDrawerClose()}}
+              onClick={()=>{if(!matches)handleDrawerClose()}}
             >
               <ListItem disablePadding>
                 <ListItemButton>
@@ -360,7 +382,7 @@ export default function PersistentDrawerLeft({ prop }) {
             <Link
               style={{ color: "inherit", textDecoration: "none" }}
               to={"/profile"}
-              onClick={()=>{handleDrawerClose()}}
+              onClick={()=>{if(!matches)handleDrawerClose()}}
             >
               <ListItem disablePadding>
                 <ListItemButton>
@@ -374,7 +396,7 @@ export default function PersistentDrawerLeft({ prop }) {
             <Link
               style={{ color: "inherit", textDecoration: "none" }}
               to={"/history"}
-              onClick={()=>{handleDrawerClose()}}
+              onClick={()=>{if(!matches)handleDrawerClose()}}
             >
               <ListItem disablePadding>
                 <ListItemButton>
@@ -388,7 +410,7 @@ export default function PersistentDrawerLeft({ prop }) {
             <Link
               style={{ color: "inherit", textDecoration: "none" }}
               to={"/messages"}
-              onClick={()=>{handleDrawerClose()}}
+              onClick={()=>{if(!matches)handleDrawerClose()}}
             >
               <ListItem disablePadding>
                 <ListItemButton>
@@ -399,18 +421,18 @@ export default function PersistentDrawerLeft({ prop }) {
                 </ListItemButton>
               </ListItem>
             </Link>
-            <Stack>
+            <Stack sx={logoutStack}>
               <Divider/>
-              <Button onClick={handleLogOut} sx={DrawerList}>
+              <Button onClick={handleLogOut} sx={logoutButton}>
                 Cerrar Sesion
               </Button>
             </Stack>
           </List>
         </Drawer>
-        <Main /* open={open} */sx={{display:'flex', flexDirection:'column'}}>
+        <Main open={open}sx={{display:'flex', flexDirection:'column'}}>
           <DrawerHeader />
           {prop}
-          <Footer sx={{alignItems:'end'}}/>
+          <Footer/>
         </Main>
       </Box>
     </>

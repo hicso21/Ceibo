@@ -2,7 +2,6 @@ import axios from "axios";
 import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getId = createAsyncThunk("ID", (data)=>{
-    console.log(data)
     return axios.get(`http://localhost:3001/api/${data.type}/${data.id}`).then(info=>info.data)
 })
 
