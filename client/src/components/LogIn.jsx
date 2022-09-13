@@ -11,19 +11,22 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { sendLoginRequest } from '../state/user';
 
 const theme = createTheme();
 
 export default function SignUp() {
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    dispatch(sendLoginRequest({
       email: data.get('email'),
       password: data.get('password'),
-    });
+    }));
     navigate('/')
   };
 
@@ -64,6 +67,7 @@ export default function SignUp() {
                   label="Contraseña"
                   type="password"
                   id="password"
+                  name="password"
                   autoComplete="new-password"
                   />
               </Grid>

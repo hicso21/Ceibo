@@ -33,7 +33,7 @@ class UserController {
       });
       const payload = validateToken(token);
       req.user = payload;
-      res.cookie("token", token, { maxAge: 9000000 });
+      res.cookie("token", token);
       res.status(201).send(req.user);
     } else return res.sendStatus(401);
   }

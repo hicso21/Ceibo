@@ -43,7 +43,6 @@ function Home() {
   }, []);
 
   function ImageListPets({ items, type }) {
-    console.log(foundations);
     return (
       <ImageList sx={ImageStyle}>
         {items?.map((item, i) => (
