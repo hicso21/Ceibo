@@ -1,167 +1,122 @@
-import React from "react";
-import {
-  Button,
-  Grid,
-  Paper,
-  Snackbar,
-  TextField,
-  Typography,
-} from "@mui/material";
-import { styled } from "@mui/material/styles";
-import CheckIcon from "@mui/icons-material/Check";
-import MuiAlert from '@mui/material/Alert';
-import { Box } from "@mui/system";
-import useMatches from "../hooks/useMatches";
+import * as React from "react";
+import Button from "@mui/material/Button";
+import CssBaseline from "@mui/material/CssBaseline";
+import TextField from "@mui/material/TextField";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useNavigate } from "react-router";
+import axios from "axios";
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-  height: 55,
-}));
+const theme = createTheme();
 
 const Profile = () => {
-    const [firstName, setFirstName] = React.useState('')
-    const [lastName, setLastName] = React.useState('')
-    const [birth, setBirth] = React.useState('')
-    const [address, setAddress] = React.useState('')
-    const [secondAddress, setSecondAddress] = React.useState('')
 
-    //false = mobile  ---  true = desktop
-    const matches = useMatches()
-
-    if(matches){}
-    else{}
-
-    const handleFirstName = (e)=>{
-        setFirstName(e.target.value)
-        setOpen(true);
-    }
-
-    const handleLastName = (e)=>{
-        setLastName(e.target.value)
-        setOpen(true);
-    }
-
-    const handleBirth = (e)=>{
-        setBirth(e.target.value)
-        setOpen(true);
-    }
-
-    const handleAddress = (e)=>{
-        setAddress(e.target.value)
-        setOpen(true);
-    }
-
-    const handleSecondAddress = (e)=>{
-        setSecondAddress(e.target.value)
-        setOpen(true);
-    }
-
-    const Alert = React.forwardRef(function Alert(props, ref) {
-        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-    });
-    const [open, setOpen] = React.useState(false);
-    
-    
-    
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-    
-        setOpen(false);
-    };
-
+  
   return (
     <>
-      <Box sx={{p:3}}>
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
-            <Item>
-              <Typography sx={{ paddingTop: 1 }}>Firstname</Typography>
-            </Item>
-          </Grid>
-          <Grid item xs={5}>
-              <TextField
-          />
-          </Grid>
-          <Grid item xs={3}>
-            <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleFirstName}>
-              <CheckIcon />
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Typography component="h1" variant="h5">
+              Mi Perfil
+            </Typography>
+            <Stack direction="row" spacing={2}>
+              <Avatar
+                alt="Remy Sharp"
+                src="/static/images/avatar/1.jpg"
+                sx={{ m: 2, width: 66, height: 66 }}
+              />
+            </Stack>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Button variant="contained" component="label">
+                Subir imagen
+                <input hidden accept="image/*" multiple type="file" />
+              </Button>
+            </Stack>
+            <Box component="form" noValidate sx={{ mt: 2 }}>
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <TextField
+                    autoComplete="fname"
+                    name="name"
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="name"
+                    label="Nombre"
+                    autoFocus
+                    value="Juan Carlos"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    variant="outlined"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    value="juancarlos@gmail.com"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    autoComplete="new-password"
+                    required
+                    fullWidth
+                    id="password"
+                    label="Contraseña"
+                    type="password"
+                    value="Contraseña123"
+                  />
+                </Grid>
+              </Grid>
+              <Button
+                type="submit"
+                variant="contained"
+                fullWidth
+                size="large"
+                sx={{
+                  marginBottom: 1,
+                  marginTop: 2,
+                  backgroundColor: "#03A696",
+                  "&:hover": {
+                    backgroundColor: "#04BF9D",
+                    color: "#757575",
+                  },
+                }}
+              >
+                Formulario de adopción
+              </Button>
+              <Grid container justifyContent="flex-end"></Grid>
+            </Box>
+            <Button
+              color="inherit"
+              fullWidth
+              sx={{ mt: 6, bgcolor: "#FFD640", mb: 4, borderRadius: 7 }}
+            >
+              Guardar cambios
             </Button>
-          </Grid>
-          <Grid item xs={4}>
-            <Item>
-              <Typography sx={{ paddingTop: 1 }}>Lastname</Typography>
-            </Item>
-          </Grid>
-          <Grid item xs={5}>
-            <TextField
-
-  />
-          </Grid>
-          <Grid item xs={3}>
-            <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleLastName}>
-              <CheckIcon />
-            </Button>
-          </Grid>
-          <Grid item xs={4}>
-            <Item>
-              <Typography sx={{ paddingTop: 1 }}>BirthDate</Typography>
-            </Item>
-          </Grid>
-          <Grid item xs={5}>
-            <TextField
-
-  />
-          </Grid>
-          <Grid item xs={3}>
-            <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleBirth}>
-              <CheckIcon />
-            </Button>
-          </Grid>
-          <Grid item xs={4}>
-            <Item>
-              <Typography>First Address</Typography>
-            </Item>
-          </Grid>
-          <Grid item xs={5}>
-            <TextField
-
-  />
-          </Grid>
-          <Grid item xs={3}>
-            <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleAddress}>
-              <CheckIcon />
-            </Button>
-          </Grid>
-          <Grid item xs={4}>
-            <Item>
-              <Typography>Second Address</Typography>
-            </Item>
-          </Grid>
-          <Grid item xs={5}>
-            <TextField
-
-  />
-          </Grid>
-          <Grid item xs={3}>
-            <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleSecondAddress}>
-              <CheckIcon />
-            </Button>
-          </Grid>
-        </Grid>
-        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-            The change was succesfully!!
-          </Alert>
-        </Snackbar>
-      </Box>
+          </Box>
+        </Container>
+      </ThemeProvider>
     </>
   );
 };
 
-export default Profile
+export default Profile;
+
