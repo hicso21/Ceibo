@@ -19,6 +19,7 @@ function App() {
       <Route path="/mascotas/:petName" element={<Navbar prop={<SingularPet/>}/>}/>
       <Route path="/login" element={<Navbar prop={<LogIn/>}/>}/>
       <Route path="/" element={<Navbar prop={<SignUp/>}/>}/>
+      {/* <Route path="/passwordForgotted" element={<Navbar prop={<></>}/>}/> */}
       <Route path="/messages" element={<Navbar prop={<></>}/>}/>
       <Route path="/add" element={<Navbar prop={<AddPet/>}/>}/>
       <Route path="/search/:busqueda" element={<Navbar prop={<></>}/>}/>

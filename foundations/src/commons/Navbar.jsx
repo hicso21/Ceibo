@@ -115,12 +115,14 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft({ prop }) {
+  //false = mobile  ---  true = desktop
+  const matches = useMatches()
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = React.useState("");
   const user = useSelector((state)=>state.user)
   const navigate = useNavigate();
-  console.log(user)
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -143,8 +145,6 @@ export default function PersistentDrawerLeft({ prop }) {
 
   React.useEffect(()=>{if(matches) setOpen(true)},[])
 
-  //false = mobile  ---  true = desktop
-  const matches = useMatches()
 
   //style variables
   let appBarStyle 
@@ -160,9 +160,15 @@ export default function PersistentDrawerLeft({ prop }) {
   let logoutStack
   let logoutButton
   let top
+  let openDrawer
+  let marginDrawer
+  let drawerButton
 
   //desktop or mobile
   if(matches){
+    drawerButton = <></>
+    marginDrawer = true
+    openDrawer = true
     logoutButton = {
       backgroundColor: (theme) =>
         theme.palette.mode === "dark"
@@ -235,6 +241,23 @@ export default function PersistentDrawerLeft({ prop }) {
           </> 
   }
   else{
+    if(!open){
+      drawerButton =
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleDrawerOpen}
+                    edge="start"
+                    sx={IconButtonStyle}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+    }else{
+      drawerButton=<></>
+    }
+    
+    marginDrawer = false
+    openDrawer = open
     LogoStyle = { padding: 0, maxWidth: 56}
     ButtonLogoStyle = { paddingLeft: 0,width:'100%' ,justifyContent: "center"}
     UserNameStyle = {display:'flex',justifyContent:'center', width:'100%'}
@@ -293,6 +316,13 @@ export default function PersistentDrawerLeft({ prop }) {
           ? (theme.palette.color = "#000000")
           : (theme.palette.color = "#FFFFFF"),
     }
+    top = <>
+            <Typography sx={UserNameStyle}>{`${user.name}`}</Typography>
+            <Divider orientation="vertical" variant="middle" flexItem />
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </> 
   }
 
 
@@ -300,20 +330,12 @@ export default function PersistentDrawerLeft({ prop }) {
     <>
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
-        <AppBar open={open} sx={appBarStyle}>
+        <AppBar open={openDrawer} sx={appBarStyle}>
           <Toolbar
             style={{ color: "black" }}
             sx={ToolbarStyle}
           >
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={handleDrawerOpen}
-              edge="start"
-              sx={IconButtonStyle}
-            >
-              <MenuIcon />
-            </IconButton>
+            {drawerButton}
             <Box sx={{ display: "flex", flexDirection: "row" }}>
               <Search sx={SearchStyle} id='searchDisplay'>
                 <StyledInputBase
@@ -345,7 +367,7 @@ export default function PersistentDrawerLeft({ prop }) {
           sx={DrawerStyle}
           variant="persistent"
           anchor="left"
-          open={open}
+          open={openDrawer}
         >
           <DrawerHeader sx={drawerHeader}>
             {top}
@@ -429,7 +451,7 @@ export default function PersistentDrawerLeft({ prop }) {
             </Stack>
           </List>
         </Drawer>
-        <Main open={open}sx={{display:'flex', flexDirection:'column'}}>
+        <Main open={marginDrawer} sx={{display:'flex', flexDirection:'column'}}>
           <DrawerHeader />
           {prop}
           <Footer/>
