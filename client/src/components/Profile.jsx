@@ -97,7 +97,7 @@ const Profile = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    id="name"
+                    id="password"
                     variant="outlined"
                     required
                     fullWidth
