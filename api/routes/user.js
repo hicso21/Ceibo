@@ -1,8 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const UserController = require("../controllers/user.controllers");
-const { validateAuth } = require('../middlewares/auth')
-const { validateToken, generateToken } = require("../config/tokens")
+const { validateAuth } = require('../middlewares/authUser')
+
 
 
 router.post('/register', UserController.createUser)
@@ -16,6 +16,8 @@ router.get('/:id', UserController.getUser)
 router.post('/logout', UserController.logOut)
 
 router.delete('/delete/:id', UserController.deleteUser)
+
+router.put('/update/', UserController.userUpdate)
 
 
 
