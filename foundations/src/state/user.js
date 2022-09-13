@@ -3,7 +3,7 @@ import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const sendLoginRequest = createAsyncThunk("LOGIN", (input) => {
   
- return axios.post("/api/login",input).then((r)=> r.data)
+ return axios.post("/api/foundation/",input).then((r)=> r.data)
 });
 
 export const sendSignUpRequest = createAsyncThunk("SIGNUP", (input) => {

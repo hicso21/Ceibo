@@ -1,5 +1,5 @@
 import "./App.css";
-import React from "react";
+import React, { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./commons/Navbar";
 import SingularPet from "./components/SingularPet";
@@ -9,8 +9,24 @@ import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import Pets from "./components/Pets";
 import AddPet from "./components/AddPet";
+import { useDispatch } from "react-redux";
 
 function App() {
+
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    /* axios
+    .get("http://localhost:3001/api/user/me", {
+      withCredentials: true,
+      credentials: "include",
+    })
+    .then((resp) => {
+      dispatch(setUser(resp.data));
+      return resp.data;
+    }) */
+  },[])
+
   return (
     <Routes>
       <Route path="/profile" element={<Navbar prop={<Profile/>}/>}/>

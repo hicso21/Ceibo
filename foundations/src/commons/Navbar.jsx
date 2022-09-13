@@ -216,7 +216,7 @@ export default function PersistentDrawerLeft({ prop }) {
           : (theme.palette.color = "#000000"),
     }
     DrawerList = {
-      height: "100%",
+      height: "89%",
       backgroundColor: (theme) =>
         theme.palette.mode === "dark"
           ? (theme.palette.color = "#FFD600")

@@ -22,7 +22,10 @@ function App() {
 
   useEffect(()=>{
     axios
-    .get("/api/user/me")
+    .get("http://localhost:3001/api/user/me", {
+      withCredentials: true,
+      credentials: "include",
+    })
     .then((resp) => {
       dispatch(setUser(resp.data));
       return resp.data;

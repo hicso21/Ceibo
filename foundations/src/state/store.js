@@ -16,3 +16,6 @@ const store = configureStore({
   });
 
 export default store;
+
+//perros@gmail.com
+//123456
