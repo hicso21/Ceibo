@@ -8,6 +8,8 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import StarIcon from '@mui/icons-material/Star';
 
 const SingularPet = () => {
     let infoView = useSelector((state)=>state.id);
@@ -31,6 +33,7 @@ const SingularPet = () => {
                     width='100%'
                     id='petPhoto'
                     />
+                    <Button><StarIcon/></Button>
                 </CardMedia>
                 <br/>
                 <Card sx={{borderRadius:5}}>
