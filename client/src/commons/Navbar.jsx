@@ -33,9 +33,11 @@ import Favorite from "@mui/icons-material/StarRate";
 import History from "@mui/icons-material/History";
 import Message from "@mui/icons-material/Message";
 import Footer from "./Footer";
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import useMatches from "../hooks/useMatches";
 import HomeIcon from '@mui/icons-material/Home';
+import { sendLogoutRequest } from "../state/user";
+import { useEffect } from "react";
 
 let loginMenu;
 
@@ -124,7 +126,7 @@ export default function PersistentDrawerLeft({ prop }) {
   const [search, setSearch] = React.useState("");
   const user = useSelector((state)=>state.user)
   const navigate = useNavigate();
-  console.log(user)
+  const dispatch = useDispatch();
 
   //false = mobile  ---  true = desktop
   const matches = useMatches()
@@ -264,9 +266,11 @@ export default function PersistentDrawerLeft({ prop }) {
     setSearch(e.target.value);
   };
 
-  const handleLogOut = () => {};
+  const handleLogOut = () => {
+    dispatch(sendLogoutRequest())
+  };
 
-  !user
+  !user.email
     ? (loginMenu = (
         <>
           <Divider/>
@@ -275,6 +279,7 @@ export default function PersistentDrawerLeft({ prop }) {
               <Button
                 onClick={() => {
                   navigate("/login");
+                  handleDrawerClose();
                 }}
                 sx={DrawerList}
               >
@@ -285,6 +290,7 @@ export default function PersistentDrawerLeft({ prop }) {
               <Button
                 onClick={() => {
                   navigate("/register");
+                  handleDrawerClose();
                 }}
                 sx={DrawerList}
               >
@@ -299,6 +305,7 @@ export default function PersistentDrawerLeft({ prop }) {
           <Link
             style={{ color: "inherit", textDecoration: "none" }}
             to={"/profile"}
+            onClick={()=>{handleDrawerClose()}}
           >
             <ListItem disablePadding>
               <ListItemButton>
@@ -312,6 +319,7 @@ export default function PersistentDrawerLeft({ prop }) {
           <Link
             style={{ color: "inherit", textDecoration: "none" }}
             to={"/favorites"}
+            onClick={()=>{handleDrawerClose()}}
           >
             <ListItem disablePadding>
               <ListItemButton>
@@ -325,6 +333,7 @@ export default function PersistentDrawerLeft({ prop }) {
           <Link
             style={{ color: "inherit", textDecoration: "none" }}
             to={"/history"}
+            onClick={()=>{handleDrawerClose()}}
           >
             <ListItem disablePadding>
               <ListItemButton>
@@ -338,6 +347,7 @@ export default function PersistentDrawerLeft({ prop }) {
           <Link
             style={{ color: "inherit", textDecoration: "none" }}
             to={"/messages"}
+            onClick={()=>{handleDrawerClose()}}
           >
             <ListItem disablePadding>
               <ListItemButton>
@@ -350,12 +360,14 @@ export default function PersistentDrawerLeft({ prop }) {
           </Link>
           <Stack>
             <Divider/>
-            <Button onClick={handleLogOut} sx={DrawerList}>
+            <Button onClick={()=>{handleLogOut();handleDrawerClose()}} sx={DrawerList}>
               Cerrar Sesion
             </Button>
           </Stack>
         </>
       ));
+
+      
 
   return (
     <>
@@ -425,7 +437,7 @@ export default function PersistentDrawerLeft({ prop }) {
             </IconButton>
           </DrawerHeader>
           <List sx={DrawerList}>
-            <Link style={{ color: "inherit", textDecoration: "none" }} to={"/"}>
+            <Link style={{ color: "inherit", textDecoration: "none" }} to={"/"} onClick={()=>{handleDrawerClose()}}>
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
@@ -439,6 +451,7 @@ export default function PersistentDrawerLeft({ prop }) {
               <Link
                 style={{ color: "inherit", textDecoration: "none" }}
                 to={`/${text.toLowerCase()}`}
+              onClick={()=>{handleDrawerClose()}}
                 key={i}
               >
                 <ListItem key={text} disablePadding>
@@ -459,12 +472,12 @@ export default function PersistentDrawerLeft({ prop }) {
             {loginMenu}
           </List>
         </Drawer>
-        <Main open={open}>
+        <Main /* open={open} */sx={{display:'flex', flexDirection:'column'}}>
           <DrawerHeader />
           {prop}
+          <Footer sx={{alignItems:'end'}}/>
         </Main>
       </Box>
-      <Footer />
     </>
   );
 }

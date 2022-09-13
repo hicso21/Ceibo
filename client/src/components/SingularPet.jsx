@@ -1,6 +1,6 @@
-import { Button, Card, CardMedia, Typography } from '@mui/material';
+import { Button, Card, CardMedia, IconButton, Typography } from '@mui/material';
 import { Box, Container, Stack } from '@mui/system';
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from "react-redux";
 import MaleIcon from "@mui/icons-material/Male";
 import FemaleIcon from "@mui/icons-material/Female";
@@ -8,10 +8,24 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import AssignmentIcon from "@mui/icons-material/Assignment";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
+import StarBorderIcon from '@mui/icons-material/StarBorder';
+import StarIcon from '@mui/icons-material/Star';
+import { useEffect } from 'react';
 
 const SingularPet = () => {
     let infoView = useSelector((state)=>state.id);
-    //console.log(infoView)
+    const [favorites, setFavorites] = useState(false)
+    let fav;
+
+    const handleFavorites = () => {
+        if(favorites){
+            setFavorites(false)
+            fav = <><StarBorderIcon sx={{height:40, width:40}}/></>
+        }else{
+            setFavorites(true)
+            fav = <><StarIcon sx={{height:40, width:40}}/></>
+        }
+    }
 
   const buttonStyle = {
     bgcolor: "#FFD640",
@@ -20,19 +34,27 @@ const SingularPet = () => {
     borderRadius: 10,
   };
 
+    if(favorites){
+        fav = <><StarIcon sx={{height:40, width:40}}/></>
+    }else {
+        fav = <><StarBorderIcon sx={{height:40, width:40}}/></>
+    }
+
   return (
     <>
         <br/>
         <Container sx={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
                 <CardMedia sx={{padding:0, borderRadius:10, maxWidth:'343'}}>
                     <img
-                    alt=''
-                    src={infoView.photos}
-                    width='100%'
-                    id='petPhoto'
+                        alt=''
+                        src={infoView.photos}
+                        width='100%'
+                        id='petPhoto'
                     />
+                    <Button onClick={handleFavorites} sx={{color:'inherit', ml:'80%'}}>
+                        {fav} 
+                    </Button>
                 </CardMedia>
-                <br/>
                 <Card sx={{borderRadius:5}}>
                     <Stack padding={2} sx={{maxWidth:'100%'}}>
                         <Box sx={{display:'flex', flexDirection:'row'}}>

@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route} from 'react-router-dom';
 import Home from './components/Home'
 import Pets from './components/Pets'
@@ -12,11 +12,23 @@ import Profile from './components/Profile';
 import Favorites from './components/Favorites';
 import SingularPet from './components/SingularPet';
 import SingularFoundation from './components/SingularFoundation';
-
-
-  
+import Search from './components/Search';
+import axios from'axios'
+import { useDispatch } from 'react-redux';
+import { setUser } from './state/user';
 
 function App() {
+  const dispatch = useDispatch()
+
+  useEffect(()=>{
+    axios
+    .get("/api/user/me")
+    .then((resp) => {
+      dispatch(setUser(resp.data));
+      return resp.data;
+    })
+  },[])
+
   return (
       <Routes>
         <Route path='/' element={<Navbar prop={<Home/>}/>}/>
@@ -30,7 +42,7 @@ function App() {
         <Route path='/register' element={<Navbar prop={<SignUp/>}/>}/>
         <Route path='/favorites' element={<Navbar prop={<Favorites/>}/>}/>
         <Route path='/messages' element={<Navbar prop={<></>}/>}/>
-        <Route path='/search' element={<Navbar prop={<></>}/>}/>
+        <Route path='/search/:busqueda' element={<Navbar prop={<Search/>}/>}/>
       </Routes>
   );
 }

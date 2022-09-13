@@ -86,3 +86,11 @@
     width: 230px;
   }
 }
+
+@media (min-width: 1024px){
+  #searchDisplay {
+    width: 350px;
+
+    justify-content: end;
+  }
+}
