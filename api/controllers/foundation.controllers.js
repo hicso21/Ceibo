@@ -1,5 +1,7 @@
 const FoundationServices = require("../services/foundation.services");
 const PetServices = require("../services/pet.services");
+const bcrypt = require("bcrypt");
+const { validateToken, generateToken } = require("../config/tokens");
 
 class FoundationController {
   static async getAllFoundation(req, res) {
@@ -13,12 +15,37 @@ class FoundationController {
   }
 
   static async createFoundation(req, res) {
-    try {
-      const foundation = await FoundationServices.createFoundation(req.body);
-      return res.status(201).send(foundation);
-    } catch (error) {
-      console.log(error);
-    }
+    const foundation = await FoundationServices.createFoundation(req.body);
+    if (foundation) {
+      const token = generateToken({
+        _id: foundation._id,
+        name: foundation.name,
+        email: foundation.email,
+        pets :foundation.pets,
+      });
+      const payload = validateToken(token);
+      req.foundation = payload;
+      res.cookie("token", token, { maxAge: 9000000 });
+      res.status(201).send(foundation);
+    } else res.sendStatus(400);
+  }
+
+  static async logIn(req, res) {
+    const foundation = await FoundationServices.find(req);
+    if (!foundation) return res.sendStatus(401);
+    const passwordHashed = bcrypt.hashSync(req.body.password, foundation.salt);
+    if (passwordHashed === foundation.password) {
+      const token = generateToken({
+        _id: foundation._id,
+        name: foundation.name,
+        email: foundation.email,
+        pets :foundation.pets,
+      });
+      const payload = validateToken(token);
+      req.foundation = payload;
+      res.cookie("token", token, { maxAge: 9000000 });
+      res.status(201).send(req.foundation);
+    } else return res.sendStatus(401);
   }
 
   static async findById(req, res) {
@@ -64,6 +91,11 @@ class FoundationController {
     } catch (error) {
       console.log(error.message);
     }
+  }
+
+  static async logOut(req, res) {
+    res.clearCookie("token");
+    res.sendStatus(204);
   }
 }
 

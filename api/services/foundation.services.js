@@ -53,6 +53,15 @@ class FoundationService {
       console.log(error.message);
     }
   }
+
+  static async find(req) {
+    const { email } = req.body;
+    try {
+      return await Foundation.findOne({ email: email, status: true });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }
 
 module.exports = FoundationService;

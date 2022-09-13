@@ -61,5 +61,14 @@ class UserController {
       console.log(error);
     }
   }
+
+  static async userUpdate(req, res) {
+    try {
+        const user = await UserService.userUpdate(req.body)
+        return res.status(204).send(user)
+    } catch (error) {
+        console.log(error)
+    }
+}
 }
 module.exports = UserController;

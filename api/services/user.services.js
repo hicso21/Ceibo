@@ -32,6 +32,14 @@ class UserService {
       console.log(error);
     }
   }
+  static async userUpdate(body) {
+    try {
+        return await Users.updateOne({ _id: body.id }, { $set: body.mod })
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 }
 
 module.exports = UserService;
