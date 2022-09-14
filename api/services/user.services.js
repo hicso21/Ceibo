@@ -36,13 +36,13 @@ class UserService {
     }
   }
 
-  static async userUpdate(body) {
+  static async userUpdate(body,id) {
     try {
-      return await Users.updateOne({ _id: body.id }, { $set: body.mod });
-    } catch (error) {
-      console.log(error.message);
-    }
+      return await Users.updateOne({ _id: id }, { $set: body })
+  } catch (error) {
+      console.log(error)
   }
+}
 
   static async addFavorite(id, fav) {
     try {

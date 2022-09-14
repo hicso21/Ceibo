@@ -21,7 +21,9 @@ class FoundationController {
         _id: foundation._id,
         name: foundation.name,
         email: foundation.email,
-        pets :foundation.pets,
+        pets: foundation.pets,
+        profile_picture: foundation.profile_picture,
+        location: foundation.location,
       });
       const payload = validateToken(token);
       req.foundation = payload;
@@ -39,7 +41,9 @@ class FoundationController {
         _id: foundation._id,
         name: foundation.name,
         email: foundation.email,
-        pets :foundation.pets,
+        pets: foundation.pets,
+        profile_picture: foundation.profile_picture,
+        location: foundation.location,
       });
       const payload = validateToken(token);
       req.foundation = payload;

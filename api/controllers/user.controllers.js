@@ -13,6 +13,11 @@ class UserController {
           name: user.name,
           last_name: user.last_name,
           email: user.email,
+          profile_picture: user.profile_picture,
+          age: user.age,
+          favorites: user.favorites,
+          adopted: user.adopted,
+          location: user.location,
         });
         const payload = validateToken(token);
         req.user = payload;
@@ -35,6 +40,11 @@ class UserController {
           name: user.name,
           last_name: user.last_name,
           email: user.email,
+          profile_picture: user.profile_picture,
+          age: user.age,
+          favorites: user.favorites,
+          adopted: user.adopted,
+          location: user.location,
         });
         const payload = validateToken(token);
         req.user = payload;
@@ -77,12 +87,12 @@ class UserController {
 
   static async userUpdate(req, res) {
     try {
-      const user = await UserService.userUpdate(req.body);
-      return res.status(204).send(user);
-    } catch (error) {
-      console.log(error.message);
-    }
+      const user = await UserService.userUpdate(req.body, req.params.id)
+      return res.status(204).send(user)
+  } catch (error) {
+      console.log(error)
   }
+}
 
   static async getFavorites(req, res) {
     try {
