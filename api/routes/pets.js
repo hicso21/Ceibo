@@ -12,7 +12,7 @@ router.get("/:id", PetsController.findPet);
 
 router.put("/update/:id", PetsController.modifyPet);
 
-router.get("/search/avanzada/:query", PetsController.findByQuery);
+router.get("/search/avanzada", PetsController.findByQuery);
 
 router.get("/search/genero/:gender", PetsController.findByGender);
 
