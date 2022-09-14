@@ -78,12 +78,12 @@ class UserController {
 
   static async userUpdate(req, res) {
     try {
-      const user = await UserService.userUpdate(req.body);
-      return res.status(204).send(user);
-    } catch (error) {
-      console.log(error.message);
-    }
+      const user = await UserService.userUpdate(req.body, req.params.id)
+      return res.status(204).send(user)
+  } catch (error) {
+      console.log(error)
   }
+}
 
   static async getFavorites(req, res) {
     try {
@@ -120,5 +120,6 @@ class UserController {
       console.log(error.message);
     }
   }
+
 }
 module.exports = UserController;

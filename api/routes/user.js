@@ -18,7 +18,11 @@ router.post("/logout", UserController.logOut);
 
 router.delete("/delete/:id", UserController.deleteUser);
 
-router.put("/update/", UserController.userUpdate);
+router.post('/logout', UserController.logOut)
+
+router.delete('/delete/:id', UserController.deleteUser)
+
+router.put('/update/:id', UserController.userUpdate)
 
 router.put("/favorites/add/:id", UserController.addFavorite);
 

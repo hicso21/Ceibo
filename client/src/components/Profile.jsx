@@ -30,6 +30,7 @@ const Profile = () => {
   const [name, setName] = useState(user.name);
   const [lastName, setLastName] = useState(user.last_name);
   const [email, setEmail] = useState(user.email);
+  const navigate = useNavigate();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -48,11 +49,13 @@ const Profile = () => {
 
   const handleSend = () => {
     axios
-      .put("/api/user/update", {
-        id: user._id,
-        mod: { name: name, last_name: lastName, email: email },
+      .put(`http://localhost:3001/api/user/update/${user._id}`, {
+        name: name,
+        last_name: lastName,
+        email: email,
       })
       .then((res) => console.log(res));
+    setOpen(false);
   };
 
   //false = mobile  ---  true = desktop
@@ -178,21 +181,16 @@ const Profile = () => {
               </Button>
             </Box>
           </Box>
-          <Button
-            color="inherit"
-            fullWidth
-            sx={{ mt: 5, bgcolor: "#FFD640", mb: 1, borderRadius: 7 }}
-            onClick={handleSend}
-          >
-            Guardar cambios
-          </Button>
-          <Button
-            color="inherit"
-            fullWidth
-            sx={{ bgcolor: "#FFD640", borderRadius: 7 }}
-          >
-            Cancelar
-          </Button>
+            <Button
+              color="inherit"
+              fullWidth
+              sx={{ mt: 5, bgcolor: "#FFD640", mb: 1, borderRadius: 7 }}
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Volver
+            </Button>
           <br />
           <br />
           <br />
