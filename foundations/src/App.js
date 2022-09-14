@@ -44,7 +44,7 @@ function App() {
       {/* <Route path="/passwordForgotted" element={<Navbar prop={<></>}/>}/> */}
       <Route path="/messages" element={<Navbar prop={<></>}/>}/>
       <Route path="/add" element={<Navbar prop={<AddPet/>}/>}/>
-      <Route path="/search/:busqueda" element={<Navbar prop={<></>}/>}/>
+      <Route path="/search" element={<Navbar prop={<></>}/>}/>
     </Routes>
   )
 }

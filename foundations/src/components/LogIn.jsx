@@ -26,8 +26,14 @@ export default function SignUp() {
     dispatch(sendLoginRequest({
       email: data.get('email'),
       password: data.get('password'),
-    }));
-    navigate('/mascotas')
+    }))
+    .then((resp)=>{
+      if(resp.error){
+        navigate('/mascotas')
+      }else{
+        
+      }
+    })
   };
 
   return (
@@ -55,7 +61,7 @@ export default function SignUp() {
               required
               fullWidth
               id="email"
-              label="Correo Electronica"
+              label="Correo Electronico"
               name="email"
               autoComplete="email"
               autoFocus

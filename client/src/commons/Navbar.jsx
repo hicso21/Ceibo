@@ -259,7 +259,7 @@ export default function PersistentDrawerLeft({ prop }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate(`/search/:${search}`);
+    navigate(`/search?search=${search}`);
   };
 
   const handleSearch = (e) => {

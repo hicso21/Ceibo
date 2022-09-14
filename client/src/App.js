@@ -46,7 +46,7 @@ function App() {
         <Route path='/register' element={<Navbar prop={<SignUp/>}/>}/>
         <Route path='/favorites' element={<Navbar prop={<Favorites/>}/>}/>
         <Route path='/messages' element={<Navbar prop={<></>}/>}/>
-        <Route path='/search/:busqueda' element={<Navbar prop={<Search/>}/>}/>
+        <Route path='/search' element={<Navbar prop={<Search/>}/>}/>
       </Routes>
   );
 }
