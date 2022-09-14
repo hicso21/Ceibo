@@ -266,7 +266,7 @@ export default function PersistentDrawerLeft({ prop }) {
     setSearch(e.target.value);
   };
 
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
     dispatch(sendLogoutRequest())
   };
 

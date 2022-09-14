@@ -26,7 +26,11 @@ const petSchema = new mongoose.Schema({
   personality: String,
   history: String,
   vaccinated: Boolean,
-  foundation: { type: mongoose.SchemaTypes.ObjectId, ref: "Foundations" },
+  foundation: {
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "Foundation",
+  },
+
   neutered: Boolean,
 });
 

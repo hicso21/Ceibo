@@ -14,11 +14,12 @@ import SingularPet from './components/SingularPet';
 import SingularFoundation from './components/SingularFoundation';
 import Search from './components/Search';
 import axios from'axios'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from './state/user';
 
 function App() {
   const dispatch = useDispatch()
+  const user = useSelector((state)=>state.user)
 
   useEffect(()=>{
     axios
