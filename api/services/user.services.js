@@ -32,14 +32,13 @@ class UserService {
       console.log(error);
     }
   }
-  static async userUpdate(body) {
+  static async userUpdate(body,id) {
     try {
-        return await Users.updateOne({ _id: body.id }, { $set: body.mod })
-    } catch (error) {
-        console.log(error)
-    }
+      return await Users.updateOne({ _id: id }, { $set: body })
+  } catch (error) {
+      console.log(error)
+  }
 }
-
 }
 
 module.exports = UserService;

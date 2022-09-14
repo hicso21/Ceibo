@@ -69,11 +69,11 @@ class UserController {
 
   static async userUpdate(req, res) {
     try {
-        const user = await UserService.userUpdate(req.body)
-        return res.status(204).send(user)
-    } catch (error) {
-        console.log(error)
-    }
+      const user = await UserService.userUpdate(req.body, req.params.id)
+      return res.status(204).send(user)
+  } catch (error) {
+      console.log(error)
+  }
 }
 }
 module.exports = UserController;
