@@ -13,6 +13,11 @@ class UserController {
           name: user.name,
           last_name: user.last_name,
           email: user.email,
+          profile_picture: user.profile_picture,
+          age: user.age,
+          favorites: user.favorites,
+          adopted: user.adopted,
+          location: user.location,
         });
         const payload = validateToken(token);
         req.user = payload;
@@ -35,6 +40,11 @@ class UserController {
           name: user.name,
           last_name: user.last_name,
           email: user.email,
+          profile_picture: user.profile_picture,
+          age: user.age,
+          favorites: user.favorites,
+          adopted: user.adopted,
+          location: user.location,
         });
         const payload = validateToken(token);
         req.user = payload;

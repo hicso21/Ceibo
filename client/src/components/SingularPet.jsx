@@ -77,7 +77,7 @@ const SingularPet = () => {
                         
                     </Stack>
                 </Card>
-                <Card sx={{borderRadius:5, marginTop:3, maxHeight:220}}>
+                <Card sx={{borderRadius:5, marginTop:3}}>
                     <Box sx={{padding:2}}>
                         <Typography variant='h6'>
                             <AssignmentIcon sx={{paddingTop:1, width:30}}/> Descripcion:
