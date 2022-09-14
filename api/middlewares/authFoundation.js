@@ -1,4 +1,3 @@
-
 const { validateToken } = require('../config/tokens')
 
 async function validateAuth(req, res, next) {

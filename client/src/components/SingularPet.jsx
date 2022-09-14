@@ -11,19 +11,23 @@ import CloseIcon from "@mui/icons-material/Close";
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
 import { useNavigate } from 'react-router';
+import axios from 'axios'
 
 const SingularPet = () => {
     let infoView = useSelector((state)=>state.id);
     const [favorites, setFavorites] = useState(false)
     const user = useSelector((state)=>state.user)
+    const pet = useSelector((state)=>state.id)
     const navigate = useNavigate()
     let fav;
 
     const handleFavorites = () => {
         if(favorites){
+            axios.put(`http://localhost:3001/api/user/favorites/remove/${user._id}`, pet)
             setFavorites(false)
             fav = <><StarBorderIcon sx={{height:40, width:40}}/></>
         }else{
+            axios.put(`http://localhost:3001/api/user/favorites/add/${user._id}`, pet)
             setFavorites(true)
             fav = <><StarIcon sx={{height:40, width:40}}/></>
         }

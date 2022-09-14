@@ -22,7 +22,7 @@ const Search = () => {
     }
 
     useEffect(()=>{
-        dispatch(search(busqueda.slice(1)))
+        dispatch(search(busqueda))
     },[])
 
   return (
