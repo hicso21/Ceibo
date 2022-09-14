@@ -1,31 +1,59 @@
 import * as React from "react";
+import {
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Typography,
+  Link,
+  CssBaseline,
+  Grid,
+  Box,
+  Avatar,
+  Stack,
+  Container,
+} from "@mui/material";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Avatar from "@mui/material/Avatar";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router";
-import useMatches from "../hooks/useMatches";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import useMatches from "../hooks/useMatches";
 
 const theme = createTheme();
 
 const Profile = () => {
-  const user = useSelector((state) => state.user);
+  const [open, setOpen] = useState(false);
+  const { user } = useSelector((state) => state);
+  const [name, setName] = useState(user.name);
+  const [lastName, setLastName] = useState(user.last_name);
+  const [email, setEmail] = useState(user.email);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const nameChange = (e) => {
+    setName(e.target.value);
+  };
 
+  const lastNameChange = (e) => {
+    setLastName(e.target.value);
+  };
 
+  const emailChange = (e) => {
+    setEmail(e.target.value);
+  };
 
-
-
-
+  const handleSend = () => {
+    axios
+      .put("/api/user/update", {
+        id: user._id,
+        mod: { name: name, last_name: lastName, email: email },
+      })
+      .then((res) => console.log(res));
+  };
 
   //false = mobile  ---  true = desktop
   const matches = useMatches();
@@ -64,53 +92,10 @@ const Profile = () => {
               </Button>
             </Stack>
             <Box component="form" noValidate sx={{ mt: 2 }}>
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <TextField
-                    id="name"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    label="Nombre"
-                    defaultValue={user.name}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    id="last_name"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    label="Apellido"
-                    defaultValue={user.last_name}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    id="email"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    label="Email"
-                    defaultValue={user.email}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    id="password"
-                    variant="outlined"
-                    required
-                    fullWidth
-                    label="Contraseña"
-                    defaultValue={user.password}
-                  />
-                </Grid>
-              </Grid>
               <Button
-                type="submit"
                 variant="contained"
+                onClick={handleClickOpen}
                 fullWidth
-                size="large"
                 sx={{
                   marginBottom: 1,
                   marginTop: 2,
@@ -121,28 +106,96 @@ const Profile = () => {
                   },
                 }}
               >
+                Edita tus datos personales
+              </Button>
+              <Dialog
+                open={open}
+                onClose={handleSend}
+                maxWidth="md"
+                fullWidth={true}
+              >
+                <DialogContent>
+                  <TextField
+                    onChange={nameChange}
+                    label="Nombre"
+                    defaultValue={user.name}
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                  />
+                  <TextField
+                    onChange={lastNameChange}
+                    label="Apellido"
+                    defaultValue={user.last_name}
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                  />
+                  <TextField
+                    onChange={emailChange}
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Email"
+                    defaultValue={user.email}
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                  />
+                </DialogContent>
+
+                <DialogActions>
+                  <Button variant="contained" onClick={() => setOpen(false)}>
+                    Cancelar
+                  </Button>
+                  <Button variant="contained" onClick={handleSend}>
+                    Guardar cambios
+                  </Button>
+                </DialogActions>
+              </Dialog>
+
+              <Button
+                type="submit"
+                variant="contained"
+                fullWidth
+                size="large"
+                sx={{
+                  marginBottom: 1,
+                  backgroundColor: "#03A696",
+                  "&:hover": {
+                    backgroundColor: "#04BF9D",
+                    color: "#757575",
+                  },
+                }}
+              >
                 Formulario de adopción
               </Button>
-             
             </Box>
           </Box>
-            <Button
-              color="inherit"
-              fullWidth
-              sx={{ mt: 5, bgcolor: "#FFD640", mb: 1, borderRadius: 7 }}
-            >
-              Guardar cambios
-            </Button>
-            <Button
-              color="inherit"
-              fullWidth
-              sx={{bgcolor: "#FFD640", borderRadius: 7 }}
-            >
-              Cancelar
-            </Button>
-            <br/>
-            <br/>
-            <br/>
+          <Button
+            color="inherit"
+            fullWidth
+            sx={{ mt: 5, bgcolor: "#FFD640", mb: 1, borderRadius: 7 }}
+            onClick={handleSend}
+          >
+            Guardar cambios
+          </Button>
+          <Button
+            color="inherit"
+            fullWidth
+            sx={{ bgcolor: "#FFD640", borderRadius: 7 }}
+          >
+            Cancelar
+          </Button>
+          <br />
+          <br />
+          <br />
         </Container>
       </ThemeProvider>
     </>
