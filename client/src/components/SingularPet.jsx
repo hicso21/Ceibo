@@ -19,7 +19,7 @@ const SingularPet = () => {
     const {pathname} = useLocation()
     const [favorites, setFavorites] = useState(false)
     const user = useSelector((state)=>state.user)
-    const pet = useSelector((state)=>state.pets)
+    const pet = useSelector((state)=>state.pets[0])
     const navigate = useNavigate()
     const dispatch = useDispatch()
     let fav;
