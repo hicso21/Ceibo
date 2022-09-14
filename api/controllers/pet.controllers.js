@@ -38,7 +38,7 @@ class PetController {
         ? res.status(200).send(pet)
         : res.status(404).send("Pet not found");
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   }
 
@@ -49,7 +49,7 @@ class PetController {
         ? res.status(200).send(pet)
         : res.status(404).send("Pet not found");
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   }
 
@@ -60,7 +60,7 @@ class PetController {
         ? res.status(200).send(pet)
         : res.status(404).send("Pet not found");
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   }
 
@@ -71,7 +71,7 @@ class PetController {
         ? res.status(200).send(pet)
         : res.status(404).send("Pet not found");
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   }
 
