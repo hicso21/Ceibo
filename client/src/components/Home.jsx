@@ -57,7 +57,7 @@ function Home() {
                 />
               <ImageListItemBar
                 title={`Haz click aqui para conocer a ${item.name}!!`}
-                subtitle={<span>{item.foundation}</span>}
+                subtitle={<span>{item.foundation.name}</span>}
                 position="below"
               />
             </ImageListItem>
