@@ -1,25 +1,29 @@
 const express = require("express");
 const router = express.Router();
 const UserController = require("../controllers/user.controllers");
-const { validateAuth } = require('../middlewares/authUser')
+const { validateAuth } = require("../middlewares/authUser");
 
+router.post("/register", UserController.createUser);
 
+router.post("/login", UserController.logIn);
 
-router.post('/register', UserController.createUser)
+router.get("/me", validateAuth, (req, res) => {
+  console.log(req.user);
+  res.send(req.user);
+});
 
-router.post('/login', UserController.logIn)
+router.get("/:id", UserController.getUser);
 
-router.get('/me', validateAuth, (req, res) => {console.log(req.user); res.send(req.user)})
+router.post("/logout", UserController.logOut);
 
-router.get('/:id', UserController.getUser)
+router.delete("/delete/:id", UserController.deleteUser);
 
-router.post('/logout', UserController.logOut)
+router.put("/update/", UserController.userUpdate);
 
-router.delete('/delete/:id', UserController.deleteUser)
+router.put("/favorites/add/:id", UserController.addFavorite);
 
-router.put('/update/', UserController.userUpdate)
+router.put("/favorites/remove/:id", UserController.removeFavorite);
 
-
-
+router.get("/favorites/:id", UserController.getFavorites);
 
 module.exports = router;

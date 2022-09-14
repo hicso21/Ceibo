@@ -10,11 +10,13 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import StarIcon from '@mui/icons-material/Star';
-import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 
 const SingularPet = () => {
     let infoView = useSelector((state)=>state.id);
     const [favorites, setFavorites] = useState(false)
+    const user = useSelector((state)=>state.user)
+    const navigate = useNavigate()
     let fav;
 
     const handleFavorites = () => {
@@ -27,12 +29,16 @@ const SingularPet = () => {
         }
     }
 
-  const buttonStyle = {
-    bgcolor: "#FFD640",
-    mt: 2,
-    mb: 4,
-    borderRadius: 10,
-  };
+    const handleAdopt = () => {
+        if(!user.email) navigate('/login')
+    }
+
+    const buttonStyle = {
+        bgcolor: "#FFD640",
+        mt: 2,
+        mb: 4,
+        borderRadius: 10,
+    };
 
     if(favorites){
         fav = <><StarIcon sx={{height:40, width:40}}/></>
@@ -89,7 +95,7 @@ const SingularPet = () => {
                         </Box>
                     </Box>
                 </Card>
-                <Button color='inherit' sx={buttonStyle}>Adoptar</Button>
+                <Button color='inherit' sx={buttonStyle} onClick={handleAdopt}>Adoptar</Button>
         </Container>
     </>
   );

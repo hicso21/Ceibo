@@ -1,13 +1,16 @@
 import { Container, FormControl, Paper, MenuItem, Select, TextField, Typography, FormControlLabel, Switch, TextareaAutosize, Button } from '@mui/material'
 import { Box, Stack } from '@mui/system'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { styled } from '@mui/material/styles';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 const AddPet = () => {
 
+  const file = document.getElementById('fileItem');
+  const user = useSelector((state)=>state.user)
   const [genre, setGenre] = useState('')
   const [name, setName] = useState('')
   const [specie, setSpecie] = useState('')
@@ -22,7 +25,17 @@ const AddPet = () => {
     mt:4,
     bgcolor:'#FFD640',
     mb:2,
-    borderRadius:10
+    borderRadius:10,
+    color:'black'
+  }
+
+  const AddImageStyle = {
+    mt:4,
+    bgcolor:'#FFD640',
+    mb:2,
+    borderRadius:10,
+    color:'black',
+    ':hover':{bgcolor:'#FFD640'}
   }
 
   const Item = styled(Paper)(({ theme }) => ({
@@ -33,10 +46,18 @@ const AddPet = () => {
     color: theme.palette.text.secondary,
   }));
 
+  const DrawerHeader = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end",
+  }));
+
   const handleGenre = (e) => {
     if(switcher === true) setGenre('hembra')
     else setGenre('macho')
-    console.log(genre)
   }
   const handleName = (e) => {setName(e.target.value)}
   const handleSpecie = (e) => {setSpecie(e.target.value)}
@@ -47,18 +68,24 @@ const AddPet = () => {
   const handleImages = (e) => {setImages(current=>[...current, e.target.value])}
 
   const handleSubmit = () => {
-    console.log({name, age, history, genre, size, personality, images, specie})
-    axios.post('http://localhost:3001/api/pets/create', {name, age, history, genre, size, personality, images, specie})
+    //console.log({name, age, history, genre, size, personality, images, specie})
+    axios.post(`http://localhost:3001/api/foundation/${user._id}/add`, {name, age, history, genre, size, personality, images, specie})
       .then((res)=>{console.log(res)})
   }
 
-  /* useEffect(()=>{
-    axios.get('http://localhost:3001/api/pets/all').then((res)=>console.log(res.data))
-  },[]) */
-  
+  const output = document.querySelector('.output');
+  const fileInput = document.querySelector("#myfiles");
+
+  const filesReader = () => {
+    for (const file of fileInput.files) {
+      output.innerText += `\n${file.name}`;
+    }
+  };
   return (
     <>
-        <Container sx={{ p: 4, backgroundColor: "#e0e0e0", borderRadius: 1, justifyContent:'center' }}>
+        <DrawerHeader/>
+        <Container sx={{ p: 4, backgroundColor: "#e0e0e0", borderRadius: 1, justifyContent:'center'}}>
+          <br/>
           <Typography variant="h3" sx={{display:'flex', justifyContent:'center'}}>
             Nueva
           </Typography>
@@ -66,11 +93,13 @@ const AddPet = () => {
             Mascota
           </Typography>
           <Box sx={{pb:3, justifyContent:'center'}}>
-            <Stack>
-              <Item>
-                Agregar Fotos
-              </Item>
-            </Stack>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Button fullWidth variant="contained" component="label" sx={AddImageStyle}>
+              <input id="seleccionArchivos" accept='image/*' type="file"/>
+            </Button>
+          </Stack>
+              <img id='imagenPrevisualizacion' alt="" />
+              <pre className="output">Selected files:</pre>
           </Box>
           <Box sx={{display:'flex', flexDirection:'row', alignItems:'center', pb:3}}>
             <Typography variant='body1' sx={{pr:2}}>Nombre: </Typography>
@@ -79,6 +108,7 @@ const AddPet = () => {
               id="standard-required"
               variant="standard"
               onChange={handleName}
+              placeholder='Cual es su nombre?'
             />
           </Box>
           <Box sx={{display:'flex', flexDirection:'row', alignItems:'center'}}>
@@ -132,14 +162,14 @@ const AddPet = () => {
           </Box>
           <Box sx={{display:'flex', flexDirection:'row', alignItems:'center', justifyContent:'center', pt:3}}>
             <Typography variant='h6' sx={{pl:2, pr:2}}>Personalidad:</Typography>
-            <TextField fullWidth id="fullWidth" sx={{":hover":{bgcolor:"white"}}} size="small" onClick={handlePersonality}/>
+            <TextField fullWidth id="fullWidth" sx={{":hover":{bgcolor:"white"}}} size="small" onClick={handlePersonality} placeholder='Escribe en breves palabras la personalidad del animal'/>
           </Box>
           <Box sx={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', pt:3}}>
             <Typography variant='h6' sx={{pl:2, pr:2}}>Descripcion:</Typography>
-            <TextField fullWidth size="small" sx={{":hover":{bgcolor:'white'}}} onChange={handleHistory}/>
+            <TextField fullWidth size="small" sx={{":hover":{bgcolor:'white'}}} onChange={handleHistory} placeholder='Detalla una descripcion del animal'/>
           </Box>
-          <Button color='inherit' fullWidth sx={buttonStyle} onClick={handleSubmit}>Agregar Mascota</Button>
-        </Container>
+          <Button fullWidth variant="contained" component="label" sx={AddImageStyle} onClick={handleSubmit}>Agregar Mascota</Button>        
+          </Container>
     </>
   )
 }

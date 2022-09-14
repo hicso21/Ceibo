@@ -45,7 +45,8 @@ function Home() {
   function ImageListPets({ items, type }) {
     return (
       <ImageList sx={ImageStyle}>
-        {items?.map((item, i) => (
+        {items?.map((item, i) => {
+        return(
           <Link to={`/${type}/${item.name}`} style={{color: 'inherit', textDecoration:'none'}} key={i} onClick={()=>{handlePet(item._id)}}>
             <ImageListItem sx={{width:'100%', justifyContent:'center'}}>
               <img
@@ -61,7 +62,7 @@ function Home() {
               />
             </ImageListItem>
           </Link>
-        ))}
+        )})}
       </ImageList>
     );
   }

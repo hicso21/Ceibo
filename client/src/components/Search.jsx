@@ -23,7 +23,6 @@ const Search = () => {
 
     useEffect(()=>{
         dispatch(search(busqueda.slice(1)))
-        console.log(advancedSearch)
     },[])
 
   return (

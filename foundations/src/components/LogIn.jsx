@@ -11,20 +11,23 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router';
 import { Link } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { sendLoginRequest } from '../state/user';
 
 const theme = createTheme();
 
 export default function SignUp() {
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    dispatch(sendLoginRequest({
       email: data.get('email'),
       password: data.get('password'),
-    });
-    navigate('/')
+    }));
+    navigate('/mascotas')
   };
 
   return (
@@ -44,7 +47,7 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Iniciar Sesion
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -52,7 +55,7 @@ export default function SignUp() {
               required
               fullWidth
               id="email"
-              label="Email Address"
+              label="Correo Electronica"
               name="email"
               autoComplete="email"
               autoFocus
@@ -62,7 +65,7 @@ export default function SignUp() {
               required
               fullWidth
               name="password"
-              label="Password"
+              label="Contraseña"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -73,7 +76,7 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Sign In
+              Inicia sesion
             </Button>
             <Grid container>
               <Grid item xs>
@@ -82,8 +85,8 @@ export default function SignUp() {
                 </Link> */}
               </Grid>
               <Grid item>
-                <Link href="/" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href="/register" variant="body2">
+                  {"No tienes una cuenta creada? Registrate"}
                 </Link>
               </Grid>
             </Grid>

@@ -9,12 +9,13 @@ import {
   CardMedia,
 } from "@mui/material";
 import {Link} from 'react-router-dom'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getId } from "../state/id";
 import useMatches from "../hooks/useMatches";
 
 const ShowPets = () => {
-  const [pets, setPets] = useState([]);
+  const [pets, setPets] = useState([])
+  const user = useSelector((state)=>state.user)
   const dispatch = useDispatch();
   const handlePet = (id)=>{
     dispatch(getId({type:'pets',id}))
@@ -23,18 +24,21 @@ const ShowPets = () => {
   //false = mobile  ---  true = desktop
   const matches = useMatches()
 
-  if(matches){}
-  else{}
+  if(matches){
+    
+  }
+  else{
+
+  }
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/pets/all")
-      .then((res) =>{setPets(res.data)})
-      
-  }, []);
+      .get(`http://localhost:3001/api/foundation/${user._id}/pets`)
+      .then((res)=>{setPets(res.data)})
+  }, [user]);
   return (
     <>
-      <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
+      <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1, width:'100%', m:0 }}>
         <Typography variant="h3" sx={{display:'flex', justifyContent:'center'}}>Mascotas</Typography>
         <Grid container my={4}>
           {pets?.map((mascota) => {

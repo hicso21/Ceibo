@@ -1,8 +1,8 @@
 import axios from "axios";
 import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
 
-export const getAllPets = createAsyncThunk("PETS", ()=>{
-    return axios.get('http://localhost:3001/api/pets/all').then((pets)=>pets.data)
+export const getAllPets = createAsyncThunk("PETS", (user)=>{
+    return axios.get(`http://localhost:3001/api/foundation/${user._id}/pets`).then((pets)=>pets.data)
 })
 
 export const getPetsByFoundation = createAsyncThunk("PETS", (input)=>{

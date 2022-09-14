@@ -23,6 +23,7 @@ const ShowPets = () => {
   const handlePet = (id)=>{
     dispatch(getId({type:'pets',id}))
   }
+        
 
   //false = mobile  ---  true = desktop
   const matches = useMatches()

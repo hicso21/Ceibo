@@ -17,7 +17,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import SearchIcon from "@mui/icons-material/Search";
 import InputBase from "@mui/material/InputBase";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   Button,
   ImageListItem,
@@ -30,9 +30,10 @@ import Profile from "@mui/icons-material/Person";
 import History from "@mui/icons-material/History";
 import Message from "@mui/icons-material/Message";
 import Footer from "./Footer";
-import {useSelector} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import useMatches from "../hooks/useMatches";
 import AddIcon from '@mui/icons-material/Add';
+import { sendLogoutRequest } from "../state/user";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -117,8 +118,10 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function PersistentDrawerLeft({ prop }) {
   //false = mobile  ---  true = desktop
   const matches = useMatches()
+  let {pathname} = useLocation()
 
   const theme = useTheme();
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = React.useState("");
   const user = useSelector((state)=>state.user)
@@ -141,10 +144,13 @@ export default function PersistentDrawerLeft({ prop }) {
     setSearch(e.target.value);
   };
 
-  const handleLogOut = () => {};
+  const handleLogOut = () => {
+    dispatch(sendLogoutRequest())
+    navigate('/')
+    handleDrawerClose()
+  };
 
   React.useEffect(()=>{if(matches) setOpen(true)},[])
-
 
   //style variables
   let appBarStyle 
@@ -163,10 +169,18 @@ export default function PersistentDrawerLeft({ prop }) {
   let openDrawer
   let marginDrawer
   let drawerButton
+  let navbarContent
+  let PCTStyle
+  let DrawerContent
+  let main
 
   //desktop or mobile
   if(matches){
     drawerButton = <></>
+    if(pathname = '/') {
+      openDrawer = false
+      marginDrawer = false
+    }
     marginDrawer = true
     openDrawer = true
     logoutButton = {
@@ -181,7 +195,8 @@ export default function PersistentDrawerLeft({ prop }) {
     }
     logoutStack = {height:'70%', justifyContent:'end'}
     LogoStyle = { padding: 0, maxWidth: 56, justifyContent:'end'}
-    ButtonLogoStyle = { paddingLeft: 0,width:'60px' ,display:'flex',justifyContent: "end"}
+    ButtonLogoStyle = { paddingLeft: 0,width:'100%' ,display:'flex',justifyContent: "end"}
+    PCTStyle = { paddingLeft: 0,width:'100%' ,display:'flex',justifyContent:'start' }
     UserNameStyle = {display:'flex',justifyContent:'center', width:'100%'}
     ToolbarStyle= { paddingRight: 0, maxHeight: 67, display:'flex' }
     IconButtonStyle = { mr: 2, ...(open && { display: "none" }) }
@@ -216,7 +231,7 @@ export default function PersistentDrawerLeft({ prop }) {
           : (theme.palette.color = "#000000"),
     }
     DrawerList = {
-      height: "89%",
+      height: "100%",
       backgroundColor: (theme) =>
         theme.palette.mode === "dark"
           ? (theme.palette.color = "#FFD600")
@@ -237,32 +252,234 @@ export default function PersistentDrawerLeft({ prop }) {
           : (theme.palette.color = "#FFFFFF"),
     }
     top = <>
-            <Typography sx={UserNameStyle}>{`${user.name}`}</Typography>
+            <Typography sx={UserNameStyle}>{user.name?user.name:''}</Typography>
           </> 
+    if(user.name){
+    navbarContent =   <>
+                        {drawerButton}
+                        <Box sx={{ display: "flex", flexDirection: "row" }}>
+                          <Search sx={SearchStyle} id='searchDisplay'>
+                            <StyledInputBase
+                              id="search"
+                              placeholder="Buscar…"
+                              inputProps={{ "aria-label": "search" }}
+                              onChange={handleSearch}
+                            />
+                          </Search>
+                          <Button sx={{ padding: 0 }} onClick={handleSubmit}>
+                            <SearchIcon sx={{ color: "black" }} />
+                          </Button>
+                        </Box>
+                        <Button
+                          onClick={() => {
+                            navigate("/mascotas");
+                          }}
+                          sx={ButtonLogoStyle}
+                        >
+                          <ImageListItem
+                            sx={LogoStyle}
+                          >
+                            <img alt="" src={logo} loading="lazy" />
+                          </ImageListItem>
+                        </Button>
+                      </>
+    }
+    if(user.name){
+      navbarContent =   <>
+                          {drawerButton}
+                          <Box sx={{ display: "flex", flexDirection: "row" }}>
+                            <Search sx={SearchStyle} id='searchDisplay'>
+                              <StyledInputBase
+                                id="search"
+                                placeholder="Buscar…"
+                                inputProps={{ "aria-label": "search" }}
+                                onChange={handleSearch}
+                              />
+                            </Search>
+                            <Button sx={{ padding: 0 }} onClick={handleSubmit}>
+                              <SearchIcon sx={{ color: "black" }} />
+                            </Button>
+                          </Box>
+                          <Button
+                            onClick={() => {
+                              navigate("/mascotas");
+                            }}
+                            sx={ButtonLogoStyle}
+                          >
+                            <ImageListItem
+                              sx={LogoStyle}
+                            >
+                              <img alt="" src={logo} loading="lazy" />
+                            </ImageListItem>
+                          </Button>
+                        </>
+    }else{
+      navbarContent =   <>
+                          <Typography variant='h6' sx={PCTStyle}>
+                            Patitas Con Techo
+                          </Typography>
+                          <Button sx={ButtonLogoStyle}>
+                            <ImageListItem sx={LogoStyle}>
+                              <img alt="" src={logo} loading="lazy" />
+                            </ImageListItem>
+                          </Button>
+                        </>
+    }
+    if(user.email){
+        DrawerContent = <List sx={DrawerList}>
+                          <Link
+                            style={{ color: "inherit", textDecoration: "none" }}
+                            to={"/mascotas"}
+                            onClick={()=>{if(!matches)handleDrawerClose()}}
+                          >
+                            <ListItem disablePadding>
+                              <ListItemButton>
+                                <ListItemIcon>
+                                  <Pets />
+                                </ListItemIcon>
+                                <ListItemText primary={"Mascotas"} />
+                              </ListItemButton>
+                            </ListItem>
+                          </Link>
+                          <Link
+                            style={{ color: "inherit", textDecoration: "none" }}
+                            to={"/add"}
+                            onClick={()=>{if(!matches)handleDrawerClose()}}
+                          >
+                            <ListItem disablePadding>
+                              <ListItemButton>
+                                <ListItemIcon>
+                                  <AddIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Agregar Mascotas"} />
+                              </ListItemButton>
+                            </ListItem>
+                          </Link>
+                          <Link
+                            style={{ color: "inherit", textDecoration: "none" }}
+                            to={"/profile"}
+                            onClick={()=>{if(!matches)handleDrawerClose()}}
+                          >
+                            <ListItem disablePadding>
+                              <ListItemButton>
+                                <ListItemIcon>
+                                  <Profile />
+                                </ListItemIcon>
+                                <ListItemText primary={"Perfil"} />
+                              </ListItemButton>
+                            </ListItem>
+                          </Link>
+                          <Link
+                            style={{ color: "inherit", textDecoration: "none" }}
+                            to={"/history"}
+                            onClick={()=>{if(!matches)handleDrawerClose()}}
+                          >
+                            <ListItem disablePadding>
+                              <ListItemButton>
+                                <ListItemIcon>
+                                  <History />
+                                </ListItemIcon>
+                                <ListItemText primary={"Historial"} />
+                              </ListItemButton>
+                            </ListItem>
+                          </Link>
+                          <Link
+                            style={{ color: "inherit", textDecoration: "none" }}
+                            to={"/messages"}
+                            onClick={()=>{if(!matches)handleDrawerClose()}}
+                          >
+                            <ListItem disablePadding>
+                              <ListItemButton>
+                                <ListItemIcon>
+                                  <Message />
+                                </ListItemIcon>
+                                <ListItemText primary={"Mensajes"} />
+                              </ListItemButton>
+                            </ListItem>
+                          </Link>
+                          <Stack sx={logoutStack}>
+                            <Divider/>
+                            <Button onClick={handleLogOut} sx={logoutButton}>
+                              Cerrar Sesion
+                            </Button>
+                          </Stack>
+                        </List>
+    }else{
+      DrawerContent = <List sx={DrawerList}>
+                            <ListItem disablePadding>
+                              <ListItemButton>
+                                <ListItemIcon>
+                                  <Pets />
+                                </ListItemIcon>
+                                <ListItemText primary={"Mascotas"} />
+                              </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                              <ListItemButton>
+                                <ListItemIcon>
+                                  <AddIcon />
+                                </ListItemIcon>
+                                <ListItemText primary={"Agregar Mascotas"} />
+                              </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                              <ListItemButton>
+                                <ListItemIcon>
+                                  <Profile />
+                                </ListItemIcon>
+                                <ListItemText primary={"Perfil"} />
+                              </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                              <ListItemButton>
+                                <ListItemIcon>
+                                  <History />
+                                </ListItemIcon>
+                                <ListItemText primary={"Historial"} />
+                              </ListItemButton>
+                            </ListItem>
+                            <ListItem disablePadding>
+                              <ListItemButton>
+                                <ListItemIcon>
+                                  <Message />
+                                </ListItemIcon>
+                                <ListItemText primary={"Mensajes"} />
+                              </ListItemButton>
+                            </ListItem>
+                        </List>
+    }
+    main =  <>
+              <DrawerHeader/>
+                {prop}
+              <DrawerHeader/>
+            </>
   }
   else{
-    if(!open){
-      drawerButton =
-                  <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={handleDrawerOpen}
-                    edge="start"
-                    sx={IconButtonStyle}
-                  >
-                    <MenuIcon />
-                  </IconButton>
-    }else{
-      drawerButton=<></>
+    if(user.email){
+      if(!open){
+        drawerButton =
+                    <IconButton
+                      color="inherit"
+                      aria-label="open drawer"
+                      onClick={handleDrawerOpen}
+                      edge="start"
+                      sx={IconButtonStyle}
+                    >
+                      <MenuIcon />
+                    </IconButton>
+      }else{
+        drawerButton=<></>
+      }
     }
     
     marginDrawer = false
     openDrawer = open
     LogoStyle = { padding: 0, maxWidth: 56}
-    ButtonLogoStyle = { paddingLeft: 0,width:'100%' ,justifyContent: "center"}
+    ButtonLogoStyle = { paddingLeft: 0,width:'50%' ,justifyContent: "center"}
     UserNameStyle = {display:'flex',justifyContent:'center', width:'100%'}
     ToolbarStyle= { paddingRight: 0, maxHeight: 67, display:'flex' }
     IconButtonStyle = { mr: 2, ...(open && { display: "none" }) }
+    PCTStyle = { p:2 }
     DrawerStyle = {
       width: drawerWidth,
       flexShrink: 0,
@@ -317,12 +534,134 @@ export default function PersistentDrawerLeft({ prop }) {
           : (theme.palette.color = "#FFFFFF"),
     }
     top = <>
-            <Typography sx={UserNameStyle}>{`${user.name}`}</Typography>
+            <Typography sx={UserNameStyle}>{user.name?user.name:''}</Typography>
             <Divider orientation="vertical" variant="middle" flexItem />
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
           </> 
+    if(user.name){
+      navbarContent =   <>
+                          {drawerButton}
+                          <Box sx={{ display: "flex", flexDirection: "row" }}>
+                            <Search sx={SearchStyle} id='searchDisplay'>
+                              <StyledInputBase
+                                id="search"
+                                placeholder="Buscar…"
+                                inputProps={{ "aria-label": "search" }}
+                                onChange={handleSearch}
+                              />
+                            </Search>
+                            <Button sx={{ padding: 0 }} onClick={handleSubmit}>
+                              <SearchIcon sx={{ color: "black" }} />
+                            </Button>
+                          </Box>
+                          <Button
+                            onClick={() => {
+                              navigate("/mascotas");
+                            }}
+                            sx={ButtonLogoStyle}
+                          >
+                            <ImageListItem
+                              sx={LogoStyle}
+                            >
+                              <img alt="" src={logo} loading="lazy" />
+                            </ImageListItem>
+                          </Button>
+                        </>
+    }else{
+      navbarContent =   <>
+                          <Typography variant='h6' sx={PCTStyle}>
+                            Patitas Con Techo
+                          </Typography>
+                          <Button sx={ButtonLogoStyle}>
+                            <ImageListItem sx={LogoStyle}>
+                              <img alt="" src={logo} loading="lazy" />
+                            </ImageListItem>
+                          </Button>
+                        </>
+    }
+    DrawerContent = <List sx={DrawerList}>
+                      <Link
+                        style={{ color: "inherit", textDecoration: "none" }}
+                        to={"/mascotas"}
+                        onClick={()=>{if(!matches)handleDrawerClose()}}
+                      >
+                        <ListItem disablePadding>
+                          <ListItemButton>
+                            <ListItemIcon>
+                              <Pets />
+                            </ListItemIcon>
+                            <ListItemText primary={"Mascotas"} />
+                          </ListItemButton>
+                        </ListItem>
+                      </Link>
+                      <Link
+                        style={{ color: "inherit", textDecoration: "none" }}
+                        to={"/add"}
+                        onClick={()=>{if(!matches)handleDrawerClose()}}
+                      >
+                        <ListItem disablePadding>
+                          <ListItemButton>
+                            <ListItemIcon>
+                              <AddIcon />
+                            </ListItemIcon>
+                            <ListItemText primary={"Agregar Mascotas"} />
+                          </ListItemButton>
+                        </ListItem>
+                      </Link>
+                      <Link
+                        style={{ color: "inherit", textDecoration: "none" }}
+                        to={"/profile"}
+                        onClick={()=>{if(!matches)handleDrawerClose()}}
+                      >
+                        <ListItem disablePadding>
+                          <ListItemButton>
+                            <ListItemIcon>
+                              <Profile />
+                            </ListItemIcon>
+                            <ListItemText primary={"Perfil"} />
+                          </ListItemButton>
+                        </ListItem>
+                      </Link>
+                      <Link
+                        style={{ color: "inherit", textDecoration: "none" }}
+                        to={"/history"}
+                        onClick={()=>{if(!matches)handleDrawerClose()}}
+                      >
+                        <ListItem disablePadding>
+                          <ListItemButton>
+                            <ListItemIcon>
+                              <History />
+                            </ListItemIcon>
+                            <ListItemText primary={"Historial"} />
+                          </ListItemButton>
+                        </ListItem>
+                      </Link>
+                      <Link
+                        style={{ color: "inherit", textDecoration: "none" }}
+                        to={"/messages"}
+                        onClick={()=>{if(!matches)handleDrawerClose()}}
+                      >
+                        <ListItem disablePadding>
+                          <ListItemButton>
+                            <ListItemIcon>
+                              <Message />
+                            </ListItemIcon>
+                            <ListItemText primary={"Mensajes"} />
+                          </ListItemButton>
+                        </ListItem>
+                      </Link>
+                      <Stack sx={logoutStack}>
+                        <Divider/>
+                        <Button onClick={handleLogOut} sx={logoutButton}>
+                          Cerrar Sesion
+                        </Button>
+                      </Stack>
+                    </List>
+    main =  <>
+              {prop}
+            </>
   }
 
 
@@ -335,32 +674,7 @@ export default function PersistentDrawerLeft({ prop }) {
             style={{ color: "black" }}
             sx={ToolbarStyle}
           >
-            {drawerButton}
-            <Box sx={{ display: "flex", flexDirection: "row" }}>
-              <Search sx={SearchStyle} id='searchDisplay'>
-                <StyledInputBase
-                  id="search"
-                  placeholder="Buscar…"
-                  inputProps={{ "aria-label": "search" }}
-                  onChange={handleSearch}
-                />
-              </Search>
-              <Button sx={{ padding: 0 }} onClick={handleSubmit}>
-                <SearchIcon sx={{ color: "black" }} />
-              </Button>
-            </Box>
-            <Button
-              onClick={() => {
-                navigate("/mascotas");
-              }}
-              sx={ButtonLogoStyle}
-            >
-              <ImageListItem
-                sx={LogoStyle}
-              >
-                <img alt="" src={logo} loading="lazy" />
-              </ImageListItem>
-            </Button>
+            {navbarContent}
           </Toolbar>
         </AppBar>
         <Drawer
@@ -372,91 +686,13 @@ export default function PersistentDrawerLeft({ prop }) {
           <DrawerHeader sx={drawerHeader}>
             {top}
           </DrawerHeader>
-          <List sx={DrawerList}>
-            <Link
-              style={{ color: "inherit", textDecoration: "none" }}
-              to={"/mascotas"}
-              onClick={()=>{if(!matches)handleDrawerClose()}}
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <Pets />
-                  </ListItemIcon>
-                  <ListItemText primary={"Mascotas"} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
-            <Link
-              style={{ color: "inherit", textDecoration: "none" }}
-              to={"/add"}
-              onClick={()=>{if(!matches)handleDrawerClose()}}
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <AddIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={"Agregar Mascotas"} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
-            <Link
-              style={{ color: "inherit", textDecoration: "none" }}
-              to={"/profile"}
-              onClick={()=>{if(!matches)handleDrawerClose()}}
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <Profile />
-                  </ListItemIcon>
-                  <ListItemText primary={"Perfil"} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
-            <Link
-              style={{ color: "inherit", textDecoration: "none" }}
-              to={"/history"}
-              onClick={()=>{if(!matches)handleDrawerClose()}}
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <History />
-                  </ListItemIcon>
-                  <ListItemText primary={"Historial"} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
-            <Link
-              style={{ color: "inherit", textDecoration: "none" }}
-              to={"/messages"}
-              onClick={()=>{if(!matches)handleDrawerClose()}}
-            >
-              <ListItem disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <Message />
-                  </ListItemIcon>
-                  <ListItemText primary={"Mensajes"} />
-                </ListItemButton>
-              </ListItem>
-            </Link>
-            <Stack sx={logoutStack}>
-              <Divider/>
-              <Button onClick={handleLogOut} sx={logoutButton}>
-                Cerrar Sesion
-              </Button>
-            </Stack>
-          </List>
+          {DrawerContent}
         </Drawer>
-        <Main open={marginDrawer} sx={{display:'flex', flexDirection:'column'}}>
-          <DrawerHeader />
-          {prop}
-          <Footer/>
+        <Main open={marginDrawer}>
+          {main}
         </Main>
       </Box>
+          <Footer/>
     </>
   );
 }

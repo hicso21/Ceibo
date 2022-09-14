@@ -4,7 +4,7 @@ const ObjectId = require("mongodb").ObjectId;
 class PetService {
   static async getAllPets() {
     try {
-      return await Pets.find({});
+      return await Pets.find({}).populate("foundation");
     } catch (error) {
       console.log(error.message);
     }
@@ -20,7 +20,7 @@ class PetService {
 
   static async getOnePet(id) {
     try {
-      return await Pets.findById(id);
+      return await Pets.findById(id).populate("foundation");
     } catch (error) {
       console.log(error.message);
     }
@@ -30,17 +30,21 @@ class PetService {
     try {
       return await Pets.find({
         gender: { $regex: gender, $options: "i" },
-      }).exec();
+      })
+        .populate("foundation")
+        .exec();
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   }
 
   static async findBySize(size) {
     try {
-      return await Pets.find({ size: { $regex: size, $options: "i" } }).exec();
+      return await Pets.find({ size: { $regex: size, $options: "i" } })
+        .populate("foundation")
+        .exec();
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   }
 
@@ -48,9 +52,11 @@ class PetService {
     try {
       return await Pets.find({
         specie: { $regex: specie, $options: "i" },
-      }).exec();
+      })
+        .populate("foundation")
+        .exec();
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   }
 
@@ -66,15 +72,17 @@ class PetService {
           { name: { $regex: name, $options: "i" } },
           { age: { $regex: name, $options: "i" } },
         ],
-      }).exec();
+      })
+        .populate("foundation")
+        .exec();
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   }
 
   static async getSomePets() {
     try {
-      return await Pets.find({}).limit(3).skip(3);
+      return await Pets.find({}).limit(3).skip(3).populate("foundation");
     } catch (error) {
       console.log(error.message);
     }

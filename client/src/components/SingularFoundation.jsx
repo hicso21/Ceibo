@@ -7,8 +7,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 
 const SingularFoundation = () => {
-    let infoView = useSelector((state)=>state.id);      
-    console.log(infoView)
+    let infoView = useSelector((state)=>state.id);  
 
     return (
     <>
