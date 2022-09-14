@@ -10,7 +10,7 @@ export const getPetsByFoundation = createAsyncThunk("PETS", (input)=>{
 })
 
 export const getOnePet = createAsyncThunk("PET", (petId)=>{
-    return axios.get(`http://localhost:3001/api/pets/${petId}`).then((pets)=>{console.log(pets.data);return pets.data})
+    return axios.get(`http://localhost:3001/api/pets/${petId}`).then((pets)=>{console.log(pets.data);return [pets.data]})
 })
 
 const petsReducer = createReducer([],{

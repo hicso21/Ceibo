@@ -10,18 +10,26 @@ import {
   CardActions
 } from "@mui/material";
 import { Link } from 'react-router-dom'
-import { styled } from '@mui/material/styles';
+import { useSelector } from 'react-redux'
 
 const ShowFavorites = () => {
+  const [favoritesArr, setFavoritesArr] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const user = useSelector(state=>state.user)
 
   useEffect(() => {
     axios
-      .get("/api/favorites")
-      .then((res) => res.data)
-      .then((data) => {
-        setFavorites(data.results);
-      });
+      .get(`http://localhost:3001/api/user/favorites/${user._id}`)
+      .then((res) => setFavoritesArr(res.data))
+      .then(()=>
+        favoritesArr?.map((id)=>{
+          axios.get(`http://localhost:3001/api/pets/${id}`)
+            .then((res)=>{
+              console.log(res.data)
+              setFavorites(current=>[...current, res.data])
+            })
+        })
+      )
   }, []);
 
   return (
