@@ -13,10 +13,6 @@ function Home() {
   const [foundations, setFoundations] = useState([]);
   const dispatch = useDispatch();
 
-  const handlePet = (id) => {
-    dispatch(getId({ type: "pets", id }));
-  };
-
   //false = mobile  ---  true = desktop
   const matches = useMatches()
 
@@ -47,7 +43,7 @@ function Home() {
       <ImageList sx={ImageStyle}>
         {items?.map((item, i) => {
         return(
-          <Link to={`/${type}/${item.name}`} style={{color: 'inherit', textDecoration:'none'}} key={i} onClick={()=>{handlePet(item._id)}}>
+          <Link to={`/${type}/${item._id}`} style={{color: 'inherit', textDecoration:'none'}} key={i}>
             <ImageListItem sx={{width:'100%', justifyContent:'center'}}>
               <img
                 src={item.photos}
@@ -71,7 +67,7 @@ function Home() {
     return (
       <ImageList sx={ImageStyle}>
         {items?.map((item, i) => (
-          <Link to={`/${type}/${item.name}`} style={{color: 'inherit', textDecoration:'none'}} key={i} onClick={()=>{handleFoundation(item._id)}}>
+          <Link to={`/${type}/${item._id}`} style={{color: 'inherit', textDecoration:'none'}} key={i}>
             <ImageListItem sx={{width:'100%', justifyContent:'center'}}>
               <img
                 src={item.profile_picture}

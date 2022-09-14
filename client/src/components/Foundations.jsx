@@ -9,12 +9,13 @@ import {
   CardMedia,
 } from "@mui/material";
 import {Link} from 'react-router-dom'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getId } from "../state/id";
 import useMatches from "../hooks/useMatches";
+import { getAllFoundations } from "../state/foundations";
 
 const ShowFoundations = () => {
-  const [foundations, setFoundations] = useState([]);
+  const foundations = useSelector(state=>state.foundations)
   const dispatch = useDispatch();
 
   const handleFoundation = (id) => {
@@ -28,12 +29,7 @@ const ShowFoundations = () => {
   else{}
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/api/foundation")
-      .then((res) => res.data)
-      .then((data) => {
-        setFoundations(data);
-      });
+    dispatch(getAllFoundations())
   }, []);
 
   return (
