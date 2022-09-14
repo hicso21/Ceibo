@@ -451,7 +451,7 @@ export default function PersistentDrawerLeft({ prop }) {
               <Link
                 style={{ color: "inherit", textDecoration: "none" }}
                 to={`/${text.toLowerCase()}`}
-              onClick={()=>{handleDrawerClose()}}
+                onClick={()=>{handleDrawerClose()}}
                 key={i}
               >
                 <ListItem key={text} disablePadding>
