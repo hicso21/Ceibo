@@ -176,6 +176,9 @@ const Profile = () => {
                     color: "#757575",
                   },
                 }}
+                onClick={() => {
+                  navigate("/adoptionForm");
+                }}
               >
                 Formulario de adopción
               </Button>

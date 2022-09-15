@@ -38,6 +38,7 @@ const SingularPet = () => {
 
     const handleAdopt = () => {
         if(!user.email) navigate('/login')
+        else navigate("/adoptionForm");
     }
 
     const buttonStyle = {
