@@ -19,7 +19,6 @@ import { setUser } from './state/user';
 
 function App() {
   const dispatch = useDispatch()
-  const user = useSelector((state)=>state.user)
 
   useEffect(()=>{
     axios

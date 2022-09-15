@@ -38,6 +38,7 @@ import useMatches from "../hooks/useMatches";
 import HomeIcon from '@mui/icons-material/Home';
 import { sendLogoutRequest } from "../state/user";
 import { useEffect } from "react";
+import { search } from "../state/search";
 
 let loginMenu;
 
@@ -123,7 +124,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export default function PersistentDrawerLeft({ prop }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [search, setSearch] = React.useState("");
+  const [busqueda, setBusqueda] = React.useState("");
   const user = useSelector((state)=>state.user)
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -259,11 +260,12 @@ export default function PersistentDrawerLeft({ prop }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate(`/search?search=${search}`);
+    navigate(`/search?search=${busqueda}`)
+    dispatch(search(busqueda))
   };
 
   const handleSearch = (e) => {
-    setSearch(e.target.value);
+    setBusqueda(e.target.value);
   };
 
   const handleLogOut = async () => {
