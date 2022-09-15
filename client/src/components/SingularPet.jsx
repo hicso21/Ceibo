@@ -70,7 +70,7 @@ const SingularPet = () => {
                 <CardMedia sx={{padding:0, borderRadius:10, maxWidth:'343'}}>
                     <img
                         alt=''
-                        src={pet.photos}
+                        src={pet.photos[0]}
                         width='100%'
                         id='petPhoto'
                     />
