@@ -2,7 +2,7 @@ import axios from "axios";
 import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getAllPets = createAsyncThunk("ALLPETS", ()=>{
-    return axios.get('http://localhost:3001/api/pets/all').then((pets)=>{console.log(pets.data);return pets.data})
+    return axios.get('http://localhost:3001/api/pets/all').then((pets)=>{return pets.data})
 })
 
 export const getPetsByFoundation = createAsyncThunk("PETS", (input)=>{
@@ -10,7 +10,7 @@ export const getPetsByFoundation = createAsyncThunk("PETS", (input)=>{
 })
 
 export const getOnePet = createAsyncThunk("PET", (petId)=>{
-    return axios.get(`http://localhost:3001/api/pets/${petId}`).then((pets)=>{console.log(pets.data);return [pets.data]})
+    return axios.get(`http://localhost:3001/api/pets/${petId}`).then((pets)=>{return [pets.data]})
 })
 
 const petsReducer = createReducer([],{

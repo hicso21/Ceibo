@@ -33,7 +33,6 @@ const ShowPets = () => {
     dispatch(getAllPets())
   }, [])
 
-  console.log('ESTO ES PETS',pets)
   return (
     <>
     <div

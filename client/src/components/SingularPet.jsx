@@ -63,6 +63,8 @@ const SingularPet = () => {
         })
     },[pathname])
 
+    console.log(pet)
+
   return (
     <>
         <br/>
