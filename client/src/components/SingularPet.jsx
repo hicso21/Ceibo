@@ -28,11 +28,9 @@ const SingularPet = () => {
         if(favorites){
             axios.put(`http://localhost:3001/api/user/favorites/remove/${user._id}`, pet).then((r)=>{dispatch(setUser(r.data))})
             setFavorites(false)
-            fav = <><StarBorderIcon sx={{height:40, width:40}}/></>
         }else{
             axios.put(`http://localhost:3001/api/user/favorites/add/${user._id}`, pet).then((r)=>{console.log(r.data);dispatch(setUser(r.data))})
             setFavorites(true)
-            fav = <><StarIcon sx={{height:40, width:40}}/></>
         }
     }
 
@@ -48,22 +46,19 @@ const SingularPet = () => {
         borderRadius: 10,
     };
 
-    if(favorites){
-        fav = <><StarIcon sx={{height:40, width:40}}/></>
-    }else {
-        fav = <><StarBorderIcon sx={{height:40, width:40}}/></>
-    }
+    favorites ? fav = <><StarIcon sx={{height:40, width:40}}/></> : fav = <><StarBorderIcon sx={{height:40, width:40}}/></>
 
     useEffect(()=> {
         dispatch(getOnePet(pathname.substring(10)))
-        if(user._id){
-        axios.get(`http://localhost:3001/api/user/favorites/${user._id}`)
-        .then((res)=>{
-            console.log(res.data)
-            if(res.data.find(e=>e._id === pet?._id)) setFavorites(true) 
+        .then(()=>{
+            axios.get(`http://localhost:3001/api/user/favorites/${user?._id}`)
+            .then((res)=>{
+                res.data.map((pet, i)=>{
+                    if(pet._id == pathname.substring(10)) setFavorites(true)
+                })
+            })
         })
-        }
-    },[])
+    },[pathname])
 
   return (
     <>
