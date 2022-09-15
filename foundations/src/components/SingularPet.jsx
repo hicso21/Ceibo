@@ -1,82 +1,111 @@
-import { Button, Card, CardMedia, Typography } from '@mui/material';
-import { Box, Container, Stack } from '@mui/system';
-import React from 'react'
+import { Button, Card, CardMedia, Typography } from "@mui/material";
+import { Box, Container, Stack } from "@mui/system";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import MaleIcon from '@mui/icons-material/Male';
-import FemaleIcon from '@mui/icons-material/Female';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import CheckIcon from '@mui/icons-material/Check';
-import CloseIcon from '@mui/icons-material/Close';
-import ResponsiveDialog from './SingPetDialog';
-import { useEffect } from 'react';
-import getOnePet from '../state/pets'
+import MaleIcon from "@mui/icons-material/Male";
+import FemaleIcon from "@mui/icons-material/Female";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import AssignmentIcon from "@mui/icons-material/Assignment";
+import CheckIcon from "@mui/icons-material/Check";
+import CloseIcon from "@mui/icons-material/Close";
+import ResponsiveDialog from "./SingPetDialog";
+import { useEffect } from "react";
+import { getOnePet } from "../state/pets";
+import { useLocation } from "react-router";
 
 const SingularPet = () => {
-    const dispatch = useDispatch()
-    let pet = useSelector((state)=>state.pets);
+  const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  let pet = useSelector((state) => state.pets[0]);
 
-    const buttonStyle = {
-        bgcolor:'#FFD640',
-        mb:4,
-        borderRadius:10
-    }
-      
-    useEffect(()=>{
-        dispatch(getOnePet())
-    },[])
-    
-    return (
+  const buttonStyle = {
+    bgcolor: "#FFD640",
+    mb: 4,
+    borderRadius: 10,
+  };
+
+  useEffect(() => {
+    dispatch(getOnePet(pathname.substring(10)));
+  }, []);
+
+  return (
     <>
-        <br/>
-        <Container sx={{display:'flex', flexDirection:'column', justifyContent:'center'}}>
-                <CardMedia sx={{padding:0, borderRadius:10, maxWidth:'343'}}>
-                    <img
-                    alt=''
-                    src={pet.photos}
-                    width='100%'
-                    id='petPhoto'
-                    />
-                </CardMedia>
-                <br/>
-                <Card sx={{borderRadius:5}}>
-                    <Stack padding={2} sx={{maxWidth:'100%'}}>
-                        <Box sx={{display:'flex', flexDirection:'row'}}>
-                            <Typography variant='h4' width={'20%'} paddingLeft={2}>{pet.name}</Typography>
-                            <Typography variant='h4' id='genero'>{pet.gender === 'hembra'?<FemaleIcon sx={{width:40, height:40}}/>:<MaleIcon sx={{width:40, height:40}}/>}</Typography>
-                        </Box>
-                        <Box sx={{display:'flex', flexDirection:'row'}}>
-                            <Typography variant='body' width={'100%'} paddingLeft={2}>{`Edad: ${pet.age}`}</Typography>
-                            <Typography variant='body' id='tamanio'>{pet.size}</Typography>
-                        </Box>
-                        <Box sx={{display:'flex', flexDirection:'row', paddingLeft:1}}>
-
-                            <Typography><LocationOnIcon sx={{paddingTop:1}}/>{pet.location}</Typography>
-                        </Box>
-                    </Stack>
-                </Card>
-                <Card sx={{borderRadius:5, mt:3, maxHeight:220, mb:2}}>
-                    <Box sx={{padding:2}}>
-                        <Typography variant='h6'>
-                            <AssignmentIcon sx={{paddingTop:1, width:30}}/> Descripcion:
-                        </Typography>
-                        <Typography sx={{paddingTop:2, pl:2}}>
-                            {pet.history}
-                        </Typography>
-                        <Box sx={{display:'flex', flexDirection:'row'}}>
-                            <Typography sx={{paddingTop:2, pl:2}}>
-                                Castrado{pet.neutered?<CheckIcon sx={{pt:1}}/>:<CloseIcon sx={{pt:1}}/>}
-                            </Typography>
-                            <Typography sx={{paddingTop:2, pl:12}}>
-                                Vacunado{pet.vaccinated?<CheckIcon sx={{pt:1}}/>:<CloseIcon sx={{pt:1}}/>}
-                            </Typography>
-                        </Box>
-                    </Box>
-                </Card>
-                <ResponsiveDialog buttonStyle={buttonStyle}/>
-        </Container>
+      <br />
+      <Container
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
+        <CardMedia sx={{ padding: 0, borderRadius: 10, maxWidth: "343" }}>
+          <img alt="" src={pet?.photos} width="100%" id="petPhoto" />
+        </CardMedia>
+        <br />
+        <Card sx={{ borderRadius: 5 }}>
+          <Stack padding={2} sx={{ maxWidth: "100%" }}>
+            <Box sx={{ display: "flex", flexDirection: "row" }}>
+              <Typography variant="h4" width={"20%"} paddingLeft={2}>
+                {pet?.name}
+              </Typography>
+              <Typography variant="h4" id="genero">
+                {pet?.gender === "hembra" ? (
+                  <FemaleIcon sx={{ width: 40, height: 40 }} />
+                ) : (
+                  <MaleIcon sx={{ width: 40, height: 40 }} />
+                )}
+              </Typography>
+            </Box>
+            <Box sx={{ display: "flex", flexDirection: "row" }}>
+              <Typography
+                variant="body"
+                width={"100%"}
+                paddingLeft={2}
+              >{`Edad: ${pet?.age}`}</Typography>
+              <Typography variant="body" id="tamanio">
+                {pet?.size}
+              </Typography>
+            </Box>
+            <Box sx={{ display: "flex", flexDirection: "row", paddingLeft: 1 }}>
+              <Typography>
+                <LocationOnIcon sx={{ paddingTop: 1 }} />
+                {pet?.location}
+              </Typography>
+            </Box>
+          </Stack>
+        </Card>
+        <Card sx={{ borderRadius: 5, mt: 3, maxHeight: 220, mb: 2 }}>
+          <Box sx={{ padding: 2 }}>
+            <Typography variant="h6">
+              <AssignmentIcon sx={{ paddingTop: 1, width: 30 }} /> Descripcion:
+            </Typography>
+            <Typography sx={{ paddingTop: 2, pl: 2 }}>
+              {pet?.history}
+            </Typography>
+            <Box sx={{ display: "flex", flexDirection: "row" }}>
+              <Typography sx={{ paddingTop: 2, pl: 2 }}>
+                Castrado
+                {pet?.neutered ? (
+                  <CheckIcon sx={{ pt: 1 }} />
+                ) : (
+                  <CloseIcon sx={{ pt: 1 }} />
+                )}
+              </Typography>
+              <Typography sx={{ paddingTop: 2, pl: 12 }}>
+                Vacunado
+                {pet?.vaccinated ? (
+                  <CheckIcon sx={{ pt: 1 }} />
+                ) : (
+                  <CloseIcon sx={{ pt: 1 }} />
+                )}
+              </Typography>
+            </Box>
+          </Box>
+        </Card>
+        <ResponsiveDialog buttonStyle={buttonStyle} pet={pet} />
+      </Container>
     </>
-    )
-}
+  );
+};
 
-export default SingularPet
+export default SingularPet;
