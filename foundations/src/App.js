@@ -17,10 +17,8 @@ function App() {
   const dispatch = useDispatch()
   const {pathname} = useLocation()
   const user = useSelector((state)=>state.user)
-  console.log(user)
 
   useEffect(()=>{
-    console.log(pathname)
     if(pathname !== '/' && pathname !== '/register'){
     axios
     .get("http://localhost:3001/api/foundation/me", {

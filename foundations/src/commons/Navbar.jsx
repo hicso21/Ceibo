@@ -255,36 +255,6 @@ export default function PersistentDrawerLeft({ prop }) {
             <Typography sx={UserNameStyle}>{user.name?user.name:''}</Typography>
           </> 
     if(user.name){
-    navbarContent =   <>
-                        {drawerButton}
-                        <Box sx={{ display: "flex", flexDirection: "row" }}>
-                          <Search sx={SearchStyle} id='searchDisplay'>
-                            <StyledInputBase
-                              id="search"
-                              placeholder="Buscar…"
-                              inputProps={{ "aria-label": "search" }}
-                              onChange={handleSearch}
-                            />
-                          </Search>
-                          <Button sx={{ padding: 0 }} onClick={handleSubmit}>
-                            <SearchIcon sx={{ color: "black" }} />
-                          </Button>
-                        </Box>
-                        <Button
-                          onClick={() => {
-                            navigate("/mascotas");
-                          }}
-                          sx={ButtonLogoStyle}
-                        >
-                          <ImageListItem
-                            sx={LogoStyle}
-                          >
-                            <img alt="" src={logo} loading="lazy" />
-                          </ImageListItem>
-                        </Button>
-                      </>
-    }
-    if(user.name){
       navbarContent =   <>
                           {drawerButton}
                           <Box sx={{ display: "flex", flexDirection: "row" }}>
@@ -689,6 +659,7 @@ export default function PersistentDrawerLeft({ prop }) {
           {DrawerContent}
         </Drawer>
         <Main open={marginDrawer}>
+        <DrawerHeader/>
           {main}
         </Main>
       </Box>

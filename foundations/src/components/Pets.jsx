@@ -20,24 +20,20 @@ const ShowPets = () => {
   //false = mobile  ---  true = desktop
   const matches = useMatches()
 
-  if(matches){
-    
-  }
-  else{
-
-  }
-
+  if(matches){}
+  else{}
   useEffect(() => {
     axios
       .get(`http://localhost:3001/api/foundation/${user._id}/pets`)
-      .then((res)=>{setPets(res.data)})
+      .then((res)=>{console.log(res.data)})
   }, [user]);
   return (
     <>
-      <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1, width:'100%', m:0 }}>
+      <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1, width:'100%'}}>
         <Typography variant="h3" sx={{display:'flex', justifyContent:'center'}}>Mascotas</Typography>
         <Grid container my={4}>
           {pets?.map((mascota) => {
+            console.log(mascota)
             return(
             <Link to={`/mascotas/${mascota._id}`} key={mascota._id} style={{textDecoration:'none', margin:'0px auto', minWidth:295}}>
               <Grid item xs={12} p={2} key={mascota._id}>

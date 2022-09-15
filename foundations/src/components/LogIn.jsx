@@ -28,11 +28,8 @@ export default function SignUp() {
       password: data.get('password'),
     }))
     .then((resp)=>{
-      if(resp.error){
-        navigate('/mascotas')
-      }else{
-        
-      }
+      if(!resp.error) navigate('/mascotas')
+      else alert('Se produjo un error al inicar sesion')
     })
   };
 
@@ -100,16 +97,7 @@ export default function SignUp() {
         </Box>
       </Container>
     </ThemeProvider>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     </>
   );
 }

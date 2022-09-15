@@ -8,25 +8,7 @@ import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import { useEffect } from 'react';
 import { getFoundation } from '../state/foundations';
 import { useLocation } from 'react-router';
-//import {Carousel} from'react-responsive-carousel';
 import Carousel from './Carousel';
-
-// import { ReactDOM } from 'react';
-// const DemoCarousel = () =>{
-//         return (
-//             <Carousel showArrows={true} /* onChange={onChange} onClickItem={onClickItem} onClickThumb={onClickThumb} */>
-//                 <div>
-//                     <img src="assets/1.jpeg" />
-//                     <p className="legend">Legend 1</p>
-//                 </div>
-//                 <div>
-//                     <img src="assets/2.jpeg" />
-//                     <p className="legend">Legend 2</p>
-//                 </div>
-//             </Carousel>
-//         );
-// };
-
 
 const SingularFoundation = () => {
     const foundation = useSelector((state)=>state.foundations[0])
@@ -76,7 +58,6 @@ const SingularFoundation = () => {
                         </Typography>
                     </Box>
                 </Card>
-                <Carousel foundation={foundation}/>
                 <br/><br/>
         </Container>
     </>

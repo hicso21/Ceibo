@@ -69,7 +69,6 @@ const AddPet = () => {
   const handleImages = (e) => {setImages(current=>[...current, e.target.value])}
 
   const handleSubmit = () => {
-    //console.log({name, age, history, genre, size, personality, images, specie})
     axios.post(`http://localhost:3001/api/foundation/${user._id}/add`, {name, age, history, genre, size, personality, images, specie})
       .then((res)=>{console.log(res)})
   }
@@ -90,7 +89,6 @@ const AddPet = () => {
   
   return (
     <>
-        <DrawerHeader/>
         <Container sx={{ p: 4, backgroundColor: "#e0e0e0", borderRadius: 1, justifyContent:'center'}}>
           <br/>
           <Typography variant="h3" sx={{display:'flex', justifyContent:'center'}}>
