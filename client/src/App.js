@@ -4,6 +4,7 @@ import { Routes, Route} from 'react-router-dom';
 import Home from './components/Home'
 import Pets from './components/Pets'
 import AdoptionForm from './components/AdoptionForm'
+import ThanksAdoption from './components/ThanksAdoption'
 import Foundations from './components/Foundations'
 import SignUp from './components/SignUp'
 import LogIn from './components/LogIn'
@@ -40,6 +41,7 @@ function App() {
         <Route path='/history' element={<Navbar prop={<History/>}/>}/>
         <Route path='/mascotas' element={<Navbar prop={<Pets/>}/>}/>
         <Route path='/adoptionForm' element={<Navbar prop={<AdoptionForm/>}/>}/>
+        <Route path='/thanksAdoption' element={<Navbar prop={<ThanksAdoption/>}/>}/>
         <Route path='/fundaciones' element={<Navbar prop={<Foundations/>}/>}/>
         <Route path='/mascotas/:petId' element={<Navbar prop={<SingularPet/>}/>}/>
         <Route path='/fundaciones/:foundationName' element={<Navbar prop={<SingularFoundation/>}/>}/>
