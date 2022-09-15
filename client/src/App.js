@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Routes, Route} from 'react-router-dom';
 import Home from './components/Home'
 import Pets from './components/Pets'
+import AdoptionForm from './components/AdoptionForm'
 import Foundations from './components/Foundations'
 import SignUp from './components/SignUp'
 import LogIn from './components/LogIn'
@@ -39,6 +40,7 @@ function App() {
         <Route path='/profile' element={<Navbar prop={<Profile/>}/>}/>
         <Route path='/history' element={<Navbar prop={<History/>}/>}/>
         <Route path='/mascotas' element={<Navbar prop={<Pets/>}/>}/>
+        <Route path='/adoptionForm' element={<Navbar prop={<AdoptionForm/>}/>}/>
         <Route path='/fundaciones' element={<Navbar prop={<Foundations/>}/>}/>
         <Route path='/mascotas/:petName' element={<Navbar prop={<SingularPet/>}/>}/>
         <Route path='/fundaciones/:foundationName' element={<Navbar prop={<SingularFoundation/>}/>}/>
