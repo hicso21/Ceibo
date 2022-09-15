@@ -14,24 +14,18 @@ import { useSelector } from 'react-redux'
 
 const ShowFavorites = () => {
   const {pathname} = useLocation()
-  const [favoritesArr, setFavoritesArr] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const user = useSelector(state=>state.user)
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3001/api/user/favorites/${user._id}`)
-      .then((res) => setFavoritesArr(res.data))
-      .then(()=>
-        favoritesArr?.map((id)=>{
-          axios.get(`http://localhost:3001/api/pets/${id}`)
-            .then((res)=>{
-              console.log(res.data)
-              setFavorites(current=>[...current, res.data])
-            })
-            .then(()=>{console.log(favorites)})
+    setTimeout(() => {
+      axios
+        .get(`http://localhost:3001/api/user/favorites/${user._id}`)
+        .then((res) => {
+          setFavorites(res.data)
+          console.log(res.data)
         })
-      )
+    }, 2000);
   }, [pathname]);
 
 
@@ -55,7 +49,7 @@ const ShowFavorites = () => {
                     color="text.primary"
                     gutterBottom
                     >
-                    No tiene favoritos
+                    {favoritos.name}
                   </Typography>
                 </CardContent>
                 <CardActions>

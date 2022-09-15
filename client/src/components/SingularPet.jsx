@@ -30,7 +30,7 @@ const SingularPet = () => {
             setFavorites(false)
             fav = <><StarBorderIcon sx={{height:40, width:40}}/></>
         }else{
-            axios.put(`http://localhost:3001/api/user/favorites/add/${user._id}`, pet).then((r)=>{dispatch(setUser(r.data))})
+            axios.put(`http://localhost:3001/api/user/favorites/add/${user._id}`, pet).then((r)=>{console.log(r.data);dispatch(setUser(r.data))})
             setFavorites(true)
             fav = <><StarIcon sx={{height:40, width:40}}/></>
         }
@@ -55,15 +55,14 @@ const SingularPet = () => {
 
     useEffect(()=> {
         dispatch(getOnePet(pathname.substring(10)))
-        user.favorites?.map((petId)=>{
-            if(petId === pet._id){
-                console.log(petId === pet._id)
-                setFavorites(true)
-            }
+        if(user._id){
+        axios.get(`http://localhost:3001/api/user/favorites/${user._id}`)
+        .then((res)=>{
+            console.log(res.data)
+            if(res.data.find(e=>e._id === pet?._id)) setFavorites(true) 
         })
-    },[pathname])
-
-    console.log(pet)
+        }
+    },[])
 
   return (
     <>
@@ -72,7 +71,7 @@ const SingularPet = () => {
                 <CardMedia sx={{padding:0, borderRadius:10, maxWidth:'343'}}>
                     <img
                         alt=''
-                        src={pet.photos[0]}
+                        src={pet?.photos[0]}
                         width='100%'
                         id='petPhoto'
                     />
@@ -83,15 +82,15 @@ const SingularPet = () => {
                 <Card sx={{borderRadius:5}}>
                     <Stack padding={2} sx={{maxWidth:'100%'}}>
                         <Box sx={{display:'flex', flexDirection:'row'}}>
-                            <Typography variant='h4' width={'20%'} paddingLeft={2}>{pet.name}</Typography>
-                            <Typography variant='h4' id='genero'>{pet.gender === 'hembra'?<FemaleIcon sx={{width:40, height:40}}/>:<MaleIcon sx={{width:40, height:40}}/>}</Typography>
+                            <Typography variant='h4' width={'20%'} paddingLeft={2}>{pet?.name}</Typography>
+                            <Typography variant='h4' id='genero'>{pet?.gender === 'hembra'?<FemaleIcon sx={{width:40, height:40}}/>:<MaleIcon sx={{width:40, height:40}}/>}</Typography>
                         </Box>
                         <Box sx={{display:'flex', flexDirection:'row'}}>
-                            <Typography variant='body' width={'100%'} paddingLeft={2}>{`Edad: ${pet.age}`}</Typography>
-                            <Typography variant='body' id='tamanio'>{pet.size}</Typography>
+                            <Typography variant='body' width={'100%'} paddingLeft={2}>{`Edad: ${pet?.age}`}</Typography>
+                            <Typography variant='body' id='tamanio'>{pet?.size}</Typography>
                         </Box>
                         <Box sx={{display:'flex', flexDirection:'row', paddingLeft:1}}>
-                            <Typography><LocationOnIcon sx={{paddingTop:1}}/>{pet.location}</Typography>
+                            <Typography><LocationOnIcon sx={{paddingTop:1}}/>{pet?.location}</Typography>
                         </Box>
                         
                     </Stack>
@@ -102,14 +101,14 @@ const SingularPet = () => {
                             <AssignmentIcon sx={{paddingTop:1, width:30}}/> Descripcion:
                         </Typography>
                         <Typography sx={{paddingTop:2, pl:2}}>
-                            {pet.history}
+                            {pet?.history}
                         </Typography>
                         <Box sx={{display:'flex', flexDirection:'row'}}>
                             <Typography sx={{paddingTop:2, pl:2}}>
-                                Castrado{pet.neutered?<CheckIcon sx={{pt:1}}/>:<CloseIcon sx={{pt:1}}/>}
+                                Castrado{pet?.neutered?<CheckIcon sx={{pt:1}}/>:<CloseIcon sx={{pt:1}}/>}
                             </Typography>
                             <Typography sx={{paddingTop:2, pl:12}}>
-                                Vacunado{pet.vaccinated?<CheckIcon sx={{pt:1}}/>:<CloseIcon sx={{pt:1}}/>}
+                                Vacunado{pet?.vaccinated?<CheckIcon sx={{pt:1}}/>:<CloseIcon sx={{pt:1}}/>}
                             </Typography>
                         </Box>
                     </Box>
