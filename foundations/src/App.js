@@ -38,13 +38,13 @@ function App() {
       <Route path="/profile" element={<Navbar prop={<Profile/>}/>}/>
       <Route path="/history" element={<Navbar prop={<History/>}/>}/>
       <Route path="/mascotas" element={<Navbar prop={<Pets/>}/>}/>
-      <Route path="/mascotas/:petName" element={<Navbar prop={<SingularPet/>}/>}/>
+      <Route path="/mascotas/:petId" element={<Navbar prop={<SingularPet/>}/>}/>
       <Route path="/" element={<Navbar prop={<LogIn/>}/>}/>
       <Route path="/register" element={<Navbar prop={<SignUp/>}/>}/>
       {/* <Route path="/passwordForgotted" element={<Navbar prop={<></>}/>}/> */}
       <Route path="/messages" element={<Navbar prop={<></>}/>}/>
       <Route path="/add" element={<Navbar prop={<AddPet/>}/>}/>
-      <Route path="/search/:busqueda" element={<Navbar prop={<></>}/>}/>
+      <Route path="/search" element={<Navbar prop={<></>}/>}/>
     </Routes>
   )
 }

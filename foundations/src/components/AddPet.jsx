@@ -9,17 +9,18 @@ import { useSelector } from 'react-redux';
 
 const AddPet = () => {
 
-  const file = document.getElementById('fileItem');
   const user = useSelector((state)=>state.user)
   const [genre, setGenre] = useState('')
   const [name, setName] = useState('')
   const [specie, setSpecie] = useState('')
   const [size, setSize] = useState('')
-  const [age, setAge] = useState(0)
+  const [age, setAge] = useState('')
   const [personality, setPersonality] = useState('')
   const [history, setHistory] = useState('')
   const [images, setImages] = useState([])
   const [switcher, setSwitcher] = useState(false)
+  const seleccionArchivos = document.querySelector('#seleccionArchivos')
+  const imagenPrevisualizacion = document.querySelector("#imagenPrevisualizacion");
 
   const buttonStyle = {
     mt:4,
@@ -73,14 +74,20 @@ const AddPet = () => {
       .then((res)=>{console.log(res)})
   }
 
-  const output = document.querySelector('.output');
-  const fileInput = document.querySelector("#myfiles");
+  const handleImage = (e) => {
+    const archivos = seleccionArchivos.files;
 
-  const filesReader = () => {
-    for (const file of fileInput.files) {
-      output.innerText += `\n${file.name}`;
+    if(!archivos || !archivos.length) {
+      imagenPrevisualizacion.src = '';
+      return;
     }
-  };
+    const primerArchivo = archivos[0];
+    const objectUrl = URL.createObjectURL(primerArchivo)
+
+    imagenPrevisualizacion.src = objectUrl
+
+  }
+  
   return (
     <>
         <DrawerHeader/>
@@ -95,11 +102,10 @@ const AddPet = () => {
           <Box sx={{pb:3, justifyContent:'center'}}>
           <Stack direction="row" alignItems="center" spacing={2}>
             <Button fullWidth variant="contained" component="label" sx={AddImageStyle}>
-              <input id="seleccionArchivos" accept='image/*' type="file"/>
+            <input type="file" id="seleccionArchivos" accept="image/*" onChange={handleImage}/>
             </Button>
           </Stack>
               <img id='imagenPrevisualizacion' alt="" />
-              <pre className="output">Selected files:</pre>
           </Box>
           <Box sx={{display:'flex', flexDirection:'row', alignItems:'center', pb:3}}>
             <Typography variant='body1' sx={{pr:2}}>Nombre: </Typography>

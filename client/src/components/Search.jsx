@@ -13,17 +13,13 @@ import { getId } from '../state/id'
 
 const Search = () => {
 
-    const {busqueda} = useParams()
+    const params = useParams()
     const dispatch = useDispatch()
     const advancedSearch = useSelector((state)=>state.search)
 
-    const handlePet = (id)=>{
-        dispatch(getId({type:'pets',id}))
-    }
+    console.log(params)
 
-    useEffect(()=>{
-        dispatch(search(busqueda.slice(1)))
-    },[])
+    
 
   return (
     <>
@@ -31,9 +27,9 @@ const Search = () => {
             <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
                 <Typography variant="h3" sx={{pl:4}}>Mascotas</Typography>
                 <Grid container my={4}>
-                {advancedSearch?.map((mascota) => {
+                {advancedSearch.map((mascota) => {
                     return(
-                    <Link onClick={()=>{handlePet(mascota._id)}} to={`/mascotas/${mascota.name}`} key={mascota._id} style={{textDecoration:'none', margin:'0px auto', minWidth:295}}>
+                    <Link to={`/mascotas/${mascota._id}`} key={mascota._id} style={{textDecoration:'none', margin:'0px auto', minWidth:295}}>
                     <Grid item xs={12} p={2} key={mascota._id}>
                         <Card>
                         <CardMedia>

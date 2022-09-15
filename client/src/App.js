@@ -20,7 +20,6 @@ import { setUser } from './state/user';
 
 function App() {
   const dispatch = useDispatch()
-  const user = useSelector((state)=>state.user)
 
   useEffect(()=>{
     axios
@@ -42,13 +41,13 @@ function App() {
         <Route path='/mascotas' element={<Navbar prop={<Pets/>}/>}/>
         <Route path='/adoptionForm' element={<Navbar prop={<AdoptionForm/>}/>}/>
         <Route path='/fundaciones' element={<Navbar prop={<Foundations/>}/>}/>
-        <Route path='/mascotas/:petName' element={<Navbar prop={<SingularPet/>}/>}/>
+        <Route path='/mascotas/:petId' element={<Navbar prop={<SingularPet/>}/>}/>
         <Route path='/fundaciones/:foundationName' element={<Navbar prop={<SingularFoundation/>}/>}/>
         <Route path='/login' element={<Navbar prop={<LogIn/>}/>}/>
         <Route path='/register' element={<Navbar prop={<SignUp/>}/>}/>
         <Route path='/favorites' element={<Navbar prop={<Favorites/>}/>}/>
         <Route path='/messages' element={<Navbar prop={<></>}/>}/>
-        <Route path='/search/:busqueda' element={<Navbar prop={<Search/>}/>}/>
+        <Route path='/search' element={<Navbar prop={<Search/>}/>}/>
       </Routes>
   );
 }

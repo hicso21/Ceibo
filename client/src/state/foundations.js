@@ -6,10 +6,11 @@ export const getAllFoundations = createAsyncThunk("FOUNDATIONS_ALL", ()=>{
 })
 
 export const getFoundation = createAsyncThunk("FOUNDATIONS", (input)=>{
-    return axios.get(`http://localhost:3001/api/foundation/${input}`).then((foundations)=>foundations.data)
+    return axios.get(`http://localhost:3001/api/foundation/${input}`).then((foundations)=>[foundations.data])
 })
 
-const foundationsReducer = createReducer({},{
+
+const foundationsReducer = createReducer([],{
     [getAllFoundations.fulfilled]: (state, action) => action.payload,
     [getFoundation.fulfilled]: (state, action) => action.payload,
 })

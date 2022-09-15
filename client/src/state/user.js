@@ -25,9 +25,6 @@ export const setUser = createAsyncThunk("SETUSER", (input) => {
   return input;
 });
 
-
-//const user = JSON.parse(window.localStorage.getItem("user"))
-
 const userReducer = createReducer({}, {
   [sendLoginRequest.fulfilled]: (state, action) => action.payload,
   [sendLogoutRequest.fulfilled]: (state, action) => action.payload,

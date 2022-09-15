@@ -66,7 +66,7 @@ class PetController {
 
   static async findByQuery(req, res) {
     try {
-      const pet = await PetServices.findByQuery(req.params.query);
+      const pet = await PetServices.findByQuery(req.query.search);
       pet.length
         ? res.status(200).send(pet)
         : res.status(404).send("Pet not found");

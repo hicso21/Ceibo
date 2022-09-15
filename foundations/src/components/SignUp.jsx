@@ -25,10 +25,16 @@ export default function SignUp() {
     const data = new FormData(event.currentTarget);
     dispatch(sendSignUpRequest({
       name: data.get('name'),
+      location: data.get('location'),
       email: data.get('email'),
       password: data.get('password'),
-    }));
-    navigate('/login')
+    })).then((res)=>{console.log(res)
+      if(res.error){
+        alert('Todos los campos son requeridos')
+      }else{
+        navigate('/')
+      }
+    })
   };
 
   return (
@@ -60,6 +66,16 @@ export default function SignUp() {
                   label="Nombre"
                   name="name"
                   autoComplete="family-name"
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="location"
+                  label="Ubicacion"
+                  name="location"
+                  autoComplete="location"
                 />
               </Grid>
               <Grid item xs={12}>
