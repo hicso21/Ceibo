@@ -19,11 +19,14 @@ import {
   MenuItem,
   Slider,
 } from "@mui/material";
+import axios from "axios";
+import {useLocation} from 'react-router-dom'
 
 export default function ResponsiveDialog({ buttonStyle, pet }) {
   const [open, setOpen] = React.useState(false);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
+  const {pathname} = useLocation()
 
   const [age, setAge] = useState(pet?.age);
   const [name, setName] = useState(pet?.name);
@@ -48,8 +51,6 @@ export default function ResponsiveDialog({ buttonStyle, pet }) {
 
   const handleClose = () => {
     setOpen(false);
-    if (age <= 1) setAge(`${age} año`);
-    else setAge(`${age.slice(0, 2)} años`);
   };
 
   const handleReturn = () => {
@@ -80,12 +81,25 @@ export default function ResponsiveDialog({ buttonStyle, pet }) {
   };
 
   const handleAge = (e) => {
-    console.log(e.target.value);
+    setAge(e.target.value)
   };
+
+  const handleSubmit = (e) => {
+    axios.put(`http://localhost:3001/api/pets/update/${pathname.substring(10)}`, {
+      age, 
+      name, 
+      gender, 
+      location, 
+      vaccinated, 
+      neutered, 
+      size,
+    })
+  }
 
   useEffect(() => {
     console.log(age, name, gender, location, vaccinated, neutered, size);
   }, [handleClose, handleReturn]);
+
   return (
     <div>
       <Button
@@ -230,6 +244,7 @@ export default function ResponsiveDialog({ buttonStyle, pet }) {
             autoFocus
             onClick={() => {
               handleReturn();
+              handleSubmit();
             }}
           >
             Cancelar
@@ -238,6 +253,7 @@ export default function ResponsiveDialog({ buttonStyle, pet }) {
             autoFocus
             onClick={() => {
               handleClose();
+              handleSubmit();
             }}
           >
             Realizar cambios
