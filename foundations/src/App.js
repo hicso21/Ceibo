@@ -12,6 +12,7 @@ import AddPet from "./components/AddPet";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./state/user";
 import axios from "axios";
+import Search from "./components/Search";
 
 function App() {
   const dispatch = useDispatch()
@@ -42,7 +43,7 @@ function App() {
       {/* <Route path="/passwordForgotted" element={<Navbar prop={<></>}/>}/> */}
       <Route path="/messages" element={<Navbar prop={<></>}/>}/>
       <Route path="/add" element={<Navbar prop={<AddPet/>}/>}/>
-      <Route path="/search" element={<Navbar prop={<></>}/>}/>
+      <Route path="/search" element={<Navbar prop={<Search/>}/>}/>
     </Routes>
   )
 }

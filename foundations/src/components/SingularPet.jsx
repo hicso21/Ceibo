@@ -61,7 +61,7 @@ const SingularPet = () => {
                 variant="body"
                 width={"100%"}
                 paddingLeft={2}
-              >{`Edad: ${pet?.age}`}</Typography>
+              >{`Edad: ${pet?.age} años`}</Typography>
               <Typography variant="body" id="tamanio">
                 {pet?.size}
               </Typography>

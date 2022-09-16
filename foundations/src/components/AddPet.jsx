@@ -21,7 +21,7 @@ import { useSelector } from "react-redux";
 
 const AddPet = () => {
   const user = useSelector((state) => state.user);
-  const [genre, setGenre] = useState("");
+  const [gender, setGender] = useState("macho");
   const [name, setName] = useState("");
   const [specie, setSpecie] = useState("");
   const [size, setSize] = useState("");
@@ -52,26 +52,9 @@ const AddPet = () => {
     ":hover": { bgcolor: "#FFD640" },
   };
 
-  const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
-  }));
-
-  const DrawerHeader = styled("div")(({ theme }) => ({
-    display: "flex",
-    alignItems: "center",
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-end",
-  }));
-
-  const handleGenre = (e) => {
-    if (switcher === false) setGenre("hembra");
-    else setGenre("macho");
+  const handleGender = (e) => {
+    if (switcher === false) setGender("hembra");
+    else setGender("macho");
   };
   const handleName = (e) => {
     setName(e.target.value);
@@ -100,7 +83,7 @@ const AddPet = () => {
       name,
       age,
       history,
-      genre,
+      gender,
       size,
       personality,
       images,
@@ -111,7 +94,7 @@ const AddPet = () => {
         name,
         age,
         history,
-        genre,
+        gender,
         size,
         personality,
         photos: images,
@@ -131,6 +114,7 @@ const AddPet = () => {
     }
     const primerArchivo = archivos[0];
     const objectUrl = URL.createObjectURL(primerArchivo);
+    setImages(objectUrl)
 
     imagenPrevisualizacion.src = objectUrl;
   };
@@ -231,7 +215,7 @@ const AddPet = () => {
               onChange={() => {
                 if (switcher === false) setSwitcher(true);
                 else setSwitcher(false);
-                handleGenre();
+                handleGender();
               }}
               inputProps={{ "aria-label": "controlled" }}
             />

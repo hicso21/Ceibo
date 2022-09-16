@@ -5,23 +5,21 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   Typography,
-  Link,
   CssBaseline,
-  Grid,
   Box,
   Avatar,
   Stack,
   Container,
   CardMedia
 } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import useMatches from "../hooks/useMatches";
+import { setUser } from "../state/user";
 
 const theme = createTheme();
 
@@ -38,6 +36,7 @@ const Profile = () => {
   );
 
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -61,8 +60,8 @@ const Profile = () => {
         last_name: lastName,
         email: email,
       })
-      .then((res) => console.log(res));
-    setOpen(false);
+      .then((res) => dispatch(setUser(res.data)));
+      setOpen(false);
   };
 
 console.log(user.image);
@@ -92,9 +91,8 @@ console.log(user.image);
   //false = mobile  ---  true = desktop
   const matches = useMatches();
 
-  if (matches) {
-  } else {
-  }
+  if (matches) {} 
+  else {}
 
   return (
     <>

@@ -1,167 +1,193 @@
-import React from "react";
+import * as React from "react";
 import {
   Button,
-  Grid,
-  Paper,
-  Snackbar,
   TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
   Typography,
+  CssBaseline,
+  Box,
+  Avatar,
+  Stack,
+  Container,
 } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import CheckIcon from "@mui/icons-material/Check";
-import MuiAlert from '@mui/material/Alert';
-import { Box } from "@mui/system";
+import { useState } from "react";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useNavigate } from "react-router";
+import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
 import useMatches from "../hooks/useMatches";
+import { setUser } from "../state/user";
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: "center",
-  color: theme.palette.text.secondary,
-  height: 55,
-}));
+const theme = createTheme();
 
 const Profile = () => {
-    const [firstName, setFirstName] = React.useState('')
-    const [lastName, setLastName] = React.useState('')
-    const [birth, setBirth] = React.useState('')
-    const [address, setAddress] = React.useState('')
-    const [secondAddress, setSecondAddress] = React.useState('')
+  const [open, setOpen] = useState(false);
+  const { user } = useSelector((state) => state);
+  const [name, setName] = useState(user.name);
+  const [lastName, setLastName] = useState(user.last_name);
+  const [email, setEmail] = useState(user.email);
+  const navigate = useNavigate();
+  const dispatch = useDispatch()
 
-    //false = mobile  ---  true = desktop
-    const matches = useMatches()
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const nameChange = (e) => {
+    setName(e.target.value);
+  };
 
-    if(matches){}
-    else{}
+  const lastNameChange = (e) => {
+    setLastName(e.target.value);
+  };
 
-    const handleFirstName = (e)=>{
-        setFirstName(e.target.value)
-        setOpen(true);
-    }
+  const emailChange = (e) => {
+    setEmail(e.target.value);
+  };
 
-    const handleLastName = (e)=>{
-        setLastName(e.target.value)
-        setOpen(true);
-    }
+  const handleSend = () => {
+    axios
+      .put(`http://localhost:3001/api/user/update/${user._id}`, {
+        name: name,
+        last_name: lastName,
+        email: email,
+      })
+      .then((res) => dispatch(setUser(res.data)));
+      setOpen(false);
+  };
 
-    const handleBirth = (e)=>{
-        setBirth(e.target.value)
-        setOpen(true);
-    }
+  //false = mobile  ---  true = desktop
+  const matches = useMatches();
 
-    const handleAddress = (e)=>{
-        setAddress(e.target.value)
-        setOpen(true);
-    }
-
-    const handleSecondAddress = (e)=>{
-        setSecondAddress(e.target.value)
-        setOpen(true);
-    }
-
-    const Alert = React.forwardRef(function Alert(props, ref) {
-        return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-    });
-    const [open, setOpen] = React.useState(false);
-    
-    
-    
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-    
-        setOpen(false);
-    };
+  if (matches) {} 
+  else {}
 
   return (
     <>
-      <Box sx={{p:3}}>
-        <Grid container spacing={1}>
-          <Grid item xs={4}>
-            <Item>
-              <Typography sx={{ paddingTop: 1 }}>Firstname</Typography>
-            </Item>
-          </Grid>
-          <Grid item xs={5}>
-              <TextField
-          />
-          </Grid>
-          <Grid item xs={3}>
-            <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleFirstName}>
-              <CheckIcon />
-            </Button>
-          </Grid>
-          <Grid item xs={4}>
-            <Item>
-              <Typography sx={{ paddingTop: 1 }}>Lastname</Typography>
-            </Item>
-          </Grid>
-          <Grid item xs={5}>
-            <TextField
+      <ThemeProvider theme={theme}>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 7,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <Typography component="h1" variant="h5">
+              Mi Fundacion
+            </Typography>
+            <Stack direction="row" spacing={2}>
+              <Avatar
+                alt="Remy Sharp"
+                src="/static/images/avatar/1.jpg"
+                sx={{ m: 2, width: 66, height: 66 }}
+              />
+            </Stack>
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Button variant="contained" component="label">
+                Subir imagen
+                <input hidden accept="image/*" multiple type="file" />
+              </Button>
+            </Stack>
+            <Box component="form" noValidate sx={{ mt: 2 }}>
+              <Button
+                variant="contained"
+                onClick={handleClickOpen}
+                fullWidth
+                sx={{
+                  marginBottom: 1,
+                  marginTop: 2,
+                  backgroundColor: "#03A696",
+                  "&:hover": {
+                    backgroundColor: "#04BF9D",
+                    color: "#757575",
+                  },
+                }}
+              >
+                Edita tus datos personales
+              </Button>
+              <Dialog
+                open={open}
+                onClose={handleSend}
+                maxWidth="md"
+                fullWidth={true}
+              >
+                <DialogContent>
+                  <TextField
+                    onChange={nameChange}
+                    label="Nombre"
+                    defaultValue={user.name}
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                  />
+                  <TextField
+                    onChange={emailChange}
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    label="Email"
+                    defaultValue={user.email}
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                  />
+                </DialogContent>
 
-  />
-          </Grid>
-          <Grid item xs={3}>
-            <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleLastName}>
-              <CheckIcon />
-            </Button>
-          </Grid>
-          <Grid item xs={4}>
-            <Item>
-              <Typography sx={{ paddingTop: 1 }}>BirthDate</Typography>
-            </Item>
-          </Grid>
-          <Grid item xs={5}>
-            <TextField
+                <DialogActions>
+                  <Button variant="contained" onClick={() => setOpen(false)}>
+                    Cancelar
+                  </Button>
+                  <Button variant="contained" onClick={handleSend}>
+                    Guardar cambios
+                  </Button>
+                </DialogActions>
+              </Dialog>
 
-  />
-          </Grid>
-          <Grid item xs={3}>
-            <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleBirth}>
-              <CheckIcon />
+              <Button
+                type="submit"
+                variant="contained"
+                fullWidth
+                size="large"
+                sx={{
+                  marginBottom: 1,
+                  backgroundColor: "#03A696",
+                  "&:hover": {
+                    backgroundColor: "#04BF9D",
+                    color: "#757575",
+                  },
+                }}
+                onClick={() => {
+                  navigate("/mascotasadoptionForm");
+                }}
+              >
+                Editar Mascotas
+              </Button>
+            </Box>
+          </Box>
+            <Button
+              color="inherit"
+              fullWidth
+              sx={{ mt: 5, bgcolor: "#FFD640", mb: 1, borderRadius: 7 }}
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Volver
             </Button>
-          </Grid>
-          <Grid item xs={4}>
-            <Item>
-              <Typography>First Address</Typography>
-            </Item>
-          </Grid>
-          <Grid item xs={5}>
-            <TextField
-
-  />
-          </Grid>
-          <Grid item xs={3}>
-            <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleAddress}>
-              <CheckIcon />
-            </Button>
-          </Grid>
-          <Grid item xs={4}>
-            <Item>
-              <Typography>Second Address</Typography>
-            </Item>
-          </Grid>
-          <Grid item xs={5}>
-            <TextField
-
-  />
-          </Grid>
-          <Grid item xs={3}>
-            <Button sx={{ marginTop: 1, marginLeft: 2 }} onClick={handleSecondAddress}>
-              <CheckIcon />
-            </Button>
-          </Grid>
-        </Grid>
-        <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
-          <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-            The change was succesfully!!
-          </Alert>
-        </Snackbar>
-      </Box>
+          <br />
+          <br />
+          <br />
+        </Container>
+      </ThemeProvider>
     </>
   );
 };
 
-export default Profile
+export default Profile;

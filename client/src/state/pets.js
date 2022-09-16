@@ -5,8 +5,8 @@ export const getAllPets = createAsyncThunk("ALLPETS", ()=>{
     return axios.get('http://localhost:3001/api/pets/all').then((pets)=>{return pets.data})
 })
 
-export const getPetsByFoundation = createAsyncThunk("PETS", (input)=>{
-    return axios.get(`http://localhost:3001/api/pets/${input}`).then((pets)=>pets.data)
+export const getPetsByFoundation = createAsyncThunk("PETS", (foundationId)=>{
+    return axios.get(`http://localhost:3001/api/foundation/${foundationId}/pets`).then((pets)=>pets.data)
 })
 
 export const getOnePet = createAsyncThunk("PET", (petId)=>{
