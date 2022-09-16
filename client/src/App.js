@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect } from 'react';
-import { Routes, Route} from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './components/Home'
 import Pets from './components/Pets'
 import AdoptionForm from './components/AdoptionForm'
@@ -21,17 +21,21 @@ import { setUser } from './state/user';
 
 function App() {
   const dispatch = useDispatch()
+  const {pathname} = useLocation()
 
   useEffect(()=>{
-    axios
-    .get("http://localhost:3001/api/user/me", {
-      withCredentials: true,
-      credentials: "include",
-    })
-    .then((resp) => {
-      dispatch(setUser(resp.data));
-      return resp.data;
-    })
+    if(pathname === '/register' || pathname === '/login'){}
+    else{
+      axios
+      .get("http://localhost:3001/api/user/me", {
+        withCredentials: true,
+        credentials: "include",
+      })
+      .then((resp) => {
+        dispatch(setUser(resp.data));
+        return resp.data;
+      })
+    }
   },[])
 
   return (

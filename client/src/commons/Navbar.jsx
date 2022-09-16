@@ -280,7 +280,7 @@ export default function PersistentDrawerLeft({ prop }) {
                           </Box>
                           <Button
                             onClick={() => {
-                              navigate("/mascotas");
+                              navigate("/");
                             }}
                             sx={ButtonLogoStyle}
                           >
@@ -433,8 +433,6 @@ export default function PersistentDrawerLeft({ prop }) {
             </>
   }
   else{
-    if(user.email){
-      if(!open){
         drawerButton =
                     <IconButton
                       color="inherit"
@@ -445,10 +443,6 @@ export default function PersistentDrawerLeft({ prop }) {
                     >
                       <MenuIcon />
                     </IconButton>
-      }else{
-        drawerButton=<></>
-      }
-    }
     
     marginDrawer = false
     openDrawer = open
@@ -518,7 +512,6 @@ export default function PersistentDrawerLeft({ prop }) {
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
           </> 
-    if(user.name){
       navbarContent =   <>
                           {drawerButton}
                           <Box sx={{ display: "flex", flexDirection: "row" }}>
@@ -536,7 +529,7 @@ export default function PersistentDrawerLeft({ prop }) {
                           </Box>
                           <Button
                             onClick={() => {
-                              navigate("/mascotas");
+                              navigate("/");
                             }}
                             sx={ButtonLogoStyle}
                           >
@@ -547,18 +540,6 @@ export default function PersistentDrawerLeft({ prop }) {
                             </ImageListItem>
                           </Button>
                         </>
-    }else{
-      navbarContent =   <>
-                          <Typography variant='h6' sx={PCTStyle}>
-                            Patitas Con Techo
-                          </Typography>
-                          <Button sx={ButtonLogoStyle}>
-                            <ImageListItem sx={LogoStyle}>
-                              <img alt="" src={logo} loading="lazy" />
-                            </ImageListItem>
-                          </Button>
-                        </>
-    }
     DrawerContent = <List sx={DrawerList}>
                       <Link
                         style={{ color: "inherit", textDecoration: "none" }}

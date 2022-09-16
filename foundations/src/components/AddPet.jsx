@@ -154,7 +154,6 @@ const AddPet = () => {
                 type="file"
                 id="seleccionArchivos"
                 accept="image/*"
-                multiple
                 onChange={handleImage}
               />
             </Button>
