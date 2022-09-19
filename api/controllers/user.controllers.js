@@ -97,7 +97,9 @@ class UserController {
     }
   }
 
-  /* static async userUpdate(req, res) {
+
+
+ /*  static async userUpdate(req, res) {
     try {
       const user = await UserService.userUpdate(req.body, req.params.id);
       return res.status(204).send(user);
@@ -122,6 +124,8 @@ class UserController {
       res.status(200).send(bodyUpdated)
     })
   }
+} 
+
 
   static async getFavorites(req, res) {
     try {
