@@ -26,7 +26,7 @@ import {
 } from "@mui/material";
 import logo from "../assets/logoCeibo.png";
 import Pets from "@mui/icons-material/Pets";
-import Profile from "@mui/icons-material/Person";
+import Home from "@mui/icons-material/Home";
 import History from "@mui/icons-material/History";
 import Message from "@mui/icons-material/Message";
 import Footer from "./Footer";
@@ -34,6 +34,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import useMatches from "../hooks/useMatches";
 import AddIcon from '@mui/icons-material/Add';
 import { sendLogoutRequest } from "../state/user";
+import { search } from "../state/search";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -123,7 +124,7 @@ export default function PersistentDrawerLeft({ prop }) {
   const theme = useTheme();
   const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
-  const [search, setSearch] = React.useState("");
+  const [busqueda, setBusqueda] = React.useState("");
   const user = useSelector((state)=>state.user)
   const navigate = useNavigate();
 
@@ -137,11 +138,12 @@ export default function PersistentDrawerLeft({ prop }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate(`/search/${search}`);
+    navigate(`/search?search=${busqueda}`);
+    dispatch(search(busqueda))
   };
 
   const handleSearch = (e) => {
-    setSearch(e.target.value);
+    setBusqueda(e.target.value);
   };
 
   const handleLogOut = () => {
@@ -255,36 +257,6 @@ export default function PersistentDrawerLeft({ prop }) {
             <Typography sx={UserNameStyle}>{user.name?user.name:''}</Typography>
           </> 
     if(user.name){
-    navbarContent =   <>
-                        {drawerButton}
-                        <Box sx={{ display: "flex", flexDirection: "row" }}>
-                          <Search sx={SearchStyle} id='searchDisplay'>
-                            <StyledInputBase
-                              id="search"
-                              placeholder="Buscar…"
-                              inputProps={{ "aria-label": "search" }}
-                              onChange={handleSearch}
-                            />
-                          </Search>
-                          <Button sx={{ padding: 0 }} onClick={handleSubmit}>
-                            <SearchIcon sx={{ color: "black" }} />
-                          </Button>
-                        </Box>
-                        <Button
-                          onClick={() => {
-                            navigate("/mascotas");
-                          }}
-                          sx={ButtonLogoStyle}
-                        >
-                          <ImageListItem
-                            sx={LogoStyle}
-                          >
-                            <img alt="" src={logo} loading="lazy" />
-                          </ImageListItem>
-                        </Button>
-                      </>
-    }
-    if(user.name){
       navbarContent =   <>
                           {drawerButton}
                           <Box sx={{ display: "flex", flexDirection: "row" }}>
@@ -357,13 +329,13 @@ export default function PersistentDrawerLeft({ prop }) {
                           </Link>
                           <Link
                             style={{ color: "inherit", textDecoration: "none" }}
-                            to={"/profile"}
+                            to={"/Home"}
                             onClick={()=>{if(!matches)handleDrawerClose()}}
                           >
                             <ListItem disablePadding>
                               <ListItemButton>
                                 <ListItemIcon>
-                                  <Profile />
+                                  <Home />
                                 </ListItemIcon>
                                 <ListItemText primary={"Perfil"} />
                               </ListItemButton>
@@ -425,7 +397,7 @@ export default function PersistentDrawerLeft({ prop }) {
                             <ListItem disablePadding>
                               <ListItemButton>
                                 <ListItemIcon>
-                                  <Profile />
+                                  <Home />
                                 </ListItemIcon>
                                 <ListItemText primary={"Perfil"} />
                               </ListItemButton>
@@ -618,9 +590,9 @@ export default function PersistentDrawerLeft({ prop }) {
                         <ListItem disablePadding>
                           <ListItemButton>
                             <ListItemIcon>
-                              <Profile />
+                              <Home />
                             </ListItemIcon>
-                            <ListItemText primary={"Perfil"} />
+                            <ListItemText primary={"Fundacion"} />
                           </ListItemButton>
                         </ListItem>
                       </Link>
@@ -689,6 +661,7 @@ export default function PersistentDrawerLeft({ prop }) {
           {DrawerContent}
         </Drawer>
         <Main open={marginDrawer}>
+        <DrawerHeader/>
           {main}
         </Main>
       </Box>

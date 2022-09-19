@@ -31,9 +31,7 @@ const ShowFavorites = () => {
           setFavorites(res.data)
           console.log(res.data)
         })
-
   }, [pathname]);
-
 
   return (
     <>

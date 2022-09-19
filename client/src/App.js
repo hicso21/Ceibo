@@ -1,9 +1,10 @@
 import './App.css';
 import React, { useEffect } from 'react';
-import { Routes, Route} from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import Home from './components/Home'
 import Pets from './components/Pets'
 import AdoptionForm from './components/AdoptionForm'
+import ThanksAdoption from './components/ThanksAdoption'
 import Foundations from './components/Foundations'
 import SignUp from './components/SignUp'
 import LogIn from './components/LogIn'
@@ -21,17 +22,21 @@ import { setUser } from './state/user';
 
 function App() {
   const dispatch = useDispatch()
+  const {pathname} = useLocation()
 
   useEffect(()=>{
-    axios
-    .get("http://localhost:3001/api/user/me", {
-      withCredentials: true,
-      credentials: "include",
-    })
-    .then((resp) => {
-      dispatch(setUser(resp.data));
-      return resp.data;
-    })
+    if(pathname === '/register' || pathname === '/login'){}
+    else{
+      axios
+      .get("http://localhost:3001/api/user/me", {
+        withCredentials: true,
+        credentials: "include",
+      })
+      .then((resp) => {
+        dispatch(setUser(resp.data));
+        return resp.data;
+      })
+    }
   },[])
 
   return (
@@ -41,6 +46,7 @@ function App() {
         <Route path='/history' element={<Navbar prop={<History/>}/>}/>
         <Route path='/mascotas' element={<Navbar prop={<Pets/>}/>}/>
         <Route path='/adoptionForm' element={<Navbar prop={<AdoptionForm/>}/>}/>
+        <Route path='/thanksAdoption' element={<Navbar prop={<ThanksAdoption/>}/>}/>
         <Route path='/fundaciones' element={<Navbar prop={<Foundations/>}/>}/>
         <Route path='/mascotas/:petId' element={<Navbar prop={<SingularPet/>}/>}/>
         <Route path='/fundaciones/:foundationName' element={<Navbar prop={<SingularFoundation/>}/>}/>

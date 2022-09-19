@@ -30,7 +30,6 @@ const petSchema = new mongoose.Schema({
     type: mongoose.SchemaTypes.ObjectId,
     ref: "Foundation",
   },
-
   neutered: Boolean,
 });
 

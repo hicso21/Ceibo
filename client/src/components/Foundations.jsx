@@ -18,10 +18,6 @@ const ShowFoundations = () => {
   const foundations = useSelector(state=>state.foundations)
   const dispatch = useDispatch();
 
-  const handleFoundation = (id) => {
-    dispatch(getId({type:'foundation',id}))
-  }
-
   //false = mobile  ---  true = desktop
   const matches = useMatches()
 
@@ -44,7 +40,7 @@ const ShowFoundations = () => {
           <Grid container my={4}>
             {foundations?.map((fundacion) => {
               return(
-              <Link to={`/fundaciones/${fundacion._id}`} key={fundacion._id} style={{textDecoration:'none', margin:'0px auto', minWidth:295}} onClick={()=>{handleFoundation(fundacion._id)}}>
+              <Link to={`/fundaciones/${fundacion._id}`} key={fundacion._id} style={{textDecoration:'none', margin:'0px auto', minWidth:295}}>
                 <Grid item xs={12} p={2}>
                   <Card>
                     <CardMedia>

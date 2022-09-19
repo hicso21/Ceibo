@@ -5,22 +5,21 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
   Typography,
-  Link,
   CssBaseline,
-  Grid,
   Box,
   Avatar,
   Stack,
   Container,
+  CardMedia
 } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import useMatches from "../hooks/useMatches";
+import { setUser } from "../state/user";
 
 const theme = createTheme();
 
@@ -30,7 +29,14 @@ const Profile = () => {
   const [name, setName] = useState(user.name);
   const [lastName, setLastName] = useState(user.last_name);
   const [email, setEmail] = useState(user.email);
+  const [image, setImage] = useState(user.profile_picture);
+  const seleccionArchivos = document.querySelector("#seleccionArchivos");
+  const imagenPrevisualizacion = document.querySelector(
+    "#imagenPrevisualizacion"
+  );
+
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -54,16 +60,39 @@ const Profile = () => {
         last_name: lastName,
         email: email,
       })
+      .then((res) => dispatch(setUser(res.data)));
+      setOpen(false);
+  };
+
+console.log(user.image);
+
+  const handleImage = (e) => {
+    const archivos = seleccionArchivos.files;
+
+    if (!archivos || !archivos.length) {
+      imagenPrevisualizacion.src = "";
+      return;
+    }
+    const primerArchivo = archivos[0];
+    const objectUrl = URL.createObjectURL(primerArchivo);
+    setImage(objectUrl);
+
+    imagenPrevisualizacion.src = objectUrl;
+  };
+
+  const handleSubmit = () => {
+    axios
+      .put(`http://localhost:3001/api/user/update/${user._id}`, {
+        profile_picture: image,
+      })
       .then((res) => console.log(res));
-    setOpen(false);
   };
 
   //false = mobile  ---  true = desktop
   const matches = useMatches();
 
-  if (matches) {
-  } else {
-  }
+  if (matches) {} 
+  else {}
 
   return (
     <>
@@ -72,7 +101,7 @@ const Profile = () => {
           <CssBaseline />
           <Box
             sx={{
-              marginTop: 7,
+              marginTop: 4,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
@@ -81,18 +110,18 @@ const Profile = () => {
             <Typography component="h1" variant="h5">
               Mi Perfil
             </Typography>
-            <Stack direction="row" spacing={2}>
-              <Avatar
-                alt="Remy Sharp"
-                src="/static/images/avatar/1.jpg"
-                sx={{ m: 2, width: 66, height: 66 }}
-              />
+            <Stack direction="row" alignItems="center" spacing={2}>
+              <Avatar  alt="Remy Sharp"
+                sx={{ m: 2, width: 66, height: 66 }}>
+                  <img id="imagenPrevisualizacion" alt="" width={"100%"} src={user.profile_picture} />
+                </Avatar>
             </Stack>
             <Stack direction="row" alignItems="center" spacing={2}>
               <Button variant="contained" component="label">
                 Subir imagen
-                <input hidden accept="image/*" multiple type="file" />
+                <input hidden id="seleccionArchivos" accept="image/*" type="file" onChange={handleImage} />
               </Button>
+                <img id="imagenPrevisualizacion" alt="" />
             </Stack>
             <Box component="form" noValidate sx={{ mt: 2 }}>
               <Button
@@ -109,7 +138,7 @@ const Profile = () => {
                   },
                 }}
               >
-                Edita tus datos personales
+                Editar datos personales
               </Button>
               <Dialog
                 open={open}
@@ -176,6 +205,22 @@ const Profile = () => {
                     color: "#757575",
                   },
                 }}
+              >
+                Cambiar contraseña
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                fullWidth
+                size="large"
+                sx={{
+                  marginBottom: 1,
+                  backgroundColor: "#03A696",
+                  "&:hover": {
+                    backgroundColor: "#04BF9D",
+                    color: "#757575",
+                  },
+                }}
                 onClick={() => {
                   navigate("/adoptionForm");
                 }}
@@ -184,16 +229,24 @@ const Profile = () => {
               </Button>
             </Box>
           </Box>
-            <Button
-              color="inherit"
-              fullWidth
-              sx={{ mt: 5, bgcolor: "#FFD640", mb: 1, borderRadius: 7 }}
-              onClick={() => {
-                navigate("/");
-              }}
-            >
-              Volver
-            </Button>
+          <Button
+            color="inherit"
+            fullWidth
+            sx={{ mt: 5, bgcolor: "#FFD640", mb: 1, borderRadius: 7 }}
+            onClick={handleSubmit}
+          >
+            Guardar cambios
+          </Button>
+          <Button
+            color="inherit"
+            fullWidth
+            sx={{ bgcolor: "#FFD640", mb: 1, borderRadius: 7 }}
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Volver
+          </Button>
           <br />
           <br />
           <br />

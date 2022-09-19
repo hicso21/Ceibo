@@ -12,15 +12,14 @@ import AddPet from "./components/AddPet";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "./state/user";
 import axios from "axios";
+import Search from "./components/Search";
 
 function App() {
   const dispatch = useDispatch()
   const {pathname} = useLocation()
   const user = useSelector((state)=>state.user)
-  console.log(user)
 
   useEffect(()=>{
-    console.log(pathname)
     if(pathname !== '/' && pathname !== '/register'){
     axios
     .get("http://localhost:3001/api/foundation/me", {
@@ -44,7 +43,7 @@ function App() {
       {/* <Route path="/passwordForgotted" element={<Navbar prop={<></>}/>}/> */}
       <Route path="/messages" element={<Navbar prop={<></>}/>}/>
       <Route path="/add" element={<Navbar prop={<AddPet/>}/>}/>
-      <Route path="/search" element={<Navbar prop={<></>}/>}/>
+      <Route path="/search" element={<Navbar prop={<Search/>}/>}/>
     </Routes>
   )
 }

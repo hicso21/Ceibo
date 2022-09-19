@@ -18,6 +18,12 @@ class UserController {
           favorites: user.favorites,
           adopted: user.adopted,
           location: user.location,
+          numberPhone: user.numberPhone,
+          civilStatus: user.civilStatus,
+          availableSpace: user.availableSpace,
+          kids: user.kids,
+          otherPets: user.otherPets,
+          message: user.message,
         });
         const payload = validateToken(token);
         req.user = payload;
@@ -45,6 +51,12 @@ class UserController {
           favorites: user.favorites,
           adopted: user.adopted,
           location: user.location,
+          numberPhone: user.numberPhone,
+          civilStatus: user.civilStatus,
+          availableSpace: user.availableSpace,
+          kids: user.kids,
+          otherPets: user.otherPets,
+          message: user.message,
         });
         const payload = validateToken(token);
         req.user = payload;
@@ -85,27 +97,35 @@ class UserController {
     }
   }
 
-static async userUpdate(req, res){
-  let _id = req.params.id
-  let update = req.body
-  try {
-    const user = await UserService.userUpdate(update, _id)
-    return res.status(204).send(user)
-} catch (error) {
-    console.log(error)
-}
-}
-
 
 
  /*  static async userUpdate(req, res) {
     try {
-      const user = await UserService.userUpdate(req.body, req.params.id)
-      return res.status(204).send(user)
-  } catch (error) {
-      console.log(error)
+      const user = await UserService.userUpdate(req.body, req.params.id);
+      return res.status(204).send(user);
+    } catch (error) {
+      console.log(error);
+    }
+  } */
+
+  static async userUpdate(req, res){
+    let _id = req.params.id
+    let update = req.body
+    console.log(update)
+  
+    Users.findByIdAndUpdate(_id, update, (err, bodyUpdated) => {
+      if(err) return res.status(500).send({message: `Error al actualizar la nota: ${err}`})
+  
+      if(!bodyUpdated) return res.status(500).send({message: 'No retornó objeto actualizado'})
+      
+      bodyUpdated.name = update.name
+      bodyUpdated.last_name = update.last_name
+      bodyUpdated.email = update.email
+      res.status(200).send(bodyUpdated)
+    })
   }
-} */
+} 
+
 
   static async getFavorites(req, res) {
     try {
