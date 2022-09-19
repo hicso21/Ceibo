@@ -3,10 +3,11 @@ import { createReducer, createAsyncThunk } from "@reduxjs/toolkit";
 
 
 export const sendLoginRequest = createAsyncThunk("LOGIN", (input) => {
-  return axios.post("http://localhost:3001/api/user/login",input, {
-    withCredentials: true,
-    credentials: "include",
-  }).then((r)=> r.data)
+  return  axios.post("http://localhost:3001/api/user/login",input, {
+            withCredentials: true,
+            credentials: "include",
+          })
+          .then((r)=> r.data)
 });
 
 export const sendSignUpRequest = createAsyncThunk("SIGNUP", (input) => {
@@ -15,10 +16,11 @@ export const sendSignUpRequest = createAsyncThunk("SIGNUP", (input) => {
 
 export const sendLogoutRequest = createAsyncThunk("LOGOUT", () => {
   document.cookie = "token= "
-  return axios.post("http://localhost:3001/api/user/logout", {
-    withCredentials: true,
-    credentials: "include",
-  }).then((r)=> r)
+  return  axios.post("http://localhost:3001/api/user/logout", {
+            withCredentials: true,
+            credentials: "include",
+          })
+          .then((r)=> r)
 });
 
 export const setUser = createAsyncThunk("SETUSER", (input) => {

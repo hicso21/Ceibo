@@ -1,6 +1,6 @@
 import "./App.css";
-import React, { useEffect } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./commons/Navbar";
 import SingularPet from "./components/SingularPet";
 import Profile from "./components/Profile";
@@ -9,42 +9,28 @@ import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import Pets from "./components/Pets";
 import AddPet from "./components/AddPet";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "./state/user";
-import axios from "axios";
 import Search from "./components/Search";
+import Layout from "./components/Layout"
 
 function App() {
-  const dispatch = useDispatch()
-  const {pathname} = useLocation()
-  const user = useSelector((state)=>state.user)
-
-  useEffect(()=>{
-    if(pathname !== '/' && pathname !== '/register'){
-    axios
-    .get("http://localhost:3001/api/foundation/me", {
-      withCredentials: true,
-      credentials: "include",
-    })
-    .then((resp) => {
-      dispatch(setUser(resp.data));
-      return resp.data;
-    })}
-  },[])
 
   return (
-    <Routes>
-      <Route path="/profile" element={<Navbar prop={<Profile/>}/>}/>
-      <Route path="/history" element={<Navbar prop={<History/>}/>}/>
-      <Route path="/mascotas" element={<Navbar prop={<Pets/>}/>}/>
-      <Route path="/mascotas/:petId" element={<Navbar prop={<SingularPet/>}/>}/>
-      <Route path="/" element={<Navbar prop={<LogIn/>}/>}/>
-      <Route path="/register" element={<Navbar prop={<SignUp/>}/>}/>
-      {/* <Route path="/passwordForgotted" element={<Navbar prop={<></>}/>}/> */}
-      <Route path="/messages" element={<Navbar prop={<></>}/>}/>
-      <Route path="/add" element={<Navbar prop={<AddPet/>}/>}/>
-      <Route path="/search" element={<Navbar prop={<Search/>}/>}/>
-    </Routes>
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="/profile" element={<Profile/>}/>
+          <Route path="/history" element={<History/>}/>
+          <Route path="/mascotas" element={<Pets/>}/>
+          <Route path="/mascotas/:petId" element={<SingularPet/>}/>
+          <Route path="/" element={<LogIn/>}/>
+          <Route path="/register" element={<SignUp/>}/>
+          <Route path="/passwordForgotted" element={<AddPet/>}/>
+          <Route path="/messages" element={<AddPet/>}/>
+          <Route path="/add" element={<AddPet/>}/>
+          <Route path="/search" element={<Search/>}/>
+        </Routes>
+      </Layout>
+    </Router>
   )
 }
 
