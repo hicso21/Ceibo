@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { Box } from "@mui/system";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import "./Chat.css";
 
@@ -34,23 +34,37 @@ export default function Chat() {
 
   const [chatMessages, setChatMessages] = useState([]);
   const [message, setMessage] = useState("");
-  const listChatMessages = chatMessages.map((chatMessageDto, index) => {
-    <ListItem key={index}>
+  /* const listChatMessages = chatMessages.map((chatMessageDto) => {
+    <ListItem key={chatMessageDto.user}>
       <ListItemText
         primary={`${chatMessageDto.user}:${chatMessageDto.message}`}
       />
     </ListItem>;
-  });
+  }); */
 
   const handlerMessageChange = (event) => {
     setMessage(event.target.value);
   };
 
-  const sendMessage = () => {
+  const handlerSubmit = (e) => {
+    e.preventDefault();
     if (user && message) {
-      console.log("send msn");
+      socket.emit("message", { message, user });
+      setMessage("");
     }
   };
+
+  useEffect(() => {
+    const receiveMessage = (message) => {
+      setChatMessages([...chatMessages, message]);
+      console.log("receive message", message);
+    };
+    socket.on("message", receiveMessage);
+
+    return () => {
+      socket.off("message", receiveMessage);
+    };
+  }, [chatMessages]);
 
   return (
     <>
@@ -64,7 +78,18 @@ export default function Chat() {
               <Divider />
               <Grid container spacing={4} alignItems="center">
                 <Grid id="chat-window" xs={12} item>
-                  <List id="chat-window-messages">{listChatMessages}</List>
+                  <List id="chat-window-messages">
+                    {chatMessages.map((chat, index) => {
+                      return (
+                        <ListItem key={index}>
+                          <ListItemText
+                            key={chat.user}
+                            primary={`${chat.user}:${chat.message}`}
+                          />
+                        </ListItem>
+                      );
+                    })}
+                  </List>
                 </Grid>
                 <Grid item>
                   <FormControl fullWidth>
@@ -82,7 +107,7 @@ export default function Chat() {
                   </FormControl>
                 </Grid>
                 <Grid xs={1} item>
-                  <IconButton aria-label="Enviar" onClick={sendMessage}>
+                  <IconButton aria-label="Enviar" onClick={handlerSubmit}>
                     <SendIcon />
                   </IconButton>
                 </Grid>
