@@ -164,7 +164,7 @@ const Profile = () => {
                   },
                 }}
                 onClick={() => {
-                  navigate("/mascotasadoptionForm");
+                  navigate("/mascotas");
                 }}
               >
                 Editar Mascotas

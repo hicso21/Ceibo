@@ -84,8 +84,11 @@ console.log(user.image);
     axios
       .put(`http://localhost:3001/api/user/update/${user._id}`, {
         profile_picture: image,
+        name: user.name,
+        last_name: user.last_name,
+        email: user.email
       })
-      .then((res) => console.log(res));
+      .then((res) => console.log(res.data));
   };
 
   //false = mobile  ---  true = desktop
@@ -93,7 +96,7 @@ console.log(user.image);
 
   if (matches) {} 
   else {}
-
+  
   return (
     <>
       <ThemeProvider theme={theme}>

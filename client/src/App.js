@@ -16,27 +16,32 @@ import SingularPet from './components/SingularPet';
 import SingularFoundation from './components/SingularFoundation';
 import Chat from './components/Chat/Chat.jsx';
 import Search from './components/Search';
+import Messages from './components/Messages';
 
 function App() {
 
   return (
-      <Routes>
-        <Route path='/' element={<Navbar prop={<Home/>}/>}/>
-        <Route path='/profile' element={<Navbar prop={<Profile/>}/>}/>
-        <Route path='/history' element={<Navbar prop={<History/>}/>}/>
-        <Route path='/mascotas' element={<Navbar prop={<Pets/>}/>}/>
-        <Route path='/adoptionForm' element={<Navbar prop={<AdoptionForm/>}/>}/>
-        <Route path='/thanksAdoption' element={<Navbar prop={<ThanksAdoption/>}/>}/>
-        <Route path='/fundaciones' element={<Navbar prop={<Foundations/>}/>}/>
-        <Route path='/mascotas/:petId' element={<Navbar prop={<SingularPet/>}/>}/>
-        <Route path='/fundaciones/:foundationName' element={<Navbar prop={<SingularFoundation/>}/>}/>
-        <Route path='/login' element={<Navbar prop={<LogIn/>}/>}/>
-        <Route path='/register' element={<Navbar prop={<SignUp/>}/>}/>
-        <Route path='/favorites' element={<Navbar prop={<Favorites/>}/>}/>
-        <Route path='/messages' element={<Navbar prop={<Chat/>}/>}/>
-        <Route path='/search' element={<Navbar prop={<Search/>}/>}/>
-        <Route path='/chat' element={<Navbar prop={<Chat/>}/>}/>
-      </Routes>
+      <Router>
+        <Layout>
+          <Routes>
+            <Route path='/' element={<Home/>}/>
+            <Route path='/profile' element={<Profile/>}/>
+            <Route path='/history' element={<History/>}/>
+            <Route path='/mascotas' element={<Pets/>}/>
+            <Route path='/adoptionForm' element={<AdoptionForm/>}/>
+            <Route path='/thanksAdoption' element={<ThanksAdoption/>}/>
+            <Route path='/fundaciones' element={<Foundations/>}/>
+            <Route path='/mascotas/:petId' element={<SingularPet/>}/>
+            <Route path='/fundaciones/:foundationName' element={<SingularFoundation/>}/>
+            <Route path='/login' element={<LogIn/>}/>
+            <Route path='/register' element={<SignUp/>}/>
+            <Route path='/favorites' element={<Favorites/>}/>
+            <Route path='/messages' element={<Messages/>}/>
+            <Route path='/search' element={<Search/>}/>
+            <Route path='/chat' element={<Chat/>}/>
+          </Routes>
+        </Layout>
+      </Router>
   );
 }
 
