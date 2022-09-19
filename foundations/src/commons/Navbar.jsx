@@ -665,7 +665,6 @@ export default function PersistentDrawerLeft({ prop }) {
           {main}
         </Main>
       </Box>
-          <Footer/>
     </>
   );
 }

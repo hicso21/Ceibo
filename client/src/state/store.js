@@ -7,7 +7,7 @@ import idReducer from './id'
 import searchReducer from "./search";
 
 const store = configureStore({
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({serializableCheck: false}).concat(logger),
     reducer: {
       user: userReducer,
       pets: petsReducer,
