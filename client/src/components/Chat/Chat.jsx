@@ -1,4 +1,3 @@
-
 import {Fragment} from "react";
 import {Container, Paper, Typography, Divider, Grid , List, ListItem, ListItemText, FormControl, TextField, IconButton} from "@mui/material"
 import SendIcon from "@mui/icons-material/Send"
@@ -7,9 +6,6 @@ import { useState } from "react";
 import "./Chat.css"
 import { useSelector } from "react-redux";
 const { io } = require("socket.io-client");
-
-
-
 
 export default function Chat() {
 
@@ -22,11 +18,7 @@ export default function Chat() {
       socket.on("disconnect", () => {
         console.log(socket.id); // undefined
       });
-
-
-
-
-
+      
 const { user } = useSelector((state) => state);    
 
 const [chatMessages , setChatMessages] = useState([])

@@ -121,11 +121,14 @@ class UserController {
       bodyUpdated.name = update.name
       bodyUpdated.last_name = update.last_name
       bodyUpdated.email = update.email
+      bodyUpdated.password = null
+      bodyUpdated.salt = null
+      bodyUpdated.__v = null
+      bodyUpdated.idAdmin = null
+      console.log(bodyUpdated)
       res.status(200).send(bodyUpdated)
     })
   }
-} 
-
 
   static async getFavorites(req, res) {
     try {

@@ -329,7 +329,7 @@ export default function PersistentDrawerLeft({ prop }) {
                           </Link>
                           <Link
                             style={{ color: "inherit", textDecoration: "none" }}
-                            to={"/Home"}
+                            to={"/profile"}
                             onClick={()=>{if(!matches)handleDrawerClose()}}
                           >
                             <ListItem disablePadding>
