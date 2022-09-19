@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { getId } from '../state/id';
 import useMatches from '../hooks/useMatches';
 
 function Home() {
@@ -24,9 +23,6 @@ function Home() {
   else{
     BoxStyle = {p:2, pt:3, display:'flex', flexDirection:'column', alignItems:'center', margin:'auto 0px', width:'100%'}
     ImageStyle = { width: 327, height: 235, display:'flex', flexDirection:'column' }
-  }
-  const handleFoundation = (id)=>{
-    dispatch(getId({type:'foundation',id}))
   }
 
   useEffect(() => {
