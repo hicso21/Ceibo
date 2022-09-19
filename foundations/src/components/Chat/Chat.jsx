@@ -73,7 +73,7 @@ export default function Chat() {
           <Paper elevation={5}>
             <Box p={8}>
               <Typography variant="h5" gutterBottom>
-                Chat con la fundacion
+                Chat con el usuario
               </Typography>
               <Divider />
               <Grid container spacing={4} alignItems="center">

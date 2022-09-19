@@ -38,8 +38,14 @@ app.use(cors({
 app.use("/api", routes);
 
 io.on("connection", (socket) => {
-  console.log(socket.id);
-  console.log("user connected");
+  socket.on("message",({message,user})=>{
+    socket.emit("message",{
+      message:message,
+      user:user.name
+    })
+    // socket.emit("message",{ message:message, user:user.name}
+    console.log(message);
+  })
 });
 
 httpServer.listen(process.env.PORT || 3001, () => {
@@ -51,9 +57,9 @@ httpServer.listen(process.env.PORT || 3001, () => {
 io.listen(3001);
 io.on("connection", (socket) => {
   console.log("user connected");
-  socket.on("user-connect", async (userData) => {
-    userData.socketId = socket.id;
-    usersArray.push(userData);
+  socket.on("message", async (message) => {
+    message.socketId = socket.id;
+    usersArray.push(message);
     io.sockets.emit("users-connected", usersArray);
 
     console.log("Users online: " + usersArray.length);
