@@ -11,6 +11,7 @@ import Pets from "./components/Pets";
 import AddPet from "./components/AddPet";
 import Search from "./components/Search";
 import Layout from "./components/Layout"
+import Chat from "./components/Chat/Chat"
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/messages" element={<AddPet/>}/>
           <Route path="/add" element={<AddPet/>}/>
           <Route path="/search" element={<Search/>}/>
+          <Route path='/chat' element={<Chat/>}/>
         </Routes>
       </Layout>
     </Router>
