@@ -53,7 +53,7 @@ function App() {
         <Route path='/login' element={<Navbar prop={<LogIn/>}/>}/>
         <Route path='/register' element={<Navbar prop={<SignUp/>}/>}/>
         <Route path='/favorites' element={<Navbar prop={<Favorites/>}/>}/>
-        <Route path='/messages' element={<Navbar prop={<></>}/>}/>
+        <Route path='/messages' element={<Navbar prop={<Chat/>}/>}/>
         <Route path='/search' element={<Navbar prop={<Search/>}/>}/>
         <Route path='/chat' element={<Navbar prop={<Chat/>}/>}/>
       </Routes>

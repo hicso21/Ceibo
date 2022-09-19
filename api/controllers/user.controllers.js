@@ -124,8 +124,6 @@ class UserController {
       res.status(200).send(bodyUpdated)
     })
   }
-} 
-
 
   static async getFavorites(req, res) {
     try {
