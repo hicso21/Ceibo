@@ -1,15 +1,12 @@
 import { Card, CardContent, CardMedia, Container, Grid, Typography } from '@mui/material'
 import React from 'react'
-import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
-import { search } from '../state/search'
 import logoGatito from '../assets/gatitoLogo.png';
 import logoPerrito from '../assets/perritoLogo.png';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
-import { getId } from '../state/id'
 
 const Search = () => {
 

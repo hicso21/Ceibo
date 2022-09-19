@@ -15,7 +15,6 @@ import Favorites from './components/Favorites';
 import SingularPet from './components/SingularPet';
 import SingularFoundation from './components/SingularFoundation';
 import Chat from './components/Chat/Chat.jsx';
-import Search from './components/Search';
 import Messages from './components/Messages';
 
 function App() {
@@ -37,7 +36,6 @@ function App() {
             <Route path='/register' element={<SignUp/>}/>
             <Route path='/favorites' element={<Favorites/>}/>
             <Route path='/messages' element={<Messages/>}/>
-            <Route path='/search' element={<Search/>}/>
             <Route path='/chat' element={<Chat/>}/>
           </Routes>
         </Layout>

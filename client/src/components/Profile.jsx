@@ -64,7 +64,6 @@ const Profile = () => {
       setOpen(false);
   };
 
-console.log(user.image);
 
   const handleImage = (e) => {
     const archivos = seleccionArchivos.files;

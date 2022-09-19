@@ -118,15 +118,19 @@ class UserController {
   
       if(!bodyUpdated) return res.status(500).send({message: 'No retornó objeto actualizado'})
       
-      bodyUpdated.name = update.name
-      bodyUpdated.last_name = update.last_name
-      bodyUpdated.email = update.email
-      bodyUpdated.password = null
-      bodyUpdated.salt = null
-      bodyUpdated.__v = null
-      bodyUpdated.idAdmin = null
-      console.log(bodyUpdated)
-      res.status(200).send(bodyUpdated)
+      const objectToReturn = {
+        email: update.email,
+        name: update.name,
+        _id : bodyUpdated._id,
+        last_name: update.last_name,
+        favorites: bodyUpdated.favorites,
+        adopted: bodyUpdated.adopted,
+        profile_picture: update.profile_picture,
+      }
+
+      console.log(objectToReturn)
+
+      res.status(200).send(objectToReturn)
     })
   }
 

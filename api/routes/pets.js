@@ -6,8 +6,6 @@ router.get("/all", PetsController.getAllPets);
 
 router.get("/some", PetsController.getSomePets);
 
-//router.post("/create", PetsController.createPet);
-
 router.get("/:id", PetsController.findPet);
 
 router.put("/update/:id", PetsController.modifyPet);
