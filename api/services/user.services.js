@@ -36,13 +36,26 @@ class UserService {
     }
   }
 
-  static async userUpdate(body,id) {
-    try {
-      return await Users.updateOne({ _id: id }, { $set: body })
-  } catch (error) {
+  static async userUpdate(update, _id) {
+    try{ await Users.findByIdAndUpdate(_id, update, (err, bodyUpdated) => {
+      if(err) return{message: `Error al actualizar la nota: ${err}`}
+  
+      if(!bodyUpdated) return{message: 'No retornó objeto actualizado'}
+  
+      return{ nota: bodyUpdated }
+    })}
+    catch (error) {
       console.log(error)
   }
 }
+
+/* static async userUpdate(body,id) {
+  try {
+    return await Users.updateOne({ _id: id }, { $set: body })
+} catch (error) {
+    console.log(error)
+}
+} */
 
   static async addFavorite(id, fav) {
     try {

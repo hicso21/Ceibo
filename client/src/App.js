@@ -13,6 +13,7 @@ import Profile from './components/Profile';
 import Favorites from './components/Favorites';
 import SingularPet from './components/SingularPet';
 import SingularFoundation from './components/SingularFoundation';
+import Chat from './components/Chat/Chat.jsx';
 import Search from './components/Search';
 import axios from'axios'
 import { useDispatch, useSelector } from 'react-redux';
@@ -48,6 +49,7 @@ function App() {
         <Route path='/favorites' element={<Navbar prop={<Favorites/>}/>}/>
         <Route path='/messages' element={<Navbar prop={<></>}/>}/>
         <Route path='/search' element={<Navbar prop={<Search/>}/>}/>
+        <Route path='/chat' element={<Navbar prop={<Chat/>}/>}/>
       </Routes>
   );
 }

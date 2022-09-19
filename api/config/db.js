@@ -10,4 +10,6 @@ const db = mongoose
     console.log(err);
   });
 
+mongoose.Promise = global.Promise;
+
 module.exports = db
