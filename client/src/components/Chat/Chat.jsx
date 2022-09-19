@@ -49,22 +49,22 @@ export default function Chat() {
   const handlerSubmit = (e) => {
     e.preventDefault();
     if (user && message) {
-      socket.emit("message", {message:message,user:user})
-      setMessage("")
+      socket.emit("message", { message, user });
+      setMessage("");
     }
   };
 
-  useEffect(()=>{
-    const receiveMessage = (message)=> {
-      setChatMessages([...chatMessages, message])
-      console.log("receive message",message);
+  useEffect(() => {
+    const receiveMessage = (message) => {
+      setChatMessages([...chatMessages, message]);
+      console.log("receive message", message);
     };
-     socket.on("message",receiveMessage)
+    socket.on("message", receiveMessage);
 
-     return ()=>{
-      socket.off("message",receiveMessage) 
-     }
-  },[chatMessages])
+    return () => {
+      socket.off("message", receiveMessage);
+    };
+  }, [chatMessages]);
 
   return (
     <>
