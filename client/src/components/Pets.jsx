@@ -80,17 +80,17 @@ const Pets = () => {
     };
 
     const handleGender = (busqueda) => {
-        navigate(`/search?byGender`)
+        navigate(`/mascotas?byGender`)
         dispatch(searchByGender(busqueda))
     };
 
     const handleSize = (busqueda) => {
-        navigate(`/search?bySize`)
+        navigate(`/mascotas?bySize`)
         dispatch(searchBySize(busqueda))
     };
 
     const handleSpecie = (busqueda) => {
-        navigate(`/search?bySpecie`)
+        navigate(`/mascotas?bySpecie`)
         dispatch(searchBySpecie(busqueda))
     };
 

@@ -27,10 +27,7 @@ const ShowFavorites = () => {
   useEffect(() => {
       axios
         .get(`http://localhost:3001/api/user/favorites/${user?._id}`)
-        .then((res) => {
-          setFavorites(res.data)
-          console.log(res.data)
-        })
+        .then((res) => {setFavorites(res.data)})
   }, [pathname]);
 
   return (

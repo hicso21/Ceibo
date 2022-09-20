@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './components/Home';
@@ -18,7 +18,6 @@ import Chat from './components/Chat/Chat.jsx';
 import Messages from './components/Messages';
 
 function App() {
-
   return (
       <Router>
         <Layout>
