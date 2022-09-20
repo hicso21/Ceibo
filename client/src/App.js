@@ -36,7 +36,7 @@ function App() {
             <Route path='/register' element={<SignUp/>}/>
             <Route path='/favorites' element={<Favorites/>}/>
             <Route path='/messages' element={<Messages/>}/>
-            <Route path='/chat' element={<Chat/>}/>
+            <Route path='/chat/:fId' element={<Chat/>}/>
           </Routes>
         </Layout>
       </Router>
