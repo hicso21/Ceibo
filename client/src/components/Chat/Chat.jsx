@@ -34,13 +34,6 @@ export default function Chat() {
 
   const [chatMessages, setChatMessages] = useState([]);
   const [message, setMessage] = useState("");
-  /* const listChatMessages = chatMessages.map((chatMessageDto) => {
-    <ListItem key={chatMessageDto.user}>
-      <ListItemText
-        primary={`${chatMessageDto.user}:${chatMessageDto.message}`}
-      />
-    </ListItem>;
-  }); */
 
   const handlerMessageChange = (event) => {
     setMessage(event.target.value);

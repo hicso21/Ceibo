@@ -34,13 +34,6 @@ export default function Chat() {
 
   const [chatMessages, setChatMessages] = useState([]);
   const [message, setMessage] = useState("");
-  /* const listChatMessages = chatMessages.map((chatMessageDto) => {
-    <ListItem key={chatMessageDto.user}>
-      <ListItemText
-        primary={`${chatMessageDto.user}:${chatMessageDto.message}`}
-      />
-    </ListItem>;
-  }); */
 
   const handlerMessageChange = (event) => {
     setMessage(event.target.value);
@@ -49,22 +42,22 @@ export default function Chat() {
   const handlerSubmit = (e) => {
     e.preventDefault();
     if (user && message) {
-      socket.emit("message", {message:message,user:user})
-      setMessage("")
+      socket.emit("message", { message, user });
+      setMessage("");
     }
   };
 
-  useEffect(()=>{
-    const receiveMessage = (message)=> {
-      setChatMessages([...chatMessages, message])
-      console.log("receive message",message);
+  useEffect(() => {
+    const receiveMessage = (message) => {
+      setChatMessages([...chatMessages, message]);
+      console.log("receive message", message);
     };
-     socket.on("message",receiveMessage)
+    socket.on("message", receiveMessage);
 
-     return ()=>{
-      socket.off("message",receiveMessage) 
-     }
-  },[chatMessages])
+    return () => {
+      socket.off("message", receiveMessage);
+    };
+  }, [chatMessages]);
 
   return (
     <>
@@ -73,7 +66,7 @@ export default function Chat() {
           <Paper elevation={5}>
             <Box p={8}>
               <Typography variant="h5" gutterBottom>
-                Chat con el usuario
+                Chat con un usuario
               </Typography>
               <Divider />
               <Grid container spacing={4} alignItems="center">

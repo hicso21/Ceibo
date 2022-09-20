@@ -37,60 +37,21 @@ app.use(cors({
 
 app.use("/api", routes);
 
-io.on("connection", (socket) => {
-  socket.on("message",({message,user})=>{
-    socket.emit("message",{
-      message:message,
-      user:user.name
-    })
-    // socket.emit("message",{ message:message, user:user.name}
-    console.log(message);
-  })
-});
 
 httpServer.listen(process.env.PORT || 3001, () => {
   console.log(`server listening on port ${process.env.PORT}`);
 });
 
 //-----------------------socket------------------------
-/* const usersArray = [];
-io.listen(3001);
+
 io.on("connection", (socket) => {
   console.log("user connected");
-  socket.on("message", async (message) => {
-    message.socketId = socket.id;
-    usersArray.push(message);
-    io.sockets.emit("users-connected", usersArray);
-
-    console.log("Users online: " + usersArray.length);
-
+  socket.on("message", async ({message,user}) => {
     try {
-      const messages = await Message.find();
-      io.sockets.emit("old-messages", messages);
+      io.sockets.emit("message", {message:message,
+      user:user.name});
     } catch (err) {
       io.sockets.emit("error", err);
     }
   });
-
-  socket.on("send-message", async (messageData) => {
-    try {
-      const newMessage = await Message.create(messageData);
-      console.log("> " + messageData.username + ":" + messageData.message);
-      io.sockets.emit("new-message", newMessage);
-    } catch (err) {
-      console.log(err);
-      io.sockets.emit("error", err);
-    }
-  });
-
-  socket.on("disconnect", () => {
-    usersArray.map((user, index) => {
-      if (usersArray[index].socketId === socket.id)
-        return usersArray.splice(index, 1);
-    });
-
-    console.log("Users online: " + usersArray.length);
-
-    io.sockets.emit("users-connected", usersArray);
-  });
-}); */
+}); 
