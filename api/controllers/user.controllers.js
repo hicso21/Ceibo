@@ -92,8 +92,10 @@ class UserController {
       const { userId } = req.params.id;
       const salt = await bcrypt.genSalt(10)
       const password = await bcrypt.hashSync(req.body.password, salt);
-      const userPassword = await Users.updateOne({_id: userId}, {password: password})
-      return res.status(204).send(userPassword);
+      console.log(req.body.password)
+      console.log(password);
+      const userPassword = await Users.updateOne({_id: userId}, {$set: {password: password}})
+      return res.status(204).send(password);
     } catch (error) {
       console.log(error.message);
     }
@@ -108,7 +110,6 @@ class UserController {
       console.log(error.message);
     }
   }
-
 
 
  /*  static async userUpdate(req, res) {

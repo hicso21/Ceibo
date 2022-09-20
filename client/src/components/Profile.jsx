@@ -25,10 +25,12 @@ const theme = createTheme();
 
 const Profile = () => {
   const [open, setOpen] = useState(false);
+  const [openPassword, setOpenPassword] = useState(false);
   const { user } = useSelector((state) => state);
   const [name, setName] = useState(user.name);
   const [lastName, setLastName] = useState(user.last_name);
   const [email, setEmail] = useState(user.email);
+  const [password, setPassword] = useState(user.password);
   const [image, setImage] = useState(user.profile_picture);
   const seleccionArchivos = document.querySelector("#seleccionArchivos");
   const imagenPrevisualizacion = document.querySelector(
@@ -41,12 +43,21 @@ const Profile = () => {
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  const handleClickOpenPassword = () => {
+    setOpenPassword(true);
+  };
+
   const nameChange = (e) => {
     setName(e.target.value);
   };
 
   const lastNameChange = (e) => {
     setLastName(e.target.value);
+  };
+
+  const passwordChange = (e) => {
+    setPassword(e.target.value);
   };
 
   const emailChange = (e) => {
@@ -64,7 +75,14 @@ const Profile = () => {
       setOpen(false);
   };
 
-console.log(user.image);
+  const handleSendPassword = () => {
+    axios
+      .put(`http://localhost:3001/api/user/resetPassword/${user._id}`, {
+        password: password
+      })
+      .then((res) => dispatch(setPassword(res.data)));
+      setOpenPassword(false);
+  };
 
   const handleImage = (e) => {
     const archivos = seleccionArchivos.files;
@@ -86,7 +104,8 @@ console.log(user.image);
         profile_picture: image,
         name: user.name,
         last_name: user.last_name,
-        email: user.email
+        email: user.email,
+        password: user.password
       })
       .then((res) => console.log(res.data));
   };
@@ -196,10 +215,9 @@ console.log(user.image);
               </Dialog>
 
               <Button
-                type="submit"
                 variant="contained"
+                onClick={handleClickOpenPassword}
                 fullWidth
-                size="large"
                 sx={{
                   marginBottom: 1,
                   backgroundColor: "#03A696",
@@ -211,6 +229,36 @@ console.log(user.image);
               >
                 Cambiar contraseña
               </Button>
+              <Dialog
+                open={openPassword}
+                onClose={handleSendPassword}
+                maxWidth="md"
+                fullWidth={true}
+              >
+                <DialogContent>
+                  <TextField
+                  onChange={passwordChange}
+                  margin="dense"
+                  variant="standard"
+                  fullWidth
+		              autoFocus
+                  label="Nueva contraseña"
+                  type="password"
+                  id="password"
+                  name="password"
+                  />
+                </DialogContent>
+
+                <DialogActions>
+                  <Button variant="contained" onClick={() => setOpenPassword(false)}>
+                    Cancelar
+                  </Button>
+                  <Button variant="contained" onClick={handleSendPassword}>
+                    Guardar cambios
+                  </Button>
+                </DialogActions>
+              </Dialog>
+
               <Button
                 type="submit"
                 variant="contained"
