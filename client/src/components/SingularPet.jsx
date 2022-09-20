@@ -48,9 +48,9 @@ const SingularPet = () => {
     else navigate("/adoptionForm");
   };
 
-  const handleContact = () => {
+  const handleContact = (fundationId) => {
     if (!user.email) navigate("/login");
-    navigate("/chat");
+    else navigate(`/chat/${fundationId}`);
   };
 
   const buttonStyle = {
@@ -170,7 +170,7 @@ const SingularPet = () => {
         <Button color="inherit" sx={buttonStyle} onClick={handleAdopt}>
           Adoptar
         </Button>
-        <Button color="inherit" sx={buttonStyle} onClick={handleContact}>
+        <Button color="inherit" sx={buttonStyle} onClick={()=>handleContact(pet?.foundation._id)}>
           {`Contactar con la fundación ${pet?.foundation.name}`}
         </Button>
       </Container>
