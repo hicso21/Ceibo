@@ -18,7 +18,6 @@ import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import "./Chat.css";
-import { useLocation } from "react-router";
 
 const socket = io("http://localhost:3001");
 
@@ -31,8 +30,6 @@ export default function Chat() {
     console.log(socket.id); // undefined
   });
 
-  const { pathname } = useLocation();
-  const fId = pathname.split("/")[2];
   const { user } = useSelector((state) => state);
 
   const [chatMessages, setChatMessages] = useState([]);
@@ -69,25 +66,22 @@ export default function Chat() {
           <Paper elevation={5}>
             <Box p={8}>
               <Typography variant="h5" gutterBottom>
-                Chat con la fundacion
+                Chat con un usuario
               </Typography>
               <Divider />
               <Grid container spacing={4} alignItems="center">
                 <Grid id="chat-window" xs={12} item>
                   <List id="chat-window-messages">
-                    {chatMessages.map((chat, index) => {
-                      return (
+                {chatMessages.map((chat,index) => {
+                  return(
                         <ListItem key={index}>
-                          <ListItemText
-                            key={chat.user}
-                            primary={`${chat.user}: ${chat.message}`}
-                          />
+                        <ListItemText key={chat.user}
+                        primary={`${chat.user}: ${chat.message}`} />
                         </ListItem>
-                      );
-                    })}
+                  )})}
                   </List>
                 </Grid>
-                {/*  <Grid item>
+               {/*  <Grid item>
                   <FormControl fullWidth>
                     <TextField value={user.name} variant="outlined" />
                   </FormControl>

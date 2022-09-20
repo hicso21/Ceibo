@@ -10,12 +10,12 @@ import Typography from "@mui/material/Typography";
 import axios from "axios";
 
 export default function Messages() {
-  const [foundations, setFoundations] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/foundation/")
-      .then((res) => setFoundations(res.data));
+      .get("http://localhost:3001/api/user/all")
+      .then((res) => setUsers(res.data));
   }, []);
 
   return (
@@ -44,22 +44,23 @@ export default function Messages() {
           width: "100%",
           maxWidth: 360,
           bgcolor: "background.paper",
+          mb: 10,
         }}
       >
-        {foundations.map((fundacion) => (
+        {users.map((user) => (
           <Link
-            to={`/chat/${fundacion._id}`}
+            to={`/chat`}
             style={{
               textDecoration: "none",
-              color: "inherit"
+              color: "inherit",
             }}
           >
             <ListItem alignItems="flex-start">
               <ListItemAvatar>
-                <Avatar alt="Remy Sharp" src={fundacion.profile_picture} />
+                <Avatar alt="User" src="" />
               </ListItemAvatar>
               <ListItemText
-                primary={fundacion.name}
+                primary={`${user.name} ${user.last_name}`}
                 secondary={
                   <React.Fragment>
                     <Typography
@@ -70,7 +71,7 @@ export default function Messages() {
                     >
                       Último mensaje
                     </Typography>
-                    {" — Gracias por contactarte! Te responderemos..."}
+                    {" — Hola, buenas tardes! Me gustaría consultar por..."}
                   </React.Fragment>
                 }
               />

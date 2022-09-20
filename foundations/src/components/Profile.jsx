@@ -28,8 +28,11 @@ const Profile = () => {
   const [name, setName] = useState(user.name);
   const [lastName, setLastName] = useState(user.last_name);
   const [email, setEmail] = useState(user.email);
+  const [image, setImage] = useState(user.profile_picture);
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const seleccionArchivos = document.querySelector("#seleccionArchivos");
+  const imagenPrevisualizacion = document.querySelector("#imagenPrevisualizacion");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -46,6 +49,20 @@ const Profile = () => {
     setEmail(e.target.value);
   };
 
+  const handleImage = (e) => {
+    const archivos = seleccionArchivos.files;
+
+    if (!archivos || !archivos.length) {
+      imagenPrevisualizacion.src = "";
+      return;
+    }
+    const primerArchivo = archivos[0];
+    const objectUrl = URL.createObjectURL(primerArchivo);
+    setImage(objectUrl);
+
+    imagenPrevisualizacion.src = objectUrl;
+  };
+
   const handleSend = () => {
     axios
       .put(`http://localhost:3001/api/user/update/${user._id}`, {
@@ -56,6 +73,17 @@ const Profile = () => {
       .then((res) => dispatch(setUser(res.data)));
       setOpen(false);
   };
+
+  const handleSubmit = () => {
+    axios
+      .put(`http://localhost:3001/api/user/update/${user._id}`, {
+        profile_picture: image,
+        name: user.name,
+        last_name: user.last_name,
+        email: user.email
+      })
+      .then((res) => console.log(res.data));
+  }
 
   //false = mobile  ---  true = desktop
   const matches = useMatches();
@@ -80,16 +108,15 @@ const Profile = () => {
               Mi Fundacion
             </Typography>
             <Stack direction="row" spacing={2}>
-              <Avatar
-                alt="Remy Sharp"
-                src="/static/images/avatar/1.jpg"
-                sx={{ m: 2, width: 66, height: 66 }}
-              />
+              <Avatar  alt="Remy Sharp"
+                sx={{ m: 2, width: 66, height: 66 }}>
+                  <img id="imagenPrevisualizacion" alt="" width={"100%"} src={user.profile_picture} />
+              </Avatar>
             </Stack>
             <Stack direction="row" alignItems="center" spacing={2}>
               <Button variant="contained" component="label">
                 Subir imagen
-                <input hidden accept="image/*" multiple type="file" />
+                <input hidden id="seleccionArchivos" accept="image/*" multiple type="file" onChange={handleImage}/>
               </Button>
             </Stack>
             <Box component="form" noValidate sx={{ mt: 2 }}>
@@ -174,9 +201,17 @@ const Profile = () => {
             <Button
               color="inherit"
               fullWidth
-              sx={{ mt: 5, bgcolor: "#FFD640", mb: 1, borderRadius: 7 }}
+              sx={{ mt: 5, bgcolor: "#FFD640", borderRadius: 7 }}
+              onClick={handleSubmit}
+            >
+              Guardar cambios
+            </Button>
+            <Button
+              color="inherit"
+              fullWidth
+              sx={{ mt: 2, bgcolor: "#FFD640", mb: 1, borderRadius: 7 }}
               onClick={() => {
-                navigate("/");
+                navigate("/mascotas");
               }}
             >
               Volver

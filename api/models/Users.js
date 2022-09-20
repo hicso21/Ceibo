@@ -7,7 +7,7 @@ const UserSchema = new mongoose.Schema({
   profile_picture: String,
   age: String,
   favorites: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Pet" }],
-  adopted: [String],
+  adopted: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Pet" }],
   location: String,
   numberPhone: Number,
   age: Number,
