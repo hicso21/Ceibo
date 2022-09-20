@@ -4,6 +4,17 @@ const Users = require("../models/Users");
 const bcrypt = require("bcrypt");
 
 class UserController {
+  static async getAllUsers(req, res) {
+    try {
+      const users = await UserService.getAllUsers();
+      return users
+        ? res.status(200).send(users)
+        : res.status(404).send("no data found");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   static async createUser(req, res) {
     try {
       const user = await UserService.createUser(req.body);
@@ -109,9 +120,7 @@ class UserController {
     }
   }
 
-
-
- /*  static async userUpdate(req, res) {
+  /*  static async userUpdate(req, res) {
     try {
       const user = await UserService.userUpdate(req.body, req.params.id);
       return res.status(204).send(user);
@@ -120,11 +129,11 @@ class UserController {
     }
   } */
 
-  static async userUpdate(req, res){
-    let _id = req.params.id
-    let update = req.body
-    console.log(update)
-  
+  static async userUpdate(req, res) {
+    let _id = req.params.id;
+    let update = req.body;
+    console.log(update);
+
     Users.findByIdAndUpdate(_id, update, (err, bodyUpdated) => {
       if(err) return res.status(500).send({message: `Error al actualizar la nota: ${err}`})
   

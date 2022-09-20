@@ -18,4 +18,6 @@ router.get("/search/size/:size", PetsController.findBySize);
 
 router.get("/search/specie/:specie", PetsController.findBySpecie);
 
+router.delete("/delete/:id", PetsController.deletePet);
+
 module.exports = router;

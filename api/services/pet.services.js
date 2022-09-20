@@ -95,6 +95,26 @@ class PetService {
       console.log(error.message);
     }
   }
+
+  static async adoptPet(id) {
+    try {
+      return await Pets.updateOne(
+        { _id: id },
+        { $set: { adopted: true } },
+        { new: true }
+      ).populate("foundation");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  static async deletePet(id) {
+    try {
+      return await Pets.deleteOne({ _id: id });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 }
 
 module.exports = PetService;

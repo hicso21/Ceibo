@@ -5,7 +5,7 @@ class PetController {
     try {
       const pets = await PetServices.getAllPets();
       if (!pets) return res.status(404).send("no data found");
-      res.status(200).send(pets);
+      return res.status(200).send(pets);
     } catch (error) {
       console.log(error.message);
     }
@@ -89,6 +89,15 @@ class PetController {
   static async modifyPet(req, res) {
     try {
       const pet = await PetServices.modifyPet(req.body, req.params.id);
+      return res.status(204).send(pet);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  static async deletePet(req, res) {
+    try {
+      const pet = await PetServices.deletePet(req.params.id);
       return res.status(204).send(pet);
     } catch (error) {
       console.log(error.message);

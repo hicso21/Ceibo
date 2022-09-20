@@ -1,7 +1,16 @@
 const Users = require("../models/Users");
+const Pets = require("../models/Pets");
 const ObjectId = require("mongodb").ObjectId;
 
 class UserService {
+  static async getAllUsers() {
+    try {
+      return await Users.find({});
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   static async createUser(body) {
     try {
       const user = new Users(body);
@@ -36,14 +45,12 @@ class UserService {
     }
   }
 
-
   /* static async userUpdate(body,id) {
     try {
       return await Users.updateOne({ _id: id }, { $set: body })
   } catch (error) {
       console.log(error)
   }} */
-
 
   static async addFavorite(id, fav) {
     try {
@@ -68,6 +75,20 @@ class UserService {
         },
         { new: true, runValidators: true }
       ).populate("favorites");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  static async adoptPet(id, petId) {
+    try {
+      return await Users.findByIdAndUpdate(
+        id,
+        {
+          $addToSet: { adopted: petId },
+        },
+        { new: true, runValidators: true }
+      ).populate("adopted");
     } catch (error) {
       console.log(error.message);
     }

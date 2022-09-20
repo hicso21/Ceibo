@@ -1,5 +1,6 @@
 const FoundationServices = require("../services/foundation.services");
 const PetServices = require("../services/pet.services");
+const UserServices = require("../services/user.services");
 const bcrypt = require("bcrypt");
 const { validateToken, generateToken } = require("../config/tokens");
 
@@ -89,9 +90,21 @@ class FoundationController {
         ...req.body,
         foundation: req.params.id,
       });
-      //esta bien con dos await? preguntar
       const addedPet = await FoundationServices.addPet(pet._id, req.params.id);
       return res.status(204).send(addedPet);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  static async adoptPet(req, res) {
+    try {
+      const pet = await PetServices.adoptPet(req.params.petId);
+      const user = await UserServices.adoptPet(
+        req.params.userId,
+        req.params.petId
+      );
+      return res.status(204).send(user, pet);
     } catch (error) {
       console.log(error.message);
     }

@@ -31,6 +31,7 @@ const petSchema = new mongoose.Schema({
     ref: "Foundation",
   },
   neutered: Boolean,
+  adopted: { type: Boolean, default: false },
 });
 
 const Pets = mongoose.model("Pet", petSchema);
