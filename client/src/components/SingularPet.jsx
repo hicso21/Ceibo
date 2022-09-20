@@ -14,6 +14,7 @@ import { useNavigate, useLocation } from "react-router";
 import axios from "axios";
 import { setUser } from "../state/user";
 import { getOnePet } from "../state/pets";
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 
 const SingularPet = () => {
   const { pathname } = useLocation();
@@ -25,18 +26,17 @@ const SingularPet = () => {
   let fav;
 
   const handleFavorites = (pet) => {
-    if (favorites) {
+    if(favorites){
       axios
         .put(`http://localhost:3001/api/user/favorites/remove/${user._id}`, pet)
         .then((r) => {
           dispatch(setUser(r.data));
         });
       setFavorites(false);
-    } else {
+    }else {
       axios
         .put(`http://localhost:3001/api/user/favorites/add/${user._id}`, pet)
         .then((r) => {
-          console.log(r.data);
           dispatch(setUser(r.data));
         });
       setFavorites(true);
@@ -96,17 +96,29 @@ const SingularPet = () => {
       >
         <CardMedia sx={{ padding: 0, borderRadius: 10, maxWidth: "343" }}>
           <img alt="" src={pet?.photos[0]} width="100%" id="petPhoto" />
-          {user.email && (
-            <Button
-              onClick={() => handleFavorites(pet)}
-              sx={{ color: "inherit", ml: "80%" }}
-            >
-              {fav}
-            </Button>
-          )}
-          <br />
-          <br />
         </CardMedia>
+        <Box sx={{ display:'flex', justifyContent: 'space-between' }}>
+          <Box>
+            {user.email && (
+              <Button
+              onClick={() => handleFavorites(pet)}
+              sx={{ color: "inherit" }}
+              >
+                {fav}
+              </Button>
+            )}
+          </Box>
+          <Box>
+            <Button
+              sx={{ color: "inherit" }}
+              onClick={()=>{window.open(`https://api.whatsapp.com/send?text=Adopta esta hermosa mascota!! ${window.location.href}`)}}
+            >
+              <WhatsAppIcon sx={{height: 40, width: 40, color:'white', bgcolor:'green', borderRadius:5}}/>
+            </Button>
+          </Box>
+        </Box>
+          <br />
+          <br />
         <Card sx={{ borderRadius: 5 }}>
           <Stack padding={2} sx={{ maxWidth: "100%" }}>
             <Box sx={{ display: "flex", flexDirection: "row" }}>

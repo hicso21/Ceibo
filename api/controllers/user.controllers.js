@@ -37,32 +37,61 @@ class UserController {
 
   static async logIn(req, res) {
     try {
-      const user = await UserService.find(req);
-      if (!user) return res.sendStatus(401);
-      const passwordHashed = bcrypt.hashSync(req.body.password, user.salt);
-      if (passwordHashed === user.password) {
-        const token = generateToken({
-          _id: user._id,
-          name: user.name,
-          last_name: user.last_name,
-          email: user.email,
-          profile_picture: user.profile_picture,
-          age: user.age,
-          favorites: user.favorites,
-          adopted: user.adopted,
-          location: user.location,
-          numberPhone: user.numberPhone,
-          civilStatus: user.civilStatus,
-          availableSpace: user.availableSpace,
-          kids: user.kids,
-          otherPets: user.otherPets,
-          message: user.message,
-        });
-        const payload = validateToken(token);
-        req.user = payload;
-        res.cookie("token", token);
-        res.status(201).send(req.user);
-      } else return res.sendStatus(401);
+      if(req.body.google === true){
+        const googleUser = await UserService.googleUser(req.body)
+        const passwordHashed = bcrypt.hashSync(req.body.password, googleUser.salt);
+        if (passwordHashed === googleUser.password) {
+          const token = generateToken({
+            _id: googleUser._id,
+            name: googleUser.name,
+            last_name: googleUser.last_name,
+            email: googleUser.email,
+            profile_picture: googleUser.profile_picture,
+            age: googleUser.age,
+            favorites: googleUser.favorites,
+            adopted: googleUser.adopted,
+            location: googleUser.location,
+            numberPhone: googleUser.numberPhone,
+            civilStatus: googleUser.civilStatus,
+            availableSpace: googleUser.availableSpace,
+            kids: googleUser.kids,
+            otherPets: googleUser.otherPets,
+            message: googleUser.message,
+          });
+          const payload = validateToken(token);
+          req.user = payload;
+          res.cookie("token", token);
+          res.status(201).send(req.user);
+        } else return res.sendStatus(401);
+
+      }else{
+        const user = await UserService.find(req);
+        if (!user) return res.sendStatus(401);
+        const passwordHashed = bcrypt.hashSync(req.body.password, user.salt);
+        if (passwordHashed === user.password) {
+          const token = generateToken({
+            _id: user._id,
+            name: user.name,
+            last_name: user.last_name,
+            email: user.email,
+            profile_picture: user.profile_picture,
+            age: user.age,
+            favorites: user.favorites,
+            adopted: user.adopted,
+            location: user.location,
+            numberPhone: user.numberPhone,
+            civilStatus: user.civilStatus,
+            availableSpace: user.availableSpace,
+            kids: user.kids,
+            otherPets: user.otherPets,
+            message: user.message,
+          });
+          const payload = validateToken(token);
+          req.user = payload;
+          res.cookie("token", token);
+          res.status(201).send(req.user);
+        } else return res.sendStatus(401);
+      }
     } catch (error) {
       console.log(error.message);
     }
