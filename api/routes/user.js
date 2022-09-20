@@ -17,6 +17,8 @@ router.get("/:id", UserController.getUser);
 
 router.post("/logout", UserController.logOut);
 
+router.put("/resetPassword/:id", UserController.resetPassword);
+
 router.delete("/delete/:id", UserController.deleteUser);
 
 router.put("/update/:id", UserController.userUpdate);

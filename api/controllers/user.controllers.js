@@ -98,6 +98,18 @@ class UserController {
     }
   }
 
+  static async resetPassword(req, res) {
+    try {
+      const { userId } = req.params.id;
+      const salt = await bcrypt.genSalt(10)
+      const password = await bcrypt.hashSync(req.body.password, salt);
+      const userPassword = await Users.updateOne({_id: userId}, {password: password})
+      return res.status(204).send(userPassword);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   static async getUser(req, res) {
     try {
       const user = await UserService.getUser(req.params.id);
@@ -123,26 +135,24 @@ class UserController {
     console.log(update);
 
     Users.findByIdAndUpdate(_id, update, (err, bodyUpdated) => {
-      if (err)
-        return res
-          .status(500)
-          .send({ message: `Error al actualizar la nota: ${err}` });
+      if(err) return res.status(500).send({message: `Error al actualizar la nota: ${err}`})
+  
+      if(!bodyUpdated) return res.status(500).send({message: 'No retornó objeto actualizado'})
+      
+      const objectToReturn = {
+        email: update.email,
+        name: update.name,
+        _id : bodyUpdated._id,
+        last_name: update.last_name,
+        favorites: bodyUpdated.favorites,
+        adopted: bodyUpdated.adopted,
+        profile_picture: update.profile_picture,
+      }
 
-      if (!bodyUpdated)
-        return res
-          .status(500)
-          .send({ message: "No retornó objeto actualizado" });
+      console.log(objectToReturn)
 
-      bodyUpdated.name = update.name;
-      bodyUpdated.last_name = update.last_name;
-      bodyUpdated.email = update.email;
-      bodyUpdated.password = null;
-      bodyUpdated.salt = null;
-      bodyUpdated.__v = null;
-      bodyUpdated.idAdmin = null;
-      console.log(bodyUpdated);
-      res.status(200).send(bodyUpdated);
-    });
+      res.status(200).send(objectToReturn)
+    })
   }
 
   static async getFavorites(req, res) {

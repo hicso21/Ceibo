@@ -25,7 +25,6 @@ import {
   ListItemIcon,
   Stack,
 } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
 import logo from "../assets/logoCeibo.png";
 import Home from "@mui/icons-material/Home";
 import Pets from "@mui/icons-material/Pets";
@@ -36,11 +35,9 @@ import Message from "@mui/icons-material/Message";
 import Footer from "./Footer";
 import {useDispatch, useSelector} from 'react-redux'
 import useMatches from "../hooks/useMatches";
-import HomeIcon from '@mui/icons-material/Home';
 import { sendLogoutRequest } from "../state/user";
-import { useEffect } from "react";
 import { search } from "../state/search";
-
+//Menu Principal
 let loginMenu;
 
 const Search = styled("div")(({ theme }) => ({
@@ -177,11 +174,12 @@ export default function PersistentDrawerLeft({ prop }) {
   let drawerButton
   let navbarContent
   let PCTStyle
-  let DrawerContent
   let main
+  let footer
 
   //desktop or mobile
   if(matches){
+    footer = <Footer/>
     drawerButton = <></>
     if(pathname = '/') {
       openDrawer = false
@@ -303,129 +301,6 @@ export default function PersistentDrawerLeft({ prop }) {
                           </Button>
                         </>
     }
-    if(user.email){
-        DrawerContent = <List sx={DrawerList}>
-                          <Link
-                            style={{ color: "inherit", textDecoration: "none" }}
-                            to={"/mascotas"}
-                            onClick={()=>{if(!matches)handleDrawerClose()}}
-                          >
-                            <ListItem disablePadding>
-                              <ListItemButton>
-                                <ListItemIcon>
-                                  <Pets />
-                                </ListItemIcon>
-                                <ListItemText primary={"Mascotas"} />
-                              </ListItemButton>
-                            </ListItem>
-                          </Link>
-                          <Link
-                            style={{ color: "inherit", textDecoration: "none" }}
-                            to={"/add"}
-                            onClick={()=>{if(!matches)handleDrawerClose()}}
-                          >
-                            <ListItem disablePadding>
-                              <ListItemButton>
-                                <ListItemIcon>
-                                  <AddIcon />
-                                </ListItemIcon>
-                                <ListItemText primary={"Agregar Mascotas"} />
-                              </ListItemButton>
-                            </ListItem>
-                          </Link>
-                          <Link
-                            style={{ color: "inherit", textDecoration: "none" }}
-                            to={"/profile"}
-                            onClick={()=>{if(!matches)handleDrawerClose()}}
-                          >
-                            <ListItem disablePadding>
-                              <ListItemButton>
-                                <ListItemIcon>
-                                  <Profile />
-                                </ListItemIcon>
-                                <ListItemText primary={"Perfil"} />
-                              </ListItemButton>
-                            </ListItem>
-                          </Link>
-                          <Link
-                            style={{ color: "inherit", textDecoration: "none" }}
-                            to={"/history"}
-                            onClick={()=>{if(!matches)handleDrawerClose()}}
-                          >
-                            <ListItem disablePadding>
-                              <ListItemButton>
-                                <ListItemIcon>
-                                  <History />
-                                </ListItemIcon>
-                                <ListItemText primary={"Historial"} />
-                              </ListItemButton>
-                            </ListItem>
-                          </Link>
-                          <Link
-                            style={{ color: "inherit", textDecoration: "none" }}
-                            to={"/messages"}
-                            onClick={()=>{if(!matches)handleDrawerClose()}}
-                          >
-                            <ListItem disablePadding>
-                              <ListItemButton>
-                                <ListItemIcon>
-                                  <Message />
-                                </ListItemIcon>
-                                <ListItemText primary={"Mensajes"} />
-                              </ListItemButton>
-                            </ListItem>
-                          </Link>
-                          <Stack sx={logoutStack}>
-                            <Divider/>
-                            <Button onClick={handleLogOut} sx={logoutButton}>
-                              Cerrar Sesion
-                            </Button>
-                          </Stack>
-                        </List>
-    }else{
-      DrawerContent = <List sx={DrawerList}>
-                            <ListItem disablePadding>
-                              <ListItemButton>
-                                <ListItemIcon>
-                                  <Pets />
-                                </ListItemIcon>
-                                <ListItemText primary={"Mascotas"} />
-                              </ListItemButton>
-                            </ListItem>
-                            <ListItem disablePadding>
-                              <ListItemButton>
-                                <ListItemIcon>
-                                  <AddIcon />
-                                </ListItemIcon>
-                                <ListItemText primary={"Agregar Mascotas"} />
-                              </ListItemButton>
-                            </ListItem>
-                            <ListItem disablePadding>
-                              <ListItemButton>
-                                <ListItemIcon>
-                                  <Profile />
-                                </ListItemIcon>
-                                <ListItemText primary={"Perfil"} />
-                              </ListItemButton>
-                            </ListItem>
-                            <ListItem disablePadding>
-                              <ListItemButton>
-                                <ListItemIcon>
-                                  <History />
-                                </ListItemIcon>
-                                <ListItemText primary={"Historial"} />
-                              </ListItemButton>
-                            </ListItem>
-                            <ListItem disablePadding>
-                              <ListItemButton>
-                                <ListItemIcon>
-                                  <Message />
-                                </ListItemIcon>
-                                <ListItemText primary={"Mensajes"} />
-                              </ListItemButton>
-                            </ListItem>
-                        </List>
-    }
     main =  <>
               <DrawerHeader/>
                 {prop}
@@ -433,6 +308,7 @@ export default function PersistentDrawerLeft({ prop }) {
             </>
   }
   else{
+    footer = <></>
         drawerButton =
                     <IconButton
                       color="inherit"
@@ -540,84 +416,6 @@ export default function PersistentDrawerLeft({ prop }) {
                             </ImageListItem>
                           </Button>
                         </>
-    DrawerContent = <List sx={DrawerList}>
-                      <Link
-                        style={{ color: "inherit", textDecoration: "none" }}
-                        to={"/mascotas"}
-                        onClick={()=>{if(!matches)handleDrawerClose()}}
-                      >
-                        <ListItem disablePadding>
-                          <ListItemButton>
-                            <ListItemIcon>
-                              <Pets />
-                            </ListItemIcon>
-                            <ListItemText primary={"Mascotas"} />
-                          </ListItemButton>
-                        </ListItem>
-                      </Link>
-                      <Link
-                        style={{ color: "inherit", textDecoration: "none" }}
-                        to={"/add"}
-                        onClick={()=>{if(!matches)handleDrawerClose()}}
-                      >
-                        <ListItem disablePadding>
-                          <ListItemButton>
-                            <ListItemIcon>
-                              <AddIcon />
-                            </ListItemIcon>
-                            <ListItemText primary={"Agregar Mascotas"} />
-                          </ListItemButton>
-                        </ListItem>
-                      </Link>
-                      <Link
-                        style={{ color: "inherit", textDecoration: "none" }}
-                        to={"/profile"}
-                        onClick={()=>{if(!matches)handleDrawerClose()}}
-                      >
-                        <ListItem disablePadding>
-                          <ListItemButton>
-                            <ListItemIcon>
-                              <Profile />
-                            </ListItemIcon>
-                            <ListItemText primary={"Perfil"} />
-                          </ListItemButton>
-                        </ListItem>
-                      </Link>
-                      <Link
-                        style={{ color: "inherit", textDecoration: "none" }}
-                        to={"/history"}
-                        onClick={()=>{if(!matches)handleDrawerClose()}}
-                      >
-                        <ListItem disablePadding>
-                          <ListItemButton>
-                            <ListItemIcon>
-                              <History />
-                            </ListItemIcon>
-                            <ListItemText primary={"Historial"} />
-                          </ListItemButton>
-                        </ListItem>
-                      </Link>
-                      <Link
-                        style={{ color: "inherit", textDecoration: "none" }}
-                        to={"/messages"}
-                        onClick={()=>{if(!matches)handleDrawerClose()}}
-                      >
-                        <ListItem disablePadding>
-                          <ListItemButton>
-                            <ListItemIcon>
-                              <Message />
-                            </ListItemIcon>
-                            <ListItemText primary={"Mensajes"} />
-                          </ListItemButton>
-                        </ListItem>
-                      </Link>
-                      <Stack sx={logoutStack}>
-                        <Divider/>
-                        <Button onClick={handleLogOut} sx={logoutButton}>
-                          Cerrar Sesion
-                        </Button>
-                      </Stack>
-                    </List>
     main =  <>
               {prop}
             </>
@@ -780,6 +578,7 @@ export default function PersistentDrawerLeft({ prop }) {
         <Main open={marginDrawer}>
         <DrawerHeader/>
           {main}
+          <Footer/>
         </Main>
       </Box>
     </>
