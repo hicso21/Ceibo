@@ -29,4 +29,8 @@ router.put("/favorites/remove/:id", UserController.removeFavorite);
 
 router.get("/favorites/:id", UserController.getFavorites);
 
+router.get("/adopted/:id", UserController.getAdopted);
+
+router.put("/form/:id", UserController.userForm);
+
 module.exports = router;

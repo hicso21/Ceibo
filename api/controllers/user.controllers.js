@@ -2,6 +2,7 @@ const UserService = require("../services/user.services");
 const { validateToken, generateToken } = require("../config/tokens");
 const Users = require("../models/Users");
 const bcrypt = require("bcrypt");
+const { sendEmail } = require("../config/mailer");
 
 class UserController {
   static async getAllUsers(req, res) {
@@ -185,11 +186,23 @@ class UserController {
     })
   }
 
+
   static async getFavorites(req, res) {
     try {
       const user = await UserService.getUser(req.params.id);
       return user
         ? res.send(user.favorites)
+        : res.status(404).send("User not found");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  static async getAdopted(req, res) {
+    try {
+      const user = await UserService.getUser(req.params.id);
+      return user
+        ? res.send(user.adopted)
         : res.status(404).send("User not found");
     } catch (error) {
       console.log(error.message);
@@ -220,5 +233,45 @@ class UserController {
       console.log(error.message);
     }
   }
-}
+
+
+static async userForm(req, res) {
+  let _id = req.params.id;
+  let update = {
+    name: req.body.name,
+    last_name: req.body.last_name,
+    numberPhone: req.body.numberPhone,
+    age: req.body.age,
+    civilStatus: req.body.civilStatus,
+    location: req.body.location,
+    availableSpace: req.body.availableSpace,
+    kids: req.body.kids,
+    otherPets: req.body.otherPets,
+    message: req.body.message
+    }
+  console.log(update);
+  let foundation = req.body.foundations
+  let pets = req.body.pets
+  let email = req.body.email
+  Users.findByIdAndUpdate(_id, update, (err, bodyUpdated) => {
+    if(err) return res.status(500).send({message: `Error al actualizar la nota: ${err}`})
+
+    if(!bodyUpdated) return res.status(500).send({message: 'No retornó objeto actualizado'})
+    
+    const objectToReturn = {
+      email: update.email,
+      name: update.name,
+      _id : bodyUpdated._id,
+      last_name: update.last_name,
+      favorites: bodyUpdated.favorites,
+      adopted: bodyUpdated.adopted,
+      profile_picture: update.profile_picture,
+    }
+
+    console.log(objectToReturn)
+    sendEmail(foundation,pets,update,email)
+    res.status(200).send(objectToReturn)
+  })
+
+}}
 module.exports = UserController;
