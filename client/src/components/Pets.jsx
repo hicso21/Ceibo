@@ -81,17 +81,17 @@ const Pets = () => {
     };
 
     const handleGender = (busqueda) => {
-        navigate(`/search?byGender`)
+        navigate(`/mascotas?byGender`)
         dispatch(searchByGender(busqueda))
     };
 
     const handleSize = (busqueda) => {
-        navigate(`/search?bySize`)
+        navigate(`/mascotas?bySize`)
         dispatch(searchBySize(busqueda))
     };
 
     const handleSpecie = (busqueda) => {
-        navigate(`/search?bySpecie`)
+        navigate(`/mascotas?bySpecie`)
         dispatch(searchBySpecie(busqueda))
     };
 
@@ -102,7 +102,9 @@ const Pets = () => {
     }
 
     useEffect(() => {
+      if(!advancedSearch[0]){
         dispatch(getAllPets())
+      }
     }, [matches])
 
     //pagination
@@ -123,7 +125,7 @@ const Pets = () => {
   return (
     <>
         <div style={{backgroundColor: "white"}}>
-            <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
+            <Container sx={{ p: 4, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
                 <Typography variant="h2" sx={{justifyContent:'center', display:'flex'}}>Mascotas</Typography>
                 <Grid container my={4} sx={{display:'flex', justifyContent:'center'}}>
                     <Box>

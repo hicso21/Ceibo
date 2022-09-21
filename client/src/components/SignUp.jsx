@@ -14,6 +14,8 @@ import { useNavigate } from 'react-router';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { sendSignUpRequest } from '../state/user';
+import { useState } from 'react';
+import { Alert, Snackbar } from '@mui/material';
 
 const theme = createTheme();
 
@@ -21,16 +23,49 @@ export default function SignUp() {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [open, setOpen] = React.useState(false);
+  let alertText = 'Se produjo un error al intentar registrarse. Por favor, compruebe que los datos son correctos'
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const [name, setName] = useState('')
+  const [nameLegend, setNameLegend] = useState('Ingrese su nombre')
+  const [errorName, setErrorName] = useState(true)
+
+  const [email, setEmail] = useState('')
+  const [emailLegend, setEmailLegend] = useState('')
+  const [errorEmail, setErrorEmail] = useState(false)
+
+  const [password, setPassword] = useState('')
+  const [pwLegend, setPwLegend] = useState('')
+  const [errorPw, setErrorPw] = useState(false)
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    dispatch(sendSignUpRequest({
-      name: data.get('firstName'),
-      last_name: data.get('lastName'),
-      email: data.get('email'),
-      password: data.get('password'),
-    }));
-    navigate('/login')
+    if(data.get('name') === '' || data.get('lastName') === '' || data.get('email') === '' || data.get('password') === '' ){
+      setOpen(true)
+    }else{
+      dispatch(sendSignUpRequest({
+        name: data.get('name'),
+        last_name: data.get('lastName'),
+        email: data.get('email'),
+        password: data.get('password'),
+      }))
+      .then((resp)=>{
+        if(resp.type.substring(6) === 'fulfilled'){
+          navigate('/login')
+        }else{
+          setOpen(true)
+        }
+      })  
+    }
   };
 
   return (
@@ -46,6 +81,11 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
+          <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+              {alertText}
+            </Alert>
+          </Snackbar>
           <Avatar sx={{ m: 1, bgcolor: '#1e244b' }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -56,44 +96,82 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  inputProps={{style: {textTransform: 'capitalize'}}} 
+                  onChange={(e)=>{
+                    setName(e.target.value)
+                    if(name.length < 1){
+                      setErrorName(true)
+                      setNameLegend('Ingrese su nombre')
+                    }else{
+                      setErrorName(false)
+                      setNameLegend('')
+                    }
+                  }}
+                  error={errorName}
                   autoComplete="given-name"
                   name="firstName"
                   required
                   fullWidth
                   id="firstName"
                   label="Nombre"
+                  helperText={nameLegend}
                   autoFocus
+                  autoCapitalize=''
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
+                 required
+                  inputProps={{style: {textTransform: 'capitalize'}}}
                   fullWidth
                   id="lastName"
-                  label="Apellidos"
+                  label="Apellido"
                   name="lastName"
                   autoComplete="family-name"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={(e)=>{
+                    setEmail(e.target.value)
+                    if(!email.includes('@') || !email.split('@')[0]){
+                      setErrorEmail(true)
+                      setEmailLegend('El correo electronico debe existir')
+                    }else{
+                      setErrorEmail(false)
+                      setEmailLegend('')
+                    }
+                  }}
+                  error={errorEmail}
                   required
                   fullWidth
                   id="email"
                   label="Email"
                   name="email"
                   autoComplete="email"
+                  helperText={emailLegend}
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={(e)=>{
+                    setPassword(e.target.value)
+                    if(password.length<7){
+                      setErrorPw(true)
+                      setPwLegend('La contraseña debe contener al menos 8 caracteres')
+                    }else{
+                      setErrorPw(false)
+                      setPwLegend('')
+                    }
+                  }}
+                  error={errorPw}
                   required
                   fullWidth
                   label="Contraseña"
                   type="password"
-                  id="password"
                   name="password"
                   autoComplete="new-password"
+                  helperText={pwLegend}
                 />
               </Grid>
             </Grid>

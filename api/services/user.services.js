@@ -20,6 +20,19 @@ class UserService {
     }
   }
 
+  static async googleUser(body){
+    try {
+      const googleUser = await Users.findOne({email: body.email})
+      console.log(googleUser)
+      if(!googleUser.email) {
+        const newGoogleUser = new Users(body);
+        return await newGoogleUser
+      }else return googleUser
+    }catch (error) {
+      console.log(error.message);
+    }
+  }
+
   static async find(req) {
     const { email } = req.body;
     try {

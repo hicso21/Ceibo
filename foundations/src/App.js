@@ -11,6 +11,7 @@ import Pets from "./components/Pets";
 import AddPet from "./components/AddPet";
 import Search from "./components/Search";
 import Layout from "./components/Layout"
+import Messages from "./components/Messages";
 import Chat from "./components/Chat/Chat"
 
 function App() {
@@ -26,7 +27,7 @@ function App() {
           <Route path="/" element={<LogIn/>}/>
           <Route path="/register" element={<SignUp/>}/>
           <Route path="/passwordForgotted" element={<AddPet/>}/>
-          <Route path="/messages" element={<AddPet/>}/>
+          <Route path="/messages" element={<Messages/>}/>
           <Route path="/add" element={<AddPet/>}/>
           <Route path="/search" element={<Search/>}/>
           <Route path='/chat' element={<Chat/>}/>

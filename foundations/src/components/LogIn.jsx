@@ -10,9 +10,11 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router';
-import { Link } from '@mui/material';
+import { Alert, Link, Snackbar } from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { sendLoginRequest } from '../state/user';
+import { useState } from 'react';
+import GoogleLogin from './GoogleLogin';
 
 const theme = createTheme();
 
@@ -20,6 +22,24 @@ export default function SignUp() {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [open, setOpen] = React.useState(false);
+
+  const [email, setEmail] = useState('')
+  const [emailLegend, setEmailLegend] = useState('')
+  const [errorEmail, setErrorEmail] = useState(false)
+
+  const [password, setPassword] = useState('')
+  const [pwLegend, setPwLegend] = useState('')
+  const [errorPw, setErrorPw] = useState(false)
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -28,8 +48,12 @@ export default function SignUp() {
       password: data.get('password'),
     }))
     .then((resp)=>{
-      if(!resp.error) navigate('/mascotas')
-      else alert('Se produjo un error al inicar sesion')
+      if(resp.type.substring(6) === 'fulfilled'){
+        navigate('/')
+        console.log('first')
+      }else{
+        setOpen(true)
+      }
     })
   };
 
@@ -46,6 +70,11 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
+          <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+              Los datos ingresados no coinciden con ningun usuario registrado
+            </Alert>
+          </Snackbar>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -81,6 +110,9 @@ export default function SignUp() {
             >
               Inicia sesion
             </Button>
+            <Grid container sx={{justifyContent:"center", mb:4, mt:1}} >
+              <GoogleLogin/>
+            </Grid>
             <Grid container>
               <Grid item xs>
                 {/* <Link href="/passwordForgotted" variant="body2">

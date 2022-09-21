@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import Home from './components/Home';
@@ -18,7 +18,6 @@ import Chat from './components/Chat/Chat.jsx';
 import Messages from './components/Messages';
 
 function App() {
-
   return (
       <Router>
         <Layout>
@@ -36,7 +35,7 @@ function App() {
             <Route path='/register' element={<SignUp/>}/>
             <Route path='/favorites' element={<Favorites/>}/>
             <Route path='/messages' element={<Messages/>}/>
-            <Route path='/chat' element={<Chat/>}/>
+            <Route path='/chat/:fId' element={<Chat/>}/>
           </Routes>
         </Layout>
       </Router>

@@ -2,23 +2,48 @@ import axios from "axios";
 import { createReducer, createAsyncThunk } from "@reduxjs/toolkit"; 
 
 export const getAllPets = createAsyncThunk("ALLPETS", ()=>{
-    return axios.get('http://localhost:3001/api/pets/all').then(res=>res.data)
+    return axios
+                .get(
+                    'http://localhost:3001/api/pets/all',
+                    { withCredentials: true, credentials: 'include' })
+                .then(res=>res.data)
+                .catch((err)=> console.log(err))
 })
 
 export const search = createAsyncThunk('SEARCH', (input)=>{
-    return axios.get(`http://localhost:3001/api/pets/search/avanzada?search=${input}`).then(res=>res.data)
+    return axios
+                .get(
+                    `http://localhost:3001/api/pets/search/avanzada?search=${input}`,
+                    { withCredentials: true, credentials: 'include' })
+                .then(res=>res.data)
+                .catch((err)=> console.log(err))
 } )
 
 export const searchByGender = createAsyncThunk('SEARCHBYGENDER', (input)=>{
-    return axios.get(`http://localhost:3001/api/pets/search/genero/${input}`).then(res=>res.data)
+    return axios
+                .get(
+                    `http://localhost:3001/api/pets/search/genero/${input}`,
+                    { withCredentials: true, credentials: 'include' })
+                .then(res=>res.data)
+                .catch((err)=> console.log(err))
 } )
 
 export const searchBySpecie = createAsyncThunk('SEARCHBYSPECIE', (input)=>{
-    return axios.get(`http://localhost:3001/api/pets/search/specie/${input}`).then(res=>res.data)
+    return axios
+                .get(
+                    `http://localhost:3001/api/pets/search/specie/${input}`,
+                    { withCredentials: true, credentials: 'include' })
+                .then(res=>res.data)
+                .catch((err)=> console.log(err))
 } )
 
 export const searchBySize = createAsyncThunk('SEARCHBYSIZE', (input)=>{
-    return axios.get(`http://localhost:3001/api/pets/search/size/${input}`).then(res=>res.data)
+    return axios
+                .get(
+                    `http://localhost:3001/api/pets/search/size/${input}`,
+                    { withCredentials: true, credentials: 'include' })
+                .then(res=>res.data)
+                .catch((err)=> console.log(err))
 } )
 
 const searchReducer = createReducer([], {

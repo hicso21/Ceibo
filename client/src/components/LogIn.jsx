@@ -10,9 +10,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { sendLoginRequest } from '../state/user';
+import { useState } from 'react';
+import { Alert, Snackbar } from '@mui/material';
+import { useEffect } from 'react';
+import GoogleLogin from './GoogleLogin'
 
 const theme = createTheme();
 
@@ -20,14 +23,38 @@ export default function SignUp() {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [open, setOpen] = React.useState(false);
+
+  const [email, setEmail] = useState('')
+  const [emailLegend, setEmailLegend] = useState('')
+  const [errorEmail, setErrorEmail] = useState(false)
+
+  const [password, setPassword] = useState('')
+  const [pwLegend, setPwLegend] = useState('')
+  const [errorPw, setErrorPw] = useState(false)
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     dispatch(sendLoginRequest({
       email: data.get('email'),
       password: data.get('password'),
-    }));
-    navigate('/')
+    }))
+    .then((resp)=>{
+      if(resp.type.substring(6) === 'fulfilled'){
+        navigate('/')
+      }else{
+        setOpen(true)
+      }
+    })  
   };
 
   return (
@@ -43,6 +70,11 @@ export default function SignUp() {
             alignItems: 'center',
           }}
           >
+          <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+              Los datos ingresados no coinciden con ningun usuario registrado
+            </Alert>
+          </Snackbar>
           <Avatar sx={{ m: 1, bgcolor: '#1e244b' }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -53,24 +85,47 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
+                  onChange={(e)=>{
+                    setEmail(e.target.value)
+                    if(!email.includes('@') || !email.split('@')[0]){
+                      setErrorEmail(true)
+                      setEmailLegend('El correo electronico debe existir')
+                    }else{
+                      setErrorEmail(false)
+                      setEmailLegend('')
+                    }
+                  }}
+                  error={errorEmail}
                   required
                   fullWidth
-                  id="email"
-                  label="Email"
+                  label="Correo Electronico"
                   name="email"
                   autoComplete="email"
+                  helperText={emailLegend}
+                  autoFocus
                   />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={(e)=>{
+                    setPassword(e.target.value)
+                    if(password.length<7){
+                      setErrorPw(true)
+                      setPwLegend('La contraseña debe contener al menos 8 caracteres')
+                    }else{
+                      setErrorPw(false)
+                      setPwLegend('')
+                    }
+                  }}
+                  error={errorPw}
                   required
                   fullWidth
                   label="Contraseña"
                   type="password"
-                  id="password"
                   name="password"
                   autoComplete="new-password"
-                  />
+                  helperText={pwLegend}
+                />
               </Grid>
             </Grid>
             <Button
@@ -81,7 +136,8 @@ export default function SignUp() {
               >
               Iniciar sesión
             </Button>
-            <Grid container justifyContent="flex-end">
+            <Grid container justifyContent="center" width={'100%'}>
+              <GoogleLogin/>
             </Grid>
           </Box>
         </Box>
