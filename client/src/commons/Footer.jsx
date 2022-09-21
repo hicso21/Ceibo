@@ -9,7 +9,9 @@ import { styled } from '@mui/material/styles';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import useMatches from '../hooks/useMatches';
 
+export default function Footer() {
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -20,6 +22,12 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const styleBox = {
+  position: ()=>{
+    if(matches) return 'relative'
+    else return 'fixed'
+  },
+  bottom: 0,
+  width:'100%',
   boxShadow: 'none',
   backgroundColor: (theme) =>
   theme.palette.mode === 'light'
@@ -72,11 +80,23 @@ function Copyright(props) {
   );
 }
 
-export default function Footer() {
+
+
+  const matches = useMatches()
+
+  let boxStyle
+
+  if(matches){
+    boxStyle = {
+      height:'100%', display:'flex', alignItems:'end', width:'100%'
+    }
+  }else{
+  }
+
   return (
     <>
     
-      <Box sx={{height:20}}>
+      <Box sx={boxStyle}>
         <CssBaseline />
         <Box
           component="footer"
@@ -84,14 +104,14 @@ export default function Footer() {
           >
           <Container>
           <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={2}>
-              <Grid item xs={6} md={8}>
+            <Grid container>
+              <Grid item xs={6} md={6}>
                 <Item sx={style}  className='gridFooter' 
                 >
                   <Copyright/>
                 </Item>
               </Grid>
-              <Grid item xs={6} md={4} >
+              <Grid item xs={6} md={6} >
                 <Item sx={style2}
                 className='gridFooter'
                 >

@@ -25,7 +25,7 @@ const GoogleLogin = () => {
       })
     )
     .then(resp=>{
-      console.log(resp)
+        console.log(resp)
     })
   }
 

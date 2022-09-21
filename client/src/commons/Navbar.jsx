@@ -37,8 +37,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import useMatches from "../hooks/useMatches";
 import { sendLogoutRequest } from "../state/user";
 import { search } from "../state/search";
-//Menu Principal
-let loginMenu;
+import { useState } from "react";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -65,9 +64,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      width: "12ch",
+      width: "100%",
       "&:focus": {
-        width: "20ch",
+        width: "100%",
       },
     },
   },
@@ -120,9 +119,11 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function PersistentDrawerLeft({ prop }) {
+
+  const buscador = document.getElementById('search')
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
-  const [busqueda, setBusqueda] = React.useState("");
+  const [open, setOpen] = useState(false);
+  const [busqueda, setBusqueda] = useState("");
   const user = useSelector((state)=>state.user)
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -136,10 +137,10 @@ export default function PersistentDrawerLeft({ prop }) {
     setOpen(false);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    navigate(`/search?search=${busqueda}`)
+  const handleSubmit = function (e){
     dispatch(search(busqueda))
+    navigate(`/mascotas`)
+    setBusqueda('')
   };
 
   const handleSearch = (e) => {
@@ -156,6 +157,7 @@ export default function PersistentDrawerLeft({ prop }) {
   const matches = useMatches()
 
   //style variables
+  let loginMenu;
   let appBarStyle 
   let drawerHeader
   let DrawerList
@@ -176,9 +178,15 @@ export default function PersistentDrawerLeft({ prop }) {
   let PCTStyle
   let main
   let footer
+  let mainHeight
 
   //desktop or mobile
   if(matches){
+    mainHeight = {
+      minHeight:878,
+      display:'flex',
+      flexDirection:'column',
+    }
     footer = <Footer/>
     drawerButton = <></>
     if(pathname = '/') {
@@ -266,9 +274,10 @@ export default function PersistentDrawerLeft({ prop }) {
                             <Search sx={SearchStyle} id='searchDisplay'>
                               <StyledInputBase
                                 id="search"
+                                value={busqueda}
                                 placeholder="Buscar…"
                                 inputProps={{ "aria-label": "search" }}
-                                onChange={handleSearch}
+                                onChange={(e)=>{setBusqueda(e.target.value)}}
                                 sx={{width:300, ':hover':{bgcolor:'white'}, ':disabled':{bgcolor:'white'}}}
                               />
                             </Search>
@@ -308,6 +317,7 @@ export default function PersistentDrawerLeft({ prop }) {
             </>
   }
   else{
+    
     footer = <></>
         drawerButton =
                     <IconButton
@@ -390,13 +400,15 @@ export default function PersistentDrawerLeft({ prop }) {
           </> 
       navbarContent =   <>
                           {drawerButton}
-                          <Box sx={{ display: "flex", flexDirection: "row" }}>
+                          <Box sx={{ display: "flex", flexDirection: "row", width:550 }}>
                             <Search sx={SearchStyle} id='searchDisplay'>
                               <StyledInputBase
                                 id="search"
+                                value={busqueda}
                                 placeholder="Buscar…"
                                 inputProps={{ "aria-label": "search" }}
-                                onChange={handleSearch}
+                                onChange={(e)=>{setBusqueda(e.target.value)}}
+                                sx={{width:300, ':hover':{bgcolor:'white'}, ':disabled':{bgcolor:'white'}}}
                               />
                             </Search>
                             <Button sx={{ padding: 0 }} onClick={handleSubmit}>
@@ -575,9 +587,11 @@ export default function PersistentDrawerLeft({ prop }) {
             {loginMenu}
           </List>
         </Drawer>
-        <Main open={marginDrawer}>
+        <Main open={marginDrawer} sx={mainHeight}>
         <DrawerHeader/>
           {main}
+          <DrawerHeader/>
+          <DrawerHeader/>
           <Footer/>
         </Main>
       </Box>

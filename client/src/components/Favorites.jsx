@@ -12,23 +12,35 @@ import {
 } from "@mui/material";
 import { Link, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { setUser } from "../state/user";
 import logoGatito from '../assets/gatitoLogo.png';
 import logoPerrito from '../assets/perritoLogo.png';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
 
 const ShowFavorites = () => {
+  let empty = <></>
   const {pathname} = useLocation()
-  const dispatch = useDispatch()
   const [favorites, setFavorites] = useState([]);
   const user = useSelector(state=>state.user)
 
   useEffect(() => {
       axios
         .get(`http://localhost:3001/api/user/favorites/${user?._id}`)
-        .then((res) => {setFavorites(res.data)})
+        .then((res) => {setFavorites(res.data); return res.data})
   }, [pathname]);
+
+  favorites[0]
+              ?
+              empty=<></>
+              :
+              empty=<>
+                      <Typography variant="h4" sx={{ width:'100%',display:'flex', justifyContent:'center', mt:5}}>Aun no tienes favoritos</Typography>
+                      <Button sx={{ width:'100%',display:'flex', justifyContent:'center', mt:15}}>
+                        <Link to='/mascotas'>
+                          <Typography variant="body1">Haz click aqui para agregar mascotas a favoritos!!</Typography>
+                        </Link>
+                      </Button>
+                    </>
 
   return (
     <>
@@ -40,6 +52,7 @@ const ShowFavorites = () => {
       <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
         <Typography variant="h2" sx={{pl:3,display:'flex', justifyContent:'center'}}>Favoritos</Typography>
         <Grid container my={4}>
+        {empty}
         {favorites?.map((favoritos,i) => {
           return (
             <Link to={`/mascotas/${favoritos._id}`} key={favoritos._id} style={{textDecoration:'none', margin:'0px auto', minWidth:295}}>

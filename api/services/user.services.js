@@ -22,11 +22,12 @@ class UserService {
 
   static async googleUser(body){
     try {
-      const googleUser = await Users.findOne({_id: body._id})
-      if(googleUser === null) {
+      const googleUser = await Users.findOne({email: body.email})
+      console.log(googleUser)
+      if(!googleUser.email) {
         const newGoogleUser = new Users(body);
-        return await newGoogleUser.save();
-      }else return await googleUser
+        return await newGoogleUser
+      }else return googleUser
     }catch (error) {
       console.log(error.message);
     }

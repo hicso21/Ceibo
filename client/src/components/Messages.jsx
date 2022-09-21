@@ -8,6 +8,7 @@ import ListItemAvatar from "@mui/material/ListItemAvatar";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
+import { Box } from "@mui/material";
 
 export default function Messages() {
   const [foundations, setFoundations] = useState([]);
@@ -19,15 +20,16 @@ export default function Messages() {
   }, []);
 
   return (
-    <div
-      style={{
+    <Box
+      sx={{
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         height: "100%",
         width: "100%",
-        paddingLeft: 30,
-        paddingRight: 30,
+        paddingLeft: 8,
+        paddingRight: 8,
+        paddingBottom: 2,
       }}
     >
       <Typography
@@ -42,7 +44,6 @@ export default function Messages() {
           flexDirection: "column",
           justifyContent: "center",
           width: "100%",
-          maxWidth: 360,
           bgcolor: "background.paper",
         }}
       >
@@ -79,6 +80,6 @@ export default function Messages() {
           </Link>
         ))}
       </List>
-    </div>
+    </Box>
   );
 }

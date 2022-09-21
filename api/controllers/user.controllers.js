@@ -49,31 +49,29 @@ class UserController {
   static async logIn(req, res) {
     try {
       if(req.body.google === true){
-        const googleUser = await UserService.googleUser(req.body)
-        const passwordHashed = bcrypt.hashSync(req.body.password, googleUser.salt);
-        if (passwordHashed === googleUser.password) {
-          const token = generateToken({
-            _id: googleUser._id,
-            name: googleUser.name,
-            last_name: googleUser.last_name,
-            email: googleUser.email,
-            profile_picture: googleUser.profile_picture,
-            age: googleUser.age,
-            favorites: googleUser.favorites,
-            adopted: googleUser.adopted,
-            location: googleUser.location,
-            numberPhone: googleUser.numberPhone,
-            civilStatus: googleUser.civilStatus,
-            availableSpace: googleUser.availableSpace,
-            kids: googleUser.kids,
-            otherPets: googleUser.otherPets,
-            message: googleUser.message,
-          });
-          const payload = validateToken(token);
-          req.user = payload;
-          res.cookie("token", token);
-          res.status(201).send(req.user);
-        } else return res.sendStatus(401);
+        const googleUser = await UserService.googleUser(req.body) 
+        console.log(googleUser)       
+        const token = generateToken({
+          _id: googleUser._id,
+          name: googleUser.name,
+          last_name: googleUser.last_name,
+          email: googleUser.email,
+          profile_picture: googleUser.profile_picture,
+          age: googleUser.age,
+          favorites: googleUser.favorites,
+          adopted: googleUser.adopted,
+          location: googleUser.location,
+          numberPhone: googleUser.numberPhone,
+          civilStatus: googleUser.civilStatus,
+          availableSpace: googleUser.availableSpace,
+          kids: googleUser.kids,
+          otherPets: googleUser.otherPets,
+          message: googleUser.message,
+        });
+        const payload = validateToken(token);
+        req.user = payload;
+        res.cookie("token", token);
+        res.status(201).send(req.user);
 
       }else{
         const user = await UserService.find(req);
