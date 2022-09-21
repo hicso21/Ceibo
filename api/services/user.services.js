@@ -39,7 +39,7 @@ class UserService {
 
   static async getUser(id) {
     try {
-      return await Users.findOne({ _id: id }).populate("favorites");
+      return await Users.findOne({ _id: id }).populate(["favorites", "adopted"]);
     } catch (error) {
       console.log(error.message);
     }

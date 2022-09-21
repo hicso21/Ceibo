@@ -12,6 +12,7 @@ import ResponsiveDialog from "./SingPetDialog";
 import { useEffect } from "react";
 import { getOnePet } from "../state/pets";
 import { useLocation } from "react-router";
+import axios from "axios";
 
 const SingularPet = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,13 @@ const SingularPet = () => {
   useEffect(() => {
     dispatch(getOnePet(pathname.substring(10)));
   }, []);
+  
+  const handlerClickadopted = (e)=>{
+console.log("adoptado");
+axios.put(`http://localhost:3001/api/pets/update/${pathname.substring(10)}`, {
+ adopted : true
+})
+  }
 
   return (
     <>
@@ -103,6 +111,19 @@ const SingularPet = () => {
           </Box>
         </Card>
         <ResponsiveDialog buttonStyle={buttonStyle} pet={pet} />
+       {pet?.adopted? <Button
+        color="inherit"
+        fullWidth
+        sx={buttonStyle}
+       disabled>
+        Este perro ya fue adoptado
+      </Button> :<Button
+        color="inherit"
+        fullWidth
+        sx={buttonStyle}
+       onClick={handlerClickadopted}>
+        Adoptar
+      </Button>} 
       </Container>
     </>
   );
