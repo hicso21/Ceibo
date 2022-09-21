@@ -5,6 +5,7 @@ import App from './App';
 import './assets/GridFooter.css'
 import store from "./state/store";
 import { Provider } from 'react-redux'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -15,4 +16,9 @@ root.render(
     </React.StrictMode>
   </Provider>
 );
+
+// If you want your app to work offline and load faster, you can change
+// unregister() to register() below. Note this comes with some pitfalls.
+// Learn more about service workers: https://cra.link/PWA
+serviceWorkerRegistration.register();
 
