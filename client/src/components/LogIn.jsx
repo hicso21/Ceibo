@@ -57,22 +57,6 @@ export default function SignUp() {
     })  
   };
 
-  // function handleCallbackResponse(response){
-  //   console.log(`Encoded JWT ID token: ${response.credential}`)
-  // }
-
-  // useEffect(()=>{
-  //   google.accounts.id.initialized({
-  //     client_id: '568203068712-oefg2vdq8ji32po6ouc69kco7st10304.apps.googleusercontent.com',
-  //     callback: handleCallbackResponse
-  //   })
-
-  //   google.accounts.id.renderButton(
-  //     document.getElementById('signinDiv'),
-  //     { theme: 'outline', size:'large'}
-  //   )
-  // },[])
-
   return (
     <>
     <ThemeProvider theme={theme}>
@@ -152,7 +136,7 @@ export default function SignUp() {
               >
               Iniciar sesión
             </Button>
-            <Grid container justifyContent="center">
+            <Grid container justifyContent="center" width={'100%'}>
               <GoogleLogin/>
             </Grid>
           </Box>

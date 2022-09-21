@@ -18,9 +18,11 @@ import MaleIcon from "@mui/icons-material/Male";
 import FemaleIcon from "@mui/icons-material/Female";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom"
 
 const AddPet = () => {
   const user = useSelector((state) => state.user);
+  const navigate = useNavigate()
   const [gender, setGender] = useState("macho");
   const [name, setName] = useState("");
   const [specie, setSpecie] = useState("");
@@ -79,16 +81,6 @@ const AddPet = () => {
   };
 
   const handleSubmit = () => {
-    console.log("ESTAMOS EN EL HANDLE SUBMIT CON:", {
-      name,
-      age,
-      history,
-      gender,
-      size,
-      personality,
-      images,
-      specie,
-    });
     axios
       .post(`http://localhost:3001/api/foundation/${user._id}/add`, {
         name,
@@ -101,7 +93,7 @@ const AddPet = () => {
         specie,
       })
       .then((res) => {
-        console.log(res);
+        navigate('/mascotas')
       });
   };
 
