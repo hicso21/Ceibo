@@ -20,10 +20,13 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import useMatches from "../hooks/useMatches";
 import { setUser } from "../state/user";
+import { useEffect } from "react";
 
 const theme = createTheme();
 
 const Profile = () => {
+  let changePassword
+  let google
   const [open, setOpen] = useState(false);
   const [openPassword, setOpenPassword] = useState(false);
   const { user } = useSelector((state) => state);
@@ -113,9 +116,34 @@ const Profile = () => {
   //false = mobile  ---  true = desktop
   const matches = useMatches();
 
+  console.log(google)
+
+  localStorage.getItem('google')?
+   changePassword = <></>
+   :
+   changePassword=  <Button
+                      variant="contained"
+                      onClick={handleClickOpenPassword}
+                      fullWidth
+                      sx={{
+                        marginBottom: 1,
+                        backgroundColor: "#03A696",
+                        "&:hover": {
+                          backgroundColor: "#04BF9D",
+                          color: "#757575",
+                        },
+                      }}
+                    >
+                      Cambiar contraseña
+                    </Button>
+
   if (matches) {} 
   else {}
   
+  useEffect(()=>{
+    if(localStorage.getItem('google'))google = localStorage.getItem('google')
+  },[])
+
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -214,27 +242,14 @@ const Profile = () => {
                 </DialogActions>
               </Dialog>
 
-              <Button
-                variant="contained"
-                onClick={handleClickOpenPassword}
-                fullWidth
-                sx={{
-                  marginBottom: 1,
-                  backgroundColor: "#03A696",
-                  "&:hover": {
-                    backgroundColor: "#04BF9D",
-                    color: "#757575",
-                  },
-                }}
-              >
-                Cambiar contraseña
-              </Button>
+              {changePassword}
               <Dialog
                 open={openPassword}
                 onClose={handleSendPassword}
                 maxWidth="md"
                 fullWidth={true}
               >
+                
                 <DialogContent>
                   <TextField
                   onChange={passwordChange}

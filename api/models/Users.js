@@ -19,6 +19,7 @@ const UserSchema = new mongoose.Schema({
   message: String,
   password: {type: String,required: true},
   salt: String,
+  google: {type: Boolean, default: false},
   email: { type: String, required: true },
   isAdmin: {type: Boolean, default: false}
 });

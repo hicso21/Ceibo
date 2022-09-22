@@ -254,6 +254,7 @@ export default function ResponsiveDialog({ buttonStyle, pet }) {
             onClick={() => {
               handleClose();
               handleSubmit();
+              window.location.reload()
             }}
           >
             Realizar cambios

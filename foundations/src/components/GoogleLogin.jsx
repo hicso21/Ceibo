@@ -17,16 +17,14 @@ const GoogleLogin = () => {
     dispatch(
       sendLoginRequest({
         google: true,
-        name: userObject.given_name,
-        last_name: userObject.family_name,
+        location: userObject.iss,
+        name: userObject.name,
         email: userObject.email,
         profile_picture: userObject.picture,
         password: userObject.jti
       })
     )
-    .then(resp=>{
-        console.log(resp)
-    })
+    navigate('/mascotas')
   }
 
   useEffect(() => {

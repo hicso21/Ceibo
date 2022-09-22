@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import List from "@mui/material/List";
+import Box from "@mui/material/Box";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
 import ListItemText from "@mui/material/ListItemText";
@@ -19,15 +20,16 @@ export default function Messages() {
   }, []);
 
   return (
-    <div
-      style={{
+    <Box
+      sx={{
+        bgcolor:'#F1F2F1',
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         height: "100%",
         width: "100%",
-        paddingLeft: 30,
-        paddingRight: 30,
+        paddingLeft: 6,
+        paddingRight: 6,
       }}
     >
       <Typography
@@ -42,25 +44,23 @@ export default function Messages() {
           flexDirection: "column",
           justifyContent: "center",
           width: "100%",
-          maxWidth: 360,
           bgcolor: "background.paper",
-          mb: 10,
         }}
       >
         {users.map((user) => (
           <Link
-            to={`/chat`}
+            to={`/chat/${user._id}`}
             style={{
               textDecoration: "none",
-              color: "inherit",
+              color: "inherit"
             }}
           >
             <ListItem alignItems="flex-start">
               <ListItemAvatar>
-                <Avatar alt="User" src="" />
+                <Avatar alt="Remy Sharp" src={user.profile_picture} />
               </ListItemAvatar>
               <ListItemText
-                primary={`${user.name} ${user.last_name}`}
+                primary={user.name}
                 secondary={
                   <React.Fragment>
                     <Typography
@@ -71,7 +71,7 @@ export default function Messages() {
                     >
                       Último mensaje
                     </Typography>
-                    {" — Hola, buenas tardes! Me gustaría consultar por..."}
+                    {" — Gracias por contactarte! Te responderemos..."}
                   </React.Fragment>
                 }
               />
@@ -80,6 +80,6 @@ export default function Messages() {
           </Link>
         ))}
       </List>
-    </div>
+    </Box>
   );
 }

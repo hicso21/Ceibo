@@ -34,23 +34,45 @@ class FoundationController {
   }
 
   static async logIn(req, res) {
-    const foundation = await FoundationServices.find(req);
-    if (!foundation) return res.sendStatus(401);
-    const passwordHashed = bcrypt.hashSync(req.body.password, foundation.salt);
-    if (passwordHashed === foundation.password) {
-      const token = generateToken({
-        _id: foundation._id,
-        name: foundation.name,
-        email: foundation.email,
-        pets: foundation.pets,
-        profile_picture: foundation.profile_picture,
-        location: foundation.location,
-      });
-      const payload = validateToken(token);
-      req.foundation = payload;
-      res.cookie("token", token, { maxAge: 9000000 });
-      res.status(201).send(req.foundation);
-    } else return res.sendStatus(401);
+    try{
+      if(req.body.google === true){
+        const googleUser = await FoundationServices.googleUser(req.body) 
+        //console.log(googleUser)
+        const token = generateToken({
+          _id: googleUser._id,
+          name: googleUser.name,
+          email: googleUser.email,
+          pets: googleUser.pets,
+          profile_picture: googleUser.profile_picture,
+          location: googleUser.location,
+        });
+        const payload = validateToken(token);
+        payload.google = true
+        req.user = payload;
+        res.cookie("token", token)
+        res.status(201).send(req.user);
+
+      }else{
+      const foundation = await FoundationServices.find(req);
+      if (!foundation) return res.sendStatus(401);
+      const passwordHashed = bcrypt.hashSync(req.body.password, foundation.salt);
+      if (passwordHashed === foundation.password) {
+        const token = generateToken({
+          _id: foundation._id,
+          name: foundation.name,
+          email: foundation.email,
+          pets: foundation.pets,
+          profile_picture: foundation.profile_picture,
+          location: foundation.location,
+        });
+        const payload = validateToken(token);
+        req.foundation = payload;
+        res.cookie("token", token, { maxAge: 9000000 });
+        res.status(201).send(req.foundation);
+      } else return res.sendStatus(401)
+    }} catch (error) {
+      console.log(error.message);
+    }
   }
 
   static async findById(req, res) {
@@ -76,6 +98,7 @@ class FoundationController {
   static async getAllPets(req, res) {
     try {
       const foundation = await FoundationServices.getAllPets(req.params.id);
+      console.log(foundation)
       return foundation.pets
         ? res.status(200).send(foundation.pets)
         : res.status(404).send("no data found");

@@ -10,6 +10,21 @@ class FoundationService {
     }
   }
 
+  static async googleUser(body){
+    try {
+      console.log('ESTO ES BODY', body)
+      const googleUser = await Foundation.findOne({email: body.email})
+      console.log('GOOGLEUSER', googleUser)
+      if(googleUser === null) {
+        
+        const newGoogleUser = new Foundation(body);
+        return await newGoogleUser
+      }else return googleUser
+    }catch (error) {
+      console.log(error.message);
+    }
+  }
+
   static async createFoundation(body) {
     try {
       const foundation = new Foundation(body);

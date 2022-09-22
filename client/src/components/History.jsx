@@ -17,24 +17,24 @@ export default function History() {
 
     return (
       <>
-        <Box sx={{p:3}}>
-        <Stack>
-          <Typography variant='h5'>Transit Pets</Typography>
-          <Accordion>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-              >
-              <Typography>Chicho</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography>Name: Chicho</Typography>
-              <Typography>Date: 10/01/19 - 10/04/19</Typography>
-              <Typography>Breed: Golden Retriever</Typography>
-              <Typography>Foundation: CAAN</Typography>
-            </AccordionDetails>
-          </Accordion>
+        <Box sx={{p:3, height:'100%', bgcolor:'#F1F2F1'}}>
+          <Stack>
+            <Typography variant='h5'>Transit Pets</Typography>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                >
+                <Typography>Chicho</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>Name: Chicho</Typography>
+                <Typography>Date: 10/01/19 - 10/04/19</Typography>
+                <Typography>Breed: Golden Retriever</Typography>
+                <Typography>Foundation: CAAN</Typography>
+              </AccordionDetails>
+            </Accordion>
           </Stack>
           <Stack>
           <br/>

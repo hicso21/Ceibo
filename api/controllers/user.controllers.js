@@ -34,11 +34,11 @@ class UserController {
           availableSpace: user.availableSpace,
           kids: user.kids,
           otherPets: user.otherPets,
-          message: user.message,
+          message: user.message
         });
         const payload = validateToken(token);
         req.user = payload;
-        res.cookie("token", token, { maxAge: 9000000 });
+        res.cookie("token", token, { maxAge: 9000000 })
         res.status(201).send(user);
       } else res.sendStatus(400);
     } catch (error) {
@@ -50,7 +50,6 @@ class UserController {
     try {
       if(req.body.google === true){
         const googleUser = await UserService.googleUser(req.body) 
-        console.log(googleUser)       
         const token = generateToken({
           _id: googleUser._id,
           name: googleUser.name,
@@ -69,8 +68,9 @@ class UserController {
           message: googleUser.message,
         });
         const payload = validateToken(token);
+        payload.google = true
         req.user = payload;
-        res.cookie("token", token);
+        res.cookie("token", token)
         res.status(201).send(req.user);
 
       }else{
@@ -127,13 +127,11 @@ class UserController {
 
   static async resetPassword(req, res) {
     try {
-      const { userId } = req.params.id;
-      const salt = await bcrypt.genSalt(10)
-      const password = await bcrypt.hashSync(req.body.password, salt);
-      console.log(req.body.password)
-      console.log(password);
-      const userPassword = await Users.updateOne({_id: userId}, {$set: {password: password}})
-      return res.status(204).send(password);
+      const userId = req.params.id;
+      const user = await Users.find({_id:userId})
+      const newPassword = await bcrypt.hash(req.body.password, user[0].salt)
+      const userUpdated = await Users.updateOne({_id: userId}, {$set: {password: newPassword}})
+      return res.status(204).send(userUpdated);
     } catch (error) {
       console.log(error.message);
     }

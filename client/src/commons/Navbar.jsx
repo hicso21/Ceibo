@@ -39,87 +39,9 @@ import { sendLogoutRequest } from "../state/user";
 import { search } from "../state/search";
 import { useState } from "react";
 
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha((theme.palette.color = "#FFD600"), 0.15),
-  "&:hover": {
-    backgroundColor: alpha((theme.palette.color = "#FFD600"), 0.25),
-  },
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
-    width: "auto",
-  },
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  borderRadius: 20,
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(0)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "100%",
-      "&:focus": {
-        width: "100%",
-      },
-    },
-  },
-}));
-
-const drawerWidth = 300;
-
-const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    transition: theme.transitions.create("margin", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidth}px`,
-    ...(open && {
-      transition: theme.transitions.create("margin", {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
-    }),
-  })
-);
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-end",
-}));
 
 export default function PersistentDrawerLeft({ prop }) {
-
+  
   const buscador = document.getElementById('search')
   const theme = useTheme();
   const [open, setOpen] = useState(false);
@@ -128,6 +50,91 @@ export default function PersistentDrawerLeft({ prop }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let {pathname} = useLocation()
+  let drawerColor
+
+  if(pathname === '/favorites' || pathname === '/fundaciones' || pathname === '/mascotas'){
+    drawerColor = '#FFFFFF'
+  }
+  
+  const Search = styled("div")(({ theme }) => ({
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: alpha((theme.palette.color = "#FFD600"), 0.15),
+    "&:hover": {
+      backgroundColor: alpha((theme.palette.color = "#FFD600"), 0.25),
+    },
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(1),
+      width: "auto",
+    },
+  }));
+
+  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    borderRadius: 20,
+    color: "inherit",
+    "& .MuiInputBase-input": {
+      padding: theme.spacing(1, 1, 1, 0),
+      // vertical padding + font size from searchIcon
+      paddingLeft: `calc(1em + ${theme.spacing(0)})`,
+      transition: theme.transitions.create("width"),
+      width: "100%",
+      [theme.breakpoints.up("sm")]: {
+        width: "100%",
+        "&:focus": {
+          width: "100%",
+        },
+      },
+    },
+  }));
+
+  const drawerWidth = 300;
+
+  const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
+    ({ theme, open }) => ({
+      flexGrow: 1,
+      transition: theme.transitions.create("margin", {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      marginLeft: `-${drawerWidth}px`,
+      ...(open && {
+        transition: theme.transitions.create("margin", {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
+      }),
+    })
+  );
+
+  const AppBar = styled(MuiAppBar, {
+    shouldForwardProp: (prop) => prop !== "open",
+  })(({ theme, open }) => ({
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    ...(open && {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: `${drawerWidth}px`,
+      transition: theme.transitions.create(["margin", "width"], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    }),
+  }));
+
+  const DrawerHeader = styled("div")(({ theme }) => ({
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-end",
+    backgroundColor: drawerColor
+  }));
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -179,6 +186,7 @@ export default function PersistentDrawerLeft({ prop }) {
   let main
   let footer
   let mainHeight
+  let bottomDrawer
 
   //desktop or mobile
   if(matches){
@@ -317,6 +325,7 @@ export default function PersistentDrawerLeft({ prop }) {
             </>
   }
   else{
+    pathname === '/history'?bottomDrawer = <></>:bottomDrawer = <><DrawerHeader/><DrawerHeader/></>
     
     footer = <></>
         drawerButton =
@@ -588,10 +597,9 @@ export default function PersistentDrawerLeft({ prop }) {
           </List>
         </Drawer>
         <Main open={marginDrawer} sx={mainHeight}>
-        <DrawerHeader/>
+          <DrawerHeader/>
           {main}
-          <DrawerHeader/>
-          <DrawerHeader/>
+          {bottomDrawer}
           <Footer/>
         </Main>
       </Box>
