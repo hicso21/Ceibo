@@ -11,6 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import useMatches from "../hooks/useMatches";
+import HomeIcon from '@mui/icons-material/Home';
 
 const ShowPets = () => {
   const [pets, setPets] = useState([]);
@@ -72,6 +73,9 @@ const ShowPets = () => {
                       <Typography variant="body4" color="text.secondary">
                         {mascota.gender}
                       </Typography>
+                      <Typography variant="body4" color="text.secondary">
+                            {mascota?.adopted? <HomeIcon sx={{width:40, height:40}}/>:<></>}
+                            </Typography>
                     </CardContent>
                   </Card>
                 </Grid>

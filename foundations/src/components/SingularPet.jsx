@@ -13,12 +13,20 @@ import { useEffect } from "react";
 import { getOnePet } from "../state/pets";
 import { useLocation } from "react-router";
 import axios from "axios";
+/* import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle'; */
+import { useState } from "react";
 
 const SingularPet = () => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   let pet = useSelector((state) => state.pets[0]);
-
+  const [emailAdoptante, setEmailAdoptante] = useState("");
+  
   const buttonStyle = {
     bgcolor: "#FFD640",
     mb: 4,
@@ -34,7 +42,23 @@ console.log("adoptado");
 axios.put(`http://localhost:3001/api/pets/update/${pathname.substring(10)}`, {
  adopted : true
 })
-  }
+/* const user = axios.get(`http://localhost:3001/api/user/${emailAdoptante}`)
+axios.put(`http://localhost:3001/api/user/update/${user._id}`, {
+ adopted : pet
+}) */
+}
+const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const emailAdoptanteChange = (e) => {
+    setEmailAdoptante(e.target.value);
+  };
 
   return (
     <>
@@ -121,12 +145,43 @@ axios.put(`http://localhost:3001/api/pets/update/${pathname.substring(10)}`, {
         color="inherit"
         fullWidth
         sx={buttonStyle}
-       onClick={handlerClickadopted}>
+        onClick={handlerClickadopted}>
         Adoptar
-      </Button>} 
+      </Button> 
+       
+      } 
       </Container>
     </>
   );
 };
 
 export default SingularPet;
+
+
+/* 
+<>
+<Button variant="outlined" onClick={handleClickOpen}>
+  Completar adopcion
+</Button>
+<Dialog open={open} onClose={handleClose}>
+  <DialogTitle>Adopcion</DialogTitle>
+  <DialogContent>
+    <DialogContentText>
+      Por favor escribirel mail del adoptante
+    </DialogContentText>
+    <TextField
+    onChange={emailAdoptanteChange}
+      autoFocus
+      margin="dense"
+      id="name"
+      label="Email Address"
+      type="email"
+      fullWidth
+      variant="standard"
+    />
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={handleClose}>Cancel</Button>
+    <Button onClick={handlerClickadopted}>Completado</Button>
+  </DialogActions>
+</Dialog></>  */

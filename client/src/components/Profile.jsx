@@ -96,6 +96,7 @@ const Profile = () => {
     setImage(objectUrl);
 
     imagenPrevisualizacion.src = objectUrl;
+    console.log("objectUrl", objectUrl);
   };
 
   const handleSubmit = () => {

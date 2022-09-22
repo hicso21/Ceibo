@@ -183,7 +183,7 @@ const SingularPet = () => {
           Adoptado
         </Button> :<Button color="inherit" sx={buttonStyle} onClick={handleAdopt}>
           Adoptar
-        </Button>
+        </Button>}
         <Button color="inherit" sx={buttonStyle} onClick={()=>handleContact(pet?.foundation._id)}>
 
           {`Contactar con la fundación ${pet?.foundation.name}`}
