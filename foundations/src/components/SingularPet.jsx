@@ -13,12 +13,12 @@ import { useEffect } from "react";
 import { getOnePet } from "../state/pets";
 import { useLocation } from "react-router";
 import axios from "axios";
-/* import TextField from '@mui/material/TextField';
+import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle'; */
+import DialogTitle from '@mui/material/DialogTitle';
 import { useState } from "react";
 
 const SingularPet = () => {
@@ -26,7 +26,7 @@ const SingularPet = () => {
   const { pathname } = useLocation();
   let pet = useSelector((state) => state.pets[0]);
   const [emailAdoptante, setEmailAdoptante] = useState("");
-  
+
   const buttonStyle = {
     bgcolor: "#FFD640",
     mb: 4,
@@ -36,18 +36,21 @@ const SingularPet = () => {
   useEffect(() => {
     dispatch(getOnePet(pathname.substring(10)));
   }, []);
-  
-  const handlerClickadopted = (e)=>{
-console.log("adoptado");
-axios.put(`http://localhost:3001/api/pets/update/${pathname.substring(10)}`, {
- adopted : true
-})
-/* const user = axios.get(`http://localhost:3001/api/user/${emailAdoptante}`)
-axios.put(`http://localhost:3001/api/user/update/${user._id}`, {
- adopted : pet
-}) */
-}
-const [open, setOpen] = useState(false);
+
+  const handlerClickadopted = (e) => {
+    axios.put(
+      `http://localhost:3001/api/pets/update/${pathname.substring(10)}`,
+      {
+        adopted: true,
+      });
+    axios.get(`http://localhost:3001/api/user/email/${emailAdoptante}`)
+    .then((res)=>{
+      axios.put(`http://localhost:3001/api/user/adopted/add/${res.data._id}`, pet) 
+    })
+    
+    setOpen(false)
+  };
+  const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -135,21 +138,39 @@ const [open, setOpen] = useState(false);
           </Box>
         </Card>
         <ResponsiveDialog buttonStyle={buttonStyle} pet={pet} />
-       {pet?.adopted? <Button
-        color="inherit"
-        fullWidth
-        sx={buttonStyle}
-       disabled>
-        Este perro ya fue adoptado
-      </Button> :<Button
-        color="inherit"
-        fullWidth
-        sx={buttonStyle}
-        onClick={handlerClickadopted}>
-        Adoptar
-      </Button> 
-       
-      } 
+        {pet?.adopted ? (
+          <Button color="inherit" fullWidth sx={buttonStyle} disabled>
+            Este perro ya fue adoptado
+          </Button>
+        ) : (
+          <>
+          <Button onClick={handleClickOpen} sx={buttonStyle} color="inherit" >
+            Completar adopcion
+          </Button>
+          <Dialog open={open} onClose={handleClose}>
+            <DialogTitle>Adopcion</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Por favor escribir el mail del adoptante
+              </DialogContentText>
+              <TextField
+              onChange={emailAdoptanteChange}
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Email Address"
+                type="email"
+                fullWidth
+                variant="standard"
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={handlerClickadopted}>Completado</Button>
+            </DialogActions>
+          </Dialog></>
+         
+        )}
       </Container>
     </>
   );
@@ -157,31 +178,3 @@ const [open, setOpen] = useState(false);
 
 export default SingularPet;
 
-
-/* 
-<>
-<Button variant="outlined" onClick={handleClickOpen}>
-  Completar adopcion
-</Button>
-<Dialog open={open} onClose={handleClose}>
-  <DialogTitle>Adopcion</DialogTitle>
-  <DialogContent>
-    <DialogContentText>
-      Por favor escribirel mail del adoptante
-    </DialogContentText>
-    <TextField
-    onChange={emailAdoptanteChange}
-      autoFocus
-      margin="dense"
-      id="name"
-      label="Email Address"
-      type="email"
-      fullWidth
-      variant="standard"
-    />
-  </DialogContent>
-  <DialogActions>
-    <Button onClick={handleClose}>Cancel</Button>
-    <Button onClick={handlerClickadopted}>Completado</Button>
-  </DialogActions>
-</Dialog></>  */

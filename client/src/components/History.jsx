@@ -23,7 +23,6 @@ export default function History() {
       .get(`http://localhost:3001/api/user/adopted/${user?._id}`)
       .then((res) => {
         setAdoptados(res.data)
-        console.log("adoptado",res.data)
       })
 }, [pathname]);
 
@@ -48,7 +47,8 @@ export default function History() {
             </AccordionSummary>
                 <AccordionDetails>
               <Typography>Name: {pet.name}</Typography>
-              <Typography>Especie: {pet.gender}</Typography>
+              <Typography>Especie: {pet.specie}</Typography>
+              <Typography>Genero: {pet.gender}</Typography>
               <Typography>Tamaño: {pet.size}</Typography>
               <Typography>Vacundo: {pet.vaccinated?"Si":"No"}</Typography>
               <Typography>Castrado: {pet.neuterd?"Si":"No"}</Typography>

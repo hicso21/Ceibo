@@ -70,7 +70,6 @@ export default function Chat() {
     axios
       .get(`http://localhost:3001/api/messages/${fId}/${uId}`)
       .then((res) => {
-        console.log(res.data);
         setChatMessages(res.data);
       });
   }, []);
