@@ -9,9 +9,22 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { Box } from "@mui/material";
+import useMatches from "../hooks/useMatches";
 
 export default function Messages() {
   const [foundations, setFoundations] = useState([]);
+  const matches = useMatches();
+
+  let pL
+  let pR
+
+  if(matches){
+    pL = 10
+    pR = 10
+  }else{
+    pL = 5
+    pR = 5
+  }
 
   useEffect(() => {
     axios
@@ -27,9 +40,8 @@ export default function Messages() {
         justifyContent: "center",
         height: "90%",
         width: "100%",
-        paddingLeft: 8,
-        paddingRight: 8,
-        paddingBottom: 2,
+        paddingLeft: pR,
+        paddingRight: pL,
       }}
     >
       <Typography
@@ -45,6 +57,7 @@ export default function Messages() {
           justifyContent: "center",
           width: "100%",
           bgcolor: "background.paper",
+          pb:0
         }}
       >
         {foundations.map((fundacion) => (
@@ -60,7 +73,7 @@ export default function Messages() {
                 <Avatar alt="Remy Sharp" src={fundacion.profile_picture} />
               </ListItemAvatar>
               <ListItemText
-                primary={fundacion.name}
+                primary={<Typography ><strong>{fundacion.name}</strong></Typography>}
                 secondary={
                   <React.Fragment>
                     <Typography
