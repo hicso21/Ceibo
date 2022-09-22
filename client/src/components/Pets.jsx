@@ -162,7 +162,7 @@ const Pets = () => {
                         </Accordion>
                     </Box>
                 <Box sx={{display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
-                {displayPets.map((mascota) => { console.log(mascota);
+                {displayPets.map((mascota) => {
                     return(
                     <Link to={`/mascotas/${mascota._id}`} key={mascota._id} style={{textDecoration:'none', margin:'0px auto', minWidth:295}}>
                     <Grid item xs={12} p={2} key={mascota._id}>
@@ -170,22 +170,27 @@ const Pets = () => {
                         <CardMedia>
                             <img id='imgPet' src={mascota.photos[0]} alt="" width='100%' max-height='1000px'/>
                         </CardMedia>
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="div">
+                        <Container sx={{dispaly:'flex', width:'100%', mt:1, mb:2}}>
+                            
+                            <Typography gutterBottom variant="h4" component="span" sx={{width:'25%',height:'50px'}}>
                             {mascota.name}
                             </Typography>
-                            <Typography variant="body2" color="text.secondary">
-                            {mascota.specie === 'perro' ? <img src={logoPerrito} width="50" height="50" alt="perrito"/>:<img src={logoGatito} width="40" height="40"  alt="gatito" />}</Typography>
-                            <Typography variant="body4" color="text.secondary">
+
+                            <Typography variant="body2" component='span'>
+                            {mascota.specie === 'perro' ? <img src={logoPerrito} width="50" height="50" alt="perrito"/>:<img src={logoGatito} width="40" height="40"  alt="gatito" />}
+                            </Typography>
+
+                            <Typography variant="body2" component='span' sx={{width:'100%'}}>
                             {mascota.gender === 'hembra'?<FemaleIcon sx={{width:40, height:40}}/>:<MaleIcon sx={{width:40, height:40}}/>}
                             </Typography>
-                            <Typography variant="body4" color="text.secondary">
+                            
+                            <Typography variant="body2">
                             {mascota?.adopted? <HomeIcon sx={{width:40, height:40}}/>:<></>}
                             </Typography>
                             {/* <Typography variant="body2" color="text.secondary">
                             {mascota.foundation}
                             </Typography> */}
-                        </CardContent>
+                        </Container>
                         </Card>
                     </Grid>
                     </Link>
@@ -200,7 +205,7 @@ const Pets = () => {
             <Pagination
         count={Math.ceil(advancedSearch.length / petsPerPage)}
         onChange={changePage}
-        sx={{ display: "flex", flexDirection: "row", justifyContent: "center", mb:2}}
+        sx={{ display: "flex", flexDirection: "row", justifyContent: "center"}}
         hidePrevButton
         hideNextButton
       />

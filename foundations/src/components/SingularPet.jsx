@@ -46,7 +46,6 @@ const SingularPet = () => {
     axios.get(`http://localhost:3001/api/user/email/${emailAdoptante}`)
     .then((res)=>{
       axios.put(`http://localhost:3001/api/user/adopted/add/${res.data._id}`, pet) 
-      console.log("adoptado",pet, res.data);
     })
     
     setOpen(false)

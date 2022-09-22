@@ -59,6 +59,12 @@ const SingularPet = () => {
     borderRadius: 3,
   };
 
+  const buttonAdoptedStyle = {
+    bgcolor: "#D6D6D6",
+    mt: 2,
+    borderRadius: 3,
+  };
+
   favorites
     ? (fav = (
         <>
@@ -179,8 +185,8 @@ const SingularPet = () => {
             </Box>
           </Box>
         </Card>
-        {pet?.adopted? <Button color="inherit" sx={buttonStyle} disabled>
-          Adoptado
+        {pet?.adopted? <Button color="inherit" sx={buttonAdoptedStyle} disabled>
+          <Typography variant="body1" color='black'>Adoptado</Typography> 
         </Button> :<Button color="inherit" sx={buttonStyle} onClick={handleAdopt}>
           Adoptar
         </Button>}

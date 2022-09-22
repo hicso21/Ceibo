@@ -15,7 +15,6 @@ import {useLocation} from 'react-router-dom'
 export default function Footer() {
 
   const {pathname} = useLocation()
-  console.log(pathname)
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -102,36 +101,29 @@ export default function Footer() {
 
   return (
     <>
-    
       <Box sx={boxStyle}>
         <CssBaseline />
-        <Box
-          component="footer"
-          sx={styleBox}
-          >
+        <Box component="footer" sx={styleBox}>
           <Container>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid container>
-              <Grid item xs={6} md={6}>
-                <Item sx={style}  className='gridFooter' 
-                >
-                  <Copyright/>
-                </Item>
-              </Grid>
-              <Grid item xs={6} md={6} >
-                <Item sx={style2}
-                className='gridFooter'
-                >
-                  <Link href="https://www.instagram.com/ceibodigital/?hl=es" color='inherit'><InstagramIcon sx={{marginLeft:2}}/></Link>
-                  <Link href="https://twitter.com/ceibodigital?lang=es" color='inherit'><TwitterIcon sx={{marginLeft:2}}/></Link>
-                  <Link href="https://www.facebook.com/ceibo.digital/" color='inherit'><FacebookIcon sx={{marginLeft:2}}/></Link>
+            <Box sx={{ flexGrow: 1 }}>
+              <Grid container>
+                <Grid item xs={6} md={6}>
+                  <Item sx={style}  className='gridFooter'>
+                    <Copyright/>
                   </Item>
+                </Grid>
+                <Grid item xs={6} md={6} >
+                  <Item sx={style2} className='gridFooter'>
+                    <Link href="https://www.instagram.com/ceibodigital/?hl=es" color='inherit'><InstagramIcon sx={{marginLeft:2}}/></Link>
+                    <Link href="https://twitter.com/ceibodigital?lang=es" color='inherit'><TwitterIcon sx={{marginLeft:2}}/></Link>
+                    <Link href="https://www.facebook.com/ceibo.digital/" color='inherit'><FacebookIcon sx={{marginLeft:2}}/></Link>
+                  </Item>
+                </Grid>
               </Grid>
-            </Grid>
-          </Box>
+            </Box>
           </Container>
         </Box>
       </Box>
     </>
-  );
+  )
 }

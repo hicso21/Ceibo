@@ -14,10 +14,6 @@ const Search = () => {
     const dispatch = useDispatch()
     const advancedSearch = useSelector((state)=>state.search)
 
-    console.log(params)
-
-    
-
   return (
     <>
         <div style={{backgroundColor: "white"}}>

@@ -12,7 +12,6 @@ const GoogleLogin = () => {
 
   function handleCallbackResponse(response) {
     const userObject = jwt_decode(response.credential);
-    console.log(userObject)
 
     dispatch(
       sendLoginRequest({

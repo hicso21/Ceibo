@@ -28,7 +28,6 @@ const ShowPets = () => {
     axios
       .get(`http://localhost:3001/api/foundation/${user._id}/pets`)
       .then((res) => {
-        console.log(res.data);
         setPets(res.data);
       });
   }, []);

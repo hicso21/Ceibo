@@ -82,7 +82,6 @@ const Profile = () => {
         last_name: user.last_name,
         email: user.email
       })
-      .then((res) => console.log(res.data));
   }
 
   //false = mobile  ---  true = desktop
