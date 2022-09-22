@@ -49,7 +49,8 @@ export default function Messages() {
       >
         {users.map((user) => (
           <Link
-            to={`/chat`}
+            key={user._id}
+            to={`/chat/${user._id}`}
             style={{
               textDecoration: "none",
               color: "inherit",
