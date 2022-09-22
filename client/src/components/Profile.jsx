@@ -271,25 +271,7 @@ const Profile = () => {
                 </DialogActions>
               </Dialog>
 
-              <Button
-                type="submit"
-                variant="contained"
-                fullWidth
-                size="large"
-                sx={{
-                  marginBottom: 1,
-                  backgroundColor: "#03A696",
-                  "&:hover": {
-                    backgroundColor: "#04BF9D",
-                    color: "#757575",
-                  },
-                }}
-                onClick={() => {
-                  navigate("/adoptionForm");
-                }}
-              >
-                Formulario de adopción
-              </Button>
+            
             </Box>
           </Box>
           <Button
