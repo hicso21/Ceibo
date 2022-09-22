@@ -1,6 +1,6 @@
 {
   "short_name": "React App",
-  "name": "Create React App Sample",
+  "name": "Ceibo",
   "icons": [
     {
       "src": "maskable_icon.png",
@@ -9,12 +9,12 @@
       "purpose": "any maskable"
     },
     {
-      "src": "logo192.png",
+      "src": "maskable_icon.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo512.png",
+      "src": "maskable_icon.png",
       "type": "image/png",
       "sizes": "512x512"
     }
@@ -24,3 +24,4 @@
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }
+
