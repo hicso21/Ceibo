@@ -52,7 +52,15 @@ class UserService {
 
   static async getUser(id) {
     try {
-      return await Users.findOne({ _id: id }).populate("favorites");
+      return await Users.findOne({ _id: id }).populate(["favorites", "adopted"]);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  static async getUserEmail(email) {
+    try {
+      return await Users.findOne({ email: email }).populate(["favorites", "adopted"])
     } catch (error) {
       console.log(error.message);
     }
@@ -92,7 +100,6 @@ class UserService {
       console.log(error.message);
     }
   }
-
   static async adoptPet(id, petId) {
     try {
       return await Users.findByIdAndUpdate(

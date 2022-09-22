@@ -90,7 +90,7 @@ class PetService {
 
   static async modifyPet(body, id) {
     try {
-      return await Pets.updateOne({ _id: id }, { $set: body });
+      return await Pets.updateOne({ _id: id }, { $set: body },{ new: true });
     } catch (error) {
       console.log(error.message);
     }

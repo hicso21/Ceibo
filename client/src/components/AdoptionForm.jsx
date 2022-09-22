@@ -17,10 +17,13 @@ import { useState } from "react";
 import useMatches from "../hooks/useMatches"
 import { useNavigate } from "react-router";
 
+
 function AdoptionForm() {
   const { user } = useSelector((state) => state);
+  const  {pets}  = useSelector((state) => state);
+  const { foundations } = useSelector((state) => state);
   const [name, setName] = useState(user.name);
-  const [lastName, setLastName] = useState(user.last_name);
+  const [last_name, setLastName] = useState(user.last_name);
   const [numberPhone, setNumberPhone] = useState(user.numberPhone);
   const [age, setAge] = useState(user.age);
   const [civilStatus, setCivilStatus] = useState(user.civilStatus);
@@ -74,9 +77,9 @@ function AdoptionForm() {
 
   const handleSend = () => {
     axios
-      .put(`http://localhost:3001/api/user/update/${user._id}`, {
+      .put(`http://localhost:3001/api/user/form/${user._id}`, {
       name: name,
-      last_name: lastName,
+      last_name: last_name,
       numberPhone: numberPhone,
       age: age,
       civilStatus: civilStatus,
@@ -84,11 +87,14 @@ function AdoptionForm() {
       availableSpace: availableSpace,
       kids: kids,
       otherPets: otherPets,
-      message: message
+      message: message,
+      foundations : foundations,
+      pets : pets ,
+      email: user.email
       })
-      .then((res) => console.log(res));
-      navigate("/thanksAdoption")
-      
+      .then((res) => console.log("res =>",res,"foundations=>",foundations,"pet =>",pets))
+       navigate("/thanksAdoption")
+       
   };
 
   //false = mobile  ---  true = desktop

@@ -15,6 +15,8 @@ router.get("/me", validateAuth, (req, res) => {
 
 router.get("/:id", UserController.getUser);
 
+router.get("/:email", UserController.getUserEmail);
+
 router.post("/logout", UserController.logOut);
 
 router.put("/resetPassword/:id", UserController.resetPassword);
@@ -28,5 +30,9 @@ router.put("/favorites/add/:id", UserController.addFavorite);
 router.put("/favorites/remove/:id", UserController.removeFavorite);
 
 router.get("/favorites/:id", UserController.getFavorites);
+
+router.get("/adopted/:id", UserController.getAdopted);
+
+router.put("/form/:id", UserController.userForm);
 
 module.exports = router;

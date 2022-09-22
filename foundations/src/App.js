@@ -30,7 +30,7 @@ function App() {
           <Route path="/messages" element={<Messages/>}/>
           <Route path="/add" element={<AddPet/>}/>
           <Route path="/search" element={<Search/>}/>
-          <Route path='/chat' element={<Chat/>}/>
+          <Route path='/chat/:uId' element={<Chat/>}/>
         </Routes>
       </Layout>
     </Router>

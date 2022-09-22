@@ -1,4 +1,4 @@
-import { Card, CardContent, CardMedia, Container, Grid, Typography, Box, Paper, Button } from '@mui/material'
+import { Card, CardContent, CardMedia, Container, Grid, Typography, Box, Paper, Button, Pagination, } from '@mui/material'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
@@ -15,10 +15,11 @@ import MuiAccordionDetails from '@mui/material/AccordionDetails';
 import Crop169Icon from '@mui/icons-material/Crop169';
 import Crop32Icon from '@mui/icons-material/Crop32';
 import Crop54Icon from '@mui/icons-material/Crop54';
+import HomeIcon from '@mui/icons-material/Home';
 import useMatches from '../hooks/useMatches'
 import { useEffect } from 'react'
 import { getAllPets, search, searchByGender, searchBySize, searchBySpecie } from '../state/search'
-
+import { useState } from "react";
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -106,6 +107,21 @@ const Pets = () => {
       }
     }, [matches])
 
+    //pagination
+    const [pageNumber, setPageNumber] = useState(0);
+    const petsPerPage = 5;
+    const pagesVisited = pageNumber * petsPerPage;
+  
+    const displayPets = advancedSearch.slice(
+      pagesVisited,
+      pagesVisited + petsPerPage
+    );
+
+    const changePage = (selected) => {
+      setPageNumber(selected.target.textContent - 1);
+    };
+  
+
   return (
     <>
         <div style={{backgroundColor: "white"}}>
@@ -146,7 +162,7 @@ const Pets = () => {
                         </Accordion>
                     </Box>
                 <Box sx={{display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
-                {advancedSearch.map((mascota) => {
+                {displayPets.map((mascota) => { console.log(mascota);
                     return(
                     <Link to={`/mascotas/${mascota._id}`} key={mascota._id} style={{textDecoration:'none', margin:'0px auto', minWidth:295}}>
                     <Grid item xs={12} p={2} key={mascota._id}>
@@ -163,6 +179,9 @@ const Pets = () => {
                             <Typography variant="body4" color="text.secondary">
                             {mascota.gender === 'hembra'?<FemaleIcon sx={{width:40, height:40}}/>:<MaleIcon sx={{width:40, height:40}}/>}
                             </Typography>
+                            <Typography variant="body4" color="text.secondary">
+                            {mascota?.adopted? <HomeIcon sx={{width:40, height:40}}/>:<></>}
+                            </Typography>
                             {/* <Typography variant="body2" color="text.secondary">
                             {mascota.foundation}
                             </Typography> */}
@@ -175,6 +194,16 @@ const Pets = () => {
                 </Box>
                 </Grid>
             </Container>
+
+
+
+            <Pagination
+        count={Math.ceil(advancedSearch.length / petsPerPage)}
+        onChange={changePage}
+        sx={{ display: "flex", flexDirection: "row", justifyContent: "center", mb:2}}
+        hidePrevButton
+        hideNextButton
+      />
         </div>
     </>
   )

@@ -49,6 +49,7 @@ export default function Messages() {
       >
         {users.map((user) => (
           <Link
+            key={user._id}
             to={`/chat/${user._id}`}
             style={{
               textDecoration: "none",

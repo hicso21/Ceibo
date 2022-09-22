@@ -1,4 +1,3 @@
-import io from "socket.io-client";
 import { Fragment } from "react";
 import {
   Container,
@@ -19,21 +18,36 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import "./Chat.css";
 import { useLocation } from "react-router";
+import axios from "axios";
 
-const socket = io("http://localhost:3001");
+const connectionOptions = {
+  "force new connection": true,
+  reconnection: true,
+  reconnectionDelay: 2000, //starts with 2 secs delay, then 4, 6, 8, until 60 where it stays forever until it reconnects
+  reconnectionDelayMax: 60000, //1 minute maximum delay between connections
+  reconnectionAttempts: "Infinity", //to prevent dead clients, having the user to having to manually reconnect after a server restart.
+  timeout: 10000, //before connect_error and connect_timeout are emitted.
+  transports: ["websocket"], //forces the transport to be only websocket. Server needs to be setup as well/
+};
+const socket = require("socket.io-client")(
+  "http://localhost:3001",
+  connectionOptions
+);
 
 export default function Chat() {
   socket.on("connect", () => {
-    console.log(socket.id); // x8WIv7-mJelg7on_ALbx
+    //console.log(socket.id); // x8WIv7-mJelg7on_ALbx
   });
 
   socket.on("disconnect", () => {
-    console.log(socket.id); // undefined
+    //console.log(socket.id); // undefined
   });
 
   const { pathname } = useLocation();
   const fId = pathname.split("/")[2];
   const { user } = useSelector((state) => state);
+  const uId = user._id;
+  const username = user.name;
 
   const [chatMessages, setChatMessages] = useState([]);
   const [message, setMessage] = useState("");
@@ -45,20 +59,30 @@ export default function Chat() {
   const handlerSubmit = (e) => {
     e.preventDefault();
     if (user && message) {
-      socket.emit("message", { message, user });
+      socket.emit("send-message", { message, uId, fId, username });
       setMessage("");
     }
   };
 
   useEffect(() => {
+    axios
+      .get(`http://localhost:3001/api/messages/${fId}/${uId}`)
+      .then((res) => {
+        console.log(res.data);
+        setChatMessages(res.data);
+      });
+  }, []);
+
+  useEffect(() => {
     const receiveMessage = (message) => {
       setChatMessages([...chatMessages, message]);
-      console.log("receive message", message);
+      //console.log("receive message", message);
     };
-    socket.on("message", receiveMessage);
+
+    socket.on("new-message", receiveMessage);
 
     return () => {
-      socket.off("message", receiveMessage);
+      socket.off("new-message", receiveMessage);
     };
   }, [chatMessages]);
 
