@@ -47,7 +47,7 @@ export default function Messages() {
         }}
       >
         {foundations.map((fundacion) => (
-          <Link
+          <Link key={fundacion._id}
             to={`/chat/${fundacion._id}`}
             style={{
               textDecoration: "none",
