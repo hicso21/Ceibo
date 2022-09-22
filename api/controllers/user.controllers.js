@@ -218,9 +218,22 @@ class UserController {
     }
   }
 
+  
+
   static async addFavorite(req, res) {
     try {
       const user = await UserService.addFavorite(req.params.id, req.body);
+      return user
+        ? res.send(user)
+        : res.status(404).send("User not found/favorite already added");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  static async addAdoption(req, res) {
+    try {
+      const user = await UserService.addAdoption(req.params.id, req.body);
       return user
         ? res.send(user)
         : res.status(404).send("User not found/favorite already added");
@@ -262,6 +275,8 @@ static async userForm(req, res) {
   let foundation = req.body.foundations
   let pets = req.body.pets
   let email = req.body.email
+
+
   Users.findByIdAndUpdate(_id, update, (err, bodyUpdated) => {
     if(err) return res.status(500).send({message: `Error al actualizar la nota: ${err}`})
 
@@ -282,5 +297,7 @@ static async userForm(req, res) {
     res.status(200).send(objectToReturn)
   })
 
+
+  
 }}
 module.exports = UserController;

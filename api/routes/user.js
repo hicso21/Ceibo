@@ -15,7 +15,7 @@ router.get("/me", validateAuth, (req, res) => {
 
 router.get("/:id", UserController.getUser);
 
-router.get("/:email", UserController.getUserEmail);
+router.get("/email/:email", UserController.getUserEmail);
 
 router.post("/logout", UserController.logOut);
 
@@ -30,6 +30,8 @@ router.put("/favorites/add/:id", UserController.addFavorite);
 router.put("/favorites/remove/:id", UserController.removeFavorite);
 
 router.get("/favorites/:id", UserController.getFavorites);
+
+router.put("/adopted/add/:id", UserController.addAdoption);
 
 router.get("/adopted/:id", UserController.getAdopted);
 
