@@ -150,6 +150,15 @@ class UserController {
     }
   }
 
+  static async getUserEmail(req, res) {
+    try {
+      const user = await UserService.getUserEmail(req.params.email);
+      if (!user) return res.status(404).send("Usuario no encontrado");
+      return res.status(200).send(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
   /*  static async userUpdate(req, res) {
     try {

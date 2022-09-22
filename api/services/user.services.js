@@ -58,6 +58,14 @@ class UserService {
     }
   }
 
+  static async getUserEmail(email) {
+    try {
+      return await Users.findOne({ email: email }).populate(["favorites", "adopted"])
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   /* static async userUpdate(body,id) {
     try {
       return await Users.updateOne({ _id: id }, { $set: body })
@@ -92,7 +100,6 @@ class UserService {
       console.log(error.message);
     }
   }
-
   static async adoptPet(id, petId) {
     try {
       return await Users.findByIdAndUpdate(
