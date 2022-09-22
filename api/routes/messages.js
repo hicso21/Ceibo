@@ -4,10 +4,10 @@ const MessageController = require("../controllers/messages.contoller");
 
 router.get("/", MessageController.findAll);
 
-router.get("/:fId/:uId", MessageController.findByIds);
+router.get("/user/:id", MessageController.findByUser);
 
 router.get("/foundation/:id", MessageController.findByFoundation);
 
-router.get("/user/:id", MessageController.findByUser);
+router.get("/:fId/:uId", MessageController.findByIds);
 
 module.exports = router;

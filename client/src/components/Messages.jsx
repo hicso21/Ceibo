@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Divider from "@mui/material/Divider";
@@ -14,22 +15,36 @@ import useMatches from "../hooks/useMatches";
 export default function Messages() {
   const [foundations, setFoundations] = useState([]);
   const matches = useMatches();
+  const user = useSelector((state) => state.user);
 
-  let pL
-  let pR
+  let pL;
+  let pR;
 
-  if(matches){
-    pL = 10
-    pR = 10
-  }else{
-    pL = 5
-    pR = 5
+  if (matches) {
+    pL = 10;
+    pR = 10;
+  } else {
+    pL = 5;
+    pR = 5;
   }
 
   useEffect(() => {
     axios
-      .get("http://localhost:3001/api/foundation/")
-      .then((res) => setFoundations(res.data));
+      .get(`http://localhost:3001/api/messages/user/${user._id}`)
+      .then((res) => {
+        const reversedData = res.data.reverse();
+        let result = [];
+
+        reversedData.forEach((item) => {
+          let id = item.fId._id;
+          let ids = result.map((e) => e.fId._id);
+          if (!ids.includes(id)) {
+            result.push(item);
+          }
+        });
+
+        setFoundations(result);
+      });
   }, []);
 
   return (
@@ -57,23 +72,28 @@ export default function Messages() {
           justifyContent: "center",
           width: "100%",
           bgcolor: "background.paper",
-          pb:0
+          pb: 0,
         }}
       >
-        {foundations.map((fundacion) => (
-          <Link key={fundacion._id}
-            to={`/chat/${fundacion._id}`}
+        {foundations.map((item) => (
+          <Link
+            key={item._id}
+            to={`/chat/${item.fId._id}`}
             style={{
               textDecoration: "none",
-              color: "inherit"
+              color: "inherit",
             }}
           >
             <ListItem alignItems="flex-start">
               <ListItemAvatar>
-                <Avatar alt="Remy Sharp" src={fundacion.profile_picture} />
+                <Avatar alt="Remy Sharp" src={item.fId.profile_picture} />
               </ListItemAvatar>
               <ListItemText
-                primary={<Typography ><strong>{fundacion.name}</strong></Typography>}
+                primary={
+                  <Typography>
+                    <strong>{item.fId.name}</strong>
+                  </Typography>
+                }
                 secondary={
                   <React.Fragment>
                     <Typography
@@ -84,7 +104,7 @@ export default function Messages() {
                     >
                       Último mensaje
                     </Typography>
-                    {" — Gracias por contactarte! Te responderemos..."}
+                    {` — ${item.user}: ${item.message}`}
                   </React.Fragment>
                 }
               />
