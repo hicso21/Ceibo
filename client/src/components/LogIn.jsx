@@ -54,7 +54,7 @@ export default function SignUp() {
       }else{
         setOpen(true)
       }
-    })  
+    })
   };
 
   return (

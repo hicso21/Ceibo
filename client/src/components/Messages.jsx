@@ -25,7 +25,7 @@ export default function Messages() {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        height: "100%",
+        height: "90%",
         width: "100%",
         paddingLeft: 8,
         paddingRight: 8,

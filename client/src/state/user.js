@@ -7,7 +7,7 @@ export const sendLoginRequest = createAsyncThunk("LOGIN", (input) => {
             .post(
               "http://localhost:3001/api/user/login",
               input, 
-              { withCredentials: true, credentials: 'include' })
+              { withCredentials: true, credentials: 'include'})
             .then((r)=> r.data)
             .catch((err)=> console.log(err))
 });
@@ -23,6 +23,7 @@ export const sendSignUpRequest = createAsyncThunk("SIGNUP", (input) => {
 });
 
 export const sendLogoutRequest = createAsyncThunk("LOGOUT", () => {
+  localStorage.removeItem('google')
   document.cookie = "token= "
   return  axios
             .post("http://localhost:3001/api/user/logout", 
@@ -32,6 +33,7 @@ export const sendLogoutRequest = createAsyncThunk("LOGOUT", () => {
 });
 
 export const setUser = createAsyncThunk("SETUSER", (input) => {
+  if(localStorage.getItem('google') === true) input.google = true
   return input;
 });
 

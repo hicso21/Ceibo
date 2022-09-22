@@ -18,9 +18,13 @@ function Home() {
   //style variables
   let ImageStyle
   let BoxStyle
+  let variant
 
-  if(matches){}
+  if(matches){
+    variant = 'h3'
+  }
   else{
+    variant = 'h4'
     BoxStyle = {p:2, pt:3, display:'flex', flexDirection:'column', alignItems:'center', margin:'auto 0px', width:'100%'}
     ImageStyle = { width: 327, height: 235, display:'flex', flexDirection:'column' }
   }
@@ -40,12 +44,12 @@ function Home() {
         {items?.map((item, i) => {
         return(
           <Link to={`/${type}/${item._id}`} style={{color: 'inherit', textDecoration:'none'}} key={i}>
-            <ImageListItem sx={{width:'100%', justifyContent:'center'}}>
+            <ImageListItem>
               <img
                 src={item.photos}
                 alt={item.name}
                 loading="lazy"
-                width={'100%'}
+                
                 />
               <ImageListItemBar
                 title={`Haz click aqui para conocer a ${item.name}!!`}
@@ -64,7 +68,7 @@ function Home() {
       <ImageList sx={ImageStyle}>
         {items?.map((item, i) => (
           <Link to={`/${type}/${item._id}`} style={{color: 'inherit', textDecoration:'none'}} key={i}>
-            <ImageListItem sx={{width:'100%', justifyContent:'center'}}>
+            <ImageListItem >
               <img
                 src={item.profile_picture}
                 alt={item.name}
@@ -85,17 +89,15 @@ function Home() {
   return (
     <>
       <Container sx={BoxStyle}>
-        <Typography variant='h4' >
+        <Typography variant={variant} >
           Algunas Mascotas
         </Typography>
         <ImageListPets items={pets} type={'mascotas'}/>
-        <Typography variant='h4' >
+        <Typography variant={variant} >
           Algunas Fundaciones
         </Typography>
         <ImageListFoundations items={foundations} type={'fundaciones'}/>
       </Container>
-      <br/>
-      <br/>
     </>
   );
 }

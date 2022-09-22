@@ -661,8 +661,11 @@ export default function PersistentDrawerLeft({ prop }) {
           {DrawerContent}
         </Drawer>
         <Main open={marginDrawer}>
-        <DrawerHeader/>
+          <DrawerHeader/>
           {main}
+          <DrawerHeader/>
+          <DrawerHeader/>
+          <Footer/>
         </Main>
       </Box>
     </>

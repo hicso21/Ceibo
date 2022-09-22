@@ -25,7 +25,8 @@ const GoogleLogin = () => {
       })
     )
     .then(resp=>{
-      console.log(resp)
+      localStorage.setItem('google', true)
+      navigate('/')
     })
   }
 
