@@ -27,6 +27,12 @@ const mailOptions =  {
   Otras mascotas: ${usuario.otherPets},
   Algun mensaje: ${usuario.message}.`,
   /* html: '<a href="https://ibb.co/njqbBs8%22%3E"><img src="https://i.ibb.co/vkCHhxv/Sigamos-adoptando-juntos-3.png" alt="Sigamos-adoptando-juntos-3" border="0"></a>' */
+  attachments: [
+    {
+      filename: 'folletoMail.png',
+      path: './folletoMail.png',
+    }
+  ]
 };
 
 transporter.sendMail(mailOptions, function(error, info){
