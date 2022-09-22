@@ -48,7 +48,8 @@ export default function History() {
             </AccordionSummary>
                 <AccordionDetails>
               <Typography>Name: {pet.name}</Typography>
-              <Typography>Especie: {pet.gender}</Typography>
+              <Typography>Especie: {pet.specie}</Typography>
+              <Typography>Genero: {pet.gender}</Typography>
               <Typography>Tamaño: {pet.size}</Typography>
               <Typography>Vacundo: {pet.vaccinated?"Si":"No"}</Typography>
               <Typography>Castrado: {pet.neuterd?"Si":"No"}</Typography>

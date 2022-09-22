@@ -100,6 +100,21 @@ class UserService {
       console.log(error.message);
     }
   }
+
+  static async addAdoption(id, adop) {
+    try {
+      return await Users.findByIdAndUpdate(
+        id,
+        {
+          $addToSet: { adopted: adop },
+        },
+        { new: true, runValidators: true }
+      ).populate("adopted");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   static async adoptPet(id, petId) {
     try {
       return await Users.findByIdAndUpdate(
