@@ -96,10 +96,6 @@ export default function ResponsiveDialog({ buttonStyle, pet }) {
     })
   }
 
-  useEffect(() => {
-    console.log(age, name, gender, location, vaccinated, neutered, size);
-  }, [handleClose, handleReturn]);
-
   return (
     <div>
       <Button

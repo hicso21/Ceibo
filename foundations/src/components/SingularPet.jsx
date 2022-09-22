@@ -38,7 +38,6 @@ const SingularPet = () => {
   }, []);
   
   const handlerClickadopted = (e)=>{
-console.log("adoptado");
 axios.put(`http://localhost:3001/api/pets/update/${pathname.substring(10)}`, {
  adopted : true
 })

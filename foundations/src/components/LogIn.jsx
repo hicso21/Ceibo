@@ -48,10 +48,8 @@ export default function SignUp() {
       password: data.get('password'),
     }))
     .then((resp)=>{
-      console.log(resp.type.substring(6))
       if(resp.type.substring(6) === "fulfilled"){
         navigate('/mascotas')
-        console.log('first')
       }else{
         setOpen(true)
       }

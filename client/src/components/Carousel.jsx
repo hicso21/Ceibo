@@ -65,7 +65,7 @@ export default function Carousel({foundation, foundationId}) {
   return (
     <Slider {...settings} className='slider'>
 
-      {pets?.map((pet,i) =>{console.log(pet)
+      {pets?.map((pet,i) =>{
        return(
         <Box spacing={2} key={i}>
         <div >

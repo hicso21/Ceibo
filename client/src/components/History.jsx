@@ -23,7 +23,6 @@ export default function History() {
       .get(`http://localhost:3001/api/user/adopted/${user?._id}`)
       .then((res) => {
         setAdoptados(res.data)
-        console.log("adoptado",res.data)
       })
 }, [pathname]);
 

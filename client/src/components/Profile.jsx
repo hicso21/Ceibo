@@ -99,7 +99,6 @@ const Profile = () => {
     setImage(objectUrl);
 
     imagenPrevisualizacion.src = objectUrl;
-    console.log("objectUrl", objectUrl);
   };
 
   const handleSubmit = () => {
@@ -111,13 +110,10 @@ const Profile = () => {
         email: user.email,
         password: user.password
       })
-      .then((res) => console.log(res.data));
   };
 
   //false = mobile  ---  true = desktop
   const matches = useMatches();
-
-  console.log(google)
 
   localStorage.getItem('google')?
    changePassword = <></>
@@ -167,7 +163,7 @@ const Profile = () => {
                   <img id="imagenPrevisualizacion" alt="" width={"100%"} src={user.profile_picture} />
                 </Avatar>
             </Stack>
-            <Stack direction="row" alignItems="center" spacing={2}>
+            <Stack alignItems="center" spacing={1}>
               <Button variant="contained" component="label">
                 Subir imagen
                 <input hidden id="seleccionArchivos" accept="image/*" type="file" onChange={handleImage} />
