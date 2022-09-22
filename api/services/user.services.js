@@ -100,6 +100,7 @@ class UserService {
       console.log(error.message);
     }
   }
+  
   static async adoptPet(id, petId) {
     try {
       return await Users.findByIdAndUpdate(

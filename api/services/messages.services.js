@@ -20,7 +20,7 @@ class MessageService {
 
   static async findByFoundation(id) {
     try {
-      return await Messages.find({ "fId": ObjectId(id) }).populate("uId");
+      return await Messages.find({ fId: id }).populate("uId", ["_id", "name", "last_name", "profile_picture"] );
     } catch (error) {
       console.log(error.message);
     }
@@ -29,7 +29,7 @@ class MessageService {
   static async findByUser(id) {
     try {
       console.log("ID:", id);
-      return await Messages.find({ "uId": ObjectId(id) }).populate("fId");
+      return await Messages.find({ uId: id }).populate("fId", ["_id", "name", "profile_picture"]);
     } catch (error) {
       console.log(error.message);
     }
