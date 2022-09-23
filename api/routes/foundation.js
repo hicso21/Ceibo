@@ -23,4 +23,6 @@ router.post("/logout", FoundationController.logOut);
 
 router.put("/adopt/:userId/:petId", FoundationController.adoptPet);
 
+router.put("/update/:id", FoundationController.foundationUpdate);
+
 module.exports = router;

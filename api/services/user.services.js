@@ -66,12 +66,6 @@ class UserService {
     }
   }
 
-  /* static async userUpdate(body,id) {
-    try {
-      return await Users.updateOne({ _id: id }, { $set: body })
-  } catch (error) {
-      console.log(error)
-  }} */
 
   static async addFavorite(id, fav) {
     try {

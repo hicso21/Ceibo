@@ -137,6 +137,28 @@ class FoundationController {
     res.clearCookie("token");
     res.sendStatus(204);
   }
+
+  static async foundationUpdate(req, res) {
+    let _id = req.params.id;
+    let update = req.body;
+    console.log(update);
+
+    Users.findByIdAndUpdate(_id, update, (err, bodyUpdated) => {
+      if(err) return res.status(500).send({message: `Error al actualizar la nota: ${err}`})
+  
+      if(!bodyUpdated) return res.status(500).send({message: 'No retornó objeto actualizado'})
+      
+      const objectToReturn = {
+        email: update.email,
+        name: update.name,
+        _id : bodyUpdated._id,
+        profile_picture: update.profile_picture,
+      }
+
+      res.status(200).send(objectToReturn)
+    })
+  }
+
 }
 
 module.exports = FoundationController;
