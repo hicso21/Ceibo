@@ -13,28 +13,68 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { sendSignUpRequest } from '../state/user';
+import { useState } from 'react';
+import { Alert, Snackbar } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const theme = createTheme();
 
 export default function SignUp() {
-
+  
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const [open, setOpen] = useState(false);
+  let alertText = 'Se produjo un error al intentar registrarse. Por favor, compruebe que los datos son correctos'
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const [name, setName] = useState('')
+  const [nameLegend, setNameLegend] = useState('Ingrese su nombre')
+  const [errorName, setErrorName] = useState(false)
+
+  const [location, setLocation] = useState('')
+  const [locationLegend, setLocationLegend] = useState('Ingrese su ubicacion')
+  const [errorLocation, setErrorLocation] = useState(false)
+
+  const [email, setEmail] = useState('')
+  const [emailLegend, setEmailLegend] = useState('')
+  const [errorEmail, setErrorEmail] = useState(false)
+
+  const [password, setPassword] = useState('')
+  const [pwLegend, setPwLegend] = useState('')
+  const [errorPw, setErrorPw] = useState(false)
+  const [type, setType] = useState('password')
+
+  const handleType = () => {
+    type === 'password'?setType('text'):setType('password')
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    dispatch(sendSignUpRequest({
-      name: data.get('name'),
-      location: data.get('location'),
-      email: data.get('email'),
-      password: data.get('password'),
-    })).then((res)=>{console.log(res)
-      if(res.error){
-        alert('Todos los campos son requeridos')
-      }else{
-        navigate('/')
-      }
-    })
+    if(data.get('name') === '' || data.get('location') === '' || data.get('email') === '' || data.get('password') === '' ){
+      setOpen(true)
+    }else{
+      dispatch(sendSignUpRequest({
+        name: data.get('name'),
+        location: data.get('location'),
+        email: data.get('email'),
+        password: data.get('password'),
+      }))
+      .then((resp)=>{
+        if(resp.payload !== undefined){
+          navigate('/')
+        }else{
+          setOpen(true)
+        }
+      })  
+    }
   };
 
   return (
@@ -50,6 +90,11 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
+          <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+              {alertText}
+            </Alert>
+          </Snackbar>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -60,19 +105,46 @@ export default function SignUp() {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
+                  inputProps={{style: {textTransform: 'capitalize'}}} 
+                  onChange={(e)=>{
+                    setName(e.target.value)
+                    if(name.length === 0){
+                      setErrorName(true)
+                      setNameLegend('Ingrese su nombre')
+                    }else{
+                      setErrorName(false)
+                      setNameLegend('')
+                    }
+                  }}
+                  error={errorName}
+                  autoComplete="given-name"
+                  name="name"
                   required
                   fullWidth
-                  id="name"
                   label="Nombre"
-                  name="name"
-                  autoComplete="family-name"
+                  helperText={nameLegend}
+                  autoFocus
+                  autoCapitalize=''
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  required
+                  inputProps={{style: {textTransform: 'capitalize'}}} 
+                  onChange={(e)=>{
+                    setLocation(e.target.value)
+                    if(location.length < 3){
+                      setErrorLocation(true)
+                      setLocationLegend('Ingrese un nombre de al menos 4 letras')
+                    }else{
+                      setErrorLocation(false)
+                      setLocationLegend('')
+                    }
+                  }}
+                  error={errorLocation}
+                  helperText={locationLegend}
+                  autoFocus
+                  autoCapitalize=''
                   fullWidth
-                  id="location"
                   label="Ubicacion"
                   name="location"
                   autoComplete="location"
@@ -80,24 +152,49 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={(e)=>{
+                    setEmail(e.target.value)
+                    if(!email.includes('@') || !email.split('@')[0]){
+                      setErrorEmail(true)
+                      setEmailLegend('El correo electronico debe existir')
+                    }else{
+                      setErrorEmail(false)
+                      setEmailLegend('')
+                    }
+                  }}
+                  error={errorEmail}
                   required
                   fullWidth
-                  id="email"
-                  label="Correo Electronico"
+                  label="Email"
                   name="email"
                   autoComplete="email"
+                  helperText={emailLegend}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={{display:'flex'}}>
                 <TextField
+                  onChange={(e)=>{
+                    setPassword(e.target.value)
+                    if(password.length<5){
+                      setErrorPw(true)
+                      setPwLegend('La contraseña debe contener al menos 6 caracteres')
+                    }else{
+                      setErrorPw(false)
+                      setPwLegend('')
+                    }
+                  }}
+                  error={errorPw}
                   required
                   fullWidth
-                  name="password"
                   label="Contraseña"
-                  type="password"
-                  id="password"
+                  type={type}
+                  name="password"
                   autoComplete="new-password"
+                  helperText={pwLegend}
                 />
+                <Button color='inherit' onClick={handleType} sx={{height:56}}>
+                  <VisibilityIcon/>
+                </Button>
               </Grid>
             </Grid>
             <Button

@@ -16,6 +16,7 @@ import { useDispatch } from 'react-redux';
 import { sendSignUpRequest } from '../state/user';
 import { useState } from 'react';
 import { Alert, Snackbar } from '@mui/material';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const theme = createTheme();
 
@@ -45,6 +46,11 @@ export default function SignUp() {
   const [password, setPassword] = useState('')
   const [pwLegend, setPwLegend] = useState('')
   const [errorPw, setErrorPw] = useState(false)
+  const [type, setType] = useState('password')
+
+  const handleType = () => {
+    type === 'password'?setType('text'):setType('password')
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -59,8 +65,8 @@ export default function SignUp() {
         password: data.get('password'),
       }))
       .then((resp)=>{
-        if(resp.type.substring(6) === 'fulfilled'){
-          navigate('/login')
+        if(resp.payload !== undefined){
+          navigate('/')
         }else{
           setOpen(true)
         }
@@ -99,7 +105,7 @@ export default function SignUp() {
                   inputProps={{style: {textTransform: 'capitalize'}}} 
                   onChange={(e)=>{
                     setName(e.target.value)
-                    if(name.length < 1){
+                    if(name.length === 0){
                       setErrorName(true)
                       setNameLegend('Ingrese su nombre')
                     }else{
@@ -109,10 +115,9 @@ export default function SignUp() {
                   }}
                   error={errorName}
                   autoComplete="given-name"
-                  name="firstName"
+                  name="name"
                   required
                   fullWidth
-                  id="firstName"
                   label="Nombre"
                   helperText={nameLegend}
                   autoFocus
@@ -145,14 +150,13 @@ export default function SignUp() {
                   error={errorEmail}
                   required
                   fullWidth
-                  id="email"
                   label="Email"
                   name="email"
                   autoComplete="email"
                   helperText={emailLegend}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={{display:'flex'}}>
                 <TextField
                   onChange={(e)=>{
                     setPassword(e.target.value)
@@ -168,11 +172,14 @@ export default function SignUp() {
                   required
                   fullWidth
                   label="Contraseña"
-                  type="password"
+                  type={type}
                   name="password"
                   autoComplete="new-password"
                   helperText={pwLegend}
                 />
+                <Button color='inherit' onClick={handleType} sx={{height:56}}>
+                  <VisibilityIcon/>
+                </Button>
               </Grid>
             </Grid>
             <Button
