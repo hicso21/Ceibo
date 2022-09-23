@@ -32,9 +32,7 @@ export default function History() {
     return (
       <>
         <Box sx={{p:3, height:'100%', bgcolor:'#F1F2F1'}}>
-          <Stack>
-          <br/>
-          <Typography variant='h5'>Adopted Pets</Typography>     
+          <Typography variant='h3' sx={{display:'flex', justifyContent:'center'}}>Mascotas adoptadas</Typography>     
             {adoptados?.map((pet)=>{
               return(
           <Accordion>
@@ -56,7 +54,6 @@ export default function History() {
           </Accordion>
               )
             })}
-          </Stack>
         </Box>
       </>
     );

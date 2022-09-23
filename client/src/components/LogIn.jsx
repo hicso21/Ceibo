@@ -13,9 +13,10 @@ import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { sendLoginRequest } from '../state/user';
 import { useState } from 'react';
-import { Alert, Snackbar } from '@mui/material';
+import { Alert, Link, Snackbar } from '@mui/material';
 import { useEffect } from 'react';
 import GoogleLogin from './GoogleLogin'
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const theme = createTheme();
 
@@ -32,6 +33,11 @@ export default function SignUp() {
   const [password, setPassword] = useState('')
   const [pwLegend, setPwLegend] = useState('')
   const [errorPw, setErrorPw] = useState(false)
+  const [type, setType] = useState('password')
+
+  const handleType = () => {
+    type === 'password'?setType('text'):setType('password')
+  }
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -105,13 +111,13 @@ export default function SignUp() {
                   autoFocus
                   />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sx={{display:'flex'}}>
                 <TextField
                   onChange={(e)=>{
                     setPassword(e.target.value)
-                    if(password.length<7){
+                    if(password.length<5){
                       setErrorPw(true)
-                      setPwLegend('La contraseña debe contener al menos 8 caracteres')
+                      setPwLegend('La contraseña debe contener al menos 6 caracteres')
                     }else{
                       setErrorPw(false)
                       setPwLegend('')
@@ -121,11 +127,14 @@ export default function SignUp() {
                   required
                   fullWidth
                   label="Contraseña"
-                  type="password"
+                  type={type}
                   name="password"
                   autoComplete="new-password"
                   helperText={pwLegend}
                 />
+                <Button color='inherit' onClick={handleType} sx={{height:56}}>
+                  <VisibilityIcon/>
+                </Button>
               </Grid>
             </Grid>
             <Button
@@ -138,6 +147,14 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="center" width={'100%'}>
               <GoogleLogin/>
+            </Grid>
+            <br />
+            <Grid container justifyContent="flex-end">
+              <Grid item>
+                <Link href="/register" variant="body2">
+                ¿No estas registrado aun? Registrate
+                </Link>
+              </Grid>
             </Grid>
           </Box>
         </Box>

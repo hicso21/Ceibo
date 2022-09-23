@@ -276,7 +276,7 @@ export default function PersistentDrawerLeft({ prop }) {
     top = <>
             <Typography sx={UserNameStyle}>{user.name?user.name:''}</Typography>
           </> 
-    if(user.name){
+    if(user.email){
       navbarContent =   <>
                           {drawerButton}
                           <Box sx={{ display: "flex", flexDirection: "row", width:550 }}>
@@ -411,39 +411,39 @@ export default function PersistentDrawerLeft({ prop }) {
               {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
             </IconButton>
           </> 
-      navbarContent =   <>
-                          {drawerButton}
-                          <Box sx={{ display: "flex", flexDirection: "row", width:550 }}>
-                            <Search sx={SearchStyle} id='searchDisplay'>
-                              <StyledInputBase
-                                id="search"
-                                value={busqueda}
-                                placeholder="Buscar…"
-                                inputProps={{ "aria-label": "search" }}
-                                onChange={(e)=>{
-                                  e.preventDefault()
-                                  setBusqueda(e.target.value)
-                                }}
-                                sx={{width:300, ':hover':{bgcolor:'white'}, ':disabled':{bgcolor:'white'}}}
-                              />
-                            </Search>
-                            <Button sx={{ padding: 0 }} onClick={handleSubmit}>
-                              <SearchIcon sx={{ color: "black" }} />
-                            </Button>
-                          </Box>
-                          <Button
-                            onClick={() => {
-                              navigate("/");
-                            }}
-                            sx={ButtonLogoStyle}
-                          >
-                            <ImageListItem
-                              sx={LogoStyle}
-                            >
-                              <img alt="" src={logo} loading="lazy" />
-                            </ImageListItem>
+    navbarContent =   <>
+                        {drawerButton}
+                        <Box sx={{ display: "flex", flexDirection: "row", width:550 }}>
+                          <Search sx={SearchStyle} id='searchDisplay'>
+                            <StyledInputBase
+                              id="search"
+                              value={busqueda}
+                              placeholder="Buscar…"
+                              inputProps={{ "aria-label": "search" }}
+                              onChange={(e)=>{
+                                e.preventDefault()
+                                setBusqueda(e.target.value)
+                              }}
+                              sx={{width:300, ':hover':{bgcolor:'white'}, ':disabled':{bgcolor:'white'}}}
+                            />
+                          </Search>
+                          <Button sx={{ padding: 0 }} onClick={handleSubmit}>
+                            <SearchIcon sx={{ color: "black" }} />
                           </Button>
-                        </>
+                        </Box>
+                        <Button
+                          onClick={() => {
+                            navigate("/");
+                          }}
+                          sx={ButtonLogoStyle}
+                        >
+                          <ImageListItem
+                            sx={LogoStyle}
+                          >
+                            <img alt="" src={logo} loading="lazy" />
+                          </ImageListItem>
+                        </Button>
+                      </>
     main =  <>
               {prop}
             </>

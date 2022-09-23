@@ -109,7 +109,7 @@ const Pets = () => {
 
     //pagination
     const [pageNumber, setPageNumber] = useState(0);
-    const petsPerPage = 5;
+    const petsPerPage = 6;
     const pagesVisited = pageNumber * petsPerPage;
   
     const displayPets = advancedSearch.slice(
@@ -161,42 +161,42 @@ const Pets = () => {
                             </AccordionDetails>
                         </Accordion>
                     </Box>
-                <Box sx={{display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
-                {displayPets.map((mascota) => {
-                    return(
-                    <Link to={`/mascotas/${mascota._id}`} key={mascota._id} style={{textDecoration:'none', margin:'0px auto', minWidth:295}}>
-                    <Grid item xs={12} p={2} key={mascota._id}>
-                        <Card>
-                        <CardMedia>
-                            <img id='imgPet' src={mascota.photos[0]} alt="" width='100%' max-height='1000px'/>
-                        </CardMedia>
-                        <Container sx={{dispaly:'flex', width:'100%', mt:1, mb:2}}>
-                            
-                            <Typography gutterBottom variant="h4" component="span" sx={{width:'25%',height:'50px'}}>
-                            {mascota.name}
-                            </Typography>
+                  <Box sx={{display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
+                  {displayPets.map((mascota) => {
+                      return(
+                      <Link to={`/mascotas/${mascota._id}`} key={mascota._id} style={{textDecoration:'none', display:'flex', flexDirection:'row', flexWrap:'wrap', alignItems:'center', minWidth:500, maxWidth:576}}>
+                        <Grid item xs={12} p={2} key={mascota._id}>
+                            <Card>
+                            <CardMedia>
+                                <img id='imgPet' src={mascota.photos[0]} alt="" style={{objectFit:'cover'}} width='100%' max-height='1000px'/>
+                            </CardMedia>
+                            <Container sx={{dispaly:'flex', width:'100%', mt:1, mb:2}}>
+                                
+                                <Typography gutterBottom variant="h4" component="span" sx={{width:'25%',height:'50px'}}>
+                                {mascota.name}
+                                </Typography>
 
-                            <Typography variant="body2" component='span'>
-                            {mascota.specie === 'perro' ? <img src={logoPerrito} width="50" height="50" alt="perrito"/>:<img src={logoGatito} width="40" height="40"  alt="gatito" />}
-                            </Typography>
+                                <Typography variant="body2" component='span'>
+                                {mascota.specie === 'perro' ? <img src={logoPerrito} width="50" height="50" alt="perrito"/>:<img src={logoGatito} width="40" height="40"  alt="gatito" />}
+                                </Typography>
 
-                            <Typography variant="body2" component='span' sx={{width:'100%'}}>
-                            {mascota.gender === 'hembra'?<FemaleIcon sx={{width:40, height:40}}/>:<MaleIcon sx={{width:40, height:40}}/>}
-                            </Typography>
-                            
-                            <Typography variant="body2">
-                            {mascota?.adopted? <HomeIcon sx={{width:40, height:40}}/>:<></>}
-                            </Typography>
-                            {/* <Typography variant="body2" color="text.secondary">
-                            {mascota.foundation}
-                            </Typography> */}
-                        </Container>
-                        </Card>
-                    </Grid>
-                    </Link>
-                    )
-                })}
-                </Box>
+                                <Typography variant="body2" component='span' sx={{width:'100%'}}>
+                                {mascota.gender === 'hembra'?<FemaleIcon sx={{width:40, height:40}}/>:<MaleIcon sx={{width:40, height:40}}/>}
+                                </Typography>
+                                
+                                <Typography variant="body2">
+                                {mascota?.adopted? <><HomeIcon sx={{width:40, height:40}}/> <Typography variant='h6' component='span'>adoptado</Typography></>:<></>}
+                                </Typography>
+                                {/* <Typography variant="body2" color="text.secondary">
+                                {mascota.foundation}
+                                </Typography> */}
+                            </Container>
+                            </Card>
+                        </Grid>
+                      </Link>
+                      )
+                  })}
+                  </Box>
                 </Grid>
             </Container>
 
