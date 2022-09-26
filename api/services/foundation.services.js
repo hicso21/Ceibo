@@ -77,6 +77,27 @@ class FoundationService {
       console.log(error);
     }
   }
+
+  static async addComment(id, comment) {
+    try {
+      return await Foundation.updateOne(
+        { _id: id },
+        {
+          $push: { comments: comment },
+        },
+        );
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+  
+  static async getAllComments(id) {
+    try {
+      return await Foundation.findById(id);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 }
 
 module.exports = FoundationService;
