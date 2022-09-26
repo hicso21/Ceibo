@@ -11,6 +11,7 @@ const MessageSchema = new mongoose.Schema({
   },
   message: { type: String, required: true },
   user: String,
+  profile_picture: String,
 });
 
 const Message = mongoose.model("Message", MessageSchema);

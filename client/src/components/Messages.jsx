@@ -65,17 +65,18 @@ export default function Messages() {
       >
         Conversaciones
       </Typography>
-      <List
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          width: "100%",
-          bgcolor: "background.paper",
-          pb: 0,
-        }}
-      >
-        {foundations.map((item) => (
+      {foundations ? (
+        <List
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            width: "100%",
+            bgcolor: "background.paper",
+            pb: 0,
+          }}
+        >
+          {foundations.map((item) => (
           <Link
             key={item._id}
             to={`/chat/${item.fId._id}`}
@@ -86,7 +87,7 @@ export default function Messages() {
           >
             <ListItem alignItems="flex-start">
               <ListItemAvatar>
-                <Avatar alt="Remy Sharp" src={item.fId.profile_picture} />
+                <Avatar alt="" src={item.fId.profile_picture} />
               </ListItemAvatar>
               <ListItemText
                 primary={
@@ -111,8 +112,23 @@ export default function Messages() {
             </ListItem>
             <Divider variant="inset" component="li" />
           </Link>
-        ))}
-      </List>
+          ))}
+        </List>
+      ) : (
+        <div>
+          <Typography
+            variant="h4"
+            sx={{
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
+              mt: 5,
+            }}
+          >
+            Aún no tienes conversaciones
+          </Typography>
+        </div>
+      )}
     </Box>
   );
 }

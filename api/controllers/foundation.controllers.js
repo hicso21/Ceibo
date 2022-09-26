@@ -137,6 +137,30 @@ class FoundationController {
     res.clearCookie("token");
     res.sendStatus(204);
   }
+
+  static async addComment(req, res) {
+    try {
+      const comentario = await FoundationServices.addComment(req.params.id,req.body.comments);
+      
+      return res.status(204).send(comentario);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  static async getAllComments(req, res) {
+    try {
+      const foundation = await FoundationServices.getAllComments(req.params.id);
+      return foundation.comments
+        ? res.status(200).send(foundation.comments)
+        : res.status(404).send("no data found");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  
+
 }
 
 module.exports = FoundationController;

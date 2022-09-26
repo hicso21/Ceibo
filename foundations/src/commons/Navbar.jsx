@@ -26,8 +26,8 @@ import {
 import logo from "../assets/logoCeibo.png";
 import Pets from "@mui/icons-material/Pets";
 import Home from "@mui/icons-material/Home";
-import History from "@mui/icons-material/History";
 import Message from "@mui/icons-material/Message";
+import RecommendIcon from '@mui/icons-material/Recommend';
 import Footer from "./Footer";
 import {useDispatch, useSelector} from 'react-redux'
 import useMatches from "../hooks/useMatches";
@@ -344,15 +344,15 @@ export default function PersistentDrawerLeft({ prop }) {
                           </Link>
                           <Link
                             style={{ color: "inherit", textDecoration: "none" }}
-                            to={"/history"}
+                            to={"/comentarios"}
                             onClick={()=>{if(!matches)handleDrawerClose()}}
                           >
                             <ListItem disablePadding>
                               <ListItemButton>
                                 <ListItemIcon>
-                                  <History />
+                                  <RecommendIcon />
                                 </ListItemIcon>
-                                <ListItemText primary={"Historial"} />
+                                <ListItemText primary={"Comentarios"} />
                               </ListItemButton>
                             </ListItem>
                           </Link>
@@ -406,9 +406,9 @@ export default function PersistentDrawerLeft({ prop }) {
                             <ListItem disablePadding>
                               <ListItemButton>
                                 <ListItemIcon>
-                                  <History />
+                                  <RecommendIcon />
                                 </ListItemIcon>
-                                <ListItemText primary={"Historial"} />
+                                <ListItemText primary={"Comentarios"} />
                               </ListItemButton>
                             </ListItem>
                             <ListItem disablePadding>
@@ -598,15 +598,15 @@ export default function PersistentDrawerLeft({ prop }) {
                       </Link>
                       <Link
                         style={{ color: "inherit", textDecoration: "none" }}
-                        to={"/history"}
+                        to={"/comentarios"}
                         onClick={()=>{if(!matches)handleDrawerClose()}}
                       >
                         <ListItem disablePadding>
                           <ListItemButton>
                             <ListItemIcon>
-                              <History />
+                              <RecommendIcon />
                             </ListItemIcon>
-                            <ListItemText primary={"Historial"} />
+                            <ListItemText primary={"Comentarios"} />
                           </ListItemButton>
                         </ListItem>
                       </Link>
