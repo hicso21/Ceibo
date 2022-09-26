@@ -11,7 +11,9 @@ import {
   FormControl,
   TextField,
   IconButton,
+  Avatar,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import SendIcon from "@mui/icons-material/Send";
 import { Box } from "@mui/system";
 import { useState, useEffect } from "react";
@@ -45,12 +47,15 @@ export default function Chat() {
 
   const { pathname } = useLocation();
   const fId = pathname.split("/")[2];
+
   const { user } = useSelector((state) => state);
   const uId = user._id;
   const username = user.name;
+  const profile_picture = user.profile_picture;
 
   const [chatMessages, setChatMessages] = useState([]);
   const [message, setMessage] = useState("");
+  let own;
 
   const handlerMessageChange = (event) => {
     setMessage(event.target.value);
@@ -59,7 +64,13 @@ export default function Chat() {
   const handlerSubmit = (e) => {
     e.preventDefault();
     if (user && message) {
-      socket.emit("send-message", { message, uId, fId, username });
+      socket.emit("send-message", {
+        message,
+        uId,
+        fId,
+        username,
+        profile_picture,
+      });
       setMessage("");
     }
   };
@@ -88,48 +99,65 @@ export default function Chat() {
   return (
     <>
       <Fragment>
-        <Container>
+        <Container className="superContainer">
           <Paper elevation={5}>
-            <Box p={8}>
+            <Box p={3} className="boxContainer">
               <Typography variant="h5" gutterBottom>
                 Chat con la fundacion
               </Typography>
               <Divider />
-              <Grid container spacing={4} alignItems="center">
-                <Grid id="chat-window" xs={12} item>
+              <Grid container>
+                <Grid
+                  id="chat-window"
+                  xs={12}
+                  item
+                  className="messageContainer"
+                >
                   <List id="chat-window-messages">
                     {chatMessages.map((chat, index) => {
+                      own = chat.user === user.name ? true : false;
                       return (
-                        <ListItem key={index}>
-                          <ListItemText
-                            key={chat.user}
-                            primary={`${chat.user}: ${chat.message}`}
-                          />
-                        </ListItem>
+                        <div
+                          className={own ? "message own" : "message"}
+                          key={index}
+                        >
+                          <div className="messageTop">
+                            <Link
+                              to={own ? `/profile` : `/fundaciones/${chat.fId}`}
+                            >
+                              <img
+                                className="messageImg"
+                                src={chat?.profile_picture}
+                                alt=""
+                              />
+                            </Link>
+                            <p className="messageText">{chat.message}</p>
+                          </div>
+                        </div>
                       );
                     })}
                   </List>
                 </Grid>
-                {/*  <Grid item>
-                  <FormControl fullWidth>
-                    <TextField value={user.name} variant="outlined" />
-                  </FormControl>
-                </Grid> */}
-                <Grid xs={10} item>
-                  <FormControl fullWidth>
-                    <TextField
-                      onChange={handlerMessageChange}
-                      value={message}
-                      label="Escribe tu mensaje"
-                      variant="outlined"
-                    />
-                  </FormControl>
-                </Grid>
-                <Grid xs={1} item>
-                  <IconButton aria-label="Enviar" onClick={handlerSubmit}>
-                    <SendIcon />
-                  </IconButton>
-                </Grid>
+                <div className="newMessage">
+                  <Grid item className="input">
+                    <FormControl fullWidth >
+                      <TextField
+                        
+                        onChange={handlerMessageChange}
+                        value={message}
+                        label="Escribe tu mensaje"
+                        variant="outlined"
+                      />
+                    </FormControl>
+                  </Grid>
+                  <Grid item>
+                    <button className="sendButton">
+                      <IconButton aria-label="Enviar" onClick={handlerSubmit}>
+                        <SendIcon />
+                      </IconButton>
+                    </button>
+                  </Grid>
+                </div>
               </Grid>
             </Box>
           </Paper>
