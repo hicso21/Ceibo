@@ -19,6 +19,17 @@ import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import useMatches from "../hooks/useMatches";
 import { setUser } from "../state/user";
+import { styled, useTheme, alpha } from "@mui/material/styles";
+import Footer from "../commons/Footer";
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
 
 const theme = createTheme();
 
@@ -87,8 +98,13 @@ const Profile = () => {
   //false = mobile  ---  true = desktop
   const matches = useMatches();
 
-  if (matches) {} 
-  else {}
+  let bottom
+
+  if (matches) {
+    bottom = <><DrawerHeader/><br/><br/></>
+  }else {
+    bottom = <></>
+  }
 
   return (
     <>
@@ -220,6 +236,7 @@ const Profile = () => {
           <br />
         </Container>
       </ThemeProvider>
+      {bottom}
     </>
   );
 };

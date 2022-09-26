@@ -164,7 +164,7 @@ const Pets = () => {
                   <Box sx={{display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
                   {displayPets.map((mascota) => {
                       return(
-                      <Link to={`/mascotas/${mascota._id}`} key={mascota._id} style={{textDecoration:'none', display:'flex', flexDirection:'row', flexWrap:'wrap', alignItems:'center', minWidth:500, maxWidth:576}}>
+                      <Link to={`/mascotas/${mascota._id}`} key={mascota._id} style={{textDecoration:'none', display:'flex', flexDirection:'row', flexWrap:'wrap', alignItems:'center',  maxWidth:576}}>
                         <Grid item xs={12} p={2} key={mascota._id}>
                             <Card>
                             <CardMedia>

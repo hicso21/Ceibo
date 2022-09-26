@@ -19,10 +19,21 @@ import FemaleIcon from "@mui/icons-material/Female";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
+import useMatches from "../hooks/useMatches";
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
 
 const AddPet = () => {
   const user = useSelector((state) => state.user);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const matches = useMatches()
   const [gender, setGender] = useState("macho");
   const [name, setName] = useState("");
   const [specie, setSpecie] = useState("");
@@ -110,6 +121,14 @@ const AddPet = () => {
 
     imagenPrevisualizacion.src = objectUrl;
   };
+
+  let bottom
+
+  if(matches){
+    bottom = <DrawerHeader/>
+  }else{
+    bottom = <></>
+  }
 
   return (
     <>
@@ -305,6 +324,7 @@ const AddPet = () => {
           Agregar Mascota
         </Button>
       </Container>
+      {bottom}
     </>
   );
 };

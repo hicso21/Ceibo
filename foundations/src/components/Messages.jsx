@@ -11,6 +11,16 @@ import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { Box } from "@mui/material";
 import useMatches from "../hooks/useMatches";
+import { styled, useTheme, alpha } from "@mui/material/styles";
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
 
 export default function Messages() {
   const [users, setUsers] = useState([]);
@@ -49,71 +59,73 @@ export default function Messages() {
   }, []);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        height: "90%",
-        width: "100%",
-        paddingLeft: pR,
-        paddingRight: pL,
-      }}
-    >
-      <Typography
-        variant="h4"
-        sx={{ justifyContent: "center", display: "flex", mb: 2 }}
-      >
-        Conversaciones
-      </Typography>
-      <List
+    <>
+      <Box
         sx={{
-          display: "flex",
           flexDirection: "column",
           justifyContent: "center",
+          minHeight:'480px',
+          height: "90%",
           width: "100%",
-          bgcolor: "background.paper",
-          pb: 0,
+          paddingLeft: pR,
+          paddingRight: pL,
         }}
       >
-        {users.map((item) => (
-          <Link
-            key={item._id}
-            to={`/chat/${item.uId._id}`}
-            style={{
-              textDecoration: "none",
-              color: "inherit",
-            }}
-          >
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                <Avatar alt="" src={item.uId.profile_picture} />
-              </ListItemAvatar>
-              <ListItemText
-                primary={
-                  <Typography>
-                    <strong>{`${item.uId.name} ${item.uId.last_name}`}</strong>
-                  </Typography>
-                }
-                secondary={
-                  <React.Fragment>
-                    <Typography
-                      sx={{ display: "inline" }}
-                      component="span"
-                      variant="body2"
-                      color="text.primary"
-                    >
-                      Último mensaje
+        <Typography
+          variant="h4"
+          sx={{ justifyContent: "center", display: "flex", mb: 2 }}
+        >
+          Conversaciones
+        </Typography>
+        <List
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            width: "100%",
+            bgcolor: "background.paper",
+            pb: 0,
+          }}
+        >
+          {users.map((item) => (
+            <Link
+              key={item._id}
+              to={`/chat/${item.uId._id}`}
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+              }}
+            >
+              <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                  <Avatar alt="" src={item.uId.profile_picture} />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={
+                    <Typography>
+                      <strong>{`${item.uId.name} ${item.uId.last_name}`}</strong>
                     </Typography>
-                    {` — ${item.user}: ${item.message}`}
-                  </React.Fragment>
-                }
-              />
-            </ListItem>
-            <Divider variant="inset" component="li" />
-          </Link>
-        ))}
-      </List>
-    </Box>
+                  }
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        sx={{ display: "inline" }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        Último mensaje
+                      </Typography>
+                      {` — ${item.user}: ${item.message}`}
+                    </React.Fragment>
+                  }
+                />
+              </ListItem>
+              <Divider variant="inset" component="li" />
+            </Link>
+          ))}
+          </List>
+      </Box>
+    </>
   );
 }

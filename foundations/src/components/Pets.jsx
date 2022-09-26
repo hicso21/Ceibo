@@ -12,6 +12,16 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import useMatches from "../hooks/useMatches";
 import HomeIcon from '@mui/icons-material/Home';
+import { styled, useTheme, alpha } from "@mui/material/styles";
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
 
 const ShowPets = () => {
   const [pets, setPets] = useState([]);
@@ -20,8 +30,12 @@ const ShowPets = () => {
   //false = mobile  ---  true = desktop
   const matches = useMatches();
 
+  let bottom
+
   if (matches) {
+    bottom = <DrawerHeader/>
   } else {
+    bottom = <></>
   }
 
   useEffect(() => {
@@ -83,6 +97,7 @@ const ShowPets = () => {
           })}
         </Grid>
       </Container>
+      {bottom}
     </>
   );
 };

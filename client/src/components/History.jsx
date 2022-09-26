@@ -17,6 +17,7 @@ export default function History() {
   const {pathname} = useLocation()
     //false = mobile  ---  true = desktop
   const matches = useMatches()
+  let typography
 
   useEffect(() => {
     axios
@@ -26,13 +27,17 @@ export default function History() {
       })
 }, [pathname]);
 
-    if(matches){}
-    else{}
+    if(matches){
+      typography = 'h3'
+    }
+    else{
+      typography = 'h4'
+    }
 
     return (
       <>
         <Box sx={{p:3, height:'100%', bgcolor:'#F1F2F1'}}>
-          <Typography variant='h3' sx={{display:'flex', justifyContent:'center'}}>Mascotas adoptadas</Typography>     
+          <Typography variant={typography} sx={{display:'flex', justifyContent:'center'}}>Mascotas adoptadas</Typography>     
             {adoptados?.map((pet)=>{
               return(
           <Accordion>
