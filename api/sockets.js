@@ -18,6 +18,7 @@ const socket = (io) => {
           fId: data.fId,
           message: data.message,
           user: data.username,
+          profile_picture: data.profile_picture
         });
         const savedMessage = await newMessage.save();
         //console.log("MENSAJE GUARDADO", savedMessage);
