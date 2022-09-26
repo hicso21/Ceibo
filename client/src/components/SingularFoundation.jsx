@@ -152,6 +152,7 @@ const SingularFoundation = () => {
           </Box>
         </Card>
         <Button
+        fullWidth
           color="inherit"
           sx={{
             bgcolor: "#FFD640",

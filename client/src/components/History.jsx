@@ -23,6 +23,9 @@ export default function History() {
   const {pathname} = useLocation()
     //false = mobile  ---  true = desktop
   const matches = useMatches()
+  
+  let typography
+  
   const [comment, setComment] = useState("");
 
   const comentario={
@@ -54,17 +57,23 @@ export default function History() {
       })
 }, [pathname]);
 
+    if(matches){
+      typography = 'h3'
+    }
+    else{
+      typography = 'h4'
+    }
+    
 const buttonStyle = {
   bgcolor: "#FFD640",
   mb: 4,
   borderRadius: 10,
 };
 
-
     return (
       <>
         <Box sx={{p:3, height:'100%', bgcolor:'#F1F2F1'}}>
-          <Typography variant='h3' sx={{display:'flex', justifyContent:'center'}}>Mascotas adoptadas</Typography>     
+          <Typography variant={typography} sx={{display:'flex', justifyContent:'center'}}>Mascotas adoptadas</Typography>     
             {adoptados?.map((pet)=>{
               return(
           <Accordion key={pet._id}>

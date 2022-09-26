@@ -116,23 +116,141 @@ const Profile = () => {
   const matches = useMatches();
 
   localStorage.getItem('google')?
-   changePassword = <></>
+   changePassword = <Typography sx={{display:'flex', justifyContent:'center', mt:10, mb:14}}>Estas logueado con una cuenta de Google</Typography>
    :
-   changePassword=  <Button
-                      variant="contained"
-                      onClick={handleClickOpenPassword}
-                      fullWidth
-                      sx={{
-                        marginBottom: 1,
-                        backgroundColor: "#03A696",
-                        "&:hover": {
-                          backgroundColor: "#04BF9D",
-                          color: "#757575",
-                        },
-                      }}
-                    >
-                      Cambiar contraseña
-                    </Button>
+   changePassword=  <>
+                      <Stack alignItems="center" spacing={1}>
+                        <Button variant="contained" component="label">
+                          Subir imagen
+                          <input hidden id="seleccionArchivos" accept="image/*" type="file" onChange={handleImage} />
+                        </Button>
+                        <Button onClick={()=>{console.log(image)}}>images</Button>
+                          <img id="imagenPrevisualizacion" alt="" />
+                      </Stack>
+                      <Box component="form" noValidate sx={{ mt: 2 }}>
+                        <Button
+                          variant="contained"
+                          onClick={handleClickOpen}
+                          fullWidth
+                          sx={{
+                            marginBottom: 1,
+                            marginTop: 2,
+                            backgroundColor: "#03A696",
+                            "&:hover": {
+                              backgroundColor: "#04BF9D",
+                              color: "#757575",
+                            },
+                          }}
+                        >
+                          Editar datos personales
+                        </Button>
+                        <Button
+                          variant="contained"
+                          onClick={handleClickOpenPassword}
+                          fullWidth
+                          sx={{
+                            marginBottom: 1,
+                            backgroundColor: "#03A696",
+                            "&:hover": {
+                              backgroundColor: "#04BF9D",
+                              color: "#757575",
+                            },
+                          }}
+                        >
+                          Cambiar contraseña
+                        </Button>
+                        <Dialog
+                          open={open}
+                          onClose={handleSend}
+                          maxWidth="md"
+                          fullWidth={true}
+                        >
+                          <DialogContent>
+                            <TextField
+                              onChange={nameChange}
+                              label="Nombre"
+                              defaultValue={user.name}
+                              autoFocus
+                              margin="dense"
+                              id="name"
+                              type="text"
+                              fullWidth
+                              variant="standard"
+                            />
+                            <TextField
+                              onChange={lastNameChange}
+                              label="Apellido"
+                              defaultValue={user.last_name}
+                              autoFocus
+                              margin="dense"
+                              id="name"
+                              type="text"
+                              fullWidth
+                              variant="standard"
+                            />
+                            <TextField
+                              onChange={emailChange}
+                              autoFocus
+                              margin="dense"
+                              id="name"
+                              label="Email"
+                              defaultValue={user.email}
+                              type="text"
+                              fullWidth
+                              variant="standard"
+                            />
+                          </DialogContent>
+
+                          <DialogActions>
+                            <Button variant="contained" onClick={() => setOpen(false)}>
+                              Cancelar
+                            </Button>
+                            <Button variant="contained" onClick={handleSend}>
+                              Guardar cambios
+                            </Button>
+                          </DialogActions>
+                        </Dialog>
+
+                        <Dialog
+                          open={openPassword}
+                          onClose={handleSendPassword}
+                          maxWidth="md"
+                          fullWidth={true}
+                          >
+                          
+                          <DialogContent>
+                            <TextField
+                            onChange={passwordChange}
+                            margin="dense"
+                            variant="standard"
+                            fullWidth
+                            autoFocus
+                            label="Nueva contraseña"
+                            type="password"
+                            id="password"
+                            name="password"
+                            />
+                          </DialogContent>
+
+                          <DialogActions>
+                            <Button variant="contained" onClick={() => setOpenPassword(false)}>
+                              Cancelar
+                            </Button>
+                            <Button variant="contained" onClick={handleSendPassword}>
+                              Guardar cambios
+                            </Button>
+                          </DialogActions>
+                        </Dialog>
+                      </Box>
+                      <Button
+                        color="inherit"
+                        fullWidth
+                        sx={{ mt: 5, bgcolor: "#FFD640", mb: 1, borderRadius: 7 }}
+                        onClick={handleSubmit}
+                        >
+                        Guardar cambios
+                      </Button>
+                    </>
 
   if (matches) {} 
   else {}
@@ -163,125 +281,8 @@ const Profile = () => {
                   <img id="imagenPrevisualizacion" alt="" width={"100%"} src={user.profile_picture} />
                 </Avatar>
             </Stack>
-            <Stack alignItems="center" spacing={1}>
-              <Button variant="contained" component="label">
-                Subir imagen
-                <input hidden id="seleccionArchivos" accept="image/*" type="file" onChange={handleImage} />
-              </Button>
-                <img id="imagenPrevisualizacion" alt="" />
-            </Stack>
-            <Box component="form" noValidate sx={{ mt: 2 }}>
-              <Button
-                variant="contained"
-                onClick={handleClickOpen}
-                fullWidth
-                sx={{
-                  marginBottom: 1,
-                  marginTop: 2,
-                  backgroundColor: "#03A696",
-                  "&:hover": {
-                    backgroundColor: "#04BF9D",
-                    color: "#757575",
-                  },
-                }}
-              >
-                Editar datos personales
-              </Button>
-              <Dialog
-                open={open}
-                onClose={handleSend}
-                maxWidth="md"
-                fullWidth={true}
-              >
-                <DialogContent>
-                  <TextField
-                    onChange={nameChange}
-                    label="Nombre"
-                    defaultValue={user.name}
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    type="text"
-                    fullWidth
-                    variant="standard"
-                  />
-                  <TextField
-                    onChange={lastNameChange}
-                    label="Apellido"
-                    defaultValue={user.last_name}
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    type="text"
-                    fullWidth
-                    variant="standard"
-                  />
-                  <TextField
-                    onChange={emailChange}
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Email"
-                    defaultValue={user.email}
-                    type="text"
-                    fullWidth
-                    variant="standard"
-                  />
-                </DialogContent>
-
-                <DialogActions>
-                  <Button variant="contained" onClick={() => setOpen(false)}>
-                    Cancelar
-                  </Button>
-                  <Button variant="contained" onClick={handleSend}>
-                    Guardar cambios
-                  </Button>
-                </DialogActions>
-              </Dialog>
-
-              {changePassword}
-              <Dialog
-                open={openPassword}
-                onClose={handleSendPassword}
-                maxWidth="md"
-                fullWidth={true}
-              >
-                
-                <DialogContent>
-                  <TextField
-                  onChange={passwordChange}
-                  margin="dense"
-                  variant="standard"
-                  fullWidth
-		              autoFocus
-                  label="Nueva contraseña"
-                  type="password"
-                  id="password"
-                  name="password"
-                  />
-                </DialogContent>
-
-                <DialogActions>
-                  <Button variant="contained" onClick={() => setOpenPassword(false)}>
-                    Cancelar
-                  </Button>
-                  <Button variant="contained" onClick={handleSendPassword}>
-                    Guardar cambios
-                  </Button>
-                </DialogActions>
-              </Dialog>
-
-            
-            </Box>
+          {changePassword}
           </Box>
-          <Button
-            color="inherit"
-            fullWidth
-            sx={{ mt: 5, bgcolor: "#FFD640", mb: 1, borderRadius: 7 }}
-            onClick={handleSubmit}
-          >
-            Guardar cambios
-          </Button>
           <Button
             color="inherit"
             fullWidth
@@ -289,7 +290,7 @@ const Profile = () => {
             onClick={() => {
               navigate("/");
             }}
-          >
+            >
             Volver
           </Button>
           <br />

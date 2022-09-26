@@ -1,5 +1,4 @@
 import * as React from "react";
-import { styled, useTheme, alpha } from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -35,6 +34,16 @@ import useMatches from "../hooks/useMatches";
 import AddIcon from '@mui/icons-material/Add';
 import { sendLogoutRequest } from "../state/user";
 import { search } from "../state/search";
+import { styled, useTheme, alpha } from "@mui/material/styles";
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -105,16 +114,7 @@ const AppBar = styled(MuiAppBar, {
       duration: theme.transitions.duration.enteringScreen,
     }),
   }),
-}));
-
-const DrawerHeader = styled("div")(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
-  ...theme.mixins.toolbar,
-  justifyContent: "flex-end",
-}));
+}))
 
 export default function PersistentDrawerLeft({ prop }) {
   //false = mobile  ---  true = desktop
@@ -175,6 +175,7 @@ export default function PersistentDrawerLeft({ prop }) {
   let PCTStyle
   let DrawerContent
   let main
+  let bottom
 
   //desktop or mobile
   if(matches){
@@ -423,7 +424,6 @@ export default function PersistentDrawerLeft({ prop }) {
     main =  <>
               <DrawerHeader/>
                 {prop}
-              <DrawerHeader/>
             </>
   }
   else{
@@ -443,7 +443,7 @@ export default function PersistentDrawerLeft({ prop }) {
         drawerButton=<></>
       }
     }
-    
+    bottom = <><DrawerHeader/><DrawerHeader/></>
     marginDrawer = false
     openDrawer = open
     LogoStyle = { padding: 0, maxWidth: 56}
@@ -663,8 +663,7 @@ export default function PersistentDrawerLeft({ prop }) {
         <Main open={marginDrawer}>
           <DrawerHeader/>
           {main}
-          <DrawerHeader/>
-          <DrawerHeader/>
+          {bottom}
           <Footer/>
         </Main>
       </Box>

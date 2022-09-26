@@ -160,9 +160,9 @@ export default function SignUp() {
                 <TextField
                   onChange={(e)=>{
                     setPassword(e.target.value)
-                    if(password.length<7){
+                    if(password.length<5){
                       setErrorPw(true)
-                      setPwLegend('La contraseña debe contener al menos 8 caracteres')
+                      setPwLegend('La contraseña debe contener al menos 6 caracteres')
                     }else{
                       setErrorPw(false)
                       setPwLegend('')

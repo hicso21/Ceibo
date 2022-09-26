@@ -92,9 +92,7 @@ function AdoptionForm() {
       pets : pets ,
       email: user.email
       })
-      .then((res) => console.log("res =>",res,"foundations=>",foundations,"pet =>",pets))
-       navigate("/thanksAdoption")
-       
+      .then(() => {navigate("/thanksAdoption")})
   };
 
   //false = mobile  ---  true = desktop

@@ -10,8 +10,11 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import useMatches from '../hooks/useMatches';
+import { useLocation } from 'react-router';
 
 export default function Footer() {
+
+  const {pathname} = useLocation()
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -88,7 +91,9 @@ function Copyright(props) {
 
   if(matches){
     boxStyle = {
-      height:'100%', display:'flex', alignItems:'end', width:'100%'
+      display:'flex',
+      alignItems:'end',
+      width:'100%',
     }
   }else{
   }
