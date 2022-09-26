@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./commons/Navbar";
 import SingularPet from "./components/SingularPet";
 import Profile from "./components/Profile";
-import History from "./components/History";
+import Comentarios from "./components/Comentarios";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import Pets from "./components/Pets";
@@ -21,7 +21,7 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/profile" element={<Profile/>}/>
-          <Route path="/history" element={<History/>}/>
+          <Route path="/comentarios" element={<Comentarios/>}/>
           <Route path="/mascotas" element={<Pets/>}/>
           <Route path="/mascotas/:petId" element={<SingularPet/>}/>
           <Route path="/" element={<LogIn/>}/>

@@ -10,7 +10,8 @@ const FoundationSchema = new mongoose.Schema({
   email: { type: String, required: true, minLength: 5 },
   history: String,
   pets: [{ type: mongoose.SchemaTypes.ObjectId, ref: "Pet" }],
-  message:[{type: String}]
+  message:[{type: String}],
+  comments:[{type: String}],
 });
 
 FoundationSchema.pre('save', async function () {
