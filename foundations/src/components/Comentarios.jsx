@@ -7,7 +7,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Box } from '@mui/material';
 import { useState,useEffect } from "react";
 import { useSelector } from 'react-redux'
-import useMatches from "../hooks/useMatches";
 
 
 
@@ -15,15 +14,6 @@ export default function Comentarios() {
 
   const user = useSelector(state=>state.user)
   const [comentarios, setComentarios] = useState([]);
-  const matches = useMatches()
-
-  let typography
-
-  if(matches){
-    typography = 'h3'
-  }else{
-    typography = 'h4'
-  }
 
   useEffect(() => {
     axios
@@ -36,7 +26,7 @@ export default function Comentarios() {
     return (
       <>
         <Box  sx={{p:3, height:'100%', bgcolor:'#F1F2F1'}}>
-          <Typography variant={typography} sx={{display:'flex', justifyContent:'center'}}>Comentarios</Typography>     
+          <Typography variant='h3' sx={{display:'flex', justifyContent:'center'}}>Comentarios</Typography>     
           {comentarios?.map((comment,index)=>{
             const comentarioSpliteado = comment.split(",")
             return(
