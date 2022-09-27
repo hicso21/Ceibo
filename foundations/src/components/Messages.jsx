@@ -29,6 +29,7 @@ export default function Messages() {
 
   let pL;
   let pR;
+  let top
 
   if (matches) {
     pL = 10;
@@ -36,6 +37,7 @@ export default function Messages() {
   } else {
     pL = 5;
     pR = 5;
+    top = <DrawerHeader/>
   }
 
   useEffect(() => {
@@ -71,6 +73,7 @@ export default function Messages() {
           paddingRight: pL,
         }}
       >
+        {top}
         <Typography
           variant="h4"
           sx={{ justifyContent: "center", display: "flex", mb: 2 }}

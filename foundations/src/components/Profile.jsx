@@ -34,6 +34,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 const theme = createTheme();
 
 const Profile = () => {
+  let changePassword
   const [open, setOpen] = useState(false);
   const { user } = useSelector((state) => state);
   const [name, setName] = useState(user.name);
@@ -99,12 +100,113 @@ const Profile = () => {
   const matches = useMatches();
 
   let bottom
+  let typography
 
   if (matches) {
     bottom = <><DrawerHeader/><br/><br/></>
+    typography = 'h3'
   }else {
     bottom = <></>
+    typography = 'h4'
   }
+
+  localStorage.getItem('google')?
+   changePassword = <Typography sx={{display:'flex', justifyContent:'center', mt:10, mb:14}}>Estas logueado con una cuenta de Google</Typography>
+   :
+   changePassword=  <>
+                      <Stack direction="row" alignItems="center" spacing={2}>
+                        <Button variant="contained" component="label">
+                          Subir imagen
+                          <input hidden id="seleccionArchivos" accept="image/*" multiple type="file" onChange={handleImage}/>
+                        </Button>
+                      </Stack>
+                      <Box component="form" noValidate sx={{ mt: 2 }}>
+                        <Button
+                          variant="contained"
+                          onClick={handleClickOpen}
+                          fullWidth
+                          sx={{
+                            marginBottom: 1,
+                            marginTop: 2,
+                            backgroundColor: "#03A696",
+                            "&:hover": {
+                              backgroundColor: "#04BF9D",
+                              color: "#757575",
+                            },
+                          }}
+                        >
+                          Edita tus datos personales
+                        </Button>
+                        <Dialog
+                          open={open}
+                          onClose={handleSend}
+                          maxWidth="md"
+                          fullWidth={true}
+                        >
+                          <DialogContent>
+                            <TextField
+                              onChange={nameChange}
+                              label="Nombre"
+                              defaultValue={user.name}
+                              autoFocus
+                              margin="dense"
+                              id="name"
+                              type="text"
+                              fullWidth
+                              variant="standard"
+                            />
+                            <TextField
+                              onChange={emailChange}
+                              autoFocus
+                              margin="dense"
+                              id="name"
+                              label="Email"
+                              defaultValue={user.email}
+                              type="text"
+                              fullWidth
+                              variant="standard"
+                            />
+                          </DialogContent>
+
+                          <DialogActions>
+                            <Button variant="contained" onClick={() => setOpen(false)}>
+                              Cancelar
+                            </Button>
+                            <Button variant="contained" onClick={handleSend}>
+                              Guardar cambios
+                            </Button>
+                          </DialogActions>
+                        </Dialog>
+
+                        <Button
+                          type="submit"
+                          variant="contained"
+                          fullWidth
+                          size="large"
+                          sx={{
+                            marginBottom: 1,
+                            backgroundColor: "#03A696",
+                            "&:hover": {
+                              backgroundColor: "#04BF9D",
+                              color: "#757575",
+                            },
+                          }}
+                          onClick={() => {
+                            navigate("/mascotas");
+                          }}
+                        >
+                          Editar Mascotas
+                        </Button>
+                      </Box>
+                      <Button
+                        color="inherit"
+                        fullWidth
+                        sx={{ mt: 5, bgcolor: "#FFD640", borderRadius: 7 }}
+                        onClick={handleSubmit}
+                        >
+                        Guardar cambios
+                      </Button>
+                    </>
 
   return (
     <>
@@ -119,7 +221,7 @@ const Profile = () => {
               alignItems: "center",
             }}
           >
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant={typography}>
               Mi Fundacion
             </Typography>
             <Stack direction="row" spacing={2}>
@@ -128,99 +230,9 @@ const Profile = () => {
                   <img id="imagenPrevisualizacion" alt="" width={"100%"} src={user.profile_picture} />
               </Avatar>
             </Stack>
-            <Stack direction="row" alignItems="center" spacing={2}>
-              <Button variant="contained" component="label">
-                Subir imagen
-                <input hidden id="seleccionArchivos" accept="image/*" multiple type="file" onChange={handleImage}/>
-              </Button>
-            </Stack>
-            <Box component="form" noValidate sx={{ mt: 2 }}>
-              <Button
-                variant="contained"
-                onClick={handleClickOpen}
-                fullWidth
-                sx={{
-                  marginBottom: 1,
-                  marginTop: 2,
-                  backgroundColor: "#03A696",
-                  "&:hover": {
-                    backgroundColor: "#04BF9D",
-                    color: "#757575",
-                  },
-                }}
-              >
-                Edita tus datos personales
-              </Button>
-              <Dialog
-                open={open}
-                onClose={handleSend}
-                maxWidth="md"
-                fullWidth={true}
-              >
-                <DialogContent>
-                  <TextField
-                    onChange={nameChange}
-                    label="Nombre"
-                    defaultValue={user.name}
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    type="text"
-                    fullWidth
-                    variant="standard"
-                  />
-                  <TextField
-                    onChange={emailChange}
-                    autoFocus
-                    margin="dense"
-                    id="name"
-                    label="Email"
-                    defaultValue={user.email}
-                    type="text"
-                    fullWidth
-                    variant="standard"
-                  />
-                </DialogContent>
-
-                <DialogActions>
-                  <Button variant="contained" onClick={() => setOpen(false)}>
-                    Cancelar
-                  </Button>
-                  <Button variant="contained" onClick={handleSend}>
-                    Guardar cambios
-                  </Button>
-                </DialogActions>
-              </Dialog>
-
-              <Button
-                type="submit"
-                variant="contained"
-                fullWidth
-                size="large"
-                sx={{
-                  marginBottom: 1,
-                  backgroundColor: "#03A696",
-                  "&:hover": {
-                    backgroundColor: "#04BF9D",
-                    color: "#757575",
-                  },
-                }}
-                onClick={() => {
-                  navigate("/mascotas");
-                }}
-              >
-                Editar Mascotas
-              </Button>
-            </Box>
+            {changePassword}
+            
           </Box>
-            <Button
-              color="inherit"
-              fullWidth
-              sx={{ mt: 5, bgcolor: "#FFD640", borderRadius: 7 }}
-              onClick={handleSubmit}
-            >
-              Guardar cambios
-            </Button>
             <Button
               color="inherit"
               fullWidth

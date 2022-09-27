@@ -18,8 +18,9 @@ import Crop54Icon from '@mui/icons-material/Crop54';
 import HomeIcon from '@mui/icons-material/Home';
 import useMatches from '../hooks/useMatches'
 import { useEffect } from 'react'
-import { getAllPets, search, searchByGender, searchBySize, searchBySpecie } from '../state/search'
+import { getAllPets, searchByGender, searchBySize, searchBySpecie } from '../state/search'
 import { useState } from "react";
+
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,

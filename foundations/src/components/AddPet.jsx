@@ -123,11 +123,31 @@ const AddPet = () => {
   };
 
   let bottom
+  let title
+  let typography
 
   if(matches){
     bottom = <DrawerHeader/>
+    typography = 'h3'
+    title = <>
+              <Typography
+                variant={typography}
+                sx={{ pb: 5, display: "flex", justifyContent: "center" }}
+              >
+                Nueva Mascota
+              </Typography>
+            </>
   }else{
     bottom = <></>
+    typography = 'h4'
+    title = <>
+              <Typography
+                variant={typography}
+                sx={{ display: "flex", justifyContent: "center" }}
+              >
+                Nueva Mascota
+              </Typography>
+            </>
   }
 
   return (
@@ -141,19 +161,8 @@ const AddPet = () => {
         }}
       >
         <br />
-        <Typography
-          variant="h3"
-          sx={{ display: "flex", justifyContent: "center" }}
-        >
-          Nueva
-        </Typography>
-        <Typography
-          variant="h3"
-          sx={{ pb: 5, display: "flex", justifyContent: "center" }}
-        >
-          Mascota
-        </Typography>
-        <Box sx={{ pb: 3, justifyContent: "center" }}>
+        {title}
+        <Box sx={{ justifyContent: "center" }}>
           <Stack direction="row" alignItems="center" spacing={2}>
             <Button
               fullWidth

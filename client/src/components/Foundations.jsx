@@ -7,6 +7,7 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Box,
 } from "@mui/material";
 import {Link} from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +21,11 @@ const ShowFoundations = () => {
   //false = mobile  ---  true = desktop
   const matches = useMatches()
 
-  if(matches){}
+  let imgStyle
+
+  if(matches){
+    imgStyle = {objectFit:'cover', minWidth:500}
+  }
   else{}
 
   useEffect(() => {
@@ -36,14 +41,14 @@ const ShowFoundations = () => {
         >
         <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
           <Typography variant="h3" sx={{display:'flex', justifyContent:'center'}}>Fundaciones</Typography>
-          <Grid container my={4}>
+          <Box container my={4} sx={{display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
             {foundations?.map((fundacion) => {
               return(
-              <Link to={`/fundaciones/${fundacion._id}`} key={fundacion._id} style={{textDecoration:'none', margin:'0px auto', minWidth:295}}>
+              <Link to={`/fundaciones/${fundacion._id}`} key={fundacion._id} style={{textDecoration:'none', display:'flex', flexDirection:'row', flexWrap:'wrap', alignItems:'center',  maxWidth:576}}>
                 <Grid item xs={12} p={2}>
                   <Card>
                     <CardMedia>
-                      <img src={fundacion.profile_picture} alt="" width='100%'/>
+                      <img src={fundacion.profile_picture} alt="" style={imgStyle} width='100%'/>
                     </CardMedia>
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="div">
@@ -58,7 +63,7 @@ const ShowFoundations = () => {
               </Link>
               )
             })}
-          </Grid>
+          </Box>
         </Container>
       </div>
     </>

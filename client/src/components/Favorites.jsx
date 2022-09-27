@@ -11,17 +11,19 @@ import {
   CardActions
 } from "@mui/material";
 import { Link, useLocation } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import logoGatito from '../assets/gatitoLogo.png';
 import logoPerrito from '../assets/perritoLogo.png';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
+import useMatches from '../hooks/useMatches'
 
 const ShowFavorites = () => {
   let empty = <></>
   const {pathname} = useLocation()
   const [favorites, setFavorites] = useState([]);
   const user = useSelector(state=>state.user)
+  const matches = useMatches()
 
   useEffect(() => {
       axios
@@ -33,14 +35,26 @@ const ShowFavorites = () => {
               ?
               empty=<></>
               :
-              empty=<>
-                      <Typography variant="h4" sx={{ width:'100%',display:'flex', justifyContent:'center', mt:5}}>Aun no tienes favoritos</Typography>
-                      <Button sx={{ width:'100%',display:'flex', justifyContent:'center', mt:15}}>
-                        <Link to='/mascotas'>
-                          <Typography variant="body1">Haz click aqui para agregar mascotas a favoritos!!</Typography>
-                        </Link>
-                      </Button>
-                    </>
+              matches
+                    ?
+                    empty=<>
+                            <Typography variant="h4" sx={{ width:'100%',display:'flex', justifyContent:'center', mt:5}}>Aun no tienes favoritos</Typography>
+                            <Button sx={{ width:'100%',display:'flex', justifyContent:'center', mt:15}}>
+                              <Link to='/mascotas'>
+                                <Typography variant="body1">Haz click aqui para agregar mascotas a favoritos!!</Typography>
+                              </Link>
+                            </Button>
+                          </>
+                    :
+                    empty=<>
+                            <Typography variant="h4" sx={{ width:'100%',display:'flex', justifyContent:'center', mt:5}}>Aun no tienes</Typography>
+                            <Typography variant="h4" sx={{ width:'100%',display:'flex', justifyContent:'center'}}>favoritos</Typography>
+                            <Button sx={{ width:'100%',display:'flex', justifyContent:'center', mt:15}}>
+                              <Link to='/mascotas'>
+                                <Typography variant="body1">Haz click aqui para agregar mascotas a favoritos!!</Typography>
+                              </Link>
+                            </Button>
+                          </> 
 
   return (
     <>

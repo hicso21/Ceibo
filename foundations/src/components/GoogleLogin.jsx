@@ -23,7 +23,10 @@ const GoogleLogin = () => {
         password: userObject.jti
       })
     )
-    navigate('/mascotas')
+    .then(()=>{
+      localStorage.setItem('google', true)
+      navigate('/mascotas')
+    })
   }
 
   useEffect(() => {
