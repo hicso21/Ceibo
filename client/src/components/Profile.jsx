@@ -115,6 +115,15 @@ const Profile = () => {
   //false = mobile  ---  true = desktop
   const matches = useMatches();
 
+  let typography
+
+  if (matches) {
+    typography = 'h3'
+  } 
+  else {
+    typography = 'h4'
+  }
+
   localStorage.getItem('google')?
    changePassword = <Typography sx={{display:'flex', justifyContent:'center', mt:10, mb:14}}>Estas logueado con una cuenta de Google</Typography>
    :
@@ -124,7 +133,6 @@ const Profile = () => {
                           Subir imagen
                           <input hidden id="seleccionArchivos" accept="image/*" type="file" onChange={handleImage} />
                         </Button>
-                        <Button onClick={()=>{console.log(image)}}>images</Button>
                           <img id="imagenPrevisualizacion" alt="" />
                       </Stack>
                       <Box component="form" noValidate sx={{ mt: 2 }}>
@@ -252,13 +260,6 @@ const Profile = () => {
                       </Button>
                     </>
 
-  if (matches) {} 
-  else {}
-  
-  useEffect(()=>{
-    if(localStorage.getItem('google'))google = localStorage.getItem('google')
-  },[])
-
   return (
     <>
       <ThemeProvider theme={theme}>
@@ -272,7 +273,7 @@ const Profile = () => {
               alignItems: "center",
             }}
           >
-            <Typography component="h1" variant="h5">
+            <Typography component="h1" variant={typography}>
               Mi Perfil
             </Typography>
             <Stack direction="row" alignItems="center" spacing={2}>

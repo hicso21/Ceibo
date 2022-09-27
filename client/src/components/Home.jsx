@@ -17,16 +17,23 @@ function Home() {
 
   //style variables
   let ImageStyle
+  let ImageListStyleFoundation
+  let ImageStyleFoundation
   let BoxStyle
   let variant
 
   if(matches){
     variant = 'h3'
+    ImageStyle = { width: '100%', height: '40%', display:'flex', flexDirection:'row'}
+    ImageListStyleFoundation = { width: '100%', height: '50%', display:'flex', flexDirection:'row'}
+    ImageStyleFoundation = {maxHeight:350, width:360}
   }
   else{
     variant = 'h4'
     BoxStyle = {p:2, pt:3, display:'flex', flexDirection:'column', alignItems:'center', margin:'auto 0px', width:'100%'}
     ImageStyle = { width: 327, height: 235, display:'flex', flexDirection:'column' }
+    ImageListStyleFoundation = { width: 327, height: 235, display:'flex', flexDirection:'column' }
+    ImageStyleFoundation = {maxHeight:350, maxWidth:350, minWidth:300}
   }
 
   useEffect(() => {
@@ -49,7 +56,7 @@ function Home() {
                 src={item.photos}
                 alt={item.name}
                 loading="lazy"
-                
+                style={{maxHeight:300}}
                 />
               <ImageListItemBar
                 title={`Haz click aqui para conocer a ${item.name}!!`}
@@ -65,7 +72,7 @@ function Home() {
 
   function ImageListFoundations({ items, type }) {
     return (
-      <ImageList sx={ImageStyle}>
+      <ImageList sx={ImageListStyleFoundation}>
         {items?.map((item, i) => (
           <Link to={`/${type}/${item._id}`} style={{color: 'inherit', textDecoration:'none'}} key={i}>
             <ImageListItem >
@@ -73,9 +80,10 @@ function Home() {
                 src={item.profile_picture}
                 alt={item.name}
                 loading="lazy"
+                style={ImageStyleFoundation}
                 />
               <ImageListItemBar
-                title={`Haz click aqui para conocer a ${item.name}!!`}
+                title={`Fundacion ${item.name}!!`}
                 subtitle={<span>{item.foundation}</span>}
                 position="below"
               />

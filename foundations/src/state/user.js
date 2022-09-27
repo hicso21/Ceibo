@@ -23,12 +23,13 @@ export const sendSignUpRequest = createAsyncThunk("SIGNUP", (input) => {
 });
 
 export const sendLogoutRequest = createAsyncThunk("LOGOUT", () => {
+  localStorage.removeItem('google')
   document.cookie = "token= "
   return axios
               .post(
                 "http://localhost:3001/api/foundation/logout", 
                 {withCredentials: true, credentials: "include"})
-              .then((r)=> r)
+              .then((r)=> r.data)
               .catch((err)=> console.log(err))
 });
 

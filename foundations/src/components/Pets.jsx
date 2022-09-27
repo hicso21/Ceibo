@@ -5,14 +5,18 @@ import {
   Container,
   Grid,
   Card,
-  CardContent,
+  Box,
   CardMedia,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import useMatches from "../hooks/useMatches";
 import HomeIcon from '@mui/icons-material/Home';
-import { styled, useTheme, alpha } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
+import logoGatito from '../assets/gatitoLogo.png';
+import logoPerrito from '../assets/perritoLogo.png';
+import MaleIcon from '@mui/icons-material/Male';
+import FemaleIcon from '@mui/icons-material/Female';
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -31,9 +35,15 @@ const ShowPets = () => {
   const matches = useMatches();
 
   let bottom
+  let gridStyle
 
   if (matches) {
     bottom = <DrawerHeader/>
+    gridStyle = {
+      display:'flex',
+      flexDirection:'row',
+      flexWrap:'wrap',
+    }
   } else {
     bottom = <></>
   }
@@ -62,40 +72,39 @@ const ShowPets = () => {
         >
           Mascotas
         </Typography>
-        <Grid container my={4}>
-          {pets?.map((mascota) => {
-            return (
-              <Link
-                to={`/mascotas/${mascota._id}`}
-                key={mascota._id}
-                style={{
-                  textDecoration: "none",
-                  margin: "0px auto",
-                  minWidth: 295,
-                }}
-              >
+        <Box sx={{display:'flex', flexDirection:'row', flexWrap:'wrap'}}>
+          {pets.map((mascota) => {
+              return(
+              <Link to={`/mascotas/${mascota._id}`} key={mascota._id} style={{textDecoration:'none', display:'flex', flexDirection:'row', flexWrap:'wrap', alignItems:'center',  maxWidth:576}}>
                 <Grid item xs={12} p={2} key={mascota._id}>
-                  <Card>
+                    <Card>
                     <CardMedia>
-                      <img src={mascota.photos[0]} alt="" width="100%" />
+                        <img id='imgPet' src={mascota.photos[0]} alt="" style={{objectFit:'cover'}} width='100%' max-height='1000px'/>
                     </CardMedia>
-                    <CardContent>
-                      <Typography gutterBottom variant="h5" component="div">
+                    <Container sx={{dispaly:'flex', width:'100%', mt:1, mb:2}}>
+                        
+                        <Typography gutterBottom variant="h4" component="span" sx={{width:'25%',height:'50px'}}>
                         {mascota.name}
-                      </Typography>
-                      <Typography variant="body4" color="text.secondary">
-                        {mascota.gender}
-                      </Typography>
-                      <Typography variant="body4" color="text.secondary">
-                            {mascota?.adopted? <HomeIcon sx={{width:40, height:40}}/>:<></>}
-                            </Typography>
-                    </CardContent>
-                  </Card>
+                        </Typography>
+
+                        <Typography variant="body2" component='span'>
+                        {mascota.specie === 'perro' ? <img src={logoPerrito} width="50" height="50" alt="perrito"/>:<img src={logoGatito} width="40" height="40"  alt="gatito" />}
+                        </Typography>
+
+                        <Typography variant="body2" component='span' sx={{width:'100%'}}>
+                        {mascota.gender === 'hembra'?<FemaleIcon sx={{width:40, height:40}}/>:<MaleIcon sx={{width:40, height:40}}/>}
+                        </Typography>
+                        
+                        <Typography variant="body2">
+                        {mascota?.adopted? <><HomeIcon sx={{width:40, height:40}}/> <Typography variant='h6' component='span'>(adoptado)</Typography></>:<></>}
+                        </Typography>
+                    </Container>
+                    </Card>
                 </Grid>
               </Link>
-            );
+              )
           })}
-        </Grid>
+        </Box>
       </Container>
       {bottom}
     </>

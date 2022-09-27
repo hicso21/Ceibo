@@ -23,7 +23,7 @@ const GoogleLogin = () => {
         password: userObject.jti
       })
     )
-    .then(resp=>{
+    .then(()=>{
       localStorage.setItem('google', true)
       navigate('/')
     })

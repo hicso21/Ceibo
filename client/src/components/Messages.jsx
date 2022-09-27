@@ -11,6 +11,16 @@ import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { Box } from "@mui/material";
 import useMatches from "../hooks/useMatches";
+import { styled } from "@mui/material/styles";
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
 
 export default function Messages() {
   const [foundations, setFoundations] = useState([]);
@@ -19,13 +29,16 @@ export default function Messages() {
 
   let pL;
   let pR;
+  let typography
 
   if (matches) {
     pL = 10;
     pR = 10;
+    typography = 'h3'
   } else {
     pL = 5;
     pR = 5;
+    typography = 'h4'
   }
 
   useEffect(() => {
@@ -50,17 +63,15 @@ export default function Messages() {
   return (
     <Box
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        height: "90%",
+        minHeight:530,
+        paddingTop:6,
         width: "100%",
         paddingLeft: pR,
         paddingRight: pL,
       }}
     >
       <Typography
-        variant="h4"
+        variant={typography}
         sx={{ justifyContent: "center", display: "flex", mb: 2 }}
       >
         Conversaciones
@@ -129,6 +140,7 @@ export default function Messages() {
           </Typography>
         </div>
       )}
+      {matches?<></>:<DrawerHeader/>}
     </Box>
   );
 }

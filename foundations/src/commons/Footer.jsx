@@ -16,74 +16,73 @@ export default function Footer() {
 
   const {pathname} = useLocation()
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+  const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+  }));
 
-const styleBox = {
-  position: ()=>{
-    if(matches) return 'relative'
-    else return 'fixed'
-  },
-  bottom: 0,
-  width:'100%',
-  boxShadow: 'none',
-  backgroundColor: (theme) =>
-  theme.palette.mode === 'light'
-  ? theme.palette.color = '#1e244b'
-      : theme.palette.color = '#04092A',
-  color: (theme) =>
-  theme.palette.mode === 'light'
-  ? theme.palette.color = '#FBFBFA'
-  :theme.palette.color = '#FBFBFA'
-}
+  const styleBox = {
+    position: ()=>{
+      if(pathname === '/profile') return 'fixed'
+      if(matches) return 'relative'
+      else return 'fixed'
+    },
+    bottom: 0,
+    width:'100%',
+    boxShadow: 'none',
+    backgroundColor: (theme) =>
+    theme.palette.mode === 'light'
+    ? theme.palette.color = '#1e244b'
+        : theme.palette.color = '#04092A',
+    color: (theme) =>
+    theme.palette.mode === 'light'
+    ? theme.palette.color = '#FBFBFA'
+    :theme.palette.color = '#FBFBFA'
+  }
 
-const style = {
-  paddingTop:2,
-  boxShadow: 'none',
-  backgroundColor: (theme) =>
-  theme.palette.mode === 'light'
-  ? theme.palette.color = '#1e244b'
-      : theme.palette.color = '#04092A',
-  color: (theme) =>
-  theme.palette.mode === 'light'
-  ? theme.palette.color = '#FBFBFA'
-  :theme.palette.color = '#FBFBFA'
-}
+  const style = {
+    paddingTop:2,
+    boxShadow: 'none',
+    backgroundColor: (theme) =>
+    theme.palette.mode === 'light'
+    ? theme.palette.color = '#1e244b'
+        : theme.palette.color = '#04092A',
+    color: (theme) =>
+    theme.palette.mode === 'light'
+    ? theme.palette.color = '#FBFBFA'
+    :theme.palette.color = '#FBFBFA'
+  }
 
-const style2 = {
-  py: 5,
-  mt: 'auto',
-  boxShadow: 'none',
-  backgroundColor: (theme) =>
-  theme.palette.mode === 'light'
-  ? theme.palette.color = '#1e244b'
-      : theme.palette.color = '#04092A',
-  color: (theme) =>
-  theme.palette.mode === 'light'
-  ? theme.palette.color = '#FBFBFA'
-  :theme.palette.color = '#FBFBFA'
-}
+  const style2 = {
+    py: 5,
+    mt: 'auto',
+    boxShadow: 'none',
+    backgroundColor: (theme) =>
+    theme.palette.mode === 'light'
+    ? theme.palette.color = '#1e244b'
+        : theme.palette.color = '#04092A',
+    color: (theme) =>
+    theme.palette.mode === 'light'
+    ? theme.palette.color = '#FBFBFA'
+    :theme.palette.color = '#FBFBFA'
+  }
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props} sx={style}>
-      {'Copyright © '}
-      <br/>
-      <Link color="inherit" href="https://ceibo.digital/">
-        Ceibo Digital
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-
+  function Copyright(props) {
+    return (
+      <Typography variant="body2" color="text.secondary" align="center" {...props} sx={style}>
+        {'Copyright © '}
+        <br/>
+        <Link color="inherit" href="https://ceibo.digital/">
+          Ceibo Digital
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+  }
 
   const matches = useMatches()
 

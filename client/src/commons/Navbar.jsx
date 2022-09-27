@@ -121,6 +121,7 @@ export default function PersistentDrawerLeft({ prop }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let {pathname} = useLocation()
+  let path = useLocation()
   let drawerColor
   
   if(pathname === '/favorites' || pathname === '/fundaciones' || pathname === '/mascotas'){
@@ -322,11 +323,17 @@ export default function PersistentDrawerLeft({ prop }) {
                           </Button>
                         </>
     }
-    main =  <>
-              <DrawerHeader/>
-                {prop}
-              <DrawerHeader/>
-            </>
+    path.pathname === '/messages'?
+                            main =  <>
+                                        {prop}
+                                      <DrawerHeader/>
+                                    </>
+                            :
+                            main =  <>
+                                      <DrawerHeader/>
+                                        {prop}
+                                      <DrawerHeader/>
+                                    </>
   }
   else{
     pathname === '/history'?bottomDrawer = <></>:bottomDrawer = <><DrawerHeader/><DrawerHeader/></>
