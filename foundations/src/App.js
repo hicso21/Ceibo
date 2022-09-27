@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./commons/Navbar";
 import SingularPet from "./components/SingularPet";
 import Profile from "./components/Profile";
-import Comentarios from "./components/Comentarios/Comentarios.jsx";
+import Comentarios from "./components/Comentarios/Comentarios";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
 import Pets from "./components/Pets";

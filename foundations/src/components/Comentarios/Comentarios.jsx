@@ -8,7 +8,7 @@ import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import useMatches from "../../hooks/useMatches";
-import "./Comentarios.css"
+import "./Comentarios.css";
 
 export default function Comentarios() {
   const matches = useMatches();
@@ -24,6 +24,7 @@ export default function Comentarios() {
         setComentarios(res.data);
       });
   }, []);
+
   if (matches) {
     typography = "h3";
   } else {
@@ -31,9 +32,10 @@ export default function Comentarios() {
   }
 
   return (
-    <div className="comentarios">
+    <div id="comentarios">
       <div className="box">
         <Typography
+          className="title"
           variant={typography}
           sx={{ display: "flex", justifyContent: "center" }}
         >
@@ -42,7 +44,7 @@ export default function Comentarios() {
         {comentarios?.map((comment, index) => {
           const comentarioSpliteado = comment.split(",");
           return (
-            <Accordion key={index}  className="accordion">
+            <Accordion key={index} className="accordion">
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls="panel1a-content"
