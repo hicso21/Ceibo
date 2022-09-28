@@ -15,6 +15,7 @@ import {useLocation} from 'react-router-dom'
 export default function Footer() {
 
   const {pathname} = useLocation()
+  console.log(pathname)
 
   const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -89,7 +90,14 @@ export default function Footer() {
 
   if(matches){
     boxStyle = {
-      height:'100%', display:'flex', alignItems:'end', width:'100%'
+      height:'100%',
+      display:'flex',
+      alignItems:'end',
+      width:'100%',
+      bgcolor:()=>{
+        if(pathname==='/favorites')return '#FFFFFF'
+        else return '#F1F2F1'
+      },
     }
   }else{
     if(pathname === '/history'){

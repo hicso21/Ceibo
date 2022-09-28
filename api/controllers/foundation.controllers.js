@@ -3,6 +3,7 @@ const PetServices = require("../services/pet.services");
 const UserServices = require("../services/user.services");
 const bcrypt = require("bcrypt");
 const { validateToken, generateToken } = require("../config/tokens");
+const Foundation = require("../models/Foundations");
 
 class FoundationController {
   static async getAllFoundation(req, res) {
@@ -159,7 +160,31 @@ class FoundationController {
     }
   }
 
+  static async foundationUpdate(req, res) {
+    let _id = req.params.id;
+    let update = req.body;
+    console.log(update);
+
+    Foundation.findByIdAndUpdate(_id, update, (err, bodyUpdated) => {
+      if(err) return res.status(500).send({message: `Error al actualizar la nota: ${err}`})
   
+      if(!bodyUpdated) return res.status(500).send({message: 'No retornó objeto actualizado'})
+      
+      const objectToReturn = {
+        email: update.email,
+        name: update.name,
+        _id : bodyUpdated._id,
+        location: update.location,
+        favorites: bodyUpdated.favorites,
+        adopted: bodyUpdated.adopted,
+        profile_picture: update.profile_picture,
+      }
+
+      console.log(objectToReturn)
+
+      res.status(200).send(objectToReturn)
+    })
+  }
 
 }
 

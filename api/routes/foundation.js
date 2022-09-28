@@ -19,6 +19,8 @@ router.get("/:id/pets", FoundationController.getAllPets);
 
 router.post("/:id/add", FoundationController.addPet);
 
+router.put("/update/:id", FoundationController.foundationUpdate);
+
 router.put("/comments/add/:id", FoundationController.addComment);
 
 router.get("/comments/get/:id", FoundationController.getAllComments);

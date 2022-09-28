@@ -64,7 +64,7 @@ const ShowFavorites = () => {
       }}
       >
       <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
-        <Typography variant="h2" sx={{pl:3,display:'flex', justifyContent:'center'}}>Favoritos</Typography>
+        <Typography variant="h2" sx={{ display:'flex', justifyContent:'center'}}>Favoritos</Typography>
         <Grid container my={4}>
         {empty}
         {favorites?.map((favoritos,i) => {

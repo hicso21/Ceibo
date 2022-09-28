@@ -11,6 +11,8 @@ import {
   Avatar,
   Stack,
   Container,
+  Collapse,
+  Alert,
 } from "@mui/material";
 import { useState } from "react";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
@@ -18,9 +20,8 @@ import { useNavigate } from "react-router";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import useMatches from "../hooks/useMatches";
-import { setUser } from "../state/user";
+import { sendLoginRequest, setUser } from "../state/user";
 import { styled, useTheme, alpha } from "@mui/material/styles";
-import Footer from "../commons/Footer";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -35,12 +36,13 @@ const theme = createTheme();
 
 const Profile = () => {
   let changePassword
+  const [collapse, setCollapse] = useState(false)
   const [open, setOpen] = useState(false);
   const { user } = useSelector((state) => state);
   const [name, setName] = useState(user.name);
   const [lastName, setLastName] = useState(user.last_name);
   const [email, setEmail] = useState(user.email);
-  const [image, setImage] = useState(user.profile_picture);
+  const [image , setImage] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const seleccionArchivos = document.querySelector("#seleccionArchivos");
@@ -62,17 +64,21 @@ const Profile = () => {
   };
 
   const handleImage = (e) => {
+    const reader = new FileReader()
     const archivos = seleccionArchivos.files;
 
     if (!archivos || !archivos.length) {
       imagenPrevisualizacion.src = "";
       return;
     }
-    const primerArchivo = archivos[0];
-    const objectUrl = URL.createObjectURL(primerArchivo);
-    setImage(objectUrl);
 
-    imagenPrevisualizacion.src = objectUrl;
+    reader.addEventListener('loadend', function () {
+      imagenPrevisualizacion.src = reader.result
+      setImage(reader.result)
+    })
+    
+    reader.readAsDataURL(archivos[0]);
+
   };
 
   const handleSend = () => {
@@ -87,14 +93,25 @@ const Profile = () => {
   };
 
   const handleSubmit = () => {
+    console.log(image)
     axios
-      .put(`http://localhost:3001/api/user/update/${user._id}`, {
-        profile_picture: image,
-        name: user.name,
-        last_name: user.last_name,
-        email: user.email
+      .post(`http://localhost:3001/api/upload/`, {Base64:image})
+      .then(resp=>{
+        axios.put(`http://localhost:3001/api/foundation/update/${user._id}`, {
+          profile_picture: resp.data,
+          name: user.name,
+          location: user.location,
+          email: user.email,
+          password: user.password
+        })
+        .then(()=>{
+          setCollapse(true)
+          setTimeout(() => {
+            setCollapse(false)
+          }, 3000);
+        })
       })
-  }
+  };
 
   //false = mobile  ---  true = desktop
   const matches = useMatches();
@@ -243,6 +260,11 @@ const Profile = () => {
             >
               Volver
             </Button>
+            <Collapse in={collapse}>
+              <Alert variant="filled" severity="success" sx={{borderRadius:10}}>
+                Por favor reinicia sesion para cargar la foto de perfil
+              </Alert>
+            </Collapse>
           <br />
           <br />
           <br />
