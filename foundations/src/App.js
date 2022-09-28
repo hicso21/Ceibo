@@ -10,31 +10,38 @@ import LogIn from "./components/LogIn";
 import Pets from "./components/Pets/Pets";
 import AddPet from "./components/AddPet";
 import Search from "./components/Search";
-import Layout from "./components/Layout"
+import Layout from "./components/Layout";
 import Messages from "./components/Messages";
-import Chat from "./components/Chat/Chat"
+import Chat from "./components/Chat/Chat";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 function App() {
-
+  const theme = createTheme({
+    typography: {
+      fontFamily: ["'League Spartan'", "sans-serif"].join(","),
+    },
+  });
   return (
-    <Router>
-      <Layout>
-        <Routes>
-          <Route path="/profile" element={<Profile/>}/>
-          <Route path="/comentarios" element={<Comentarios/>}/>
-          <Route path="/mascotas" element={<Pets/>}/>
-          <Route path="/mascotas/:petId" element={<SingularPet/>}/>
-          <Route path="/" element={<LogIn/>}/>
-          <Route path="/register" element={<SignUp/>}/>
-          <Route path="/passwordForgotted" element={<AddPet/>}/>
-          <Route path="/messages" element={<Messages/>}/>
-          <Route path="/add" element={<AddPet/>}/>
-          <Route path="/search" element={<Search/>}/>
-          <Route path='/chat/:uId' element={<Chat/>}/>
-        </Routes>
-      </Layout>
-    </Router>
-  )
+    <ThemeProvider theme={theme}>
+      <Router>
+        <Layout>
+          <Routes>
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/comentarios" element={<Comentarios />} />
+            <Route path="/mascotas" element={<Pets />} />
+            <Route path="/mascotas/:petId" element={<SingularPet />} />
+            <Route path="/" element={<LogIn />} />
+            <Route path="/register" element={<SignUp />} />
+            <Route path="/passwordForgotted" element={<AddPet />} />
+            <Route path="/messages" element={<Messages />} />
+            <Route path="/add" element={<AddPet />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/chat/:uId" element={<Chat />} />
+          </Routes>
+        </Layout>
+      </Router>
+    </ThemeProvider>
+  );
 }
 
 export default App;

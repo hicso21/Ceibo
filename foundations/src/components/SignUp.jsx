@@ -9,7 +9,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { sendSignUpRequest } from '../state/user';
@@ -17,7 +16,6 @@ import { useState } from 'react';
 import { Alert, Snackbar } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
-const theme = createTheme();
 
 export default function SignUp() {
   
@@ -79,7 +77,6 @@ export default function SignUp() {
 
   return (
     <>
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -215,7 +212,6 @@ export default function SignUp() {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
     <br/>
     <br/>
     <br/>
