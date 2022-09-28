@@ -17,6 +17,7 @@ const UserSchema = new mongoose.Schema({
   kids : String,
   otherPets : String,
   message: String,
+  notifications:[{type: String}],
   password: {type: String,required: true},
   salt: String,
   google: {type: Boolean, default: false},

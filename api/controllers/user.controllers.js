@@ -293,9 +293,40 @@ static async userForm(req, res) {
     console.log(objectToReturn)
     sendEmail(foundation,pets,update,email)
     res.status(200).send(objectToReturn)
-  })
+  })}
 
+  static async addNotifications(req, res) {
+    try {
+      const comentario = await UserService.addNotifications(req.body.notifications);
+      
+      return res.status(204).send(comentario);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
 
-  
-}}
+  static async getNotifications(req, res) {
+    try {
+      const user = await UserService.getUser(req.params.id);
+      return user
+        ? res.send(user.notifications)
+        : res.status(404).send("User not found");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  static async removeNotifications(req, res) {
+    try {
+      const user = await UserService.removeNotifications(
+        req.params.id,
+      );
+      return user
+        ? res.send(user)
+        : res.status(404).send("User not found/notification already removed");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
 module.exports = UserController;

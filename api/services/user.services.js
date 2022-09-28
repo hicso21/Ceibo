@@ -52,7 +52,7 @@ class UserService {
 
   static async getUser(id) {
     try {
-      return await Users.findOne({ _id: id }).populate(["favorites", "adopted"]);
+      return await Users.findOne({ _id: id }).populate(["favorites", "adopted","notifications"]);
     } catch (error) {
       console.log(error.message);
     }
@@ -124,6 +124,34 @@ class UserService {
         },
         { new: true, runValidators: true }
       ).populate("adopted");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+  static async addNotifications(notification) {
+    try {
+      return await Users.updateMany(
+        { },
+        {
+          $push: { notifications: notification },
+        },
+        );
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
+
+  static async removeNotifications(id) {
+    try {
+      return await Users.findByIdAndUpdate(
+        id,
+        {
+           $set: { notifications: [] },
+        },
+        { new: true, runValidators: true }
+      ).populate("notifications");
     } catch (error) {
       console.log(error.message);
     }
