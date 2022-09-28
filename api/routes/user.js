@@ -37,4 +37,10 @@ router.get("/adopted/:id", UserController.getAdopted);
 
 router.put("/form/:id", UserController.userForm);
 
+router.put("/notifications/add", UserController.addNotifications);
+
+router.get("/notifications/:id", UserController.getNotifications);
+
+router.put("/notifications/remove/:id", UserController.removeNotifications);
+
 module.exports = router;

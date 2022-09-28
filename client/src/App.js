@@ -16,6 +16,7 @@ import SingularPet from './components/SingularPet';
 import SingularFoundation from './components/SingularFoundation';
 import Chat from './components/Chat/Chat.jsx';
 import Messages from './components/Messages';
+import Notifications from './components/Notifications';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path='/favorites' element={<Favorites/>}/>
             <Route path='/messages' element={<Messages/>}/>
             <Route path='/chat/:fId' element={<Chat/>}/>
+            <Route path='/notifications' element={<Notifications/>}/>
           </Routes>
         </Layout>
       </Router>

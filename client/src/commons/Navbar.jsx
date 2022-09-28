@@ -32,6 +32,7 @@ import Profile from "@mui/icons-material/Person";
 import Favorite from "@mui/icons-material/StarRate";
 import History from "@mui/icons-material/History";
 import Message from "@mui/icons-material/Message";
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import Footer from "./Footer";
 import {useDispatch, useSelector} from 'react-redux'
 import useMatches from "../hooks/useMatches";
@@ -499,6 +500,20 @@ export default function PersistentDrawerLeft({ prop }) {
                   <Profile />
                 </ListItemIcon>
                 <ListItemText primary={"Mi perfil"} />
+              </ListItemButton>
+            </ListItem>
+          </Link>
+          <Link
+            style={{ color: "inherit", textDecoration: "none" }}
+            to={"/notifications"}
+            onClick={()=>{handleDrawerClose()}}
+          >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <NotificationsActiveIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Notificaciones"} />
               </ListItemButton>
             </ListItem>
           </Link>

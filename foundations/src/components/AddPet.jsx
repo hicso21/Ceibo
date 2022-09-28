@@ -90,7 +90,10 @@ const AddPet = () => {
   const handleImages = (e) => {
     setImages((current) => [...current, e.target.value]);
   };
-
+  const notification={
+  
+    notifications:`La fundacion ${user.name} ha agregado una nueva mascota (${specie}) en adopcion llamada ${name}, es ${gender} y tiene ${age} años. ${history}`
+  }
   const handleSubmit = () => {
     axios
       .post(`http://localhost:3001/api/foundation/${user._id}/add`, {
@@ -105,7 +108,11 @@ const AddPet = () => {
       })
       .then((res) => {
         navigate('/mascotas')
-      });
+      })
+      .then(()=>{
+      axios
+        .put(`http://localhost:3001/api/user/notifications/add`,notification)
+      })
   };
 
   const handleImage = (e) => {
