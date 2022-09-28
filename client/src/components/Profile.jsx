@@ -312,9 +312,6 @@ const Profile = () => {
               Por favor reinicia sesion para cargar la foto de perfil
             </Alert>
           </Collapse>
-          <br />
-          <br />
-          <br />
         </Container>
     </>
   );
