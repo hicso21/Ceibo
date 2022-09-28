@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+#root {
+  background-image: url("../src/assets/fondo-huellas\ -\ Edited.png");
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -21,7 +25,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: #F1F2F1;
+  color: #f1f2f1;
 }
 
 .App-link {
@@ -38,12 +42,12 @@
 }
 
 #root {
-  background-color: #F1F2F1;
+  background-color: #f1f2f1;
   width: 100%;
 }
 
 #search:focus {
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 20px;
 }
 
@@ -81,13 +85,13 @@
   }
 }
 
-@media (min-width: 401px) and (max-width:500px) {
+@media (min-width: 401px) and (max-width: 500px) {
   #searchDisplay {
     width: 230px;
   }
 }
 
-@media (min-width: 1024px){
+@media (min-width: 1024px) {
   #searchDisplay {
     width: 350px;
 
