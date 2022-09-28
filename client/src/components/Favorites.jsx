@@ -17,6 +17,7 @@ import logoPerrito from '../assets/perritoLogo.png';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
 import useMatches from '../hooks/useMatches'
+import backgroundImage from '../assets/fondo-huellas - Edited.png'
 
 const ShowFavorites = () => {
   let empty = <></>
@@ -60,10 +61,10 @@ const ShowFavorites = () => {
     <>
     <div
       style={{
-        backgroundColor: "white",
+        backgroundColor: backgroundImage,
       }}
       >
-      <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
+      <Container sx={{ p: 5, backgroundColor: backgroundImage, borderRadius: 1 }}>
         <Typography variant="h3" sx={{pl:3,display:'flex', justifyContent:'center'}}>Favoritos</Typography>
         <Grid container my={4}>
         {empty}

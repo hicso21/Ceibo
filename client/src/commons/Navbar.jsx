@@ -41,6 +41,7 @@ import { search } from "../state/search";
 import { useState, useEffect } from "react";
 import Badge from "@mui/material/Badge";
 import axios from "axios";
+import backgroundImage from '../assets/fondo-huellas - Edited.png'
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -137,7 +138,7 @@ export default function PersistentDrawerLeft({ prop }) {
     pathname === "/fundaciones" ||
     pathname === "/mascotas"
   ) {
-    drawerColor = "#FFFFFF";
+    drawerColor = backgroundImage;
   }
 
   const DrawerHeader = styled("div")(({ theme }) => ({
@@ -208,6 +209,7 @@ export default function PersistentDrawerLeft({ prop }) {
       minHeight: 878,
       display: "flex",
       flexDirection: "column",
+      bgcolor:backgroundImage
     };
     footer = <Footer />;
     drawerButton = <></>;
@@ -647,7 +649,7 @@ export default function PersistentDrawerLeft({ prop }) {
 
   return (
     <>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", bgcolor:backgroundImage }}>
         <CssBaseline />
         <AppBar open={openDrawer} sx={appBarStyle}>
           <Toolbar style={{ color: "black" }} sx={ToolbarStyle}>
@@ -705,7 +707,7 @@ export default function PersistentDrawerLeft({ prop }) {
             {loginMenu}
           </List>
         </Drawer>
-        <Main open={marginDrawer} sx={mainHeight}>
+        <Main open={marginDrawer} sx={mainHeight} style={matches?{}:{minHeight:650}}>
           <DrawerHeader />
           {main}
           {bottomDrawer}

@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import useMatches from "../../hooks/useMatches";
 import { getAllFoundations } from "../../state/foundations";
 import "./Foundations.css";
+import backgroundImage from '../../assets/fondo-huellas - Edited.png'
 
 const ShowFoundations = () => {
   const foundations = useSelector((state) => state.foundations);
