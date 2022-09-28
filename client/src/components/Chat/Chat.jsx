@@ -105,7 +105,7 @@ export default function Chat() {
               <Typography variant="h5" gutterBottom>
                 Chat con la fundacion
               </Typography>
-              <Divider />
+              <Divider/>
               <Grid container>
                 <Grid
                   id="chat-window"
