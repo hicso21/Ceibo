@@ -14,15 +14,12 @@ import {
   CardMedia
 } from "@mui/material";
 import { useState } from "react";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate } from "react-router";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import useMatches from "../hooks/useMatches";
 import { setUser } from "../state/user";
 import { useEffect } from "react";
-
-const theme = createTheme();
 
 const Profile = () => {
   let changePassword
@@ -262,7 +259,6 @@ const Profile = () => {
 
   return (
     <>
-      <ThemeProvider theme={theme}>
         <Container component="main" maxWidth="xs">
           <CssBaseline />
           <Box
@@ -298,7 +294,6 @@ const Profile = () => {
           <br />
           <br />
         </Container>
-      </ThemeProvider>
     </>
   );
 };

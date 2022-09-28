@@ -73,7 +73,7 @@ const buttonStyle = {
     return (
       <>
         <Box sx={{p:3, height:'100%', bgcolor:'#F1F2F1'}}>
-          <Typography variant={typography} sx={{display:'flex', justifyContent:'center'}}>Mascotas adoptadas</Typography>     
+          <Typography variant={typography} sx={{display:'flex', justifyContent:'center', m: 3}}> Tus Mascotas Adoptadas</Typography>     
             {adoptados?.map((pet)=>{
               return(
           <Accordion key={pet._id}>

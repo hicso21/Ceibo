@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Layout from './components/Layout';
 import Home from './components/Home';
 import Pets from './components/Pets';
@@ -18,8 +19,15 @@ import Chat from './components/Chat/Chat.jsx';
 import Messages from './components/Messages';
 import Notifications from './components/Notifications';
 
+
 function App() {
+  const theme = createTheme({
+    typography: {
+      fontFamily: ["'League Spartan'", 'sans-serif'].join(","),
+    },
+  })
   return (
+    <ThemeProvider theme={theme}>
       <Router>
         <Layout>
           <Routes>
@@ -41,6 +49,7 @@ function App() {
           </Routes>
         </Layout>
       </Router>
+      </ThemeProvider>
   );
 }
 

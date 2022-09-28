@@ -8,7 +8,6 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router';
 import { Alert, Link, Snackbar } from '@mui/material';
 import { useDispatch } from 'react-redux';
@@ -16,8 +15,6 @@ import { sendLoginRequest } from '../state/user';
 import { useState } from 'react';
 import GoogleLogin from './GoogleLogin';
 import VisibilityIcon from '@mui/icons-material/Visibility';
-
-const theme = createTheme();
 
 export default function SignUp() {
 
@@ -64,7 +61,6 @@ export default function SignUp() {
 
   return (
     <>
-    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -86,7 +82,7 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Iniciar Sesion
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -162,7 +158,6 @@ export default function SignUp() {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     </>
   );

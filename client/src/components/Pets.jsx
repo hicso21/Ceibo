@@ -127,7 +127,7 @@ const Pets = () => {
     <>
         <div style={{backgroundColor: "white"}}>
             <Container sx={{ p: 4, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
-                <Typography variant="h2" sx={{justifyContent:'center', display:'flex'}}>Mascotas</Typography>
+                <Typography variant="h3" sx={{justifyContent:'center', display:'flex'}}>Mascotas</Typography>
                 <Grid container my={4} sx={{display:'flex', justifyContent:'center'}}>
                     <Box>
                         <Accordion  expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>

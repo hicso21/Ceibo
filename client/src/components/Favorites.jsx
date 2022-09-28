@@ -51,7 +51,7 @@ const ShowFavorites = () => {
                             <Typography variant="h4" sx={{ width:'100%',display:'flex', justifyContent:'center'}}>favoritos</Typography>
                             <Button sx={{ width:'100%',display:'flex', justifyContent:'center', mt:15}}>
                               <Link to='/mascotas'>
-                                <Typography variant="body1">Haz click aqui para agregar mascotas a favoritos!!</Typography>
+                                <Typography variant="body1">Haz click aqui para agregar mascotas a favoritos</Typography>
                               </Link>
                             </Button>
                           </> 
@@ -64,7 +64,7 @@ const ShowFavorites = () => {
       }}
       >
       <Container sx={{ p: 5, backgroundColor: "#e0e0e0", borderRadius: 1 }}>
-        <Typography variant="h2" sx={{pl:3,display:'flex', justifyContent:'center'}}>Favoritos</Typography>
+        <Typography variant="h3" sx={{pl:3,display:'flex', justifyContent:'center'}}>Favoritos</Typography>
         <Grid container my={4}>
         {empty}
         {favorites?.map((favoritos,i) => {
