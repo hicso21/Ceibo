@@ -10,7 +10,8 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import useMatches from '../hooks/useMatches';
-import {useLocation} from 'react-router-dom'
+import {useLocation} from 'react-router-dom';
+import backgroundImage from '../assets/fondo-huellas - Edited.png';
 
 export default function Footer() {
 
@@ -94,16 +95,16 @@ export default function Footer() {
       display:'flex',
       alignItems:'end',
       width:'100%',
-      bgcolor:()=>{
-        if(pathname==='/favorites')return '#FFFFFF'
-        else return '#F1F2F1'
-      },
+      bgcolor:backgroundImage,
     }
   }else{
     if(pathname === '/history'){
       boxStyle = {
-        height:'100%', display:'flex', alignItems:'end', width:'100%', bgcolor:'#F1F2F1'
+        height:'100%', display:'flex', alignItems:'end', width:'100%'
       }
+    }
+    boxStyle = {
+      bgcolor:backgroundImage
     }
   }
 

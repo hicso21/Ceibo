@@ -87,7 +87,7 @@ export default function Messages() {
             pb: 0,
           }}
         >
-          {foundations.map((item) => (
+          {foundations.map((item, i) => (
           <Link
             key={item._id}
             to={`/chat/${item.fId._id}`}
@@ -121,7 +121,7 @@ export default function Messages() {
                 }
               />
             </ListItem>
-            <Divider variant="inset" component="li" />
+            {foundations.length-1 === i?<></>:<Divider variant="inset" component="li" />}
           </Link>
           ))}
         </List>

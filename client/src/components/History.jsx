@@ -9,13 +9,14 @@ import { Box,Button } from '@mui/material';
 import useMatches from '../hooks/useMatches';
 import { useSelector } from 'react-redux'
 import { useState,useEffect } from "react";
-import {useLocation } from 'react-router-dom'
+import {Link, useLocation } from 'react-router-dom'
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import backgroundImage from '../assets/fondo-huellas - Edited.png'
 
 export default function History() {
   const user = useSelector(state=>state.user)
@@ -72,53 +73,68 @@ const buttonStyle = {
 
     return (
       <>
-        <Box sx={{p:3, height:'100%', bgcolor:'#F1F2F1'}}>
-          <Typography variant={typography} sx={{display:'flex', justifyContent:'center', m: 3}}> Tus Mascotas Adoptadas</Typography>     
-            {adoptados?.map((pet)=>{
+        <Box sx={{p:3, height:'100%', bgcolor:backgroundImage}}>
+          {
+          matches?
+            <Typography variant={typography} sx={{display:'flex', justifyContent:'center', m: 3}}> Tus Mascotas Adoptadas</Typography>
+            :
+            <>
+              <Typography variant={typography} sx={{display:'flex', justifyContent:'center', mt: 3}}> Tus Mascotas</Typography>
+              <Typography variant={typography} sx={{display:'flex', justifyContent:'center', }}> Adoptadas</Typography>
+            </>
+          }
+               
+            {!adoptados[0]? 
+                <>
+                  <Typography variant={matches?'h4':'h5'} sx={{display:'flex', justifyContent:'center', pt:9}}>Aun no has adoptado ninguna mascota...</Typography>
+                  <Typography variant={matches?'h5':'h6'} sx={{display:'flex', justifyContent:'center', pt:15}}><Link to='/mascotas'>Haz click aqui y adopta una mascota!!</Link></Typography>
+                </>
+              :
+              adoptados.map((pet)=>{
               return(
-          <Accordion key={pet._id}>
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
-              >
-              <Typography>{pet.name}</Typography>
-            </AccordionSummary>
-                <AccordionDetails>
-              <Typography>Name: {pet.name}</Typography>
-              <Typography>Especie: {pet.specie}</Typography>
-              <Typography>Genero: {pet.gender}</Typography>
-              <Typography>Tamaño: {pet.size}</Typography>
-              <Typography>Vacundo: {pet.vaccinated?"Si":"No"}</Typography>
-              <Typography>Castrado: {pet.neuterd?"Si":"No"}</Typography>
-             <br/>
-              <Button onClick={handleClickOpen} variant="outlined" color="inherit" sx={buttonStyle} >
-            Por favor comentá tu experiencia de adopción
-          </Button>
-          <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>Adopcion</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                Por favor escribe una reseña de la experiencia al adoptar con la fundación.
-              </DialogContentText>
-              <TextField
-              onChange={commentChange}
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Comentario"
-                fullWidth
-                variant="standard"
-                multiline
-              />
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={handleClose} sx={buttonStyle}>Cancel</Button>
-              <Button onClick={()=>{handlerClickComment(pet.foundation)}} sx={buttonStyle}>Completado</Button>
-            </DialogActions>
-          </Dialog>
-            </AccordionDetails>
-          </Accordion>
+                <Accordion key={pet._id}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                    >
+                    <Typography>{pet.name}</Typography>
+                  </AccordionSummary>
+                      <AccordionDetails>
+                    <Typography>Name: {pet.name}</Typography>
+                    <Typography>Especie: {pet.specie}</Typography>
+                    <Typography>Genero: {pet.gender}</Typography>
+                    <Typography>Tamaño: {pet.size}</Typography>
+                    <Typography>Vacundo: {pet.vaccinated?"Si":"No"}</Typography>
+                    <Typography>Castrado: {pet.neuterd?"Si":"No"}</Typography>
+                  <br/>
+                    <Button onClick={handleClickOpen} variant="outlined" color="inherit" sx={buttonStyle} >
+                  Por favor comentá tu experiencia de adopción
+                </Button>
+                <Dialog open={open} onClose={handleClose}>
+                  <DialogTitle>Adopcion</DialogTitle>
+                  <DialogContent>
+                    <DialogContentText>
+                      Por favor escribe una reseña de la experiencia al adoptar con la fundación.
+                    </DialogContentText>
+                    <TextField
+                    onChange={commentChange}
+                      autoFocus
+                      margin="dense"
+                      id="name"
+                      label="Comentario"
+                      fullWidth
+                      variant="standard"
+                      multiline
+                    />
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleClose} sx={buttonStyle}>Cancel</Button>
+                    <Button onClick={()=>{handlerClickComment(pet.foundation)}} sx={buttonStyle}>Completado</Button>
+                  </DialogActions>
+                </Dialog>
+                  </AccordionDetails>
+                </Accordion>
               )
             })}
         </Box>

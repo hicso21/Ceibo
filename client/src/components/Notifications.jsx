@@ -16,6 +16,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import backgroundImage from '../assets/fondo-huellas - Edited.png'
 
 export default function Notifications() {
   const user = useSelector((state) => state.user);
@@ -57,14 +58,14 @@ export default function Notifications() {
 
   return (
     <>
-      <Box sx={{ p: 3, height: "100%", bgcolor: "#F1F2F1" }}>
+      <Box sx={{ p: 3, height: "100%", bgcolor: backgroundImage }}>
         <Typography
           variant={typography}
           sx={{ display: "flex", justifyContent: "center", m: 3 }}
         >
           Notificaciones
         </Typography>
-        {notifications?.map((notifications, index) => {
+        {!notifications[0]?<Typography variant={matches?"h4":"h5"} sx={{display:'flex', justifyContent:'center', pt:20}}>No tienes notificaciones!!</Typography>:notifications.map((notifications, index) => {
           return (
             <Accordion key={index}>
               <AccordionSummary
