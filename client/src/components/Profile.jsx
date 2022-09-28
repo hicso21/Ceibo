@@ -11,6 +11,8 @@ import {
   Avatar,
   Stack,
   Container,
+  Collapse,
+  Alert,
   CardMedia
 } from "@mui/material";
 import { useState } from "react";
@@ -24,6 +26,7 @@ import { useEffect } from "react";
 const Profile = () => {
   let changePassword
   let google
+  const [collapse, setCollapse] = useState(false)
   const [open, setOpen] = useState(false);
   const [openPassword, setOpenPassword] = useState(false);
   const { user } = useSelector((state) => state);
@@ -31,7 +34,7 @@ const Profile = () => {
   const [lastName, setLastName] = useState(user.last_name);
   const [email, setEmail] = useState(user.email);
   const [password, setPassword] = useState(user.password);
-  const [image, setImage] = useState(user.profile_picture);
+  const [image, setImage] = useState();
   const seleccionArchivos = document.querySelector("#seleccionArchivos");
   const imagenPrevisualizacion = document.querySelector(
     "#imagenPrevisualizacion"
@@ -85,27 +88,41 @@ const Profile = () => {
   };
 
   const handleImage = (e) => {
+    const reader = new FileReader()
     const archivos = seleccionArchivos.files;
 
     if (!archivos || !archivos.length) {
       imagenPrevisualizacion.src = "";
       return;
     }
-    const primerArchivo = archivos[0];
-    const objectUrl = URL.createObjectURL(primerArchivo);
-    setImage(objectUrl);
 
-    imagenPrevisualizacion.src = objectUrl;
+    reader.addEventListener('loadend', function () {
+      imagenPrevisualizacion.src = reader.result
+      setImage(reader.result)
+    })
+    
+    reader.readAsDataURL(archivos[0]);
+
   };
 
   const handleSubmit = () => {
+    console.log(image)
     axios
-      .put(`http://localhost:3001/api/user/update/${user._id}`, {
-        profile_picture: image,
-        name: user.name,
-        last_name: user.last_name,
-        email: user.email,
-        password: user.password
+      .post(`http://localhost:3001/api/upload/`, {Base64:image})
+      .then(resp=>{
+        axios.put(`http://localhost:3001/api/user/update/${user._id}`, {
+          profile_picture: resp.data,
+          name: user.name,
+          last_name: user.last_name,
+          email: user.email,
+          password: user.password
+        })
+        .then(()=>{
+          setCollapse(true)
+          setTimeout(() => {
+            setCollapse(false)
+          }, 3000);
+        })
       })
   };
 
@@ -290,6 +307,11 @@ const Profile = () => {
             >
             Volver
           </Button>
+          <Collapse in={collapse}>
+            <Alert variant="filled" severity="success" sx={{borderRadius:10}}>
+              Por favor reinicia sesion para cargar la foto de perfil
+            </Alert>
+          </Collapse>
           <br />
           <br />
           <br />

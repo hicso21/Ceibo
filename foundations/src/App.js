@@ -7,7 +7,7 @@ import Profile from "./components/Profile";
 import Comentarios from "./components/Comentarios/Comentarios";
 import SignUp from "./components/SignUp";
 import LogIn from "./components/LogIn";
-import Pets from "./components/Pets";
+import Pets from "./components/Pets/Pets";
 import AddPet from "./components/AddPet";
 import Search from "./components/Search";
 import Layout from "./components/Layout";
