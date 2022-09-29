@@ -12,9 +12,10 @@ import StarBorderIcon from "@mui/icons-material/StarBorder";
 import StarIcon from "@mui/icons-material/Star";
 import { useNavigate, useLocation } from "react-router";
 import axios from "axios";
-import { setUser } from "../state/user";
-import { getOnePet } from "../state/pets";
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import { setUser } from "../../state/user";
+import { getOnePet } from "../../state/pets";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import "./SingularPet.css";
 
 const SingularPet = () => {
   const { pathname } = useLocation();
@@ -26,14 +27,14 @@ const SingularPet = () => {
   let fav;
 
   const handleFavorites = (pet) => {
-    if(favorites){
+    if (favorites) {
       axios
         .put(`http://localhost:3001/api/user/favorites/remove/${user._id}`, pet)
         .then((r) => {
           dispatch(setUser(r.data));
         });
       setFavorites(false);
-    }else {
+    } else {
       axios
         .put(`http://localhost:3001/api/user/favorites/add/${user._id}`, pet)
         .then((r) => {
@@ -90,25 +91,17 @@ const SingularPet = () => {
   }, [pathname]);
 
   return (
-    <>
-      <br />
-      <Container
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          mb: 5,
-        }}
-      >
-        <CardMedia sx={{ padding: 0, borderRadius: 10, maxWidth: "343" }}>
+    <div className="mainContainer">
+      <div className="imgContainer">
+        <CardMedia>
           <img alt="" src={pet?.photos[0]} width="100%" id="petPhoto" />
         </CardMedia>
-        <Box sx={{ display:'flex', justifyContent: 'space-between' }}>
+        <Box className="favContainer">
           <Box>
             {user.email && (
               <Button
-              onClick={() => handleFavorites(pet)}
-              sx={{ color: "inherit" }}
+                onClick={() => handleFavorites(pet)}
+                sx={{ color: "inherit" }}
               >
                 {fav}
               </Button>
@@ -117,17 +110,30 @@ const SingularPet = () => {
           <Box>
             <Button
               sx={{ color: "inherit" }}
-              onClick={()=>{window.open(`https://api.whatsapp.com/send?text=Adopta esta hermosa mascota!! ${window.location.href}`)}}
+              onClick={() => {
+                window.open(
+                  `https://api.whatsapp.com/send?text=Adopta esta hermosa mascota!! ${window.location.href}`
+                );
+              }}
             >
-              <WhatsAppIcon sx={{height: 40, width: 40, color:'white', bgcolor:'green', borderRadius:5}}/>
+              <WhatsAppIcon
+                sx={{
+                  height: 40,
+                  width: 40,
+                  color: "white",
+                  bgcolor: "green",
+                  borderRadius: 5,
+                }}
+              />
             </Button>
           </Box>
         </Box>
-          <br />
-          <br />
-        <Card sx={{ borderRadius: 5 }}>
+      </div>
+      
+      <div className="main">
+        <Card className="mainCard">
           <Stack padding={2} sx={{ maxWidth: "100%" }}>
-            <Box sx={{ display: "flex", flexDirection: "row" }}>
+            <Box className="mainBox">
               <Typography variant="h4" width={"20%"} paddingLeft={2}>
                 {pet?.name}
               </Typography>
@@ -139,7 +145,7 @@ const SingularPet = () => {
                 )}
               </Typography>
             </Box>
-            <Box sx={{ display: "flex", flexDirection: "row" }}>
+            <Box className="mainBox">
               <Typography
                 variant="body"
                 width={"100%"}
@@ -149,7 +155,7 @@ const SingularPet = () => {
                 {pet?.size}
               </Typography>
             </Box>
-            <Box sx={{ display: "flex", flexDirection: "row", paddingLeft: 1 }}>
+            <Box className="mainBox">
               <Typography>
                 <LocationOnIcon sx={{ paddingTop: 1 }} />
                 {pet?.location}
@@ -157,45 +163,52 @@ const SingularPet = () => {
             </Box>
           </Stack>
         </Card>
-        <Card sx={{ borderRadius: 5, marginTop: 3 }}>
-          <Box sx={{ padding: 2 }}>
-            <Typography variant="h6">
-              <AssignmentIcon sx={{ paddingTop: 1, width: 30 }} /> Descripcion:
-            </Typography>
+        <Card className="descriptionCard">
+          <Typography variant="h6">
+            <AssignmentIcon sx={{ paddingTop: 1, width: 30 }} /> Descripción:
+          </Typography>
+          <Typography sx={{ paddingTop: 2, pl: 2 }}>{pet?.history}</Typography>
+          <Box className="dataBox">
             <Typography sx={{ paddingTop: 2, pl: 2 }}>
-              {pet?.history}
+              Castrado
+              {pet?.neutered ? (
+                <CheckIcon sx={{ pt: 1 }} />
+              ) : (
+                <CloseIcon sx={{ pt: 1 }} />
+              )}
             </Typography>
-            <Box sx={{ display: "flex", flexDirection: "row" }}>
-              <Typography sx={{ paddingTop: 2, pl: 2 }}>
-                Castrado
-                {pet?.neutered ? (
-                  <CheckIcon sx={{ pt: 1 }} />
-                ) : (
-                  <CloseIcon sx={{ pt: 1 }} />
-                )}
-              </Typography>
-              <Typography sx={{ paddingTop: 2, pl: 12 }}>
-                Vacunado
-                {pet?.vaccinated ? (
-                  <CheckIcon sx={{ pt: 1 }} />
-                ) : (
-                  <CloseIcon sx={{ pt: 1 }} />
-                )}
-              </Typography>
-            </Box>
+            <Typography sx={{ paddingTop: 2, pl: 12 }}>
+              Vacunado
+              {pet?.vaccinated ? (
+                <CheckIcon sx={{ pt: 1 }} />
+              ) : (
+                <CloseIcon sx={{ pt: 1 }} />
+              )}
+            </Typography>
           </Box>
         </Card>
-        {pet?.adopted? <Button color="inherit" sx={buttonAdoptedStyle} disabled>
-          <Typography variant="body1" color='black'>Adoptado</Typography> 
-        </Button> :<Button color="inherit" sx={buttonStyle} onClick={handleAdopt}>
-          Adoptar
-        </Button>}
-        <Button color="inherit" sx={buttonStyle} onClick={()=>handleContact(pet?.foundation?._id)}>
-
-          {`Contactar con la fundación ${pet?.foundation?.name}`}
-        </Button>
-      </Container>
-    </>
+        <div className="buttonContainer">
+          {pet?.adopted ? (
+            <Button color="inherit" sx={buttonAdoptedStyle} disabled>
+              <Typography variant="body1" color="black">
+                Adoptado
+              </Typography>
+            </Button>
+          ) : (
+            <Button color="inherit" sx={buttonStyle} onClick={handleAdopt}>
+              Adoptar
+            </Button>
+          )}
+          <Button
+            color="inherit"
+            sx={buttonStyle}
+            onClick={() => handleContact(pet?.foundation?._id)}
+          >
+            {`Contactar con la fundación ${pet?.foundation?.name}`}
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 };
 
