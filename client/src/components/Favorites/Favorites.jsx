@@ -111,7 +111,7 @@ const ShowFavorites = () => {
           backgroundColor: backgroundImage,
         }}
       >
-        <Container className="mainContainer">
+        <Container className="mainContainerFav">
           <Typography
             variant="h3"
             sx={{ pl: 3, display: "flex", justifyContent: "center" }}
