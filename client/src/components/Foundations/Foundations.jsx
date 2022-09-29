@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import useMatches from "../../hooks/useMatches";
 import { getAllFoundations } from "../../state/foundations";
 import "./Foundations.css";
-import backgroundImage from '../../assets/fondo-huellas - Edited.png'
+import backgroundImage from "../../assets/fondo-huellas - Edited.png";
 
 const ShowFoundations = () => {
   const foundations = useSelector((state) => state.foundations);
@@ -36,16 +36,24 @@ const ShowFoundations = () => {
 
   return (
     <div className="divContainer">
-      <Typography
-        variant="h3"
-        sx={{ display: "flex", justifyContent: "center" }}
-      >
-        Fundaciones
-      </Typography>
+      <div id="title">
+        <Typography
+          variant="h3"
+          sx={{ display: "flex", justifyContent: "center" }}
+        >
+          Fundaciones
+        </Typography>
+      </div>
       <Box
         container
         my={4}
-        sx={{alignItems:"center", display: "flex", flexDirection: "row", flexWrap: "wrap" , justifyContent:"center"}}
+        sx={{
+          alignItems: "center",
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
       >
         {foundations?.map((fundacion) => {
           return (

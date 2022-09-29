@@ -139,12 +139,9 @@ const Pets = () => {
 
   return (
     <div className="mainContainerPet">
-      <Typography
-        variant="h3"
-        sx={{ justifyContent: "center", display: "flex" }}
-      >
-        Mascotas
-      </Typography>
+      <div id="title">
+        <Typography variant="h3">Mascotas</Typography>
+      </div>
       <Grid container my={4}>
         <Box className="accordionBox">
           <Accordion

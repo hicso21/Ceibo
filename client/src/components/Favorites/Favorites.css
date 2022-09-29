@@ -7,10 +7,19 @@
   margin: 0 auto;
   justify-content: flex-start;
   padding: 25px;
+  margin-top: 10px;
+}
+
+#title {
+  display: flex;
+  border-top: 4px dotted rgb(238, 197, 84);
+  border-bottom: 4px dotted rgb(238, 197, 84);
+  background-color: rgb(255, 255, 234);
+  align-items: center;
+  justify-content: center;
 }
 
 .gridContainer {
-  background-color: blue;
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -20,7 +29,6 @@
 }
 
 .superCard {
-  background-color: purple;
   display: flex;
   align-items: center;
   flex-direction: column;

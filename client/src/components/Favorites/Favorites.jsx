@@ -19,6 +19,7 @@ import MaleIcon from "@mui/icons-material/Male";
 import FemaleIcon from "@mui/icons-material/Female";
 import useMatches from "../../hooks/useMatches";
 import backgroundImage from "../../assets/fondo-huellas - Edited.png";
+import "./Favorites.css";
 
 const ShowFavorites = () => {
   let empty = <></>;
@@ -112,12 +113,13 @@ const ShowFavorites = () => {
         }}
       >
         <Container className="mainContainerFav">
-          <Typography
-            variant="h3"
-            sx={{ pl: 3, display: "flex", justifyContent: "center" }}
-          >
-            Favoritos
-          </Typography>
+          <div id="title">
+            <Typography
+              variant="h3"
+            >
+              Favoritos
+            </Typography>
+          </div>
           <Grid className="gridContainer" container my={4}>
             {empty}
             {favorites?.map((favoritos, i) => {
@@ -189,13 +191,14 @@ const ShowFavorites = () => {
                             )}
                           </Typography>
                           {favoritos?.adopted ? (
-                          <HomeIcon color="grey"
-                            className="icon"
-                            sx={{ width: 40, height: 40, color:"grey" }}
-                          />
-                        ) : (
-                          <></>
-                        )}
+                            <HomeIcon
+                              color="grey"
+                              className="icon"
+                              sx={{ width: 40, height: 40, color: "grey" }}
+                            />
+                          ) : (
+                            <></>
+                          )}
                         </div>
                       </CardContent>
                     </Card>
