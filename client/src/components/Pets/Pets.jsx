@@ -18,7 +18,6 @@ import logoGatito from "../../assets/gatitoLogo.png";
 import logoPerrito from "../../assets/perritoLogo.png";
 import MaleIcon from "@mui/icons-material/Male";
 import FemaleIcon from "@mui/icons-material/Female";
-import { styled } from "@mui/material/styles";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
@@ -37,6 +36,16 @@ import {
 } from "../../state/search";
 import { useState } from "react";
 import "./Pets.css";
+import { styled } from "@mui/material/styles";
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -138,253 +147,256 @@ const Pets = () => {
   };
 
   return (
-    <div className="mainContainerPet">
-      <div id="title">
-        <Typography variant="h3">Mascotas</Typography>
-      </div>
-      <Grid container my={4}>
-        <Box className="accordionBox">
-          <Accordion
-            className="accordion"
-            expanded={expanded === "panel1"}
-            onChange={handleChange("panel1")}
-          >
-            <AccordionSummary
-              aria-controls="panel1d-content"
-              id="panel1d-header"
+    <>
+      {!matches?<DrawerHeader/>:<></>}
+      <div className="mainContainerPet">
+        <div id="title">
+          <Typography variant="h3">Mascotas</Typography>
+        </div>
+        <Grid container my={4}>
+          <Box className="accordionBox">
+            <Accordion
+              className="accordion"
+              expanded={expanded === "panel1"}
+              onChange={handleChange("panel1")}
             >
-              <Typography>Buscar por categorias</Typography>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Container
-                sx={{
-                  display: "flex",
-                  flexDirection: typeOfView,
-                  justifyContent: "center",
-                }}
+              <AccordionSummary
+                aria-controls="panel1d-content"
+                id="panel1d-header"
               >
-                <Container sx={{ justifyContent: "center" }}>
-                  <Typography
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      mb: 2,
-                    }}
-                  >
-                    Generos
-                  </Typography>
-                  <Container
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Button
-                      onClick={() => {
-                        handleGender("macho");
+                <Typography>Buscar por categorias</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Container
+                  sx={{
+                    display: "flex",
+                    flexDirection: typeOfView,
+                    justifyContent: "center",
+                  }}
+                >
+                  <Container sx={{ justifyContent: "center" }}>
+                    <Typography
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        mb: 2,
                       }}
                     >
-                      <MaleIcon sx={{ width: 60, height: 60 }} />
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        handleGender("hembra");
+                      Generos
+                    </Typography>
+                    <Container
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
                       }}
                     >
-                      <FemaleIcon
-                        sx={{ width: 60, height: 60, color: "pink" }}
-                      />
-                    </Button>
+                      <Button
+                        onClick={() => {
+                          handleGender("macho");
+                        }}
+                      >
+                        <MaleIcon sx={{ width: 60, height: 60 }} />
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          handleGender("hembra");
+                        }}
+                      >
+                        <FemaleIcon
+                          sx={{ width: 60, height: 60, color: "pink" }}
+                        />
+                      </Button>
+                    </Container>
+                  </Container>
+                  <Container>
+                    <Typography
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        mb: 2,
+                      }}
+                    >
+                      Tamaño
+                    </Typography>
+                    <Container
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Button
+                        onClick={() => {
+                          handleSize("chico");
+                        }}
+                      >
+                        <Crop169Icon
+                          sx={{ width: 60, height: 60, color: "gray" }}
+                        />
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          handleSize("mediano");
+                        }}
+                      >
+                        <Crop32Icon
+                          sx={{ width: 60, height: 60, color: "gray" }}
+                        />
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          handleSize("grande");
+                        }}
+                      >
+                        <Crop54Icon
+                          sx={{ width: 60, height: 60, color: "gray" }}
+                        />
+                      </Button>
+                    </Container>
+                  </Container>
+                  <Container>
+                    <Typography
+                      sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        mb: 2,
+                      }}
+                    >
+                      Especie
+                    </Typography>
+                    <Container
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Button
+                        onClick={() => {
+                          handleSpecie("perro");
+                        }}
+                      >
+                        <img
+                          src={logoPerrito}
+                          width="60"
+                          height="60"
+                          alt="perrito"
+                        />
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          handleSpecie("gato");
+                        }}
+                      >
+                        <img
+                          src={logoGatito}
+                          width="50"
+                          height="50"
+                          alt="perrito"
+                        />
+                      </Button>
+                    </Container>
                   </Container>
                 </Container>
-                <Container>
-                  <Typography
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      mb: 2,
-                    }}
-                  >
-                    Tamaño
-                  </Typography>
-                  <Container
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Button
-                      onClick={() => {
-                        handleSize("chico");
-                      }}
-                    >
-                      <Crop169Icon
-                        sx={{ width: 60, height: 60, color: "gray" }}
-                      />
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        handleSize("mediano");
-                      }}
-                    >
-                      <Crop32Icon
-                        sx={{ width: 60, height: 60, color: "gray" }}
-                      />
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        handleSize("grande");
-                      }}
-                    >
-                      <Crop54Icon
-                        sx={{ width: 60, height: 60, color: "gray" }}
-                      />
-                    </Button>
-                  </Container>
-                </Container>
-                <Container>
-                  <Typography
-                    sx={{
-                      display: "flex",
-                      justifyContent: "center",
-                      mb: 2,
-                    }}
-                  >
-                    Especie
-                  </Typography>
-                  <Container
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Button
-                      onClick={() => {
-                        handleSpecie("perro");
-                      }}
-                    >
-                      <img
-                        src={logoPerrito}
-                        width="60"
-                        height="60"
-                        alt="perrito"
-                      />
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        handleSpecie("gato");
-                      }}
-                    >
-                      <img
-                        src={logoGatito}
-                        width="50"
-                        height="50"
-                        alt="perrito"
-                      />
-                    </Button>
-                  </Container>
-                </Container>
-              </Container>
-            </AccordionDetails>
-          </Accordion>
-        </Box>
-        <Box className="gridContainer">
-          {displayPets.map((mascota) => {
-            return (
-              <Link
-                to={`/mascotas/${mascota._id}`}
-                key={mascota._id}
-                style={{ textDecoration: "none" }}
-              >
-                <Grid item xs={12} p={2} key={mascota._id}>
-                  <Card className="superCard">
-                    <CardMedia>
-                      <img id="imgPet" src={mascota.photos[0]} alt="" />
-                    </CardMedia>
-                    <div className="petCard">
-                      {mascota?.adopted ? (
-                        <Typography
-                          gutterBottom
-                          variant="h5"
-                          component="span"
-                          className="petName"
-                        >
-                          {`${mascota.name} - ADOPTADO`}
-                        </Typography>
-                      ) : (
-                        <Typography
-                          gutterBottom
-                          variant="h4"
-                          component="span"
-                          className="petName"
-                        >
-                          {mascota.name}
-                        </Typography>
-                      )}
-
-                      <div className="petIconsContainer">
-                        <Typography className="icon">
-                          {mascota.specie === "perro" ? (
-                            <img
-                              src={logoPerrito}
-                              width="40"
-                              height="40"
-                              alt="perrito"
-                            />
-                          ) : (
-                            <img
-                              src={logoGatito}
-                              width="40"
-                              height="40"
-                              alt="gatito"
-                            />
-                          )}
-                        </Typography>
-
-                        <Typography variant="body4" color="text.secondary">
-                          {mascota?.gender === "hembra" ? (
-                            <FemaleIcon sx={{ width: 40, height: 40 }} />
-                          ) : (
-                            <MaleIcon sx={{ width: 40, height: 40 }} />
-                          )}
-                        </Typography>
-
+              </AccordionDetails>
+            </Accordion>
+          </Box>
+          <Box className="gridContainer">
+            {displayPets.map((mascota) => {
+              return (
+                <Link
+                  to={`/mascotas/${mascota._id}`}
+                  key={mascota._id}
+                  style={{ textDecoration: "none" }}
+                >
+                  <Grid item xs={12} p={2} key={mascota._id}>
+                    <Card className="superCard">
+                      <CardMedia>
+                        <img id="imgPet" src={mascota.photos[0]} alt="" />
+                      </CardMedia>
+                      <div className="petCard">
                         {mascota?.adopted ? (
-                          <HomeIcon
-                            color="text.secondary"
-                            className="icon"
-                            sx={{ width: 40, height: 40 }}
-                          />
+                          <Typography
+                            gutterBottom
+                            variant="h5"
+                            component="span"
+                            className="petName"
+                          >
+                            {`${mascota.name} - ADOPTADO`}
+                          </Typography>
                         ) : (
-                          <></>
+                          <Typography
+                            gutterBottom
+                            variant="h4"
+                            component="span"
+                            className="petName"
+                          >
+                            {mascota.name}
+                          </Typography>
                         )}
+
+                        <div className="petIconsContainer">
+                          <Typography className="icon">
+                            {mascota.specie === "perro" ? (
+                              <img
+                                src={logoPerrito}
+                                width="40"
+                                height="40"
+                                alt="perrito"
+                              />
+                            ) : (
+                              <img
+                                src={logoGatito}
+                                width="40"
+                                height="40"
+                                alt="gatito"
+                              />
+                            )}
+                          </Typography>
+
+                          <Typography variant="body4" color="text.secondary">
+                            {mascota?.gender === "hembra" ? (
+                              <FemaleIcon sx={{ width: 40, height: 40 }} />
+                            ) : (
+                              <MaleIcon sx={{ width: 40, height: 40 }} />
+                            )}
+                          </Typography>
+
+                          {mascota?.adopted ? (
+                            <HomeIcon
+                              color="text.secondary"
+                              className="icon"
+                              sx={{ width: 40, height: 40 }}
+                            />
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                        {/* <Typography variant="body2" color="text.secondary">
+                                  {mascota.foundation}
+                                  </Typography> */}
                       </div>
-                      {/* <Typography variant="body2" color="text.secondary">
-                                {mascota.foundation}
-                                </Typography> */}
-                    </div>
-                  </Card>
-                </Grid>
-              </Link>
-            );
-          })}
-        </Box>
-      </Grid>
-      <Pagination
-        count={Math.ceil(advancedSearch.length / petsPerPage)}
-        onChange={changePage}
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-        }}
-        hidePrevButton
-        hideNextButton
-      />
-    </div>
+                    </Card>
+                  </Grid>
+                </Link>
+              );
+            })}
+          </Box>
+        </Grid>
+        <Pagination
+          count={Math.ceil(advancedSearch.length / petsPerPage)}
+          onChange={changePage}
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
+          hidePrevButton
+          hideNextButton
+        />
+      </div>
+    </>
   );
 };
 

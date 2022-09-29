@@ -21,6 +21,17 @@ import { useSelector } from "react-redux";
 import "./Chat.css";
 import { useLocation } from "react-router";
 import axios from "axios";
+import { styled } from "@mui/material/styles";
+import useMatches from "../../hooks/useMatches";
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
 
 const connectionOptions = {
   "force new connection": true,
@@ -45,6 +56,7 @@ export default function Chat() {
     //console.log(socket.id); // undefined
   });
 
+  const matches = useMatches()
   const { pathname } = useLocation();
   const fId = pathname.split("/")[2];
 
@@ -98,6 +110,7 @@ export default function Chat() {
 
   return (
     <>
+      {!matches?<><DrawerHeader/><br /></>:<></>}
       <Fragment>
         <Container className="superContainer">
           <Paper elevation={5}>
@@ -114,8 +127,8 @@ export default function Chat() {
                   className="messageContainer"
                 >
                   <List id="chat-window-messages">
-                    {chatMessages.map((chat, index) => {
-                      own = chat.user === user.name ? true : false;
+                    {chatMessages?.map((chat, index) => {
+                      own = chat?.user === user?.name ? true : false;
                       return (
                         <div
                           className={own ? "message own" : "message"}
@@ -123,7 +136,7 @@ export default function Chat() {
                         >
                           <div className="messageTop">
                             <Link
-                              to={own ? `/profile` : `/fundaciones/${chat.fId}`}
+                              to={own ? `/profile` : `/fundaciones/${chat?.fId}`}
                             >
                               <img
                                 className="messageImg"
@@ -131,7 +144,7 @@ export default function Chat() {
                                 alt=""
                               />
                             </Link>
-                            <p className="messageText">{chat.message}</p>
+                            <p className="messageText">{chat?.message}</p>
                           </div>
                         </div>
                       );

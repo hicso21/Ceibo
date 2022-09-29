@@ -17,6 +17,16 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import backgroundImage from "../assets/fondo-huellas - Edited.png";
+import { styled } from "@mui/material/styles";
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
 
 export default function Notifications() {
   const user = useSelector((state) => state.user);
@@ -58,6 +68,7 @@ export default function Notifications() {
 
   return (
     <>
+      {!matches?<DrawerHeader/>:<></>}
       <Box sx={{ p: 3, height: "100%", bgcolor: backgroundImage }}>
         <div id="title">
           <Typography variant={typography}>Notificaciones</Typography>

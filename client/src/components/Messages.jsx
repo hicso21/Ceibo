@@ -57,7 +57,7 @@ export default function Messages() {
         });
 
         setFoundations(result);
-      });
+      }).then(console.log('holaa'))
   }, []);
 
   return (
