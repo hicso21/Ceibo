@@ -20,6 +20,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
 import useMatches from "../hooks/useMatches";
+import backgroundImage from '../assets/fondo-huellas - Edited.png'
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -41,7 +42,7 @@ const AddPet = () => {
   const [age, setAge] = useState("");
   const [personality, setPersonality] = useState("");
   const [history, setHistory] = useState("");
-  const [images, setImages] = useState([]);
+  const [images, setImages] = useState({});
   const [switcher, setSwitcher] = useState(false);
   const seleccionArchivos = document.querySelector("#seleccionArchivos");
   const imagenPrevisualizacion = document.querySelector(
@@ -87,46 +88,64 @@ const AddPet = () => {
   const handleHistory = (e) => {
     setHistory(e.target.value);
   };
-  const handleImages = (e) => {
-    setImages((current) => [...current, e.target.value]);
-  };
   const notification={
   
     notifications:`La fundacion ${user.name} ha agregado una nueva mascota (${specie}) en adopcion llamada ${name}, es ${gender} y tiene ${age} años. ${history}`
   }
   const handleSubmit = () => {
+
     axios
-      .post(`http://localhost:3001/api/foundation/${user._id}/add`, {
-        name,
-        age,
-        history,
-        gender,
-        size,
-        personality,
-        photos: images,
-        specie,
-      })
-      .then((res) => {
-        navigate('/mascotas')
-      })
-      .then(()=>{
+    .post(
+      `http://localhost:3001/api/upload/`, 
+      {Base64:images}
+    )
+    .then(
+      (res)=>{
       axios
-        .put(`http://localhost:3001/api/user/notifications/add`,notification)
-      })
-  };
+        .post(
+          `http://localhost:3001/api/foundation/${user._id}/add`, 
+          {
+          name,
+          age,
+          history,
+          gender,
+          size,
+          personality,
+          photos: res.data,
+          specie,
+          }
+        )
+        .then(
+          () => {
+          navigate('/mascotas')
+          }
+        )
+        .then(
+          ()=>{
+            axios
+              .put(`http://localhost:3001/api/user/notifications/add`,notification)
+          }
+        )
+      }
+    )
+  }
 
   const handleImage = (e) => {
+    const reader = new FileReader()
     const archivos = seleccionArchivos.files;
 
     if (!archivos || !archivos.length) {
       imagenPrevisualizacion.src = "";
       return;
     }
-    const primerArchivo = archivos[0];
-    const objectUrl = URL.createObjectURL(primerArchivo);
-    setImages(objectUrl)
 
-    imagenPrevisualizacion.src = objectUrl;
+    reader.addEventListener('loadend', function () {
+      imagenPrevisualizacion.src = reader.result
+      setImages(reader.result)
+    })
+    
+    reader.readAsDataURL(archivos[0]);
+
   };
 
   let bottom
@@ -162,9 +181,10 @@ const AddPet = () => {
       <Container
         sx={{
           p: 4,
-          backgroundColor: "#e0e0e0",
+          backgroundColor: backgroundImage,
           borderRadius: 1,
           justifyContent: "center",
+          pt:7
         }}
       >
         <br />
@@ -178,14 +198,16 @@ const AddPet = () => {
               sx={AddImageStyle}
             >
               <input
+                hidden
                 type="file"
                 id="seleccionArchivos"
                 accept="image/*"
                 onChange={handleImage}
               />
+              Seleeciona una imagen para tu mascota
             </Button>
           </Stack>
-          <img id="imagenPrevisualizacion" alt="" />
+          <img id="imagenPrevisualizacion" alt="" style={matches?{maxWidth:500}:{maxWidth:361}}/>
         </Box>
         <Box
           sx={{

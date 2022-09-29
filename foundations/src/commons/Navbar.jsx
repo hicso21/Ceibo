@@ -34,6 +34,7 @@ import useMatches from "../hooks/useMatches";
 import AddIcon from '@mui/icons-material/Add';
 import { sendLogoutRequest } from "../state/user";
 import { search } from "../state/search";
+import backgroundImage from '../assets/fondo-huellas - Edited.png'
 import { styled, useTheme, alpha } from "@mui/material/styles";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -120,6 +121,7 @@ export default function PersistentDrawerLeft({ prop }) {
   //false = mobile  ---  true = desktop
   const matches = useMatches()
   let {pathname} = useLocation()
+  let params = useLocation()
 
   const theme = useTheme();
   const dispatch = useDispatch();
@@ -176,9 +178,16 @@ export default function PersistentDrawerLeft({ prop }) {
   let DrawerContent
   let main
   let bottom
+  let mainHeight
 
   //desktop or mobile
   if(matches){
+    mainHeight = {
+      minHeight: 878,
+      display: "flex",
+      flexDirection: "column",
+      bgcolor:backgroundImage
+    };
     drawerButton = <></>
     if(pathname = '/') {
       openDrawer = false
@@ -422,7 +431,7 @@ export default function PersistentDrawerLeft({ prop }) {
                         </List>
     }
     main =  <>
-              <DrawerHeader/>
+              {params.pathname==='/comentarios'?<DrawerHeader/>:<></>}
                 {prop}
             </>
   }
@@ -632,7 +641,8 @@ export default function PersistentDrawerLeft({ prop }) {
                       </Stack>
                     </List>
     main =  <>
-              {prop}
+              {params.pathname==='/comentarios'?<DrawerHeader/>:<></>}
+                {prop}
             </>
   }
 
@@ -660,8 +670,8 @@ export default function PersistentDrawerLeft({ prop }) {
           </DrawerHeader>
           {DrawerContent}
         </Drawer>
-        <Main open={marginDrawer}>
-          <DrawerHeader/>
+        <Main open={marginDrawer} sx={mainHeight} style={matches?{}:{minHeight:650}}>
+          {pathname === '/add'?<></>:<DrawerHeader/>}
           {main}
           {bottom}
           <Footer/>

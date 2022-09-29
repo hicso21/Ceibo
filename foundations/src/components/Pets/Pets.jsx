@@ -55,11 +55,11 @@ const ShowPets = () => {
       .then((res) => {
         setPets(res.data);
       });
-  }, []);
+  }, [user]);
 
   return (
     <>
-      <Container
+      <Box
         sx={{
           p: 5,
           borderRadius: 1,
@@ -73,86 +73,90 @@ const ShowPets = () => {
           Mascotas
         </Typography>
         <Box className="gridContainer">
-          {pets.map((mascota) => {
+          {pets?.map((mascota) => {
+            let empty
+            if(!mascota) empty = <></>
             return (
-              <Link
-                to={`/mascotas/${mascota._id}`}
-                key={mascota._id}
-                style={{ textDecoration: "none" }}
-              >
-                <Grid item xs={12} p={2} key={mascota._id}>
-                  <Card className="superCard">
-                    <CardMedia>
-                      <img id="imgPet" src={mascota.photos[0]} alt="" />
-                    </CardMedia>
-                    <div className="petCard">
-                      {mascota?.adopted ? (
-                        <Typography
-                          gutterBottom
-                          variant="h5"
-                          component="span"
-                          className="petName"
-                        >
-                          {`${mascota.name} - ADOPTADO`}
-                        </Typography>
-                      ) : (
-                        <Typography
-                          gutterBottom
-                          variant="h4"
-                          component="span"
-                          className="petName"
-                        >
-                          {mascota.name}
-                        </Typography>
-                      )}
-
-                      <div className="petIconsContainer">
-                        <Typography className="icon">
-                          {mascota.specie === "perro" ? (
-                            <img
-                              src={logoPerrito}
-                              width="40"
-                              height="40"
-                              alt="perrito"
-                            />
-                          ) : (
-                            <img
-                              src={logoGatito}
-                              width="40"
-                              height="40"
-                              alt="gatito"
-                            />
-                          )}
-                        </Typography>
-
-                        <Typography variant="body4" color="text.secondary">
-                          {favoritos.gender === "hembra" ? (
-                            <FemaleIcon sx={{ width: 40, height: 40 }} />
-                          ) : (
-                            <MaleIcon sx={{ width: 40, height: 40 }} />
-                          )}
-                        </Typography>
-
+              <>
+                <Link
+                  to={`/mascotas/${mascota._id}`}
+                  key={mascota._id}
+                  style={{ textDecoration: "none" }}
+                >
+                  <Grid item xs={12} p={2} key={mascota._id}>
+                    <Card className="superCard">
+                      <CardMedia>
+                        <img id="imgPet" src={mascota.photos[0]} alt="" />
+                      </CardMedia>
+                      <div className="petCard">
                         {mascota?.adopted ? (
-                          <HomeIcon
-                            className="icon"
-                            sx={{ width: 40, height: 40 }}
-                          />
+                          <Typography
+                            gutterBottom
+                            variant="h5"
+                            component="span"
+                            className="petName"
+                          >
+                            {`${mascota.name} - ADOPTADO`}
+                          </Typography>
                         ) : (
-                          <></>
+                          <Typography
+                            gutterBottom
+                            variant="h4"
+                            component="span"
+                            className="petName"
+                          >
+                            {mascota.name}
+                          </Typography>
                         )}
+
+                        <div className="petIconsContainer">
+                          <Typography className="icon">
+                            {mascota.specie === "perro" ? (
+                              <img
+                                src={logoPerrito}
+                                width="40"
+                                height="40"
+                                alt="perrito"
+                              />
+                            ) : (
+                              <img
+                                src={logoGatito}
+                                width="40"
+                                height="40"
+                                alt="gatito"
+                              />
+                            )}
+                          </Typography>
+
+                          <Typography className="icon">
+                            {mascota.gender === "hembra" ? (
+                              <FemaleIcon sx={{ width: 40, height: 40 }} />
+                            ) : (
+                              <MaleIcon sx={{ width: 40, height: 40 }} />
+                            )}
+                          </Typography>
+
+                          {mascota?.adopted ? (
+                            <HomeIcon
+                              className="icon"
+                              sx={{ width: 40, height: 40 }}
+                            />
+                          ) : (
+                            <></>
+                          )}
+                        </div>
+                        {/* <Typography variant="body2" color="text.secondary">
+                                  {mascota.foundation}
+                                  </Typography> */}
                       </div>
-                      {/* <Typography variant="body2" color="text.secondary">
-                                {mascota.foundation}
-                                </Typography> */}
-                    </div>
-                  </Card>
-                </Grid>
-              </Link>
+                    </Card>
+                  </Grid>
+                </Link>
+              </>
             );
           })}
         </Box>
-      </Container>
+      </Box>
       {bottom}
     </>
   );

@@ -106,7 +106,6 @@ const Profile = () => {
   };
 
   const handleSubmit = () => {
-    console.log(image)
     axios
       .post(`http://localhost:3001/api/upload/`, {Base64:image})
       .then(resp=>{
