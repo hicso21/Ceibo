@@ -74,8 +74,6 @@ const ShowPets = () => {
         </Typography>
         <Box className="gridContainer">
           {pets?.map((mascota) => {
-            let empty
-            if(!mascota) empty = <></>
             return (
               <>
                 <Link

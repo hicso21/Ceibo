@@ -16,6 +16,7 @@ import { setUser } from "../../state/user";
 import { getOnePet } from "../../state/pets";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import "./SingularPet.css";
+import useMatches from '../../hooks/useMatches';
 import { styled } from "@mui/material/styles";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -28,6 +29,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const SingularPet = () => {
+  const matches = useMatches()
   const { pathname } = useLocation();
   const [favorites, setFavorites] = useState(false);
   const user = useSelector((state) => state.user);
@@ -102,7 +104,7 @@ const SingularPet = () => {
 
   return (
     <>
-      <DrawerHeader/>
+      {matches?<DrawerHeader/>:<></>}
       <div className="mainContainer">
         <div className="imgContainer">
           <CardMedia>

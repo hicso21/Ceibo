@@ -453,6 +453,7 @@ export default function PersistentDrawerLeft({ prop }) {
       }
     }
     bottom = <><DrawerHeader/><DrawerHeader/></>
+    if(params.pathname === '/add') bottom = <DrawerHeader/>
     marginDrawer = false
     openDrawer = open
     LogoStyle = { padding: 0, maxWidth: 56}
