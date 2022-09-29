@@ -14,7 +14,7 @@ import History from './components/History';
 import Profile from './components/Profile';
 import Favorites from './components/Favorites/Favorites';
 import SingularPet from './components/SingularPet/SingularPet';
-import SingularFoundation from './components/SingularFoundation';
+import SingularFoundation from './components/SingularFoundation/SingularFoundation';
 import Chat from './components/Chat/Chat.jsx';
 import Messages from './components/Messages';
 import Notifications from './components/Notifications';
