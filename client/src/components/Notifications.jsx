@@ -16,7 +16,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import backgroundImage from '../assets/fondo-huellas - Edited.png'
+import backgroundImage from "../assets/fondo-huellas - Edited.png";
 
 export default function Notifications() {
   const user = useSelector((state) => state.user);
@@ -53,34 +53,42 @@ export default function Notifications() {
   const handlerDelete = () => {
     axios.put(
       `http://localhost:3001/api/user/notifications/remove/${user?._id}`
-    ).then(()=>window.location.reload())
+    );
   };
 
   return (
     <>
       <Box sx={{ p: 3, height: "100%", bgcolor: backgroundImage }}>
-        <Typography
-          variant={typography}
-          sx={{ display: "flex", justifyContent: "center", m: 3 }}
-        >
-          Notificaciones
-        </Typography>
-        {!notifications[0]?<Typography variant={matches?"h4":"h5"} sx={{display:'flex', justifyContent:'center', pt:20}}>No tienes notificaciones!!</Typography>:notifications.map((notifications, index) => {
-          return (
-            <Accordion key={index}>
-              <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1a-content"
-                id="panel1a-header"
-              >
-                <Typography>Se ha agregado una nueva mascota</Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography>{notifications}</Typography>
-              </AccordionDetails>
-            </Accordion>
-          );
-        })}
+        <div id="title">
+          <Typography variant={typography}>Notificaciones</Typography>
+        </div>
+        <br />
+        <br />
+        {!notifications[0] ? (
+          <Typography
+            variant={matches ? "h4" : "h5"}
+            sx={{ display: "flex", justifyContent: "center", pt: 20 }}
+          >
+            No tienes notificaciones!!
+          </Typography>
+        ) : (
+          notifications.map((notifications, index) => {
+            return (
+              <Accordion key={index}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel1a-content"
+                  id="panel1a-header"
+                >
+                  <Typography>Se ha agregado una nueva mascota</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>{notifications}</Typography>
+                </AccordionDetails>
+              </Accordion>
+            );
+          })
+        )}
         {notifications.length ? (
           <Button
             variant="contained"
