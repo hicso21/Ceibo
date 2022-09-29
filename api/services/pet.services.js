@@ -82,7 +82,7 @@ class PetService {
 
   static async getSomePets() {
     try {
-      return await Pets.find({}).limit(3).skip(3).populate("foundation");
+      return await Pets.find({}).limit(6).skip(6).populate("foundation");
     } catch (error) {
       console.log(error.message);
     }

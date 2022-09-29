@@ -1,4 +1,4 @@
-import { Box, Container, ImageList, ImageListItem, ImageListItemBar } from '@mui/material'
+import { Box, Container, ImageList, ImageListItem, ImageListItemBar, Card, CardContent } from '@mui/material'
 import React, { useState } from 'react'
 import {Typography} from '@mui/material';
 import { Link } from 'react-router-dom';
@@ -16,24 +16,37 @@ function Home() {
   const matches = useMatches()
 
   //style variables
+  let TitlePetsStyle
+  let TitleFoundationsStyle
   let ImageStyle
-  let ImageListStyleFoundation
+  let ImageStylePets
   let ImageStyleFoundation
+  let ImageListStylePets
+  let ImageListStyleFoundation
   let BoxStyle
+  let CardStyle
   let variant
 
   if(matches){
     variant = 'h3'
-    ImageStyle = { width: '100%', height: '40%', display:'flex', flexDirection:'row'}
+    TitlePetsStyle = {paddingLeft: "10%", paddingBottom: "2%"}
+    TitleFoundationsStyle = {paddingLeft: "10%", paddingBottom: "2%", paddingTop: "4%"}
+    CardStyle = { maxWidth: "80%", margin: "0 auto", borderRadius: "17px"}
+    ImageStyle = { width: '90%', height: '40%', display:'flex', flexDirection:'row', margin:'auto'}
+    ImageStylePets = {maxHeight: 300, borderRadius:15, width:200}
     ImageListStyleFoundation = { width: '100%', height: '50%', display:'flex', flexDirection:'row'}
-    ImageStyleFoundation = {maxHeight:350, width:360}
+    ImageStyleFoundation = {maxHeight:300, width:200, borderRadius:15}
   }
   else{
     variant = 'h4'
     BoxStyle = {p:2, pt:3, display:'flex', flexDirection:'column', alignItems:'center', margin:'auto 0px', width:'100%'}
-    ImageStyle = { width: 327, height: 235, display:'flex', flexDirection:'column' }
-    ImageListStyleFoundation = { width: 327, height: 235, display:'flex', flexDirection:'column' }
-    ImageStyleFoundation = {maxHeight:350, maxWidth:350, minWidth:300}
+    TitlePetsStyle = { paddingBottom: "4%", paddingTop: "6%"}
+    TitleFoundationsStyle = { paddingBottom: "4%", paddingTop: "6%"}
+    CardStyle = { maxWidth: "80%", margin: "0 auto", borderRadius: "17px"}
+    ImageStyle = { width: 327, height: 235, display:'flex', flexDirection:'column', alignItems:'center'}
+    ImageStylePets = { maxHeight: 300, borderRadius:15, width: 200}
+    ImageListStyleFoundation = { width: 327, height: 235, display:'flex', flexDirection:'column'}
+    ImageStyleFoundation = { maxHeight:300, borderRadius:15, width: 200}
   }
 
   useEffect(() => {
@@ -47,19 +60,19 @@ function Home() {
 
   function ImageListPets({ items, type }) {
     return (
-      <ImageList sx={ImageStyle}>
+      <ImageList sx={ImageStyle} className='imageList'>
         {items?.map((item, i) => {
         return(
-          <Link to={`/${type}/${item._id}`} style={{color: 'inherit', textDecoration:'none'}} key={i}>
+          <Link to={`/${type}/${item._id}`} style={{color: 'inherit', textDecoration:'none',  padding: 5, width:200}} key={i}>
             <ImageListItem>
               <img
                 src={item.photos}
                 alt={item.name}
                 loading="lazy"
-                style={{maxHeight:300}}
+                style={ImageStylePets}
                 />
               <ImageListItemBar
-                title={`Haz click aqui para conocer a ${item.name}!!`}
+                title={`Haz click aqui para conocer a ${item.name}!`}
                 subtitle={<span>{item.foundation.name}</span>}
                 position="below"
               />
@@ -72,9 +85,9 @@ function Home() {
 
   function ImageListFoundations({ items, type }) {
     return (
-      <ImageList sx={ImageListStyleFoundation}>
+      <ImageList sx={ImageStyle} className='imageList'>
         {items?.map((item, i) => (
-          <Link to={`/${type}/${item._id}`} style={{color: 'inherit', textDecoration:'none'}} key={i}>
+          <Link to={`/${type}/${item._id}`} style={{color: 'inherit', textDecoration:'none',  padding: 5, width:200}} key={i}>
             <ImageListItem >
               <img
                 src={item.profile_picture}
@@ -83,7 +96,7 @@ function Home() {
                 style={ImageStyleFoundation}
                 />
               <ImageListItemBar
-                title={`Fundacion ${item.name}!!`}
+                title={`Fundacion ${item.name}`}
                 subtitle={<span>{item.foundation}</span>}
                 position="below"
               />
@@ -97,14 +110,22 @@ function Home() {
   return (
     <>
       <Container sx={BoxStyle}>
-        <Typography variant={variant} >
-          Algunas Mascotas
+        <Typography variant={variant} style={TitlePetsStyle}>
+          Algunas mascotas...
         </Typography>
+        <Card style={CardStyle}>
+        <CardContent>
         <ImageListPets items={pets} type={'mascotas'}/>
-        <Typography variant={variant} >
-          Algunas Fundaciones
+        </CardContent>
+        </Card>
+        <Typography variant={variant} style={TitleFoundationsStyle} >
+          Algunas fundaciones...
         </Typography>
+        <Card style={CardStyle}>
+        <CardContent>
         <ImageListFoundations items={foundations} type={'fundaciones'}/>
+        </CardContent>
+        </Card>
       </Container>
     </>
   );

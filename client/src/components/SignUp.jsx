@@ -6,6 +6,8 @@ import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -74,10 +76,12 @@ export default function SignUp() {
   return (
     <>
       <Container component="main" maxWidth="xs">
+      <Card style={{ maxWidth: 450, margin: "0 auto", borderRadius: "17px" }}>
+        <CardContent>
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            margin: 3,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -195,6 +199,8 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
+        </CardContent>
+        </Card>
       </Container>
     <br/>
     <br/>
