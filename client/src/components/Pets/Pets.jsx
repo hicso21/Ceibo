@@ -138,9 +138,9 @@ const Pets = () => {
   };
 
   return (
-    <div className="mainContainer">
+    <div className="mainContainerPet">
       <Typography
-        variant="h2"
+        variant="h3"
         sx={{ justifyContent: "center", display: "flex" }}
       >
         Mascotas
@@ -347,8 +347,8 @@ const Pets = () => {
                           )}
                         </Typography>
 
-                        <Typography className="icon">
-                          {mascota.gender === "hembra" ? (
+                        <Typography variant="body4" color="text.secondary">
+                          {mascota?.gender === "hembra" ? (
                             <FemaleIcon sx={{ width: 40, height: 40 }} />
                           ) : (
                             <MaleIcon sx={{ width: 40, height: 40 }} />
@@ -357,6 +357,7 @@ const Pets = () => {
 
                         {mascota?.adopted ? (
                           <HomeIcon
+                            color="text.secondary"
                             className="icon"
                             sx={{ width: 40, height: 40 }}
                           />

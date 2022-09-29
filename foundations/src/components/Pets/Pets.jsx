@@ -125,8 +125,8 @@ const ShowPets = () => {
                           )}
                         </Typography>
 
-                        <Typography className="icon">
-                          {mascota.gender === "hembra" ? (
+                        <Typography variant="body4" color="text.secondary">
+                          {favoritos.gender === "hembra" ? (
                             <FemaleIcon sx={{ width: 40, height: 40 }} />
                           ) : (
                             <MaleIcon sx={{ width: 40, height: 40 }} />
