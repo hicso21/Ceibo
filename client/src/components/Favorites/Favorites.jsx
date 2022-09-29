@@ -20,6 +20,16 @@ import FemaleIcon from "@mui/icons-material/Female";
 import useMatches from "../../hooks/useMatches";
 import backgroundImage from "../../assets/fondo-huellas - Edited.png";
 import "./Favorites.css";
+import { styled } from "@mui/material/styles";
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
 
 const ShowFavorites = () => {
   let empty = <></>;
@@ -107,6 +117,7 @@ const ShowFavorites = () => {
 
   return (
     <>
+      {!matches?<DrawerHeader/>:<></>}
       <div
         style={{
           backgroundColor: backgroundImage,

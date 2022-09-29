@@ -17,6 +17,16 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import backgroundImage from "../assets/fondo-huellas - Edited.png";
+import { styled } from "@mui/material/styles";
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
 
 export default function History() {
   const user = useSelector((state) => state.user);
@@ -75,32 +85,14 @@ export default function History() {
 
   return (
     <>
+      {!matches?<DrawerHeader/>:<></>}
       <Box sx={{ p: 3, height: "100%", bgcolor: backgroundImage }}>
-        {matches ? (
+        <br />
           <div id="title">
             <Typography variant={typography}>
-              {" "}
               Tus Mascotas Adoptadas
             </Typography>
           </div>
-        ) : (
-          <>
-            <Typography
-              variant={typography}
-              sx={{ display: "flex", justifyContent: "center", mt: 3 }}
-            >
-              {" "}
-              Tus Mascotas
-            </Typography>
-            <Typography
-              variant={typography}
-              sx={{ display: "flex", justifyContent: "center" }}
-            >
-              {" "}
-              Adoptadas
-            </Typography>
-          </>
-        )}
         <br />
 
         {!adoptados[0] ? (

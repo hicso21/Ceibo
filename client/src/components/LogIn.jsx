@@ -52,10 +52,10 @@ export default function SignUp() {
       password: data.get('password'),
     }))
     .then((resp)=>{
-      if(resp.type.substring(6) === 'fulfilled'){
-        navigate('/')
-      }else{
+      if(resp.payload === undefined){
         setOpen(true)
+      }else{
+        navigate('/')
       }
     })
   };

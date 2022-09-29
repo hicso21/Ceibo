@@ -68,7 +68,7 @@ const ShowPets = () => {
       >
         <Typography
           variant="h3"
-          sx={{ display: "flex", justifyContent: "center" }}
+          sx={{ display: "flex", justifyContent: "center", pb:3 }}
         >
           Mascotas
         </Typography>
