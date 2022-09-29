@@ -158,7 +158,6 @@ export default function SignUp() {
           </Box>
         </Box>
       </Container>
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     </>
   );
 }

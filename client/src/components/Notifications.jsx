@@ -17,6 +17,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import backgroundImage from "../assets/fondo-huellas - Edited.png";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { styled } from "@mui/material/styles";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -91,6 +92,7 @@ export default function Notifications() {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
+                <NotificationsActiveIcon color="action" sx={{ mr: 2 }}/>
                   <Typography>Se ha agregado una nueva mascota</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -116,3 +118,4 @@ export default function Notifications() {
     </>
   );
 }
+

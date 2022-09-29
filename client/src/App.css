@@ -44,7 +44,7 @@
 }
 
 #root {
-  background-color: #F1F2F1;
+  background-color: #c0dce4;
   width: 100%;
 }
 
@@ -101,4 +101,30 @@
 #imgPet {
   max-width: 500px;
   max-height: 1000px;
+}
+
+.imageList::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+
+.imageList::-webkit-scrollbar:horizontal {
+  width:10px;
+}
+
+.imageList::-webkit-scrollbar-button:increment,.imageList::-webkit-scrollbar-button {
+  display: none;
+} 
+
+.imageList::-webkit-scrollbar:horizontal {
+  height: 10px;
+}
+
+.imageList::-webkit-scrollbar-thumb {
+  background-color: #797979;
+  border-radius: 20px;
+  border: 2px solid #f1f2f3;
+}
+
+.imageList::-webkit-scrollbar-track {
+  border-radius: 10px;
 }

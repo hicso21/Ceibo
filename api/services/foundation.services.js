@@ -44,7 +44,7 @@ class FoundationService {
 
   static async getSomeFoundations() {
     try {
-      return await Foundation.find({}).limit(3).skip(2);
+      return await Foundation.find({}).limit(6).skip(2);
     } catch (error) {
       console.log(error.message);
     }
