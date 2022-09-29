@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { sendLoginRequest } from '../state/user';
 import { useState } from 'react';
-import { Alert, Link, Snackbar } from '@mui/material';
+import { Alert, Link, Snackbar, Card, CardContent } from '@mui/material';
 import { useEffect } from 'react';
 import GoogleLogin from './GoogleLogin'
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -63,10 +63,12 @@ export default function SignUp() {
   return (
     <>
       <Container component="main" maxWidth="xs">
+    <Card style={{ maxWidth: 450, margin: "0 auto", borderRadius: "17px" }}>
+        <CardContent>
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            margin: 3,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -127,7 +129,7 @@ export default function SignUp() {
                   name="password"
                   autoComplete="new-password"
                   helperText={pwLegend}
-                />
+                  />
                 <Button color='inherit' onClick={handleType} sx={{height:56}}>
                   <VisibilityIcon/>
                 </Button>
@@ -154,6 +156,8 @@ export default function SignUp() {
             </Grid>
           </Box>
         </Box>
+        </CardContent>
+        </Card>
       </Container>
     <br/>
     <br/>

@@ -16,6 +16,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 
 export default function Notifications() {
   const user = useSelector((state) => state.user);
@@ -72,6 +73,7 @@ export default function Notifications() {
                 aria-controls="panel1a-content"
                 id="panel1a-header"
               >
+                <NotificationsActiveIcon color="action" sx={{ mr: 2 }}/>
                 <Typography>Se ha agregado una nueva mascota</Typography>
               </AccordionSummary>
               <AccordionDetails>
