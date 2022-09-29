@@ -29,16 +29,16 @@ export default function Messages() {
 
   let pL;
   let pR;
-  let typography
+  let typography;
 
   if (matches) {
     pL = 10;
     pR = 10;
-    typography = 'h3'
+    typography = "h3";
   } else {
     pL = 5;
     pR = 5;
-    typography = 'h4'
+    typography = "h4";
   }
 
   useEffect(() => {
@@ -63,19 +63,17 @@ export default function Messages() {
   return (
     <Box
       sx={{
-        minHeight:530,
-        paddingTop:6,
+        minHeight: 530,
+        paddingTop: 6,
         width: "100%",
         paddingLeft: pR,
         paddingRight: pL,
       }}
     >
-      <Typography
-        variant={typography}
-        sx={{ justifyContent: "center", display: "flex", mb: 2 }}
-      >
-        Conversaciones
-      </Typography>
+      <div id="title">
+        <Typography variant={typography}>Conversaciones</Typography>
+      </div>
+      <br />
       {foundations ? (
         <List
           sx={{
@@ -87,42 +85,46 @@ export default function Messages() {
             pb: 0,
           }}
         >
-          {foundations.map((item) => (
-          <Link
-            key={item._id}
-            to={`/chat/${item.fId._id}`}
-            style={{
-              textDecoration: "none",
-              color: "inherit",
-            }}
-          >
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                <Avatar alt="" src={item.fId.profile_picture} />
-              </ListItemAvatar>
-              <ListItemText
-                primary={
-                  <Typography>
-                    <strong>{item.fId.name}</strong>
-                  </Typography>
-                }
-                secondary={
-                  <React.Fragment>
-                    <Typography
-                      sx={{ display: "inline" }}
-                      component="span"
-                      variant="body2"
-                      color="text.primary"
-                    >
-                      Último mensaje
+          {foundations.map((item, i) => (
+            <Link
+              key={item._id}
+              to={`/chat/${item.fId._id}`}
+              style={{
+                textDecoration: "none",
+                color: "inherit",
+              }}
+            >
+              <ListItem alignItems="flex-start">
+                <ListItemAvatar>
+                  <Avatar alt="" src={item.fId.profile_picture} />
+                </ListItemAvatar>
+                <ListItemText
+                  primary={
+                    <Typography>
+                      <strong>{item.fId.name}</strong>
                     </Typography>
-                    {` — ${item.user}: ${item.message}`}
-                  </React.Fragment>
-                }
-              />
-            </ListItem>
-            <Divider variant="inset" component="li" />
-          </Link>
+                  }
+                  secondary={
+                    <React.Fragment>
+                      <Typography
+                        sx={{ display: "inline" }}
+                        component="span"
+                        variant="body2"
+                        color="text.primary"
+                      >
+                        Último mensaje
+                      </Typography>
+                      {` — ${item.user}: ${item.message}`}
+                    </React.Fragment>
+                  }
+                />
+              </ListItem>
+              {foundations.length - 1 === i ? (
+                <></>
+              ) : (
+                <Divider variant="inset" component="li" />
+              )}
+            </Link>
           ))}
         </List>
       ) : (
@@ -140,7 +142,7 @@ export default function Messages() {
           </Typography>
         </div>
       )}
-      {matches?<></>:<DrawerHeader/>}
+      {matches ? <></> : <DrawerHeader />}
     </Box>
   );
 }

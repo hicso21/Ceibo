@@ -159,16 +159,6 @@ export default function SignUp() {
         </CardContent>
         </Card>
       </Container>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
     </>
   );
 }

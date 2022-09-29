@@ -13,7 +13,7 @@ import {
   Container,
   Collapse,
   Alert,
-  CardMedia
+  CardMedia,
 } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router";
@@ -24,9 +24,9 @@ import { setUser } from "../state/user";
 import { useEffect } from "react";
 
 const Profile = () => {
-  let changePassword
-  let google
-  const [collapse, setCollapse] = useState(false)
+  let changePassword;
+  let google;
+  const [collapse, setCollapse] = useState(false);
   const [open, setOpen] = useState(false);
   const [openPassword, setOpenPassword] = useState(false);
   const { user } = useSelector((state) => state);
@@ -41,7 +41,7 @@ const Profile = () => {
   );
 
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -75,20 +75,20 @@ const Profile = () => {
         email: email,
       })
       .then((res) => dispatch(setUser(res.data)));
-      setOpen(false);
+    setOpen(false);
   };
 
   const handleSendPassword = () => {
     axios
       .put(`http://localhost:3001/api/user/resetPassword/${user._id}`, {
-        password: password
+        password: password,
       })
       .then((res) => dispatch(setPassword(res.data)));
-      setOpenPassword(false);
+    setOpenPassword(false);
   };
 
   const handleImage = (e) => {
-    const reader = new FileReader()
+    const reader = new FileReader();
     const archivos = seleccionArchivos.files;
 
     if (!archivos || !archivos.length) {
@@ -96,226 +96,243 @@ const Profile = () => {
       return;
     }
 
-    reader.addEventListener('loadend', function () {
-      imagenPrevisualizacion.src = reader.result
-      setImage(reader.result)
-    })
-    
-    reader.readAsDataURL(archivos[0]);
+    reader.addEventListener("loadend", function () {
+      imagenPrevisualizacion.src = reader.result;
+      setImage(reader.result);
+    });
 
+    reader.readAsDataURL(archivos[0]);
   };
 
   const handleSubmit = () => {
-    console.log(image)
+    console.log(image);
     axios
-      .post(`http://localhost:3001/api/upload/`, {Base64:image})
-      .then(resp=>{
-        axios.put(`http://localhost:3001/api/user/update/${user._id}`, {
-          profile_picture: resp.data,
-          name: user.name,
-          last_name: user.last_name,
-          email: user.email,
-          password: user.password
-        })
-        .then(()=>{
-          setCollapse(true)
-          setTimeout(() => {
-            setCollapse(false)
-          }, 3000);
-        })
-      })
+      .post(`http://localhost:3001/api/upload/`, { Base64: image })
+      .then((resp) => {
+        axios
+          .put(`http://localhost:3001/api/user/update/${user._id}`, {
+            profile_picture: resp.data,
+            name: user.name,
+            last_name: user.last_name,
+            email: user.email,
+            password: user.password,
+          })
+          .then(() => {
+            setCollapse(true);
+            setTimeout(() => {
+              setCollapse(false);
+            }, 3000);
+          });
+      });
   };
 
   //false = mobile  ---  true = desktop
   const matches = useMatches();
 
-  let typography
+  let typography;
 
   if (matches) {
-    typography = 'h3'
-  } 
-  else {
-    typography = 'h4'
+    typography = "h3";
+  } else {
+    typography = "h4";
   }
 
-  localStorage.getItem('google')?
-   changePassword = <Typography sx={{display:'flex', justifyContent:'center', mt:10, mb:14}}>Estas logueado con una cuenta de Google</Typography>
-   :
-   changePassword=  <>
-                      <Stack alignItems="center" spacing={1}>
-                        <Button variant="contained" component="label">
-                          Subir imagen
-                          <input hidden id="seleccionArchivos" accept="image/*" type="file" onChange={handleImage} />
-                        </Button>
-                          <img id="imagenPrevisualizacion" alt="" />
-                      </Stack>
-                      <Box component="form" noValidate sx={{ mt: 2 }}>
-                        <Button
-                          variant="contained"
-                          onClick={handleClickOpen}
-                          fullWidth
-                          sx={{
-                            marginBottom: 1,
-                            marginTop: 2,
-                            backgroundColor: "#03A696",
-                            "&:hover": {
-                              backgroundColor: "#04BF9D",
-                              color: "#757575",
-                            },
-                          }}
-                        >
-                          Editar datos personales
-                        </Button>
-                        <Button
-                          variant="contained"
-                          onClick={handleClickOpenPassword}
-                          fullWidth
-                          sx={{
-                            marginBottom: 1,
-                            backgroundColor: "#03A696",
-                            "&:hover": {
-                              backgroundColor: "#04BF9D",
-                              color: "#757575",
-                            },
-                          }}
-                        >
-                          Cambiar contraseña
-                        </Button>
-                        <Dialog
-                          open={open}
-                          onClose={handleSend}
-                          maxWidth="md"
-                          fullWidth={true}
-                        >
-                          <DialogContent>
-                            <TextField
-                              onChange={nameChange}
-                              label="Nombre"
-                              defaultValue={user.name}
-                              autoFocus
-                              margin="dense"
-                              id="name"
-                              type="text"
-                              fullWidth
-                              variant="standard"
-                            />
-                            <TextField
-                              onChange={lastNameChange}
-                              label="Apellido"
-                              defaultValue={user.last_name}
-                              autoFocus
-                              margin="dense"
-                              id="name"
-                              type="text"
-                              fullWidth
-                              variant="standard"
-                            />
-                            <TextField
-                              onChange={emailChange}
-                              autoFocus
-                              margin="dense"
-                              id="name"
-                              label="Email"
-                              defaultValue={user.email}
-                              type="text"
-                              fullWidth
-                              variant="standard"
-                            />
-                          </DialogContent>
+  localStorage.getItem("google")
+    ? (changePassword = (
+        <Typography
+          sx={{ display: "flex", justifyContent: "center", mt: 10, mb: 14 }}
+        >
+          Estas logueado con una cuenta de Google
+        </Typography>
+      ))
+    : (changePassword = (
+        <>
+          <Stack alignItems="center" spacing={1}>
+            <Button variant="contained" component="label">
+              Subir imagen
+              <input
+                hidden
+                id="seleccionArchivos"
+                accept="image/*"
+                type="file"
+                onChange={handleImage}
+              />
+            </Button>
+            <img id="imagenPrevisualizacion" alt="" />
+          </Stack>
+          <Box component="form" noValidate sx={{ mt: 2 }}>
+            <Button
+              variant="contained"
+              onClick={handleClickOpen}
+              fullWidth
+              sx={{
+                marginBottom: 1,
+                marginTop: 2,
+                backgroundColor: "#03A696",
+                "&:hover": {
+                  backgroundColor: "#04BF9D",
+                  color: "#757575",
+                },
+              }}
+            >
+              Editar datos personales
+            </Button>
+            <Button
+              variant="contained"
+              onClick={handleClickOpenPassword}
+              fullWidth
+              sx={{
+                marginBottom: 1,
+                backgroundColor: "#03A696",
+                "&:hover": {
+                  backgroundColor: "#04BF9D",
+                  color: "#757575",
+                },
+              }}
+            >
+              Cambiar contraseña
+            </Button>
+            <Dialog
+              open={open}
+              onClose={handleSend}
+              maxWidth="md"
+              fullWidth={true}
+            >
+              <DialogContent>
+                <TextField
+                  onChange={nameChange}
+                  label="Nombre"
+                  defaultValue={user.name}
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  type="text"
+                  fullWidth
+                  variant="standard"
+                />
+                <TextField
+                  onChange={lastNameChange}
+                  label="Apellido"
+                  defaultValue={user.last_name}
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  type="text"
+                  fullWidth
+                  variant="standard"
+                />
+                <TextField
+                  onChange={emailChange}
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Email"
+                  defaultValue={user.email}
+                  type="text"
+                  fullWidth
+                  variant="standard"
+                />
+              </DialogContent>
 
-                          <DialogActions>
-                            <Button variant="contained" onClick={() => setOpen(false)}>
-                              Cancelar
-                            </Button>
-                            <Button variant="contained" onClick={handleSend}>
-                              Guardar cambios
-                            </Button>
-                          </DialogActions>
-                        </Dialog>
+              <DialogActions>
+                <Button variant="contained" onClick={() => setOpen(false)}>
+                  Cancelar
+                </Button>
+                <Button variant="contained" onClick={handleSend}>
+                  Guardar cambios
+                </Button>
+              </DialogActions>
+            </Dialog>
 
-                        <Dialog
-                          open={openPassword}
-                          onClose={handleSendPassword}
-                          maxWidth="md"
-                          fullWidth={true}
-                          >
-                          
-                          <DialogContent>
-                            <TextField
-                            onChange={passwordChange}
-                            margin="dense"
-                            variant="standard"
-                            fullWidth
-                            autoFocus
-                            label="Nueva contraseña"
-                            type="password"
-                            id="password"
-                            name="password"
-                            />
-                          </DialogContent>
+            <Dialog
+              open={openPassword}
+              onClose={handleSendPassword}
+              maxWidth="md"
+              fullWidth={true}
+            >
+              <DialogContent>
+                <TextField
+                  onChange={passwordChange}
+                  margin="dense"
+                  variant="standard"
+                  fullWidth
+                  autoFocus
+                  label="Nueva contraseña"
+                  type="password"
+                  id="password"
+                  name="password"
+                />
+              </DialogContent>
 
-                          <DialogActions>
-                            <Button variant="contained" onClick={() => setOpenPassword(false)}>
-                              Cancelar
-                            </Button>
-                            <Button variant="contained" onClick={handleSendPassword}>
-                              Guardar cambios
-                            </Button>
-                          </DialogActions>
-                        </Dialog>
-                      </Box>
-                      <Button
-                        color="inherit"
-                        fullWidth
-                        sx={{ mt: 5, bgcolor: "#FFD640", mb: 1, borderRadius: 7 }}
-                        onClick={handleSubmit}
-                        >
-                        Guardar cambios
-                      </Button>
-                    </>
-
-  return (
-    <>
-        <Container component="main" maxWidth="xs">
-          <CssBaseline />
-          <Box
-            sx={{
-              marginTop: 4,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <Typography component="h1" variant={typography}>
-              Mi Perfil
-            </Typography>
-            <Stack direction="row" alignItems="center" spacing={2}>
-              <Avatar  alt="Remy Sharp"
-                sx={{ m: 2, width: 66, height: 66 }}>
-                  <img id="imagenPrevisualizacion" alt="" width={"100%"} src={user.profile_picture} />
-                </Avatar>
-            </Stack>
-          {changePassword}
+              <DialogActions>
+                <Button
+                  variant="contained"
+                  onClick={() => setOpenPassword(false)}
+                >
+                  Cancelar
+                </Button>
+                <Button variant="contained" onClick={handleSendPassword}>
+                  Guardar cambios
+                </Button>
+              </DialogActions>
+            </Dialog>
           </Box>
           <Button
             color="inherit"
             fullWidth
-            sx={{ bgcolor: "#FFD640", mb: 1, borderRadius: 7 }}
-            onClick={() => {
-              navigate("/");
-            }}
-            >
-            Volver
+            sx={{ mt: 5, bgcolor: "#FFD640", mb: 1, borderRadius: 7 }}
+            onClick={handleSubmit}
+          >
+            Guardar cambios
           </Button>
-          <Collapse in={collapse}>
-            <Alert variant="filled" severity="success" sx={{borderRadius:10}}>
-              Por favor reinicia sesion para cargar la foto de perfil
-            </Alert>
-          </Collapse>
-          <br />
-          <br />
-          <br />
-        </Container>
+        </>
+      ));
+
+  return (
+    <>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 4,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div id="title">
+            <Typography component="h1" variant={typography}>
+              Mi Perfil
+            </Typography>
+          </div>
+          <Stack direction="row" alignItems="center" spacing={2}>
+            <Avatar alt="Remy Sharp" sx={{ m: 2, width: 66, height: 66 }}>
+              <img
+                id="imagenPrevisualizacion"
+                alt=""
+                width={"100%"}
+                src={user.profile_picture}
+              />
+            </Avatar>
+          </Stack>
+          {changePassword}
+        </Box>
+        <Button
+          color="inherit"
+          fullWidth
+          sx={{ bgcolor: "#FFD640", mb: 1, borderRadius: 7 }}
+          onClick={() => {
+            navigate("/");
+          }}
+        >
+          Volver
+        </Button>
+        <Collapse in={collapse}>
+          <Alert variant="filled" severity="success" sx={{ borderRadius: 10 }}>
+            Por favor reinicia sesion para cargar la foto de perfil
+          </Alert>
+        </Collapse>
+      </Container>
     </>
   );
 };

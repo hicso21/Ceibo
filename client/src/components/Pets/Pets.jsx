@@ -138,13 +138,10 @@ const Pets = () => {
   };
 
   return (
-    <div className="mainContainer">
-      <Typography
-        variant="h2"
-        sx={{ justifyContent: "center", display: "flex" }}
-      >
-        Mascotas
-      </Typography>
+    <div className="mainContainerPet">
+      <div id="title">
+        <Typography variant="h3">Mascotas</Typography>
+      </div>
       <Grid container my={4}>
         <Box className="accordionBox">
           <Accordion
@@ -347,8 +344,8 @@ const Pets = () => {
                           )}
                         </Typography>
 
-                        <Typography className="icon">
-                          {mascota.gender === "hembra" ? (
+                        <Typography variant="body4" color="text.secondary">
+                          {mascota?.gender === "hembra" ? (
                             <FemaleIcon sx={{ width: 40, height: 40 }} />
                           ) : (
                             <MaleIcon sx={{ width: 40, height: 40 }} />
@@ -357,6 +354,7 @@ const Pets = () => {
 
                         {mascota?.adopted ? (
                           <HomeIcon
+                            color="text.secondary"
                             className="icon"
                             sx={{ width: 40, height: 40 }}
                           />

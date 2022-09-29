@@ -16,7 +16,9 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import backgroundImage from "../assets/fondo-huellas - Edited.png";
 
 export default function Notifications() {
   const user = useSelector((state) => state.user);

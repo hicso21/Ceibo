@@ -17,7 +17,6 @@
   padding: 20px;
   height: 100%;
   width: 100%;
-  background-color: #f1f2f1;
   position: absolute;
   @media screen and(max-width: 600px) {
     width: 100vw;
@@ -34,7 +33,7 @@
 }
 
 .title {
-  width: 90%;
+  width: 100%;
   @media screen and(max-width: 600px) {
     width: 100vw;
     min-width: 100%;
