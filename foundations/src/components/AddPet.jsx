@@ -164,7 +164,7 @@ const AddPet = () => {
               </Typography>
             </>
   }else{
-    bottom = <></>
+    bottom = <><br /></>
     typography = 'h4'
     title = <>
               <Typography
@@ -179,13 +179,23 @@ const AddPet = () => {
   return (
     <>
       <Container
-        sx={{
-          p: 4,
-          backgroundColor: backgroundImage,
-          borderRadius: 1,
-          justifyContent: "center",
-          pt:7
-        }}
+        sx={
+          matches?
+          {
+            p: 4,
+            backgroundColor: backgroundImage,
+            borderRadius: 1,
+            justifyContent: "center",
+          }
+          :
+          {
+            p: 4,
+            backgroundColor: backgroundImage,
+            borderRadius: 1,
+            justifyContent: "center",
+            pt:7
+          }
+        }
       >
         <br />
         {title}

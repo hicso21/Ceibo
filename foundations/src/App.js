@@ -2,7 +2,7 @@ import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./commons/Navbar";
-import SingularPet from "./components/SingularPet";
+import SingularPet from "./components/SingularPet/SingularPet";
 import Profile from "./components/Profile";
 import Comentarios from "./components/Comentarios/Comentarios";
 import SignUp from "./components/SignUp";

@@ -28,6 +28,16 @@ import { Link } from "react-router-dom";
 import PetsIcon from "@mui/icons-material/Pets";
 import CommentIcon from "@mui/icons-material/Comment";
 import "./SingularFoundation.css";
+import { styled } from "@mui/material/styles";
+
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: "flex-end",
+}));
 
 const SingularFoundation = () => {
   const navigate = useNavigate();
@@ -105,6 +115,7 @@ const SingularFoundation = () => {
 
   return (
     <>
+      <DrawerHeader/>
       <div className="mainContainerFoundation">
         <CardMedia className="imgContainerFound">
           <img

@@ -79,7 +79,8 @@ export default function Chat() {
       .then((res) => {
         setChatMessages(res.data);
       });
-  }, []);
+    }, []);
+    console.log(chatMessages)
 
   useEffect(() => {
     const receiveMessage = (message) => {
@@ -97,11 +98,12 @@ export default function Chat() {
   return (
     <>
       <Fragment>
+        <br />
         <Container className="superContainer">
           <Paper elevation={5}>
             <Box p={3} className="boxContainer">
               <Typography variant="h5" gutterBottom>
-                Chat con el usuario
+                Chat con {<strong>{chatMessages[0]?.user}</strong>}
               </Typography>
               <Divider />
               <Grid container>
@@ -112,7 +114,7 @@ export default function Chat() {
                   className="messageContainer"
                 >
                   <List id="chat-window-messages">
-                    {chatMessages.map((chat, index) => {
+                    {chatMessages?.map((chat, index) => {
                       own = chat.user === user.name ? true : false;
                       return (
                         <div
