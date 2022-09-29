@@ -121,6 +121,7 @@ export default function PersistentDrawerLeft({ prop }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   let { pathname } = useLocation();
+  let params = useLocation()
   let path = useLocation();
   let drawerColor;
   const [notifications, setNotifications] = useState([]);
@@ -708,7 +709,7 @@ export default function PersistentDrawerLeft({ prop }) {
           </List>
         </Drawer>
         <Main open={marginDrawer} sx={mainHeight} style={matches?{}:{minHeight:650}}>
-          <DrawerHeader />
+          {params.pathname === '/' || params.pathname === '/messages'?<DrawerHeader/>:<></>}
           {main}
           {bottomDrawer}
           <Footer />

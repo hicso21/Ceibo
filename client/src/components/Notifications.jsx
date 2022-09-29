@@ -53,7 +53,7 @@ export default function Notifications() {
   const handlerDelete = () => {
     axios.put(
       `http://localhost:3001/api/user/notifications/remove/${user?._id}`
-    );
+    ).then(()=>window.location.reload())
   };
 
   return (

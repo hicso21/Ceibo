@@ -98,7 +98,7 @@ export default function Chat() {
 
   return (
     <>
-      <Fragment>
+      <>
         <Container className="superContainer">
           <Paper elevation={5}>
             <Box p={3} className="boxContainer">
@@ -162,7 +162,7 @@ export default function Chat() {
             </Box>
           </Paper>
         </Container>
-      </Fragment>
+      </>
     </>
   );
 }
