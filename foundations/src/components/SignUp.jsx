@@ -15,6 +15,8 @@ import { sendSignUpRequest } from '../state/user';
 import { useState } from 'react';
 import { Alert, Snackbar } from '@mui/material';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
 
 
 export default function SignUp() {
@@ -33,11 +35,11 @@ export default function SignUp() {
   };
 
   const [name, setName] = useState('')
-  const [nameLegend, setNameLegend] = useState('Ingrese su nombre')
+  const [nameLegend, setNameLegend] = useState('Ingrese el nombre de su fundación')
   const [errorName, setErrorName] = useState(false)
 
   const [location, setLocation] = useState('')
-  const [locationLegend, setLocationLegend] = useState('Ingrese su ubicacion')
+  const [locationLegend, setLocationLegend] = useState('Ingrese la ubicación de su fundación')
   const [errorLocation, setErrorLocation] = useState(false)
 
   const [email, setEmail] = useState('')
@@ -77,11 +79,16 @@ export default function SignUp() {
 
   return (
     <>
-      <Container component="main" maxWidth="xs">
+      <br />
+      <br />
+      <br />
+      <Container maxWidth="xs">
+      <Card style={{ maxWidth: 450, margin: "0 auto", borderRadius: "17px" }}>
+        <CardContent>
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            margin: 3,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -92,15 +99,15 @@ export default function SignUp() {
               {alertText}
             </Alert>
           </Snackbar>
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: '#1e244b' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Registro
+            Registrarse
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   inputProps={{style: {textTransform: 'capitalize'}}} 
                   onChange={(e)=>{
@@ -124,7 +131,7 @@ export default function SignUp() {
                   autoCapitalize=''
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} sm={6}>
                 <TextField
                   inputProps={{style: {textTransform: 'capitalize'}}} 
                   onChange={(e)=>{
@@ -205,16 +212,15 @@ export default function SignUp() {
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="/" variant="body2">
-                  Ya tenes una cuenta? Inicia sesion
+                ¿Ya tienes una cuenta? Inicia sesión
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
+        </CardContent>
+        </Card>
       </Container>
-    <br/>
-    <br/>
-    <br/>
     </>
   );
 }

@@ -15,6 +15,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import { useSelector } from "react-redux";
 import logoGatito from "../../assets/gatitoLogo.png";
 import logoPerrito from "../../assets/perritoLogo.png";
+import sadCat from "../../assets/sadCat.png";
 import MaleIcon from "@mui/icons-material/Male";
 import FemaleIcon from "@mui/icons-material/Female";
 import useMatches from "../../hooks/useMatches";
@@ -61,14 +62,15 @@ const ShowFavorites = () => {
               mt: 5,
             }}
           >
-            Aun no tienes favoritos
+            Aun no tienes favoritos...
           </Typography>
+          <img src={sadCat} width="150" height="150" alt="gatitoSad" style={{marginTop: 25}} />
           <Button
             sx={{
               width: "100%",
               display: "flex",
               justifyContent: "center",
-              mt: 15,
+              mt: 5,
             }}
           >
             <Link to="/mascotas">
@@ -117,7 +119,7 @@ const ShowFavorites = () => {
 
   return (
     <>
-      {!matches?<DrawerHeader/>:<></>}
+      {!matches ? <DrawerHeader /> : <></>}
       <div
         style={{
           backgroundColor: backgroundImage,
@@ -125,11 +127,7 @@ const ShowFavorites = () => {
       >
         <Container className="mainContainerFav">
           <div id="title">
-            <Typography
-              variant="h3"
-            >
-              Favoritos
-            </Typography>
+            <Typography variant="h3">Favoritos</Typography>
           </div>
           <Grid className="gridContainer" container my={4}>
             {empty}

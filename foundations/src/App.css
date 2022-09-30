@@ -6,6 +6,7 @@
 
 #root {
   background-image: url("../src/assets/fondo-huellas\ -\ Edited.png");
+  background-size: auto;
 }
 
 .App-logo {

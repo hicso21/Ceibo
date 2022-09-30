@@ -106,7 +106,7 @@ export default function SignUp() {
                   error={errorEmail}
                   required
                   fullWidth
-                  label="Correo Electronico"
+                  label="Correo electronico"
                   name="email"
                   autoComplete="email"
                   helperText={emailLegend}

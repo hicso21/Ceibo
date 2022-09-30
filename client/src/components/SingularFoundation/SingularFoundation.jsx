@@ -7,6 +7,7 @@ import {
   ImageListItemBar,
   Button,
   List,
+  CardContent,
 } from "@mui/material";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -70,6 +71,7 @@ const SingularFoundation = () => {
       height: 235,
       display: "flex",
       flexDirection: "column",
+
     };
   }
 
@@ -202,14 +204,16 @@ const SingularFoundation = () => {
           </Button>
         </div>
       </div>
-      <div className="petsContainer">
-        <Card >
+      <div>
+        <Card style={{ maxWidth: "80%", margin: "0 auto", borderRadius: "17px", marginTop: "30px" }} >
           <Box sx={{ padding: 2 }}>
             <Typography variant="h5">
               <PetsIcon sx={{ paddingTop: 1, width: 30 }} /> Mascotas de la
               fundación:
             </Typography>
-            <ImageListPets items={pets} type={"mascotas"} />
+          <CardContent>
+            <ImageListPets items={pets} type={"mascotas"}/>
+            </CardContent>
           </Box>
         </Card>
       </div>
