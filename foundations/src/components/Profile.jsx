@@ -45,6 +45,16 @@ const Profile = () => {
   const seleccionArchivos = document.querySelector("#seleccionArchivos");
   const imagenPrevisualizacion = document.querySelector("#imagenPrevisualizacion");
 
+  const titulo = {
+    display: 'flex',
+    borderTop: '4px dotted rgb(238, 197, 84)',
+    borderBottom: '4px dotted rgb(238, 197, 84)',
+    backgroundColor: 'rgb(255, 255, 234)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  }
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -234,7 +244,7 @@ const Profile = () => {
               alignItems: "center",
             }}
           >
-            <Typography component="h1" variant={typography}>
+            <Typography component="h1" variant={typography} style={titulo}>
               Mi Fundacion
             </Typography>
             <Stack direction="row" spacing={2}>

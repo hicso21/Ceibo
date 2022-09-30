@@ -171,8 +171,6 @@ function Home() {
 
   return (
     <>
-    <Box sx={{backgroundImage: "url(https://i.ibb.co/HtyS7xs/Bienvenidos-2.png)", width: "800px", height: "700px"}}></Box>
-       {/* <img src={Bienvenidos} alt="bienvenidos"/> */}
       <Container sx={BoxStyle}>
         <Typography variant={variant} style={TitlePetsStyle}>
           Algunas mascotas...

@@ -28,6 +28,16 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
+const titulo = {
+  display: 'flex',
+  borderTop: '4px dotted rgb(238, 197, 84)',
+  borderBottom: '4px dotted rgb(238, 197, 84)',
+  backgroundColor: 'rgb(255, 255, 234)',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '100%',
+}
+
 const ShowPets = () => {
   const [pets, setPets] = useState([]);
   const user = useSelector((state) => state.user);
@@ -68,7 +78,8 @@ const ShowPets = () => {
       >
         <Typography
           variant="h3"
-          sx={{ display: "flex", justifyContent: "center", pb:3 }}
+          sx={{ display: "flex", justifyContent: "center", mb:3 }}
+          style={titulo}
         >
           Mascotas
         </Typography>

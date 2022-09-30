@@ -104,7 +104,9 @@ export default function History() {
             >
               Aun no has adoptado ninguna mascota...
             </Typography>
-            <img src={sadCat} width="150" height="150" alt="gatitoSad" style={{marginTop: 25}} />
+            <Box sx={{width:'100%', display:'flex', justifyContent:'center', mt:3}}>
+              <img src={sadCat} width="150" height="150" alt="gatitoSad" style={{marginTop: 25}} />
+            </Box>
             <Typography
               variant={matches ? "h5" : "h6"}
               sx={{ display: "flex", justifyContent: "center", pt: 15 }}
