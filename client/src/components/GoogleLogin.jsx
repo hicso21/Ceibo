@@ -32,11 +32,11 @@ const GoogleLogin = () => {
   useEffect(() => {
     /* global google */
     google.accounts &&
-      google.accounts.id.initialize({
+      google?.accounts.id.initialize({
         client_id: "1083142913474-3tk7dpgpmn8t4blneh5rc0c6go2sl0rg.apps.googleusercontent.com",
         callback: handleCallbackResponse,
       });
-    google.accounts.id.renderButton(
+    google?.accounts.id.renderButton(
       document.getElementById("signInDiv"), 
       { theme: "outline", size: "large"}
     );

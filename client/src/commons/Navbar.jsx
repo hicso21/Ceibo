@@ -127,11 +127,12 @@ export default function PersistentDrawerLeft({ prop }) {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    axios
+    if(user.email)
+    {axios
     .get(`http://localhost:3001/api/user/notifications/${user?._id}`)
     .then((res) => {
       setNotifications(res.data)
-    })
+    })}
   }, [pathname]);
 
   if (
@@ -374,6 +375,15 @@ export default function PersistentDrawerLeft({ prop }) {
             <DrawerHeader />
           </>
         ));
+    path.pathname === "/login" || path.pathname === "/register"
+      ? (main = (
+          <>
+            <DrawerHeader />
+            {prop}
+            <DrawerHeader />
+          </>
+        ))
+      : (<></>);
   } else {
     pathname === "/history"
       ? (bottomDrawer = <></>)

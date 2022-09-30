@@ -75,7 +75,10 @@ export default function SignUp() {
 
   return (
     <>
-      <Container component="main" maxWidth="xs">
+      <br />
+      <br />
+      <br />
+      <Container maxWidth="xs">
       <Card style={{ maxWidth: 450, margin: "0 auto", borderRadius: "17px" }}>
         <CardContent>
         <CssBaseline />
@@ -202,9 +205,6 @@ export default function SignUp() {
         </CardContent>
         </Card>
       </Container>
-    <br/>
-    <br/>
-    <br/>
     </>
   );
 }
