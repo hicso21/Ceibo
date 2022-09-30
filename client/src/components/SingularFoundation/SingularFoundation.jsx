@@ -59,7 +59,6 @@ const SingularFoundation = () => {
   } else {
     BoxStyle = {
       p: 2,
-      pt: 3,
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -67,11 +66,10 @@ const SingularFoundation = () => {
       width: "100%",
     };
     ImageStyle = {
-      width: 327,
+      width: 280,
       height: 235,
       display: "flex",
       flexDirection: "column",
-
     };
   }
 
@@ -117,7 +115,7 @@ const SingularFoundation = () => {
 
   return (
     <>
-      <DrawerHeader/>
+      <DrawerHeader />
       <div className="mainContainerFoundation">
         <CardMedia className="imgContainerFound">
           <img
@@ -205,14 +203,21 @@ const SingularFoundation = () => {
         </div>
       </div>
       <div>
-        <Card style={{ maxWidth: "80%", margin: "0 auto", borderRadius: "17px", marginTop: "30px" }} >
+        <Card
+          style={{
+            maxWidth: "80%",
+            margin: "0 auto",
+            borderRadius: "17px",
+            marginTop: "30px",
+          }}
+        >
           <Box sx={{ padding: 2 }}>
             <Typography variant="h5">
               <PetsIcon sx={{ paddingTop: 1, width: 30 }} /> Mascotas de la
               fundación:
             </Typography>
-          <CardContent>
-            <ImageListPets items={pets} type={"mascotas"}/>
+            <CardContent>
+              <ImageListPets items={pets} type={"mascotas"} />
             </CardContent>
           </Box>
         </Card>
