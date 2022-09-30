@@ -29,6 +29,16 @@ export default function Comentarios() {
   const user = useSelector((state) => state.user);
   const [comentarios, setComentarios] = useState([]);
 
+  const titulo = {
+    display: 'flex',
+    borderTop: '4px dotted rgb(238, 197, 84)',
+    borderBottom: '4px dotted rgb(238, 197, 84)',
+    backgroundColor: 'rgb(255, 255, 234)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  }
+
   useEffect(() => {
     axios
       .get(`http://localhost:3001/api/foundation/comments/get/${user._id}`)
@@ -52,7 +62,8 @@ export default function Comentarios() {
           <Typography
             className="title"
             variant={typography}
-            sx={{ display: "flex", justifyContent: "center", paddingBottom:3 }}
+            sx={{ display: "flex", justifyContent: "center", marginBottom:3 }}
+            style={titulo}
           >
             Comentarios
           </Typography>

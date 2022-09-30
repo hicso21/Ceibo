@@ -205,6 +205,7 @@ function Home() {
     <div>
       <Box sx={WelcomeImage}></Box>
       {/* <img src={Bienvenidos} alt="bienvenidos"/> */}
+
       <Container sx={BoxStyle}>
         <Typography variant={variant} style={TitlePetsStyle}>
           Algunas mascotas...

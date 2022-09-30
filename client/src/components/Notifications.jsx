@@ -85,13 +85,15 @@ export default function Notifications() {
             >
               Por ahora no tienes notificaciones...
             </Typography>
-            <img
-              src={notificationsCat}
-              width="150"
-              height="150"
-              alt="gatoNotificacion"
-              style={{ marginTop: 25, alignItems: "center"}}
-            />
+            <Box sx={{width:'100%', display:'flex', justifyContent:'center', mt:5}}>
+              <img
+                src={notificationsCat}
+                width="150"
+                height="150"
+                alt="gatoNotificacion"
+                style={{ marginTop: 25, alignItems: "center"}}
+              />
+            </Box>
           </>
         ) : (
           notifications.map((notifications, index) => {

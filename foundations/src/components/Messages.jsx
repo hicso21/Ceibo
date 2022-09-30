@@ -22,11 +22,22 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
+const titulo = {
+  display: 'flex',
+  borderTop: '4px dotted rgb(238, 197, 84)',
+  borderBottom: '4px dotted rgb(238, 197, 84)',
+  backgroundColor: 'rgb(255, 255, 234)',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '100%',
+}
+
 export default function Messages() {
   const [foundations, setFoundations] = useState([]);
   const [users, setUsers] = useState([]);
   const matches = useMatches();
   const user = useSelector((state) => state.user);
+  
 
   let pL;
   let pR;
@@ -75,6 +86,7 @@ export default function Messages() {
       <Typography
         variant={typography}
         sx={{ justifyContent: "center", display: "flex", mb: 2 }}
+        style={titulo}
       >
         Conversaciones
       </Typography>

@@ -66,6 +66,16 @@ const AddPet = () => {
     ":hover": { bgcolor: "#FFD640" },
   };
 
+  const titulo = {
+    display: 'flex',
+    borderTop: '4px dotted rgb(238, 197, 84)',
+    borderBottom: '4px dotted rgb(238, 197, 84)',
+    backgroundColor: 'rgb(255, 255, 234)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  }
+
   const handleGender = (e) => {
     if (switcher === false) setGender("hembra");
     else setGender("macho");
@@ -158,7 +168,8 @@ const AddPet = () => {
     title = <>
               <Typography
                 variant={typography}
-                sx={{ pb: 5, display: "flex", justifyContent: "center" }}
+                sx={{ mb: 5, display: "flex", justifyContent: "center" }}
+                style={titulo}
               >
                 Nueva Mascota
               </Typography>
@@ -170,6 +181,7 @@ const AddPet = () => {
               <Typography
                 variant={typography}
                 sx={{ display: "flex", justifyContent: "center" }}
+                style={titulo}
               >
                 Nueva Mascota
               </Typography>
