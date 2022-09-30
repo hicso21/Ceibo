@@ -19,6 +19,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import backgroundImage from "../assets/fondo-huellas - Edited.png";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import { styled } from "@mui/material/styles";
+import notificationsCat from "../assets/notificationsCat.png";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -69,20 +70,29 @@ export default function Notifications() {
 
   return (
     <>
-      {!matches?<DrawerHeader/>:<></>}
-      <Box sx={{ p: 3, height: "100%", bgcolor: backgroundImage }}>
+      {!matches ? <DrawerHeader /> : <></>}
+      <Box sx={{ p: 3, height: "100%", bgcolor: backgroundImage, justifyContent: "center" }}>
         <div id="title">
           <Typography variant={typography}>Notificaciones</Typography>
         </div>
         <br />
         <br />
         {!notifications[0] ? (
-          <Typography
-            variant={matches ? "h4" : "h5"}
-            sx={{ display: "flex", justifyContent: "center", pt: 20 }}
-          >
-            No tienes notificaciones!!
-          </Typography>
+          <>
+            <Typography
+              variant={matches ? "h4" : "h5"}
+              sx={{ display: "flex",  display: "flex", justifyContent: "center", mt: 5 }}
+            >
+              Por ahora no tienes notificaciones...
+            </Typography>
+            <img
+              src={notificationsCat}
+              width="150"
+              height="150"
+              alt="gatoNotificacion"
+              style={{ marginTop: 25, alignItems: "center"}}
+            />
+          </>
         ) : (
           notifications.map((notifications, index) => {
             return (
@@ -92,7 +102,7 @@ export default function Notifications() {
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                <NotificationsActiveIcon color="action" sx={{ mr: 2 }}/>
+                  <NotificationsActiveIcon color="action" sx={{ mr: 2 }} />
                   <Typography>Se ha agregado una nueva mascota</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -118,4 +128,3 @@ export default function Notifications() {
     </>
   );
 }
-

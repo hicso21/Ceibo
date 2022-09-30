@@ -9,7 +9,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { useNavigate } from 'react-router';
-import { Alert, Link, Snackbar } from '@mui/material';
+import { Alert, Link, Snackbar,  Card, CardContent} from '@mui/material';
 import { useDispatch } from 'react-redux';
 import { sendLoginRequest } from '../state/user';
 import { useState } from 'react';
@@ -61,11 +61,17 @@ export default function SignUp() {
 
   return (
     <>
-      <Container component="main" maxWidth="xs">
+      <br />
+      <br />
+      <br />
+      <br />
+      <Container>
+      <Card style={{ maxWidth: 450, margin: "0 auto", borderRadius: "17px" }}>
+        <CardContent>
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            margin: 3,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
@@ -80,7 +86,7 @@ export default function SignUp() {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Iniciar Sesion
+            Iniciar sesión
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 3 }}>
           <Grid container spacing={2}>
@@ -99,7 +105,7 @@ export default function SignUp() {
                   error={errorEmail}
                   required
                   fullWidth
-                  label="Correo Electronico"
+                  label="Correo electronico"
                   name="email"
                   autoComplete="email"
                   helperText={emailLegend}
@@ -138,12 +144,12 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Inicia sesion
+              Iniciar sesión
             </Button>
             <Grid container sx={{justifyContent:"center", mb:4, mt:1}} >
               <GoogleLogin/>
             </Grid>
-            <Grid container>
+            <Grid container justifyContent="flex-end">
               <Grid item xs>
                 {/* <Link href="/passwordForgotted" variant="body2">
                   Forgot password?
@@ -151,12 +157,14 @@ export default function SignUp() {
               </Grid>
               <Grid item>
                 <Link href="/register" variant="body2">
-                  {"No tienes una cuenta creada? Registrate"}
+                ¿No estas registrado aun? Registrate
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
+        </CardContent>
+        </Card>
       </Container>
     </>
   );

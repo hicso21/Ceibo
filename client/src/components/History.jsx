@@ -18,6 +18,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import backgroundImage from "../assets/fondo-huellas - Edited.png";
 import { styled } from "@mui/material/styles";
+import sadCat from "../assets/sadCat.png";
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -103,6 +104,7 @@ export default function History() {
             >
               Aun no has adoptado ninguna mascota...
             </Typography>
+            <img src={sadCat} width="150" height="150" alt="gatitoSad" style={{marginTop: 25}} />
             <Typography
               variant={matches ? "h5" : "h6"}
               sx={{ display: "flex", justifyContent: "center", pt: 15 }}
