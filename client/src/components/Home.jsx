@@ -35,25 +35,42 @@ function Home() {
   let ImageListStyleFoundation;
   let BoxStyle;
   let CardStyle;
-  let variant;
+  let variant, WelcomeImage;
 
   if (matches) {
     variant = "h3";
+    WelcomeImage = {
+      backgroundImage: "url(https://i.ibb.co/HtyS7xs/Bienvenidos-2.png)",
+      width: "100%",
+      height: "300px",
+      ml: 25,
+      mb: 5,
+      objectFit: "cover",
+      backgroundRepeat: "no-repeat",
+    };
+    BoxStyle = {
+      width: "100vw",
+    };
     TitlePetsStyle = { paddingLeft: "10%", paddingBottom: "2%" };
     TitleFoundationsStyle = {
       paddingLeft: "10%",
       paddingBottom: "2%",
       paddingTop: "4%",
     };
-    CardStyle = { maxWidth: "80%", margin: "0 auto", borderRadius: "17px" };
+    CardStyle = { width: "88%", borderRadius: "17px" };
     ImageStyle = {
-      width: "90%",
+      width: "95%",
       height: "40%",
       display: "flex",
       flexDirection: "row",
       margin: "auto",
     };
-    ImageStylePets = { maxHeight: 300, borderRadius: 15, width: 200, objectFit: "cover"};
+    ImageStylePets = {
+      height: 300,
+      borderRadius: 15,
+      width: 200,
+      objectFit: "cover",
+    };
     ImageListStyleFoundation = {
       width: "100%",
       height: "50%",
@@ -63,6 +80,15 @@ function Home() {
     ImageStyleFoundation = { maxHeight: 300, width: 200, borderRadius: 15 };
   } else {
     variant = "h4";
+    WelcomeImage = {
+      backgroundImage: "url(https://i.ibb.co/HtyS7xs/Bienvenidos-2.png)",
+      width: "90",
+      height: "200px",
+      mb: 5,
+      ml: -13,
+      objectFit: "cover",
+      backgroundRepeat: "no-repeat",
+    };
     BoxStyle = {
       p: 2,
       pt: 3,
@@ -74,7 +100,7 @@ function Home() {
     };
     TitlePetsStyle = { paddingBottom: "4%", paddingTop: "6%" };
     TitleFoundationsStyle = { paddingBottom: "4%", paddingTop: "6%" };
-    CardStyle = { maxWidth: "80%", margin: "0 auto", borderRadius: "17px" };
+    CardStyle = { maxWidth: "90%", margin: "0 auto", borderRadius: "17px" };
     ImageStyle = {
       width: 327,
       height: 235,
@@ -82,7 +108,13 @@ function Home() {
       flexDirection: "column",
       alignItems: "center",
     };
-    ImageStylePets = { maxHeight: 300, borderRadius: 15, width: 200 };
+    ImageStylePets = {
+      height: 300,
+      borderRadius: 15,
+      width: 270,
+      objectFit: "cover",
+      marginLeft:-40
+    };
     ImageListStyleFoundation = {
       width: 327,
       height: 235,
@@ -170,7 +202,10 @@ function Home() {
   }
 
   return (
-    <>
+    <div>
+      <Box sx={WelcomeImage}></Box>
+      {/* <img src={Bienvenidos} alt="bienvenidos"/> */}
+
       <Container sx={BoxStyle}>
         <Typography variant={variant} style={TitlePetsStyle}>
           Algunas mascotas...
@@ -189,9 +224,8 @@ function Home() {
           </CardContent>
         </Card>
       </Container>
-    </>
+    </div>
   );
 }
 
 export default Home;
-

@@ -62,7 +62,7 @@ const ShowFavorites = () => {
               mt: 5,
             }}
           >
-            Aun no tienes favoritos...
+            Aún no tienes favoritos...
           </Typography>
           <img src={sadCat} width="150" height="150" alt="gatitoSad" style={{marginTop: 25}} />
           <Button
