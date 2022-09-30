@@ -62,8 +62,12 @@ export default function SignUp() {
 
   return (
     <>
-      <Container component="main" maxWidth="xs">
-    <Card style={{ maxWidth: 450, margin: "0 auto", borderRadius: "17px" }}>
+      <br />
+      <br />
+      <br />
+      <br />
+      <Container >
+        <Card style={{ maxWidth: 450, margin: "0 auto", borderRadius: "17px" }}>
         <CardContent>
         <CssBaseline />
         <Box
